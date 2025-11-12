@@ -1,4 +1,5 @@
 import { createContext, useContext } from "react";
+import { FieldStyles } from "./field-root";
 
 export interface FieldContext {
   value?: string;
@@ -7,6 +8,8 @@ export interface FieldContext {
   disabled?: boolean;
   required?: boolean;
   error?: string;
+
+  styles?: FieldStyles;
 }
 
 export const FieldContext = createContext<FieldContext | undefined>(undefined);
