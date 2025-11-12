@@ -1,16 +1,9 @@
-import React from "react";
-import { StyleProp, TextStyle, View, ViewStyle } from "react-native";
+import React, { useState } from "react";
+import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { FieldContext } from "./field-context";
-import { FieldLabelProps } from "./field-label";
-import { FieldControlProps } from "./field-control";
+import { FieldState, FieldStyles } from "./types";
 
-export interface FieldStyles {
-  root?: FieldRootProps["style"];
-  label?: FieldLabelProps["style"];
-  control?: FieldControlProps["style"];
-}
-
-interface FieldRootProps {
+export interface FieldRootProps {
   value?: string;
   onChange?: (value: string) => void;
 
@@ -23,8 +16,30 @@ interface FieldRootProps {
   styles?: FieldStyles;
 }
 
+const calculateState = (props: FieldRootProps, focused: boolean, hovered: boolean): FieldState => {
+  if (props.disabled) {
+    return "disabled";
+  }
+  if (props.error) {
+    return "error";
+  }
+  if (focused) {
+    return "focused";
+  }
+  if (hovered) {
+    return "hovered";
+  }
+
+  return "default";
+};
+
 export function FieldRoot(props: FieldRootProps) {
-  const calculatedStyle = props.styles?.root ?? props.style;
+  const [focused, setFocused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  const state = calculateState(props, focused, hovered);
+
+  const calculatedStyle = [props.styles?.root?.default, props.styles?.root?.[state], props.style];
 
   return (
     <FieldContext.Provider
@@ -32,14 +47,23 @@ export function FieldRoot(props: FieldRootProps) {
         value: props.value,
         onChange: props.onChange,
 
+        focused,
+        setFocused,
+
+        hovered,
+        setHovered,
+
         required: props.required,
         disabled: props.disabled,
         error: props.error,
 
+        state: state,
         styles: props.styles,
       }}
     >
-      <View style={calculatedStyle}>{props.children}</View>
+      <Pressable onHoverIn={() => setHovered(true)} onHoverOut={() => setHovered(false)} style={calculatedStyle}>
+        {props.children}
+      </Pressable>
     </FieldContext.Provider>
   );
 }

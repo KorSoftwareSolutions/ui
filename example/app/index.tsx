@@ -1,22 +1,38 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import { Field, Input, Button } from "@kor/ui";
-import { FieldStyles } from "../../library/primitives/field/field-root";
+import { ScrollView } from "react-native";
+import { Field, Input, Button, FieldStyles } from "@kor/ui";
 
 const fieldStyles: FieldStyles = {
   root: {
-    marginBottom: 16,
+    default: {
+      position: "relative",
+    },
   },
   label: {
-    fontSize: 16,
-    fontWeight: "600",
+    default: {
+      fontSize: 16,
+      position: "absolute",
+      top: 14,
+      left: 12,
+      color: "#666",
+      pointerEvents: "none",
+      transitionProperty: ["top", "fontSize"],
+      transitionDuration: "200ms",
+    },
+    focused: {
+      top: 4,
+      fontSize: 12,
+    },
   },
   control: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    default: {
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 4,
+      paddingHorizontal: 12,
+      paddingTop: 18,
+      paddingBottom: 12,
+    },
   },
 };
 
@@ -33,12 +49,17 @@ export default function Home() {
   /* ******************** Effects ******************** */
   /* ******************** JSX ******************** */
   return (
-    <View
-      style={{
-        flex: 1,
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{
         padding: 32,
+        gap: 32,
       }}
     >
+      <Field.Root value={textValue} onChange={setTextValue} styles={fieldStyles}>
+        <Field.Label>Username</Field.Label>
+        <Field.Control render={Input} />
+      </Field.Root>
       <Field.Root value={textValue} onChange={setTextValue} styles={fieldStyles}>
         <Field.Label>Username</Field.Label>
         <Field.Control render={Input} />
@@ -46,6 +67,6 @@ export default function Home() {
       <Button.Root onPress={onSubmit}>
         <Button.Label>Submit</Button.Label>
       </Button.Root>
-    </View>
+    </ScrollView>
   );
 }

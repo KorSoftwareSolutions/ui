@@ -1,15 +1,16 @@
 import React from "react";
-import { StyleProp, Text, TextStyle } from "react-native";
 import { useField } from "./field-context";
+import Animated from "react-native-reanimated";
 
 export interface FieldLabelProps {
   children: string;
-  style?: StyleProp<TextStyle>;
+  style?: React.ComponentProps<typeof Animated.Text>["style"];
   render?: (props: FieldLabelProps) => React.ReactNode;
 }
 
 export function FieldLabel(props: FieldLabelProps) {
   const field = useField();
-  const calculatedStyle = field.styles?.label ?? props.style;
-  return props.render ? props.render(props) : <Text style={calculatedStyle}>{props.children}</Text>;
+  const calculatedStyle = [field.styles?.label?.default, field.styles?.label?.[field.state], props.style];
+
+  return props.render ? props.render(props) : <Animated.Text style={calculatedStyle}>{props.children}</Animated.Text>;
 }

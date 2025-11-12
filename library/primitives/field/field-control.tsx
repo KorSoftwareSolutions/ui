@@ -5,6 +5,10 @@ import { StyleProp, TextStyle } from "react-native";
 interface FieldControlInjectedProps {
   value?: string;
   onChange?: (value: string) => void;
+
+  onFocus?: () => void;
+  onBlur?: () => void;
+
   style?: StyleProp<TextStyle>;
 }
 
@@ -14,8 +18,10 @@ export interface FieldControlProps {
 }
 
 export function FieldControl(props: FieldControlProps) {
-  const { value, onChange, ...field } = useField();
+  const { value, onChange, setFocused, ...field } = useField();
+
+  const calculatedStyle = [field.styles?.control?.default, field.styles?.control?.[field.state], props.style];
+
   const Component = props.render;
-  const calculatedStyle = field.styles?.control ?? props.style;
-  return <Component value={value} onChange={onChange} style={calculatedStyle} />;
+  return <Component value={value} onChange={onChange} onBlur={() => setFocused(false)} onFocus={() => setFocused(true)} style={calculatedStyle} />;
 }

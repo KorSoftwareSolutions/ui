@@ -4,9 +4,13 @@ interface InputProps {
   defaultValue?: TextInputProps["defaultValue"];
   value?: TextInputProps["value"];
   onChange?: TextInputProps["onChangeText"];
+
+  onFocus?: TextInputProps["onFocus"];
+  onBlur?: TextInputProps["onBlur"];
+
   style?: TextInputProps["style"];
 }
 
 export function Input(props: InputProps) {
-  return <TextInput defaultValue={props.defaultValue} value={props.value} onChangeText={props.onChange} style={props.style} />;
+  return <TextInput {...props} onChange={undefined} onChangeText={props.onChange} />;
 }

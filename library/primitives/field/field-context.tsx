@@ -1,14 +1,21 @@
 import { createContext, useContext } from "react";
-import { FieldStyles } from "./field-root";
+import { FieldState, FieldStyles } from "./types";
 
 export interface FieldContext {
   value?: string;
   onChange?: (value: string) => void;
 
+  focused: boolean;
+  setFocused: React.Dispatch<React.SetStateAction<boolean>>;
+
+  hovered: boolean;
+  setHovered: React.Dispatch<React.SetStateAction<boolean>>;
+
   disabled?: boolean;
   required?: boolean;
   error?: string;
 
+  state: FieldState;
   styles?: FieldStyles;
 }
 
