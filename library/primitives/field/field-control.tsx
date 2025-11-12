@@ -1,9 +1,17 @@
-export interface FieldControlProps {
+import React from "react";
+import { useField } from "./field-context";
+
+interface FieldControlInjectedProps {
   value?: string;
-  onChange?: (text: string) => void;
-  render?: (props: FieldControlProps) => React.ReactNode;
+  onChange?: (value: string) => void;
+}
+
+export interface FieldControlProps {
+  render: (props: FieldControlInjectedProps) => React.ReactElement;
 }
 
 export function FieldControl(props: FieldControlProps) {
-  return props.render ? props.render(props) : null;
+  const { value, onChange } = useField();
+  const Component = props.render;
+  return <Component value={value} onChange={onChange} />;
 }

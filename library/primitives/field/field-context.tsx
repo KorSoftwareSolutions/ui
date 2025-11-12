@@ -1,6 +1,9 @@
 import { createContext, useContext } from "react";
 
 export interface FieldContext {
+  value?: string;
+  onChange?: (value: string) => void;
+
   disabled?: boolean;
   required?: boolean;
   error?: string;

@@ -1,7 +1,11 @@
+import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { FieldContext } from "./field-context";
 
 interface FieldRootProps {
+  value?: string;
+  onChange?: (value: string) => void;
+
   required?: boolean;
   disabled?: boolean;
   error?: string;
@@ -13,6 +17,9 @@ export function FieldRoot(props: FieldRootProps) {
   return (
     <FieldContext.Provider
       value={{
+        value: props.value,
+        onChange: props.onChange,
+
         required: props.required,
         disabled: props.disabled,
         error: props.error,
