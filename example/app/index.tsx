@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
-import { Field, Input, Button, FieldStyles } from "@kor/ui";
+import { Field, Input, Button, FieldStyles, Select } from "@kor/ui";
 
 const fieldStyles: FieldStyles = {
   root: {
@@ -62,7 +62,18 @@ export default function Home() {
       </Field.Root>
       <Field.Root value={textValue} onChange={setTextValue} styles={fieldStyles}>
         <Field.Label>Username</Field.Label>
-        <Field.Control render={Input} />
+        <Field.Control
+          render={(props) => (
+            <Select.Root {...props}>
+              <Select.Trigger />
+              <Select.Content>
+                <Select.Option style={{ padding: 12 }}>Option 1</Select.Option>
+                <Select.Option style={{ padding: 12 }}>Option 2</Select.Option>
+                <Select.Option style={{ padding: 12 }}>Option 3</Select.Option>
+              </Select.Content>
+            </Select.Root>
+          )}
+        />
       </Field.Root>
       <Button.Root onPress={onSubmit}>
         <Button.Label>Submit</Button.Label>
