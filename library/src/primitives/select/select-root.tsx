@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LayoutRectangle, Pressable, StyleProp, Text, View, ViewStyle } from "react-native";
+import { LayoutRectangle, StyleProp, View, ViewStyle } from "react-native";
 import { SelectContext } from "./context";
-import { SelectState, SelectStyles } from "./types";
+import { SelectOption, SelectState, SelectStyles } from "./types";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 
 export interface SelectRootProps {
@@ -9,6 +9,7 @@ export interface SelectRootProps {
 
   value?: string;
   onChange?: (value: string) => void;
+  placeholder?: string;
 
   disabled?: boolean;
 
@@ -28,6 +29,7 @@ const calculateState = (props: SelectRootProps): SelectState => {
 export function SelectRoot(props: SelectRootProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(null);
+  const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const state = calculateState(props);
   const composedStyles = calculateComposedStyles(props.styles, state, "root", props.style);
@@ -38,10 +40,13 @@ export function SelectRoot(props: SelectRootProps) {
       value={{
         value: props.value ?? null,
         onChange: props.onChange,
+        placeholder: props.placeholder ?? null,
         isOpen,
         setIsOpen,
         triggerLayout,
         setTriggerLayout,
+        options,
+        setOptions,
         state,
         disabled: props.disabled ?? false,
         styles: props.styles ?? null,

@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 import { FieldState, FieldStyles } from "./types";
 
 export interface FieldContext {
-  value?: string;
+  value: string | null;
   onChange?: (value: string) => void;
 
   focused: boolean;
@@ -13,7 +13,7 @@ export interface FieldContext {
 
   disabled?: boolean;
   required?: boolean;
-  error?: string;
+  error?: string | null;
 
   state: FieldState;
   styles?: FieldStyles<unknown>;

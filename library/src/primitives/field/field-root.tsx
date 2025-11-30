@@ -4,12 +4,12 @@ import { FieldContext } from "./context";
 import { FieldState, FieldStyles } from "./types";
 
 export interface FieldRootProps {
-  value?: string;
+  value?: string | null;
   onChange?: (value: string) => void;
 
   required?: boolean;
   disabled?: boolean;
-  error?: string;
+  error?: string | null;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 
@@ -44,7 +44,7 @@ export function FieldRoot(props: FieldRootProps) {
   return (
     <FieldContext.Provider
       value={{
-        value: props.value,
+        value: props.value ?? null,
         onChange: props.onChange,
 
         focused,
@@ -55,7 +55,7 @@ export function FieldRoot(props: FieldRootProps) {
 
         required: props.required,
         disabled: props.disabled,
-        error: props.error,
+        error: props.error ?? null,
 
         state: state,
         styles: props.styles,

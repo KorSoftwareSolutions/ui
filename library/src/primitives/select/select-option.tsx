@@ -1,9 +1,10 @@
 import { StyleProp, Text, TextStyle } from "react-native";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 import { useSelect } from "./context";
+import { useEffect } from "react";
 
 export interface SelectOptionProps {
-  children?: React.ReactNode;
+  children: string;
   value: string;
 
   style?: StyleProp<TextStyle>;
@@ -14,6 +15,15 @@ export interface SelectOptionProps {
 export function SelectOption(props: SelectOptionProps) {
   const select = useSelect();
   const composedStyles = calculateComposedStyles(select.styles, select.state, "option", props.style);
+
+  useEffect(() => {
+    select.setOptions((prev) => {
+      if (prev.find((option) => option.value === props.value)) {
+        return prev;
+      }
+      return [...prev, { value: props.value, label: props.children }];
+    });
+  }, [props.value, props.children]);
 
   const Component = props.render ?? Text;
   return (

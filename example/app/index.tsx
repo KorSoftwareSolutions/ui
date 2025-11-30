@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
-import { Field, Input, Button, FieldStyles, Select, ButtonStyles, UniversalUIProvider, SelectStyles, InputProps } from "@kor/ui";
+import { Field, Input, Button, FieldStyles, Select, ButtonStyles, SelectStyles, InputProps } from "@kor/ui";
 
 const defaultInputStyles: InputProps["style"] = {
   borderWidth: 1,
@@ -107,7 +107,7 @@ const buttonStyles: ButtonStyles = {
 export default function Home() {
   /* ******************** Hooks ******************** */
   const [textValue, setTextValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
   /* ******************** Variables ******************** */
   /* ******************** Functions ******************** */
@@ -118,37 +118,40 @@ export default function Home() {
   /* ******************** Effects ******************** */
   /* ******************** JSX ******************** */
   return (
-    <UniversalUIProvider>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          padding: 32,
-          gap: 32,
-        }}
-      >
-        <Field.Root value={textValue} onChange={setTextValue} styles={inputFieldStyles}>
-          <Field.Label>Username</Field.Label>
-          <Field.Control render={Input} />
-        </Field.Root>
-        <Field.Root value={selectedValue} onChange={setSelectedValue} styles={selectFieldStyles}>
-          <Field.Label>Select</Field.Label>
-          <Field.Control
-            render={(props) => (
-              <Select.Root {...props} styles={selectStyles}>
-                <Select.Trigger />
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{
+        padding: 32,
+        gap: 32,
+      }}
+    >
+      <Field.Root value={textValue} onChange={setTextValue} styles={inputFieldStyles}>
+        <Field.Label>Username</Field.Label>
+        <Field.Control render={Input} />
+      </Field.Root>
+      <Field.Root value={selectedValue} onChange={setSelectedValue} styles={selectFieldStyles}>
+        <Field.Label>Select</Field.Label>
+        <Field.Control
+          render={(props) => (
+            <Select.Root {...props} placeholder="Select an option" styles={selectStyles}>
+              <Select.Trigger>
+                <Select.Value />
+              </Select.Trigger>
+              <Select.Portal>
+                <Select.Overlay />
                 <Select.Content>
                   <Select.Option value="option1">Option 1</Select.Option>
                   <Select.Option value="option2">Option 2</Select.Option>
                   <Select.Option value="option3">Option 3</Select.Option>
                 </Select.Content>
-              </Select.Root>
-            )}
-          />
-        </Field.Root>
-        <Button.Root onPress={onSubmit} styles={buttonStyles}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
-      </ScrollView>
-    </UniversalUIProvider>
+              </Select.Portal>
+            </Select.Root>
+          )}
+        />
+      </Field.Root>
+      <Button.Root onPress={onSubmit} styles={buttonStyles}>
+        <Button.Label>Submit</Button.Label>
+      </Button.Root>
+    </ScrollView>
   );
 }
