@@ -14,7 +14,7 @@ export interface SelectContentProps {
 
 export function SelectContent(props: SelectContentProps) {
   const select = useSelect();
-  const composedStyles = select.styles ? calculateComposedStyles(select.styles, select.state, "content", props.style) : props.style;
+  const composedStyles = calculateComposedStyles(select.styles, select.state, "content", props.style);
 
   const Component = props.render ?? View;
   if (!select.isOpen) {
@@ -23,7 +23,19 @@ export function SelectContent(props: SelectContentProps) {
   return (
     <Portal name="select-content">
       <SelectContext.Provider value={select}>
-        <Component style={composedStyles}>{props.children}</Component>
+        <Component
+          style={[
+            composedStyles,
+            {
+              position: "absolute",
+              top: select.triggerLayout?.y! + select.triggerLayout?.height!,
+              left: select.triggerLayout?.x!,
+              width: select.triggerLayout?.width!,
+            },
+          ]}
+        >
+          {props.children}
+        </Component>
       </SelectContext.Provider>
     </Portal>
   );

@@ -1,6 +1,6 @@
-import { Text, TextInput, TextInputProps } from "react-native";
+import { TextInput, TextInputProps } from "react-native";
 
-interface InputProps {
+export interface InputProps {
   defaultValue?: TextInputProps["defaultValue"];
   value?: TextInputProps["value"];
   onChange?: TextInputProps["onChangeText"];

@@ -1,19 +1,31 @@
-import { StyleProp, View, ViewStyle } from "react-native";
+import { StyleProp, Text, TextStyle } from "react-native";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 import { useSelect } from "./context";
 
 export interface SelectOptionProps {
   children?: React.ReactNode;
+  value: string;
 
-  style?: StyleProp<ViewStyle>;
+  style?: StyleProp<TextStyle>;
 
   render?: (props: SelectOptionProps) => React.ReactElement;
 }
 
 export function SelectOption(props: SelectOptionProps) {
   const select = useSelect();
-  const composedStyles = select.styles ? calculateComposedStyles(select.styles, select.state, "option", props.style) : props.style;
+  const composedStyles = calculateComposedStyles(select.styles, select.state, "option", props.style);
 
-  const Component = props.render ?? View;
-  return <Component style={composedStyles}>{props.children}</Component>;
+  const Component = props.render ?? Text;
+  return (
+    <Component
+      value={props.value}
+      onPress={() => {
+        select.onChange?.(props.value);
+        select.setIsOpen(false);
+      }}
+      style={composedStyles}
+    >
+      {props.children}
+    </Component>
+  );
 }

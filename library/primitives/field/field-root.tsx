@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Pressable, StyleProp, View, ViewStyle } from "react-native";
-import { FieldContext } from "./field-context";
+import { FieldContext } from "./context";
 import { FieldState, FieldStyles } from "./types";
 
 export interface FieldRootProps {
@@ -13,7 +13,7 @@ export interface FieldRootProps {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 
-  styles?: FieldStyles;
+  styles?: FieldStyles<unknown>;
 }
 
 const calculateState = (props: FieldRootProps, focused: boolean, hovered: boolean): FieldState => {

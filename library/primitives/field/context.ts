@@ -16,7 +16,7 @@ export interface FieldContext {
   error?: string;
 
   state: FieldState;
-  styles?: FieldStyles;
+  styles?: FieldStyles<unknown>;
 }
 
 export const FieldContext = createContext<FieldContext | undefined>(undefined);

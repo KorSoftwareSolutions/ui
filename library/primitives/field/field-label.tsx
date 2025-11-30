@@ -1,5 +1,5 @@
 import React from "react";
-import { useField } from "./field-context";
+import { useField } from "./context";
 import Animated from "react-native-reanimated";
 
 export interface FieldLabelProps {

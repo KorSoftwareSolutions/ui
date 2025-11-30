@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Pressable, StyleProp, Text, View, ViewStyle } from "react-native";
+import { LayoutRectangle, Pressable, StyleProp, Text, View, ViewStyle } from "react-native";
 import { SelectContext } from "./context";
 import { SelectState, SelectStyles } from "./types";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 
 export interface SelectRootProps {
   children?: React.ReactNode;
+
+  value?: string;
+  onChange?: (value: string) => void;
 
   disabled?: boolean;
 
@@ -24,16 +27,21 @@ const calculateState = (props: SelectRootProps): SelectState => {
 
 export function SelectRoot(props: SelectRootProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(null);
 
   const state = calculateState(props);
-  const composedStyles = props.styles ? calculateComposedStyles(props.styles, state, "root", props.style) : props.style;
+  const composedStyles = calculateComposedStyles(props.styles, state, "root", props.style);
 
   const Component = props.render ?? View;
   return (
     <SelectContext.Provider
       value={{
+        value: props.value ?? null,
+        onChange: props.onChange,
         isOpen,
         setIsOpen,
+        triggerLayout,
+        setTriggerLayout,
         state,
         disabled: props.disabled ?? false,
         styles: props.styles ?? null,

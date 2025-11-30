@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleProp, ViewStyle } from "react-native";
+import { Pressable, StyleProp, Text, ViewStyle } from "react-native";
 import { useSelect } from "./context";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 
@@ -15,7 +15,7 @@ export interface SelectTriggerProps {
 
 export function SelectTrigger(props: SelectTriggerProps) {
   const select = useSelect();
-  const composedStyles = select.styles ? calculateComposedStyles(select.styles, select.state, "trigger", props.style) : props.style;
+  const composedStyles = calculateComposedStyles(select.styles, select.state, "trigger", props.style);
 
   const Component = props.render ?? Pressable;
   return (
@@ -24,7 +24,12 @@ export function SelectTrigger(props: SelectTriggerProps) {
         console.log("Trigger pressed");
         select.setIsOpen((prev) => !prev);
       }}
+      onLayout={(e) => {
+        select.setTriggerLayout(e.nativeEvent.layout);
+      }}
       style={composedStyles}
-    />
+    >
+      <Text>{select.value}</Text>
+    </Component>
   );
 }

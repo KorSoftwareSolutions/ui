@@ -1,39 +1,81 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native";
-import { Field, Input, Button, FieldStyles, Select, ButtonStyles, UniversalUIProvider, SelectStyles } from "@kor/ui";
+import { Field, Input, Button, FieldStyles, Select, ButtonStyles, UniversalUIProvider, SelectStyles, InputProps } from "@kor/ui";
 
-const fieldStyles: FieldStyles = {
-  root: {
-    default: {
-      position: "relative",
-    },
-  },
-  label: {
-    default: {
-      fontSize: 16,
-      position: "absolute",
-      top: 16,
-      left: 12,
-      color: "#666",
-      pointerEvents: "none",
-      transitionProperty: ["top", "fontSize"],
-      transitionDuration: "200ms",
-    },
-    focused: {
-      top: 4,
-      fontSize: 12,
-    },
-  },
-  control: {
+const defaultInputStyles: InputProps["style"] = {
+  borderWidth: 1,
+  borderColor: "#ccc",
+  borderRadius: 4,
+  paddingVertical: 12,
+  paddingHorizontal: 16,
+  minHeight: 48,
+  outlineWidth: 0,
+};
+
+const selectStyles: SelectStyles = {
+  trigger: {
     default: {
       borderWidth: 1,
       borderColor: "#ccc",
       borderRadius: 4,
       paddingHorizontal: 12,
-      paddingTop: 20,
-      paddingBottom: 12,
+      paddingVertical: 8,
       minHeight: 48,
+      justifyContent: "center",
     },
+    disabled: {
+      backgroundColor: "#F0F0F0",
+    },
+  },
+  content: {
+    default: {
+      position: "absolute",
+      top: 56,
+      left: 0,
+      right: 0,
+      backgroundColor: "#FFFFFF",
+      borderWidth: 1,
+      borderColor: "#ccc",
+      borderRadius: 4,
+      maxHeight: 200,
+      zIndex: 1000,
+    },
+  },
+  option: {
+    default: {
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+    },
+  },
+};
+
+const baseFieldStyles: FieldStyles<void> = {
+  root: {
+    default: {},
+  },
+  label: {
+    default: {
+      fontSize: 16,
+      color: "#666",
+      marginBottom: 4,
+    },
+  },
+};
+
+const inputFieldStyles: FieldStyles<InputProps["style"]> = {
+  ...baseFieldStyles,
+  control: {
+    default: defaultInputStyles,
+    focused: {
+      borderColor: "#007AFF",
+    },
+  },
+};
+
+const selectFieldStyles: FieldStyles<SelectStyles> = {
+  ...baseFieldStyles,
+  control: {
+    default: selectStyles,
   },
 };
 
@@ -62,49 +104,10 @@ const buttonStyles: ButtonStyles = {
   },
 };
 
-const selectStyles: SelectStyles = {
-  root: {
-    default: {
-      borderWidth: 1,
-      borderColor: "#ccc",
-      borderRadius: 4,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      minHeight: 48,
-      justifyContent: "center",
-    },
-    disabled: {
-      backgroundColor: "#F0F0F0",
-    },
-  },
-  trigger: {
-    default: {},
-  },
-  content: {
-    default: {
-      position: "absolute",
-      top: 56,
-      left: 0,
-      right: 0,
-      backgroundColor: "#FFFFFF",
-      borderWidth: 1,
-      borderColor: "#ccc",
-      borderRadius: 4,
-      maxHeight: 200,
-      zIndex: 1000,
-    },
-  },
-  option: {
-    default: {
-      paddingVertical: 12,
-      paddingHorizontal: 16,
-    },
-  },
-};
-
 export default function Home() {
   /* ******************** Hooks ******************** */
   const [textValue, setTextValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState("");
 
   /* ******************** Variables ******************** */
   /* ******************** Functions ******************** */
@@ -123,20 +126,20 @@ export default function Home() {
           gap: 32,
         }}
       >
-        <Field.Root value={textValue} onChange={setTextValue} styles={fieldStyles}>
+        <Field.Root value={textValue} onChange={setTextValue} styles={inputFieldStyles}>
           <Field.Label>Username</Field.Label>
           <Field.Control render={Input} />
         </Field.Root>
-        <Field.Root value={textValue} onChange={setTextValue} styles={fieldStyles}>
+        <Field.Root value={selectedValue} onChange={setSelectedValue} styles={selectFieldStyles}>
           <Field.Label>Select</Field.Label>
           <Field.Control
             render={(props) => (
               <Select.Root {...props} styles={selectStyles}>
                 <Select.Trigger />
                 <Select.Content>
-                  <Select.Option>Option 1</Select.Option>
-                  <Select.Option>Option 2</Select.Option>
-                  <Select.Option>Option 3</Select.Option>
+                  <Select.Option value="option1">Option 1</Select.Option>
+                  <Select.Option value="option2">Option 2</Select.Option>
+                  <Select.Option value="option3">Option 3</Select.Option>
                 </Select.Content>
               </Select.Root>
             )}
