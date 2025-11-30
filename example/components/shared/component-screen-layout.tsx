@@ -1,6 +1,7 @@
-import { Link } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Link } from "expo-router";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface Props {
   title: string;
@@ -11,8 +12,11 @@ export function ComponentScreenLayout({ title, children }: Props) {
   return (
     <ScrollView contentContainerStyle={s.container}>
       <View style={s.header}>
-        <Link href="/" style={s.backLink}>
-          Back
+        <Link href="/" asChild>
+          <TouchableOpacity style={s.backButton}>
+            <MaterialCommunityIcons name="chevron-left" size={22} color="#007AFF" />
+            <Text style={s.backButtonLabel}>Back</Text>
+          </TouchableOpacity>
         </Link>
         <Text style={s.title}>{title}</Text>
       </View>
@@ -30,9 +34,15 @@ const s = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 24,
+    gap: 8,
   },
-  backLink: {
+  backButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 8,
+  },
+  backButtonLabel: {
     fontSize: 16,
     color: "#007AFF",
   },

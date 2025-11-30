@@ -19,6 +19,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Field",
     href: "/components/field",
   },
+  {
+    title: "Card",
+    href: "/components/card",
+  },
 ];
 
 export default function Home() {
