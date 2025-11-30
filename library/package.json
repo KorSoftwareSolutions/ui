@@ -13,7 +13,6 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-reanimated": "4.x",
     "react-native-web": "*"
   },
   "devDependencies": {
