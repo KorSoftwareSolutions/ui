@@ -9,3 +9,9 @@ export const Select = {
   Content: SelectContent,
   Option: SelectOption,
 };
+
+export type { SelectRootProps } from "./select-root";
+export type { SelectTriggerProps } from "./select-trigger";
+export type { SelectContentProps } from "./select-content";
+export type { SelectOptionProps } from "./select-option";
+export type { SelectStyles } from "./types";

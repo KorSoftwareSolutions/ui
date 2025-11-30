@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
+import { useButton } from "./button-context";
 
-interface ButtonLabelProps {
+export interface ButtonLabelProps {
   children?: string;
 
   render?: (props: this) => React.ReactElement;
@@ -10,6 +11,9 @@ interface ButtonLabelProps {
 }
 
 export function ButtonLabel(props: ButtonLabelProps) {
+  const button = useButton();
+  const calculatedStyle = [button.styles?.label?.default, button.styles?.label?.[button.state], props.style];
+
   const Component = props.render ?? Text;
-  return <Component style={props.style}>{props.children}</Component>;
+  return <Component style={calculatedStyle}>{props.children}</Component>;
 }
