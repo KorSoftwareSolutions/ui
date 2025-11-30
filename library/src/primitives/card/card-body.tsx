@@ -3,18 +3,18 @@ import { StyleProp, View, ViewStyle } from "react-native";
 import { useCard } from "./context";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 
-export interface CardContentProps {
+export interface CardBodyProps {
   children?: React.ReactNode;
 
-  render?: (props: CardContentProps) => React.ReactNode;
+  render?: (props: CardBodyProps) => React.ReactNode;
 
   style?: StyleProp<ViewStyle>;
 }
 
-export function CardContent(props: CardContentProps) {
+export function CardBody(props: CardBodyProps) {
   const card = useCard();
 
-  const composedStyle = calculateComposedStyles(card.styles, card.state, "content", props.style);
+  const composedStyle = calculateComposedStyles(card.styles, card.state, "body", props.style);
 
   const Component = props.render ?? View;
   return <Component {...props} style={composedStyle} />;

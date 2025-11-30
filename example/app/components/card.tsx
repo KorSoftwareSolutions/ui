@@ -15,7 +15,7 @@ export default function CardComponentScreen() {
         <Card.Header>
           <Card.Title>Login to your account</Card.Title>
         </Card.Header>
-        <Card.Content>
+        <Card.Body>
           <Field.Root value={emailValue} onChange={setEmailValue} styles={inputFieldStyles}>
             <Field.Label>Username</Field.Label>
             <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
@@ -24,7 +24,7 @@ export default function CardComponentScreen() {
             <Field.Label>Password</Field.Label>
             <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
           </Field.Root>
-        </Card.Content>
+        </Card.Body>
         <Card.Footer>
           <Button.Root styles={defaultButtonStyles}>
             <Button.Label>Login</Button.Label>

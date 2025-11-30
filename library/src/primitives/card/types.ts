@@ -1,7 +1,7 @@
 import { CardRootProps } from "./card-root";
 import { CardHeaderProps } from "./card-header";
 import { CardTitleProps } from "./card-title";
-import { CardContentProps } from "./card-content";
+import { CardBodyProps } from "./card-body";
 import { CardFooterProps } from "./card-footer";
 
 export type CardState = "default";
@@ -10,6 +10,6 @@ export interface CardStyles {
   root?: Partial<Record<CardState, CardRootProps["style"]>>;
   header?: Partial<Record<CardState, CardHeaderProps["style"]>>;
   title?: Partial<Record<CardState, CardTitleProps["style"]>>;
-  content?: Partial<Record<CardState, CardContentProps["style"]>>;
+  body?: Partial<Record<CardState, CardBodyProps["style"]>>;
   footer?: Partial<Record<CardState, CardFooterProps["style"]>>;
 }

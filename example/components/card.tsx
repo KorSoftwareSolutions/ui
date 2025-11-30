@@ -27,7 +27,7 @@ export const defaultCardStyles: CardStyles = {
       color: "#333333",
     },
   },
-  content: {
+  body: {
     default: {
       padding: 24,
       gap: 16,
