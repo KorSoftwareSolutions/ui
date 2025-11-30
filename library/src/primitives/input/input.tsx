@@ -1,16 +1,20 @@
-import { TextInput, TextInputProps } from "react-native";
+import { StyleProp, TextInput, TextInputProps, TextStyle } from "react-native";
+import { InputStyles } from "./types";
+import { calculateComposedStyles } from "../../utils/calculate-styles";
 
 export interface InputProps {
   defaultValue?: TextInputProps["defaultValue"];
-  value?: TextInputProps["value"];
-  onChange?: TextInputProps["onChangeText"];
+  value: string | null;
+  onChange: (value: string) => void;
 
   onFocus?: TextInputProps["onFocus"];
   onBlur?: TextInputProps["onBlur"];
 
-  style?: TextInputProps["style"];
+  style?: StyleProp<TextStyle>;
+  styles?: InputStyles;
 }
 
 export function Input(props: InputProps) {
-  return <TextInput {...props} onChange={undefined} onChangeText={props.onChange} />;
+  const composedStyles = calculateComposedStyles(props.styles, "default", "root", props.style);
+  return <TextInput {...props} value={props.value ?? ""} onChange={undefined} onChangeText={props.onChange} style={composedStyles} />;
 }

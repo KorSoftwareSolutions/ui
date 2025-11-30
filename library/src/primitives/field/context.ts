@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 import { FieldState, FieldStyles } from "./types";
 
-export interface FieldContext {
+export interface FieldContext<TControlStyles = unknown> {
   value: string | null;
-  onChange?: (value: string) => void;
+  onChange: (value: string) => void;
 
   focused: boolean;
   setFocused: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,15 +16,15 @@ export interface FieldContext {
   error?: string | null;
 
   state: FieldState;
-  styles?: FieldStyles<unknown>;
+  styles?: FieldStyles<TControlStyles>;
 }
 
 export const FieldContext = createContext<FieldContext | undefined>(undefined);
 
-export const useField = () => {
+export const useField = <TControlStyles = unknown>() => {
   const context = useContext(FieldContext);
   if (!context) {
     throw new Error("useField must be used within a FieldProvider");
   }
-  return context;
+  return context as FieldContext<TControlStyles>;
 };

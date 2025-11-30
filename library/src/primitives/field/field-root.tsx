@@ -3,9 +3,9 @@ import { Pressable, StyleProp, View, ViewStyle } from "react-native";
 import { FieldContext } from "./context";
 import { FieldState, FieldStyles } from "./types";
 
-export interface FieldRootProps {
-  value?: string | null;
-  onChange?: (value: string) => void;
+export interface FieldRootProps<TControlStyles = unknown> {
+  value: string | null;
+  onChange: (value: string) => void;
 
   required?: boolean;
   disabled?: boolean;
@@ -13,7 +13,7 @@ export interface FieldRootProps {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 
-  styles?: FieldStyles<unknown>;
+  styles?: FieldStyles<TControlStyles>;
 }
 
 const calculateState = (props: FieldRootProps, focused: boolean, hovered: boolean): FieldState => {
@@ -33,7 +33,7 @@ const calculateState = (props: FieldRootProps, focused: boolean, hovered: boolea
   return "default";
 };
 
-export function FieldRoot(props: FieldRootProps) {
+export function FieldRoot<TControlStyles = unknown>(props: FieldRootProps<TControlStyles>) {
   const [focused, setFocused] = useState(false);
   const [hovered, setHovered] = useState(false);
 
@@ -44,7 +44,7 @@ export function FieldRoot(props: FieldRootProps) {
   return (
     <FieldContext.Provider
       value={{
-        value: props.value ?? null,
+        value: props.value,
         onChange: props.onChange,
 
         focused,

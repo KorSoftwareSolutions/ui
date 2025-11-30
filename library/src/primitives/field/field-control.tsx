@@ -1,28 +1,29 @@
 import React from "react";
 import { useField } from "./context";
-import { StyleProp, TextStyle } from "react-native";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { FieldRootProps } from "./field-root";
 
-interface FieldControlInjectedProps<Style> {
-  value?: string;
-  onChange?: (value: string) => void;
+interface FieldControlInjectedProps<TControlStyles> {
+  value: FieldRootProps["value"];
+  onChange: FieldRootProps["onChange"];
 
   onFocus?: () => void;
   onBlur?: () => void;
 
-  style?: StyleProp<Style>;
+  styles?: TControlStyles;
 }
 
-export interface FieldControlProps<Style = TextStyle> {
-  style?: StyleProp<Style>;
-  render: (props: FieldControlInjectedProps<Style>) => React.ReactElement;
-}
+export type FieldControlProps<T> = {
+  render: (props: FieldControlInjectedProps<T>) => React.ReactElement;
+};
 
-export function FieldControl<Style = TextStyle>(props: FieldControlProps<Style>) {
-  const { value, onChange, setFocused, ...field } = useField();
+export function FieldControl<T>(props: FieldControlProps<T>) {
+  const { value, onChange, setFocused, state, styles } = useField<T>();
 
-  const calculatedStyle = calculateComposedStyles(field.styles, field.state, "control", props.style) as StyleProp<Style>;
+  const controlStyles = styles?.control;
+  const composedStyles = controlStyles ? { ...controlStyles.default, ...controlStyles[state] } : undefined;
 
   const Component = props.render;
-  return <Component value={value} onChange={onChange} onBlur={() => setFocused(false)} onFocus={() => setFocused(true)} style={calculatedStyle} />;
+  return (
+    <Component value={value} onChange={onChange} onBlur={() => setFocused(false)} onFocus={() => setFocused(true)} styles={composedStyles as T} />
+  );
 }

@@ -4,16 +4,20 @@ import { SelectContext } from "./context";
 import { SelectOption, SelectState, SelectStyles } from "./types";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 
+interface SelectRootInjectedProps {
+  style?: StyleProp<ViewStyle>;
+}
+
 export interface SelectRootProps {
   children?: React.ReactNode;
 
-  value?: string;
-  onChange?: (value: string) => void;
+  value: string | null;
+  onChange: (value: string) => void;
   placeholder?: string;
 
   disabled?: boolean;
 
-  render?: (props: SelectRootProps) => React.ReactElement;
+  render?: (props: SelectRootInjectedProps) => React.ReactElement;
 
   styles?: SelectStyles;
   style?: StyleProp<ViewStyle>;
