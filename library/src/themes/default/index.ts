@@ -7,4 +7,5 @@ export const defaultThemeAssets: ThemeAssets = {
     dark: darkColors,
   },
   radius: 10,
+  fontFamily: "System",
 };

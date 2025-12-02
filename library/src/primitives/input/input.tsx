@@ -1,20 +1,18 @@
-import { StyleProp, TextInput, TextInputProps, TextStyle } from "react-native";
+import { TextInput, TextInputProps } from "react-native";
 import { InputStyles } from "./types";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
 
-export interface InputProps {
-  defaultValue?: TextInputProps["defaultValue"];
-  value: string | null;
-  onChange: (value: string) => void;
+export type InputPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
+  onChange?: TextInputProps["onChangeText"];
+};
 
-  onFocus?: TextInputProps["onFocus"];
-  onBlur?: TextInputProps["onBlur"];
+export interface InputPrimitiveProps extends InputPrimitiveBaseProps {
+  render?: (props: InputPrimitiveProps) => React.ReactNode;
 
-  style?: StyleProp<TextStyle>;
   styles?: InputStyles;
 }
 
-export function Input(props: InputProps) {
+export function InputPrimitive(props: InputPrimitiveProps) {
   const composedStyles = calculateComposedStyles(props.styles, "default", "root", props.style);
-  return <TextInput {...props} value={props.value ?? ""} onChange={undefined} onChangeText={props.onChange} style={composedStyles} />;
+  return <TextInput {...props} onChange={undefined} onChangeText={props.onChange} style={composedStyles} />;
 }

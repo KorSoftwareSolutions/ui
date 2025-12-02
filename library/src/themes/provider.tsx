@@ -6,6 +6,7 @@ import { useColorScheme } from "react-native";
 interface ThemeContext {
   colors: Colors;
   radius: Radius;
+  fontFamily: string;
   colorScheme: ColorScheme;
   setColorScheme: (scheme: ColorScheme) => void;
   setTheme: (themeName: ThemeName) => void;
@@ -38,6 +39,7 @@ export const ThemeProvider = (props: PropsWithChildren) => {
         setColorScheme,
         colors,
         radius: themesAssets.radius,
+        fontFamily: themesAssets.fontFamily,
       }}
     >
       {props.children}
