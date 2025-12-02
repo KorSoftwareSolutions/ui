@@ -1,10 +1,11 @@
+import { FieldPrimitiveRootProps } from "./field-root";
 import { FieldLabelProps } from "./field-label";
-import { FieldRootProps } from "./field-root";
+import { FieldDescriptionProps } from "./field-description";
+import { FieldErrorProps } from "./field-error";
 
-export type FieldState = "default" | "disabled" | "error" | "focused" | "hovered";
-
-export interface FieldStyles<TControlStyles = unknown> {
-  root?: Partial<Record<FieldState, FieldRootProps["style"]>>;
-  label?: Partial<Record<FieldState, FieldLabelProps["style"]>>;
-  control?: Partial<Record<FieldState, TControlStyles>>;
+export interface FieldStyles {
+  root?: FieldPrimitiveRootProps["style"];
+  label?: FieldLabelProps["style"];
+  description?: FieldDescriptionProps["style"];
+  error?: FieldErrorProps["style"];
 }

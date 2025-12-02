@@ -1,69 +1,23 @@
-import React, { useState } from "react";
-import { Pressable, StyleProp, View, ViewStyle } from "react-native";
+import React from "react";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { FieldContext } from "./context";
-import { FieldState, FieldStyles } from "./types";
+import { FieldStyles } from "./types";
 
-export interface FieldRootProps<TControlStyles = unknown> {
-  value: string | null;
-  onChange: (value: string) => void;
-
-  required?: boolean;
-  disabled?: boolean;
-  error?: string | null;
+export interface FieldPrimitiveRootProps {
   children?: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
 
-  styles?: FieldStyles<TControlStyles>;
+  render?: (props: FieldPrimitiveRootProps) => React.ReactNode;
+
+  style?: StyleProp<ViewStyle>;
+  styles?: FieldStyles;
 }
 
-const calculateState = (props: FieldRootProps, focused: boolean, hovered: boolean): FieldState => {
-  if (props.disabled) {
-    return "disabled";
-  }
-  if (props.error) {
-    return "error";
-  }
-  if (focused) {
-    return "focused";
-  }
-  if (hovered) {
-    return "hovered";
-  }
-
-  return "default";
-};
-
-export function FieldRoot<TControlStyles = unknown>(props: FieldRootProps<TControlStyles>) {
-  const [focused, setFocused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-
-  const state = calculateState(props, focused, hovered);
-
-  const calculatedStyle = [props.styles?.root?.default, props.styles?.root?.[state], props.style];
-
+export function FieldRoot(props: FieldPrimitiveRootProps) {
+  const composedStyles = [props.styles?.root, props.style];
+  const Component = props.render ?? View;
   return (
-    <FieldContext.Provider
-      value={{
-        value: props.value,
-        onChange: props.onChange,
-
-        focused,
-        setFocused,
-
-        hovered,
-        setHovered,
-
-        required: props.required,
-        disabled: props.disabled,
-        error: props.error ?? null,
-
-        state: state,
-        styles: props.styles,
-      }}
-    >
-      <Pressable onHoverIn={() => setHovered(true)} onHoverOut={() => setHovered(false)} style={calculatedStyle}>
-        {props.children}
-      </Pressable>
+    <FieldContext.Provider value={{ styles: props.styles }}>
+      <Component {...props} style={composedStyles} />
     </FieldContext.Provider>
   );
 }

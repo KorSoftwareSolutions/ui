@@ -4,13 +4,17 @@ import { Text, TextProps } from "react-native";
 
 export interface FieldLabelProps {
   children: string;
-  style?: TextProps["style"];
+
+  htmlFor?: string;
+
   render?: (props: FieldLabelProps) => React.ReactNode;
+
+  style?: TextProps["style"];
 }
 
 export function FieldLabel(props: FieldLabelProps) {
   const field = useField();
-  const calculatedStyle = [field.styles?.label?.default, field.styles?.label?.[field.state], props.style];
 
-  return props.render ? props.render(props) : <Text style={calculatedStyle}>{props.children}</Text>;
+  const Component = props.render ?? Text;
+  return <Component {...props} htmlFor={props.htmlFor} style={[field.styles?.label, props.style]} />;
 }

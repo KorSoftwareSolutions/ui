@@ -13,6 +13,7 @@ export function useInputVariantDefault(): InputStyles {
           backgroundColor: colors.surface,
           paddingVertical: 12,
           paddingHorizontal: 16,
+          outlineWidth: 0,
           fontFamily,
         },
       },

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { calculateComposedStyles } from "../../utils/calculate-styles";
 import { useSelect } from "./context";
