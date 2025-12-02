@@ -4,8 +4,9 @@ import { useThemedStyles } from "@/utils/use-themed-styles";
 export function useInputVariantDefault(): InputStyles {
   return useThemedStyles(
     ({ colors, radius, fontFamily }): InputStyles => ({
-      root: {
-        default: {
+      default: {
+        placeholderTextColor: colors.mutedForeground,
+        style: {
           borderWidth: 1,
           borderColor: colors.border,
           borderRadius: radius,
@@ -14,10 +15,15 @@ export function useInputVariantDefault(): InputStyles {
           paddingHorizontal: 16,
           fontFamily,
         },
-        focused: {
+      },
+      focused: {
+        style: {
           borderColor: colors.primary,
         },
-        disabled: {
+      },
+      disabled: {
+        style: {
+          color: colors.mutedForeground,
           backgroundColor: colors.muted,
         },
       },

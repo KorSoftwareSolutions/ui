@@ -1,7 +1,5 @@
-import { InputProps } from "./input";
+import { InputPrimitiveBaseProps } from "./input";
 
 export type InputState = "default" | "focused" | "disabled";
 
-export interface InputStyles {
-  root: Partial<Record<InputState, InputProps["style"]>>;
-}
+export type InputStyles = Partial<Record<InputState, InputPrimitiveBaseProps>>;
