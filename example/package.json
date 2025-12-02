@@ -8,6 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "web:build": "expo export --platform web",
+    "web:deploy": "firebase deploy --only hosting:example",
     "lint": "expo lint",
     "ts-check": "tsc --noEmit"
   },
