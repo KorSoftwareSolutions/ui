@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Input } from "@korsolutions/ui/components";
-import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
-import { UseCaseSection } from "@/components/shared/use-case-section";
+import { ComponentScreenLayout } from "@/components/component-screen-layout";
+import { UseCaseSection } from "@/components/use-case-section";
 
 export default function InputComponentScreen() {
   const [inputValue, setInputValue] = useState<string>("");

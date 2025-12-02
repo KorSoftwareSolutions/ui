@@ -1,7 +1,8 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   title: string;
@@ -11,7 +12,7 @@ interface Props {
 export function MainScreenLayout({ title, children }: Props) {
   const theme = useTheme();
   return (
-    <View>
+    <SafeAreaView edges={["top", "bottom"]} style={s.container}>
       <View style={s.header}>
         <Text style={[s.title, { color: theme.colors.foreground }]}>{title}</Text>
         <View style={s.actions}>
@@ -21,12 +22,15 @@ export function MainScreenLayout({ title, children }: Props) {
         </View>
       </View>
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
-      <ScrollView contentContainerStyle={s.content}>{children}</ScrollView>
-    </View>
+      {children}
+    </SafeAreaView>
   );
 }
 
 const s = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",

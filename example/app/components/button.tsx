@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@korsolutions/ui/components";
-import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
-import { UseCaseSection } from "@/components/shared/use-case-section";
+import { ComponentScreenLayout } from "@/components/component-screen-layout";
+import { UseCaseSection } from "@/components/use-case-section";
 
 export default function ButtonComponentScreen() {
   const onSubmit = () => {

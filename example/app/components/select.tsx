@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Select } from "@korsolutions/ui/components";
-import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
-import { UseCaseSection } from "@/components/shared/use-case-section";
+import { ComponentScreenLayout } from "@/components/component-screen-layout";
+import { UseCaseSection } from "@/components/use-case-section";
 
 export default function SelectComponentScreen() {
   const [defaultValue, setDefaultValue] = useState<string>();

@@ -36,6 +36,17 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           color: colors.mutedForeground,
         },
       },
+      spinner: {
+        default: {
+          color: colors.primaryForeground,
+        },
+        disabled: {
+          color: colors.mutedForeground,
+        },
+        loading: {
+          color: colors.mutedForeground,
+        },
+      },
     })
   );
 };

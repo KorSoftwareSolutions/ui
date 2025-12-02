@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   title: string;
@@ -12,7 +13,7 @@ interface Props {
 export function ComponentScreenLayout({ title, children }: Props) {
   const theme = useTheme();
   return (
-    <View>
+    <SafeAreaView edges={["top", "bottom"]}>
       <View style={s.header}>
         <Link href="/" asChild>
           <TouchableOpacity style={s.backButton}>
@@ -29,7 +30,7 @@ export function ComponentScreenLayout({ title, children }: Props) {
       </View>
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
       <ScrollView contentContainerStyle={s.content}>{children}</ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -51,7 +52,6 @@ const s = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 4,
-    paddingHorizontal: 8,
   },
   backButtonLabel: {
     fontSize: 16,

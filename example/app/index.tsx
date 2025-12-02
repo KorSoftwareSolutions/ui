@@ -1,8 +1,8 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { ComponentListItem, ComponentListItemProps } from "@/components/shared/component-list-item";
+import { ComponentListItem, ComponentListItemProps } from "@/components/component-list-item";
 import { useTheme } from "@korsolutions/ui";
-import { MainScreenLayout } from "@/components/shared/main-screen-layout";
+import { MainScreenLayout } from "@/components/main-screen-layout";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {

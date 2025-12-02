@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
+import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { Button, Card, Field, Input } from "@korsolutions/ui/components";
 
 export default function CardComponentScreen() {
