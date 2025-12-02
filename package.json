@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --filter example dev",
-    "start": "pnpm --filter example start",
     "ts-check": "pnpm -r ts-check",
     "lib:build": "pnpm --filter library build",
     "lint": "pnpm -r lint"

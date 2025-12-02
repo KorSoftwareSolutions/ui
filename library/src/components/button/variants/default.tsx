@@ -2,14 +2,14 @@ import { ButtonStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useButtonVariantDefault = (): ButtonStyles => {
-  return useThemedStyles(({ colors }) => ({
+  return useThemedStyles(({ colors, radius }) => ({
     root: {
       default: {
         flexDirection: "row",
         backgroundColor: colors.primary,
         paddingVertical: 12,
         paddingHorizontal: 16,
-        borderRadius: 8,
+        borderRadius: radius,
         gap: 8,
         alignItems: "center",
         justifyContent: "center",

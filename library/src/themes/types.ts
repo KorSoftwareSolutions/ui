@@ -20,6 +20,9 @@ export interface Colors {
   info: Color;
 }
 
+export type Radius = number;
+
 export interface ThemeAssets {
   colors: Record<ColorScheme, Colors>;
+  radius: Radius;
 }

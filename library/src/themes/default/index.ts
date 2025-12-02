@@ -6,4 +6,5 @@ export const defaultThemeAssets: ThemeAssets = {
     light: lightColors,
     dark: darkColors,
   },
+  radius: 10,
 };

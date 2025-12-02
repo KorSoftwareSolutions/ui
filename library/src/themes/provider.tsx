@@ -1,10 +1,13 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { Colors, ThemeName } from "./types";
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
+import { Colors, ColorScheme, Radius, ThemeName } from "./types";
 import { themes } from "./themes";
 import { useColorScheme } from "react-native";
 
 interface ThemeContext {
   colors: Colors;
+  radius: Radius;
+  colorScheme: ColorScheme;
+  setColorScheme: (scheme: ColorScheme) => void;
   setTheme: (themeName: ThemeName) => void;
   themeName: ThemeName;
 }
@@ -12,11 +15,34 @@ interface ThemeContext {
 const ThemeContext = createContext<ThemeContext | null>(null);
 
 export const ThemeProvider = (props: PropsWithChildren) => {
-  const colorScheme = useColorScheme();
   const [themeName, setTheme] = useState<ThemeName>("default");
-  const colors = themes[themeName].colors[colorScheme ?? "light"];
 
-  return <ThemeContext.Provider value={{ themeName, setTheme, colors }}>{props.children}</ThemeContext.Provider>;
+  const systemColorScheme = useColorScheme();
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(systemColorScheme ?? "light");
+
+  const themesAssets = themes[themeName];
+  const colors = themesAssets.colors[colorScheme];
+
+  useEffect(() => {
+    if (systemColorScheme) {
+      setColorScheme(systemColorScheme);
+    }
+  }, [systemColorScheme]);
+
+  return (
+    <ThemeContext.Provider
+      value={{
+        themeName,
+        setTheme,
+        colorScheme,
+        setColorScheme,
+        colors,
+        radius: themesAssets.radius,
+      }}
+    >
+      {props.children}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {

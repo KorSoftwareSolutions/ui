@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { ButtonPrimitive, Card, Field, Input, InputStyles } from "@korsolutions/ui/primitives";
-import { defaultCardStyles } from "@/components/card";
+import { Field, Input, InputStyles } from "@korsolutions/ui/primitives";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
 import { inputFieldStyles } from "@/components/field";
-import { defaultButtonStyles } from "@/components/button";
+import { Button, Card } from "@korsolutions/ui/components";
 
 export default function CardComponentScreen() {
   const [emailValue, setEmailValue] = useState("");
@@ -11,26 +10,17 @@ export default function CardComponentScreen() {
 
   return (
     <ComponentScreenLayout title="Card">
-      <Card.Root styles={defaultCardStyles}>
-        <Card.Header>
-          <Card.Title>Login to your account</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Field.Root value={emailValue} onChange={setEmailValue} styles={inputFieldStyles}>
-            <Field.Label>Username</Field.Label>
-            <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
-          </Field.Root>
-          <Field.Root value={passwordValue} onChange={setPasswordValue} styles={inputFieldStyles}>
-            <Field.Label>Password</Field.Label>
-            <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
-          </Field.Root>
-        </Card.Body>
-        <Card.Footer>
-          <ButtonPrimitive.Root styles={defaultButtonStyles}>
-            <ButtonPrimitive.Label>Login</ButtonPrimitive.Label>
-          </ButtonPrimitive.Root>
-        </Card.Footer>
-      </Card.Root>
+      <Card title="Login to your account">
+        <Field.Root value={emailValue} onChange={setEmailValue} styles={inputFieldStyles}>
+          <Field.Label>Username</Field.Label>
+          <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
+        </Field.Root>
+        <Field.Root value={passwordValue} onChange={setPasswordValue} styles={inputFieldStyles}>
+          <Field.Label>Password</Field.Label>
+          <Field.Control<InputStyles> render={(props) => <Input {...props} />} />
+        </Field.Root>
+        <Button>Login</Button>
+      </Card>
     </ComponentScreenLayout>
   );
 }

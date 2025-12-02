@@ -21,6 +21,11 @@ export function ComponentScreenLayout({ title, children }: Props) {
           </TouchableOpacity>
         </Link>
         <Text style={[s.title, { color: theme.colors.foreground }]}>{title}</Text>
+        <View style={s.actions}>
+          <TouchableOpacity onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}>
+            <MaterialCommunityIcons name="circle-half-full" size={24} color={theme.colors.foreground} />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
       <ScrollView contentContainerStyle={s.content}>{children}</ScrollView>
@@ -52,10 +57,17 @@ const s = StyleSheet.create({
     fontSize: 16,
   },
   title: {
+    flex: 1,
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "center",
   },
   divider: {
     height: 1,
+  },
+  actions: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
   },
 });

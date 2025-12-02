@@ -4,7 +4,7 @@ import { CardTitle } from "./card-title";
 import { CardBody } from "./card-body";
 import { CardFooter } from "./card-footer";
 
-export const Card = {
+export const CardPrimitive = {
   Root: CardRoot,
   Header: CardHeader,
   Title: CardTitle,
