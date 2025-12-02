@@ -3,9 +3,9 @@ import { SelectOption, SelectState, SelectStyles } from "./types";
 import { LayoutRectangle } from "react-native";
 
 export interface SelectContext {
-  value: string | null;
+  value?: string;
   onChange?: (value: string) => void;
-  placeholder: string | null;
+  placeholder?: string;
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export interface SelectContext {
   options: Array<SelectOption>;
   setOptions: Dispatch<React.SetStateAction<Array<SelectOption>>>;
 
-  disabled: boolean;
+  isDisabled: boolean;
 
   state: SelectState;
   styles: SelectStyles | null;

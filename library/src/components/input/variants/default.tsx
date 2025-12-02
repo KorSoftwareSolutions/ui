@@ -15,6 +15,7 @@ export function useInputVariantDefault(): InputStyles {
           paddingHorizontal: 16,
           outlineWidth: 0,
           fontFamily,
+          height: 48,
         },
       },
       focused: {

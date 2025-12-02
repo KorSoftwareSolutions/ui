@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import { Select } from "@korsolutions/ui/primitives";
-import { defaultSelectStyles } from "@/components/select";
+import { Select } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
+import { UseCaseSection } from "@/components/shared/use-case-section";
 
 export default function SelectComponentScreen() {
-  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const [defaultValue, setDefaultValue] = useState<string>();
   return (
     <ComponentScreenLayout title="Select">
-      <Select.Root value={selectedValue} onChange={setSelectedValue} placeholder="Select an option" styles={defaultSelectStyles}>
-        <Select.Trigger>
-          <Select.Value />
-        </Select.Trigger>
-        <Select.Portal>
-          <Select.Overlay />
-          <Select.Content>
-            <Select.Option value="option1">Option 1</Select.Option>
-            <Select.Option value="option2">Option 2</Select.Option>
-            <Select.Option value="option3">Option 3</Select.Option>
-          </Select.Content>
-        </Select.Portal>
-      </Select.Root>
+      <UseCaseSection title="Default">
+        <Select
+          options={[
+            { value: "apple", label: "Apple" },
+            { value: "banana", label: "Banana" },
+            { value: "cherry", label: "Cherry" },
+            { value: "date", label: "Date" },
+            { value: "elderberry", label: "Elderberry" },
+          ]}
+          value={defaultValue}
+          onChange={setDefaultValue}
+          placeholder="Select a fruit"
+        />
+      </UseCaseSection>
+      <UseCaseSection title="Disabled">
+        <Select options={[{ value: "apple", label: "Apple" }]} placeholder="Select a fruit" isDisabled />
+      </UseCaseSection>
     </ComponentScreenLayout>
   );
 }

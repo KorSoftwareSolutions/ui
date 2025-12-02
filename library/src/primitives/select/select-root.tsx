@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import { LayoutRectangle, StyleProp, View, ViewStyle } from "react-native";
 import { SelectContext } from "./context";
 import { SelectOption, SelectState, SelectStyles } from "./types";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
 
 interface SelectRootInjectedProps {
   style?: StyleProp<ViewStyle>;
 }
 
-export interface SelectRootProps {
-  children?: React.ReactNode;
-
-  value: string | null;
-  onChange: (value: string) => void;
+export interface SelectRootBaseProps {
+  value?: string;
+  onChange?: (value: string) => void;
   placeholder?: string;
 
-  disabled?: boolean;
+  isDisabled?: boolean;
+}
+
+export interface SelectRootProps extends SelectRootBaseProps {
+  children?: React.ReactNode;
 
   render?: (props: SelectRootInjectedProps) => React.ReactElement;
 
@@ -24,7 +26,7 @@ export interface SelectRootProps {
 }
 
 const calculateState = (props: SelectRootProps): SelectState => {
-  if (props.disabled) {
+  if (props.isDisabled) {
     return "disabled";
   }
   return "default";
@@ -42,9 +44,9 @@ export function SelectRoot(props: SelectRootProps) {
   return (
     <SelectContext.Provider
       value={{
-        value: props.value ?? null,
+        value: props.value,
         onChange: props.onChange,
-        placeholder: props.placeholder ?? null,
+        placeholder: props.placeholder,
         isOpen,
         setIsOpen,
         triggerLayout,
@@ -52,7 +54,7 @@ export function SelectRoot(props: SelectRootProps) {
         options,
         setOptions,
         state,
-        disabled: props.disabled ?? false,
+        isDisabled: props.isDisabled ?? false,
         styles: props.styles ?? null,
       }}
     >

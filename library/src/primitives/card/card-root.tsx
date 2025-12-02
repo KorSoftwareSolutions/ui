@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { CardStyles } from "./types";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { CardContext } from "./context";
 
 export interface CardRootProps {

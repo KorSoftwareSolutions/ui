@@ -1,20 +1,41 @@
 import { StyleProp, Text, TextStyle } from "react-native";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { useSelect } from "./context";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { SelectOptionState, SelectState } from "./types";
 
 export interface SelectOptionProps {
   children: string;
   value: string;
 
-  style?: StyleProp<TextStyle>;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 
   render?: (props: SelectOptionProps) => React.ReactElement;
+
+  style?: StyleProp<TextStyle>;
 }
 
+const calculateState = (selectState: SelectState, hovered: boolean, selected: boolean): SelectOptionState => {
+  if (selectState === "disabled") {
+    return "disabled";
+  }
+  if (selected) {
+    return "selected";
+  }
+  if (hovered) {
+    return "hovered";
+  }
+  return "default";
+};
+
 export function SelectOption(props: SelectOptionProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const select = useSelect();
-  const composedStyles = calculateComposedStyles(select.styles, select.state, "option", props.style);
+  const isSelected = select.value === props.value;
+
+  const optionState = calculateState(select.state, isHovered, isSelected);
+  const composedStyles = calculateComposedStyles(select.styles, optionState, "option", props.style);
 
   useEffect(() => {
     select.setOptions((prev) => {
@@ -33,6 +54,8 @@ export function SelectOption(props: SelectOptionProps) {
         select.onChange?.(props.value);
         select.setIsOpen(false);
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={composedStyles}
     >
       {props.children}

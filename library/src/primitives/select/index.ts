@@ -6,7 +6,7 @@ import { SelectOverlay } from "./select-overlay";
 import { SelectContent } from "./select-content";
 import { SelectOption } from "./select-option";
 
-export const Select = {
+export const SelectPrimitive = {
   Root: SelectRoot,
   Trigger: SelectTrigger,
   Value: SelectValue,
@@ -16,7 +16,7 @@ export const Select = {
   Option: SelectOption,
 };
 
-export type { SelectRootProps } from "./select-root";
+export type { SelectRootProps, SelectRootBaseProps } from "./select-root";
 export type { SelectTriggerProps } from "./select-trigger";
 export type { SelectValueProps } from "./select-value";
 export type { SelectPortalProps } from "./select-portal";

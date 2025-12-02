@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
 import { useButtonPrimitive } from "./button-context";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
 
 export interface ButtonPrimitiveLabelProps {
   children?: string;

@@ -1,8 +1,8 @@
 import React from "react";
 import { Pressable, StyleProp, ViewStyle } from "react-native";
 import { useSelect } from "./context";
-import { calculateComposedStyles } from "../../utils/calculate-styles";
-import { normalizeLayout } from "../../utils/normalize-layout";
+import { calculateComposedStyles } from "@/utils/calculate-styles";
+import { normalizeLayout } from "@/utils/normalize-layout";
 
 interface SelectTriggerInjectionProps {
   onPress?: () => void;
@@ -29,6 +29,7 @@ export function SelectTrigger(props: SelectTriggerProps) {
         const layout = normalizeLayout(e.nativeEvent.layout);
         select.setTriggerLayout(layout);
       }}
+      disabled={select.isDisabled}
       style={composedStyles}
     >
       {props.children}
