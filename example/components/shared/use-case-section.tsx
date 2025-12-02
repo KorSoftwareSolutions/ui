@@ -1,3 +1,4 @@
+import { useTheme } from "@korsolutions/ui";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -7,9 +8,10 @@ interface UseCaseSectionProps {
 }
 
 export function UseCaseSection({ title, children }: UseCaseSectionProps) {
+  const theme = useTheme();
   return (
     <View style={s.container}>
-      <Text style={s.title}>{title}</Text>
+      <Text style={[s.title, { color: theme.colors.primary }]}>{title}</Text>
       {children}
     </View>
   );

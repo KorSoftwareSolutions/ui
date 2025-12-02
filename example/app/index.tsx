@@ -2,6 +2,7 @@ import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { ComponentListItem, ComponentListItemProps } from "@/components/shared/component-list-item";
 import { useTheme } from "@korsolutions/ui";
+import { MainScreenLayout } from "@/components/shared/main-screen-layout";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {
@@ -29,29 +30,31 @@ const COMPONENTS: ComponentListItemProps[] = [
 export default function Home() {
   const theme = useTheme();
   return (
-    <FlatList
-      data={COMPONENTS}
-      keyExtractor={(item) => item.title}
-      renderItem={({ item }) => <ComponentListItem {...item} />}
-      ItemSeparatorComponent={() => (
-        <View
-          style={[
-            s.divider,
-            {
-              backgroundColor: theme.colors.border,
-            },
-          ]}
-        />
-      )}
-      contentContainerStyle={[
-        s.content,
-        {
-          backgroundColor: theme.colors.surface,
-          borderColor: theme.colors.border,
-        },
-      ]}
-      style={s.container}
-    />
+    <MainScreenLayout title="Components">
+      <FlatList
+        data={COMPONENTS}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => <ComponentListItem {...item} />}
+        ItemSeparatorComponent={() => (
+          <View
+            style={[
+              s.divider,
+              {
+                backgroundColor: theme.colors.border,
+              },
+            ]}
+          />
+        )}
+        contentContainerStyle={[
+          s.content,
+          {
+            backgroundColor: theme.colors.surface,
+            borderColor: theme.colors.border,
+          },
+        ]}
+        style={s.container}
+      />
+    </MainScreenLayout>
   );
 }
 
