@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@kor/ui";
-import { defaultButtonStyles } from "@/components/button";
+import { Button } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
+import { UseCaseSection } from "@/components/shared/use-case-section";
 
 export default function ButtonComponentScreen() {
   const onSubmit = () => {
@@ -10,9 +10,19 @@ export default function ButtonComponentScreen() {
 
   return (
     <ComponentScreenLayout title="Button">
-      <Button.Root onPress={onSubmit} styles={defaultButtonStyles}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <UseCaseSection title="Default">
+        <Button onPress={onSubmit}>Submit</Button>
+      </UseCaseSection>
+      <UseCaseSection title="Disabled">
+        <Button onPress={onSubmit} isDisabled>
+          Submit
+        </Button>
+      </UseCaseSection>
+      <UseCaseSection title="Loading">
+        <Button onPress={onSubmit} isLoading>
+          Submitting...
+        </Button>
+      </UseCaseSection>
     </ComponentScreenLayout>
   );
 }

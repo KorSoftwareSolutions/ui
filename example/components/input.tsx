@@ -1,4 +1,4 @@
-import { InputStyles } from "@kor/ui";
+import { InputStyles } from "@korsolutions/ui/primitives";
 
 export const defaultInputStyles: InputStyles = {
   root: {

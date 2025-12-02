@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Field, Input, Select, SelectStyles } from "@kor/ui";
+import { Field, Input, Select, SelectStyles } from "@korsolutions/ui/primitives";
 import { inputFieldStyles, selectFieldStyles } from "@/components/field";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
 

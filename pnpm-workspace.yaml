@@ -1,3 +1,6 @@
 packages:
-  - "library"
-  - "example"
+  - library
+  - example
+
+onlyBuiltDependencies:
+  - unrs-resolver

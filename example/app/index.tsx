@@ -1,6 +1,7 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { ComponentListItem, ComponentListItemProps } from "@/components/shared/component-list-item";
+import { useTheme } from "@korsolutions/ui";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {
@@ -26,13 +27,29 @@ const COMPONENTS: ComponentListItemProps[] = [
 ];
 
 export default function Home() {
+  const theme = useTheme();
   return (
     <FlatList
       data={COMPONENTS}
       keyExtractor={(item) => item.title}
       renderItem={({ item }) => <ComponentListItem {...item} />}
-      ItemSeparatorComponent={() => <View style={s.divider} />}
-      contentContainerStyle={s.content}
+      ItemSeparatorComponent={() => (
+        <View
+          style={[
+            s.divider,
+            {
+              backgroundColor: theme.colors.border,
+            },
+          ]}
+        />
+      )}
+      contentContainerStyle={[
+        s.content,
+        {
+          backgroundColor: theme.colors.surface,
+          borderColor: theme.colors.border,
+        },
+      ]}
       style={s.container}
     />
   );
@@ -43,14 +60,11 @@ const s = StyleSheet.create({
     padding: 24,
   },
   content: {
-    backgroundColor: "#FFF",
     borderRadius: 8,
     overflow: "hidden",
     borderWidth: 1,
-    borderColor: "#E0E0E0",
   },
   divider: {
     height: 1,
-    backgroundColor: "#E0E0E0",
   },
 });

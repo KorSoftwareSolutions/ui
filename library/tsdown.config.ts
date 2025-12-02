@@ -1,0 +1,8 @@
+import { defineConfig } from "tsdown";
+
+export default defineConfig({
+  entry: ["./src/index.tsx", "./src/primitives/index.ts", "./src/components/index.ts"],
+  onSuccess() {
+    console.info("🙏 Build succeeded!");
+  },
+});

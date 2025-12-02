@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "expo-router";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTheme } from "@korsolutions/ui";
 
 interface Props {
   title: string;
@@ -9,32 +10,37 @@ interface Props {
 }
 
 export function ComponentScreenLayout({ title, children }: Props) {
+  const theme = useTheme();
   return (
-    <ScrollView contentContainerStyle={s.container}>
+    <View>
       <View style={s.header}>
         <Link href="/" asChild>
           <TouchableOpacity style={s.backButton}>
-            <MaterialCommunityIcons name="chevron-left" size={22} color="#007AFF" />
-            <Text style={s.backButtonLabel}>Back</Text>
+            <MaterialCommunityIcons name="chevron-left" size={22} color={theme.colors.primary} />
+            <Text style={[s.backButtonLabel, { color: theme.colors.primary }]}>Back</Text>
           </TouchableOpacity>
         </Link>
-        <Text style={s.title}>{title}</Text>
+        <Text style={[s.title, { color: theme.colors.foreground }]}>{title}</Text>
       </View>
-      <View style={s.divider} />
-      {children}
-    </ScrollView>
+      <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
+      <ScrollView contentContainerStyle={s.content}>{children}</ScrollView>
+    </View>
   );
 }
 
 const s = StyleSheet.create({
-  container: {
-    padding: 24,
-    gap: 24,
-  },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
+    padding: 24,
+    gap: 16,
+  },
+  content: {
+    padding: 24,
+    gap: 24,
+    maxWidth: 600,
+    width: "100%",
+    alignSelf: "center",
   },
   backButton: {
     flexDirection: "row",
@@ -44,7 +50,6 @@ const s = StyleSheet.create({
   },
   backButtonLabel: {
     fontSize: 16,
-    color: "#007AFF",
   },
   title: {
     fontSize: 20,
@@ -52,6 +57,5 @@ const s = StyleSheet.create({
   },
   divider: {
     height: 1,
-    backgroundColor: "#E0E0E0",
   },
 });

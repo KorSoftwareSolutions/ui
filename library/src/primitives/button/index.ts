@@ -1,11 +1,13 @@
 import { ButtonRoot } from "./button-root";
 import { ButtonLabel } from "./button-label";
+import { ButtonSpinner } from "./button-spinner";
 
-export const Button = {
+export const ButtonPrimitive = {
   Root: ButtonRoot,
   Label: ButtonLabel,
+  Spinner: ButtonSpinner,
 };
 
-export type { ButtonRootProps } from "./button-root";
-export type { ButtonLabelProps } from "./button-label";
+export type { ButtonPrimitiveRootProps } from "./button-root";
+export type { ButtonPrimitiveLabelProps } from "./button-label";
 export * from "./types";

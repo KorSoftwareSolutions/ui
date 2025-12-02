@@ -21,3 +21,8 @@ npm install @korsolutions/ui
 ## License
 
 MIT
+
+## TODO
+
+- [ ] inputs Placeholder
+- [ ] button disabled state

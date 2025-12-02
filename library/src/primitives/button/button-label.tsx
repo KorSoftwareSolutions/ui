@@ -1,8 +1,9 @@
 import React from "react";
 import { StyleProp, Text, TextStyle } from "react-native";
-import { useButton } from "./button-context";
+import { useButtonPrimitive } from "./button-context";
+import { calculateComposedStyles } from "../../utils/calculate-styles";
 
-export interface ButtonLabelProps {
+export interface ButtonPrimitiveLabelProps {
   children?: string;
 
   render?: (props: this) => React.ReactElement;
@@ -10,9 +11,10 @@ export interface ButtonLabelProps {
   style?: StyleProp<TextStyle>;
 }
 
-export function ButtonLabel(props: ButtonLabelProps) {
-  const button = useButton();
-  const calculatedStyle = [button.styles?.label?.default, button.styles?.label?.[button.state], props.style];
+export function ButtonLabel(props: ButtonPrimitiveLabelProps) {
+  const button = useButtonPrimitive();
+
+  const calculatedStyle = calculateComposedStyles(button.styles, button.state, "label", props.style);
 
   const Component = props.render ?? Text;
   return <Component style={calculatedStyle}>{props.children}</Component>;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Select } from "@kor/ui";
+import { Select } from "@korsolutions/ui/primitives";
 import { defaultSelectStyles } from "@/components/select";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
 

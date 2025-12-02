@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Card, Field, Input, InputStyles } from "@kor/ui";
+import { ButtonPrimitive, Card, Field, Input, InputStyles } from "@korsolutions/ui/primitives";
 import { defaultCardStyles } from "@/components/card";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
 import { inputFieldStyles } from "@/components/field";
@@ -26,9 +26,9 @@ export default function CardComponentScreen() {
           </Field.Root>
         </Card.Body>
         <Card.Footer>
-          <Button.Root styles={defaultButtonStyles}>
-            <Button.Label>Login</Button.Label>
-          </Button.Root>
+          <ButtonPrimitive.Root styles={defaultButtonStyles}>
+            <ButtonPrimitive.Label>Login</ButtonPrimitive.Label>
+          </ButtonPrimitive.Root>
         </Card.Footer>
       </Card.Root>
     </ComponentScreenLayout>

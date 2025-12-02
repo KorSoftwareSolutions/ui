@@ -1,4 +1,4 @@
-import { ButtonStyles } from "@kor/ui";
+import { ButtonStyles } from "@korsolutions/ui/primitives";
 
 export const defaultButtonStyles: ButtonStyles = {
   root: {

@@ -1,9 +1,9 @@
-import { ButtonRootProps } from "./button-root";
-import { ButtonLabelProps } from "./button-label";
+import { ButtonPrimitiveRootProps } from "./button-root";
+import { ButtonPrimitiveLabelProps } from "./button-label";
 
-export type ButtonState = "default" | "disabled";
+export type ButtonState = "default" | "disabled" | "loading";
 
 export interface ButtonStyles {
-  root?: Partial<Record<ButtonState, ButtonRootProps["style"]>>;
-  label?: Partial<Record<ButtonState, ButtonLabelProps["style"]>>;
+  root?: Partial<Record<ButtonState, ButtonPrimitiveRootProps["style"]>>;
+  label?: Partial<Record<ButtonState, ButtonPrimitiveLabelProps["style"]>>;
 }

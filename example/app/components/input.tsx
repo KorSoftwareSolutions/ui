@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "@kor/ui";
+import { Input } from "@korsolutions/ui/primitives";
 import { defaultInputStyles } from "@/components/input";
 import { ComponentScreenLayout } from "@/components/shared/component-screen-layout";
 

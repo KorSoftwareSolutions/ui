@@ -1,4 +1,4 @@
-import { FieldStyles, InputStyles, SelectStyles } from "@kor/ui";
+import { FieldStyles, InputStyles, SelectStyles } from "@korsolutions/ui/primitives";
 import { defaultInputStyles } from "./input";
 import { defaultSelectStyles } from "./select";
 

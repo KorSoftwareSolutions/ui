@@ -1,4 +1,4 @@
-import { SelectStyles } from "@kor/ui";
+import { SelectStyles } from "@korsolutions/ui/primitives";
 
 export const defaultSelectStyles: SelectStyles = {
   trigger: {

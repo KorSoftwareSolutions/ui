@@ -1,19 +1,19 @@
 import { createContext, useContext } from "react";
 import { ButtonState, ButtonStyles } from "./types";
 
-export interface ButtonContext {
+export interface ButtonPrimitiveContext {
   disabled?: boolean;
 
   state: ButtonState;
   styles?: ButtonStyles;
 }
 
-export const ButtonContext = createContext<ButtonContext | undefined>(undefined);
+export const ButtonPrimitiveContext = createContext<ButtonPrimitiveContext | undefined>(undefined);
 
-export const useButton = () => {
-  const context = useContext(ButtonContext);
+export const useButtonPrimitive = () => {
+  const context = useContext(ButtonPrimitiveContext);
   if (!context) {
-    throw new Error("useButton must be used within a ButtonProvider");
+    throw new Error("useButtonPrimitive must be used within a ButtonPrimitiveProvider");
   }
   return context;
 };

@@ -6,7 +6,7 @@
     "dev": "pnpm --filter example dev",
     "start": "pnpm --filter example start",
     "ts-check": "pnpm -r ts-check",
-    "build": "pnpm -r build",
+    "lib:build": "pnpm --filter library build",
     "lint": "pnpm -r lint"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { CardStyles } from "@kor/ui";
+import { CardStyles } from "@korsolutions/ui/primitives";
 
 export const defaultCardStyles: CardStyles = {
   root: {
