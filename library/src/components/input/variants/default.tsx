@@ -16,6 +16,7 @@ export function useInputVariantDefault(): InputStyles {
           outlineWidth: 0,
           fontFamily,
           height: 48,
+          color: colors.foreground,
         },
       },
       focused: {
