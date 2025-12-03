@@ -26,8 +26,8 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/card",
   },
   {
-    title: "Text",
-    href: "/components/text",
+    title: "Typography",
+    href: "/components/typography",
   },
 ];
 
