@@ -6,6 +6,7 @@ export function useInputVariantDefault(): InputStyles {
     ({ colors, radius, fontFamily }): InputStyles => ({
       default: {
         placeholderTextColor: colors.mutedForeground,
+        selectionColor: colors.primary,
         style: {
           borderWidth: 1,
           borderColor: colors.border,
