@@ -1,11 +1,12 @@
 import { useTheme } from "@/themes";
-import { Colors, FontFamily, LetterSpacing, Radius } from "@/themes/types";
+import { Colors, FontFamily, FontSize, LetterSpacing, Radius } from "@/themes/types";
 
 interface CallbackProps {
   colors: Colors;
   radius: Radius;
   fontFamily: FontFamily;
   letterSpacing: LetterSpacing;
+  fontSize: FontSize;
 }
 
 export const useThemedStyles = <T>(callback: (props: CallbackProps) => T): T => {
@@ -15,5 +16,6 @@ export const useThemedStyles = <T>(callback: (props: CallbackProps) => T): T => 
     radius: theme.radius,
     fontFamily: theme.fontFamily,
     letterSpacing: theme.letterSpacing,
+    fontSize: theme.fontSize,
   });
 };

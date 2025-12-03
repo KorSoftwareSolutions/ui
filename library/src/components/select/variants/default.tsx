@@ -3,7 +3,7 @@ import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useSelectVariantDefault(): SelectStyles {
   return useThemedStyles(
-    ({ colors, radius, fontFamily }): SelectStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): SelectStyles => ({
       root: {
         default: {},
         disabled: {},
@@ -25,7 +25,7 @@ export function useSelectVariantDefault(): SelectStyles {
       value: {
         default: {
           fontFamily,
-          fontSize: 16,
+          fontSize,
           color: colors.foreground,
         },
         disabled: {
@@ -35,7 +35,7 @@ export function useSelectVariantDefault(): SelectStyles {
       placeholder: {
         default: {
           fontFamily,
-          fontSize: 16,
+          fontSize,
           color: colors.mutedForeground,
         },
         disabled: {
@@ -62,7 +62,7 @@ export function useSelectVariantDefault(): SelectStyles {
           paddingVertical: 12,
           paddingHorizontal: 16,
           fontFamily,
-          fontSize: 16,
+          fontSize,
           color: colors.foreground,
           borderRadius: radius / 2,
         },

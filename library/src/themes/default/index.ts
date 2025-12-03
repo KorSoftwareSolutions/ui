@@ -9,4 +9,5 @@ export const defaultThemeAssets: ThemeAssets = {
   radius: 10,
   fontFamily: "System",
   letterSpacing: 0,
+  fontSize: 16,
 };

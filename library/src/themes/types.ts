@@ -23,10 +23,12 @@ export interface Colors {
 export type Radius = number;
 export type FontFamily = string;
 export type LetterSpacing = number;
+export type FontSize = number;
 
 export interface ThemeAssets {
   colors: Record<ColorScheme, Colors>;
   radius: Radius;
   fontFamily: FontFamily;
   letterSpacing: LetterSpacing;
+  fontSize: FontSize;
 }

@@ -3,7 +3,7 @@ import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useButtonVariantDefault = (): ButtonStyles => {
   return useThemedStyles(
-    ({ colors, radius, fontFamily }): ButtonStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): ButtonStyles => ({
       root: {
         default: {
           flexDirection: "row",
@@ -25,7 +25,7 @@ export const useButtonVariantDefault = (): ButtonStyles => {
       label: {
         default: {
           color: colors.primaryForeground,
-          fontSize: 16,
+          fontSize,
           fontWeight: "bold",
           fontFamily,
         },

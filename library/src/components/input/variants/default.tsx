@@ -3,7 +3,7 @@ import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useInputVariantDefault(): InputStyles {
   return useThemedStyles(
-    ({ colors, radius, fontFamily }): InputStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): InputStyles => ({
       default: {
         placeholderTextColor: colors.mutedForeground,
         selectionColor: colors.primary,
@@ -16,6 +16,7 @@ export function useInputVariantDefault(): InputStyles {
           paddingHorizontal: 16,
           outlineWidth: 0,
           fontFamily,
+          fontSize,
           height: 48,
           color: colors.foreground,
         },

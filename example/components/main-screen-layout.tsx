@@ -37,13 +37,6 @@ const s = StyleSheet.create({
     padding: 24,
     gap: 16,
   },
-  content: {
-    padding: 24,
-    gap: 24,
-    maxWidth: 600,
-    width: "100%",
-    alignSelf: "center",
-  },
   title: {
     flex: 1,
     fontSize: 20,

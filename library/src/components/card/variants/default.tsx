@@ -3,7 +3,7 @@ import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useCardVariantDefault(): CardStyles {
   return useThemedStyles(
-    ({ colors, radius, fontFamily }): CardStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): CardStyles => ({
       root: {
         default: {
           borderWidth: 1,
@@ -22,7 +22,7 @@ export function useCardVariantDefault(): CardStyles {
       title: {
         default: {
           fontFamily,
-          fontSize: 18,
+          fontSize: fontSize * 1.25,
           fontWeight: "600",
           color: colors.foreground,
         },

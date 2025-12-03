@@ -3,9 +3,9 @@ import { TextStyle } from "react-native";
 
 export function useLinkVariantDefault(): TextStyle {
   return useThemedStyles(
-    ({ colors, fontFamily, letterSpacing }): TextStyle => ({
+    ({ colors, fontFamily, letterSpacing, fontSize }): TextStyle => ({
       color: colors.primary,
-      fontSize: 16,
+      fontSize,
       fontFamily,
       textDecorationLine: "underline",
       letterSpacing,

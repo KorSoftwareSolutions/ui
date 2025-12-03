@@ -70,6 +70,9 @@ const s = StyleSheet.create({
     borderRadius: 8,
     overflow: "hidden",
     borderWidth: 1,
+    maxWidth: 600,
+    width: "100%",
+    alignSelf: "center",
   },
   divider: {
     height: 1,

@@ -3,9 +3,9 @@ import { TextStyle } from "react-native";
 
 export function useInputVariantDefault(): TextStyle {
   return useThemedStyles(
-    ({ colors, fontFamily, letterSpacing }): TextStyle => ({
+    ({ colors, fontFamily, letterSpacing, fontSize }): TextStyle => ({
       color: colors.foreground,
-      fontSize: 16,
+      fontSize,
       fontFamily,
       letterSpacing,
     })
