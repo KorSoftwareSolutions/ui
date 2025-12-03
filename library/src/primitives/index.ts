@@ -3,3 +3,5 @@ export * from "./input";
 export * from "./button";
 export * from "./select";
 export * from "./card";
+export * from "./empty";
+export * from "./avatar";

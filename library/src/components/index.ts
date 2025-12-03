@@ -5,3 +5,5 @@ export * from "./field/field";
 export * from "./select/select";
 export * from "./typography/typography";
 export * from "./link/link";
+export * from "./empty/empty";
+export * from "./avatar/avatar";

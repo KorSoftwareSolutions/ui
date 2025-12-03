@@ -29,6 +29,14 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Typography",
     href: "/components/typography",
   },
+  {
+    title: "Empty",
+    href: "/components/empty",
+  },
+  {
+    title: "Avatar",
+    href: "/components/avatar",
+  },
 ];
 
 export default function Home() {

@@ -2,7 +2,7 @@ import { ButtonStyles } from "@/primitives";
 import { hslaSetRelativeLightness } from "@/utils/hsla-utils";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
-export const useButtonVariantDefault = (): ButtonStyles => {
+export const useButtonVariantSecondary = (): ButtonStyles => {
   return useThemedStyles(
     ({ colors, radius, fontFamily, fontSize }): ButtonStyles => ({
       root: {
@@ -14,9 +14,9 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           gap: 8,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: colors.primary,
           borderWidth: 1,
           borderColor: colors.border,
+          backgroundColor: colors.secondary,
         },
         disabled: {
           opacity: 0.5,
@@ -25,12 +25,12 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           opacity: 0.8,
         },
         hovered: {
-          backgroundColor: hslaSetRelativeLightness(colors.primary, -10),
+          backgroundColor: hslaSetRelativeLightness(colors.secondary, -1),
         },
       },
       label: {
         default: {
-          color: colors.primaryForeground,
+          color: colors.foreground,
           fontSize,
           fontWeight: "bold",
           fontFamily,

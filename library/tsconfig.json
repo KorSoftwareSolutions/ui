@@ -4,6 +4,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "customConditions": ["dev-source"],
     "paths": {
       "@/*": ["./src/*"]
     }

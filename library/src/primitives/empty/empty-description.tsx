@@ -1,0 +1,16 @@
+import React from "react";
+import { StyleProp, Text, TextStyle } from "react-native";
+import { useEmpty } from "./context";
+
+export interface EmptyDescriptionProps {
+  children: string;
+  render?: (props: EmptyDescriptionProps) => React.ReactNode;
+  style?: StyleProp<TextStyle>;
+}
+
+export function EmptyDescription(props: EmptyDescriptionProps) {
+  const empty = useEmpty();
+  const composedStyles = [empty.styles?.description, props.style];
+  const Component = props.render ?? Text;
+  return <Component {...props} style={composedStyles} />;
+}

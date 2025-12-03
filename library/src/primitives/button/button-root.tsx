@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Pressable, StyleProp, ViewStyle } from "react-native";
 import { ButtonStyles, ButtonState } from "./types";
 import { ButtonPrimitiveContext } from "./button-context";
@@ -17,25 +17,30 @@ export interface ButtonPrimitiveRootProps {
   render?: (props: this) => React.ReactElement;
 }
 
-const calculateState = (props: ButtonPrimitiveRootProps): ButtonState => {
+const calculateState = (props: ButtonPrimitiveRootProps, isHovered: boolean): ButtonState => {
   if (props.isDisabled) {
     return "disabled";
   }
   if (props.isLoading) {
     return "loading";
   }
+  if (isHovered) {
+    return "hovered";
+  }
   return "default";
 };
 
 export function ButtonRoot(props: ButtonPrimitiveRootProps) {
-  const state = calculateState(props);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const state = calculateState(props, isHovered);
 
   const calculatedStyle = [props.styles?.root?.default, props.styles?.root?.[state], props.style];
 
   const Container = props.render ?? Pressable;
   return (
     <ButtonPrimitiveContext.Provider value={{ disabled: props.isDisabled, state, styles: props.styles }}>
-      <Container {...props} style={calculatedStyle} />
+      <Container {...props} onHoverIn={() => setIsHovered(true)} onHoverOut={() => setIsHovered(false)} style={calculatedStyle} />
     </ButtonPrimitiveContext.Provider>
   );
 }
