@@ -1,13 +1,14 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
-import { Colors, ColorScheme, Radius, ThemeName } from "./types";
+import { Colors, ColorScheme, FontFamily, LetterSpacing, Radius, ThemeName } from "./types";
 import { themes } from "./themes";
 import { useColorScheme } from "react-native";
 
 interface ThemeContext {
   colors: Colors;
   radius: Radius;
-  fontFamily: string;
+  fontFamily: FontFamily;
   colorScheme: ColorScheme;
+  letterSpacing: LetterSpacing;
   setColorScheme: (scheme: ColorScheme) => void;
   setTheme: (themeName: ThemeName) => void;
   themeName: ThemeName;
@@ -40,6 +41,7 @@ export const ThemeProvider = (props: PropsWithChildren) => {
         colors,
         radius: themesAssets.radius,
         fontFamily: themesAssets.fontFamily,
+        letterSpacing: themesAssets.letterSpacing,
       }}
     >
       {props.children}

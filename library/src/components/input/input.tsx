@@ -7,7 +7,7 @@ interface InputProps extends InputPrimitiveBaseProps {
 }
 
 export function Input(props: InputProps) {
-  const useVariantStyles = props.variant ? InputVariants[props.variant] : InputVariants["default"];
+  const useVariantStyles = InputVariants[props.variant ?? "default"];
   const variantStyles = useVariantStyles();
 
   return <InputPrimitive {...props} styles={variantStyles} />;
