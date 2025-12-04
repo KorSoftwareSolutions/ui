@@ -15,13 +15,13 @@ export const useToastVariantDanger = (): ToastStyles => {
         maxWidth: 400,
       },
       title: {
-        color: colors.background,
+        color: colors.foreground,
         fontSize: fontSize,
         fontWeight: "600",
         fontFamily,
       },
       description: {
-        color: colors.background,
+        color: colors.foreground,
         fontSize: fontSize * 0.875,
         fontFamily,
         opacity: 0.9,
