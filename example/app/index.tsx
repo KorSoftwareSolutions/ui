@@ -37,6 +37,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Avatar",
     href: "/components/avatar",
   },
+  {
+    title: "Toast",
+    href: "/components/toast",
+  },
 ];
 
 export default function Home() {

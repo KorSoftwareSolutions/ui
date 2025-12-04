@@ -23,6 +23,21 @@ export default function ButtonComponentScreen() {
           Submitting...
         </Button>
       </UseCaseSection>
+      <UseCaseSection title="Secondary">
+        <Button variant="secondary" onPress={onSubmit}>
+          Submit
+        </Button>
+      </UseCaseSection>
+      <UseCaseSection title="Secondary disabled">
+        <Button variant="secondary" onPress={onSubmit} isDisabled>
+          Submit
+        </Button>
+      </UseCaseSection>
+      <UseCaseSection title="Secondary loading">
+        <Button variant="secondary" onPress={onSubmit} isLoading>
+          Submitting...
+        </Button>
+      </UseCaseSection>
     </ComponentScreenLayout>
   );
 }

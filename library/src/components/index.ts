@@ -7,3 +7,4 @@ export * from "./typography/typography";
 export * from "./link/link";
 export * from "./empty/empty";
 export * from "./avatar/avatar";
+export * from "./toast/index";

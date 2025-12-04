@@ -5,3 +5,4 @@ export * from "./select";
 export * from "./card";
 export * from "./empty";
 export * from "./avatar";
+export * from "./toast";
