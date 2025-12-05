@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { usePopover } from "./context";
-import { useRelativePosition } from "@/hooks/useRelativePosition";
+import { useRelativePosition } from "@/hooks/use-relative-position";
 
 export interface PopoverContentProps {
   children?: React.ReactNode;

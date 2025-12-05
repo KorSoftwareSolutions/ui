@@ -47,7 +47,7 @@ const COMPONENTS: ComponentListItemProps[] = [
   },
   {
     title: "Textarea",
-    href: "/components/textarea", 
+    href: "/components/textarea",
   },
   {
     title: "Dropdown Menu",

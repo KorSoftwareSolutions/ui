@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PopoverContext } from "./context";
 import { PopoverStyles } from "./types";
 import { LayoutRectangle } from "react-native";
-import { DEFAULT_LAYOUT, DEFAULT_POSITION, LayoutPosition } from "@/hooks/useRelativePosition";
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, LayoutPosition } from "@/hooks/use-relative-position";
 
 export interface PopoverRootProps {
   children?: React.ReactNode;
