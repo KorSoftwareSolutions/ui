@@ -6,3 +6,5 @@ export * from "./card";
 export * from "./empty";
 export * from "./avatar";
 export * from "./toast";
+export * from "./badge";
+export * from "./textarea";

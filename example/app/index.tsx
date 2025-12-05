@@ -41,6 +41,14 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Toast",
     href: "/components/toast",
   },
+  {
+    title: "Badge",
+    href: "/components/badge",
+  },
+  {
+    title: "Textarea",
+    href: "/components/textarea", 
+  },
 ];
 
 export default function Home() {
