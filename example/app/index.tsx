@@ -49,6 +49,14 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Textarea",
     href: "/components/textarea", 
   },
+  {
+    title: "Dropdown Menu",
+    href: "/components/dropdown-menu",
+  },
+  {
+    title: "Popover",
+    href: "/components/popover",
+  },
 ];
 
 export default function Home() {

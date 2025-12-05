@@ -10,3 +10,5 @@ export * from "./avatar/avatar";
 export * from "./toast/index";
 export * from "./badge/badge";
 export * from "./textarea/textarea";
+export * from "./dropdown-menu/dropdown-menu";
+export * from "./popover/popover";

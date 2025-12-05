@@ -1,10 +1,12 @@
 import React from "react";
-import { ButtonPrimitive } from "@/primitives";
+import { ButtonPrimitive, ButtonPrimitiveRootProps } from "@/primitives";
 import { ButtonVariants } from "./variants";
 
 interface ButtonProps {
-  onPress?: () => void;
   children?: string;
+
+  onPress?: ButtonPrimitiveRootProps["onPress"];
+  onLayout?: ButtonPrimitiveRootProps["onLayout"];
   isDisabled?: boolean;
   isLoading?: boolean;
 
@@ -12,11 +14,12 @@ interface ButtonProps {
 }
 
 export function Button(props: ButtonProps) {
-  const useVariantStyles = props.variant ? ButtonVariants[props.variant] : ButtonVariants["default"];
+  const { children, variant = "default", ...rootProps } = props;
+  const useVariantStyles = ButtonVariants[variant];
   const variantStyles = useVariantStyles();
 
   return (
-    <ButtonPrimitive.Root onPress={props.onPress} isDisabled={props.isDisabled} isLoading={props.isLoading} styles={variantStyles}>
+    <ButtonPrimitive.Root {...rootProps} styles={variantStyles}>
       {props.isLoading && <ButtonPrimitive.Spinner />}
       <ButtonPrimitive.Label>{props.children}</ButtonPrimitive.Label>
     </ButtonPrimitive.Root>

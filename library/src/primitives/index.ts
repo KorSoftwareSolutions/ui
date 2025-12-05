@@ -8,3 +8,5 @@ export * from "./avatar";
 export * from "./toast";
 export * from "./badge";
 export * from "./textarea";
+export * from "./dropdown-menu";
+export * from "./popover";

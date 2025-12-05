@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Pressable, StyleProp, ViewStyle } from "react-native";
+import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
 import { ButtonStyles, ButtonState } from "./types";
 import { ButtonPrimitiveContext } from "./button-context";
 
-export interface ButtonPrimitiveRootProps {
+export interface ButtonPrimitiveRootProps extends PressableProps {
   children?: React.ReactNode;
-
-  onPress?: () => void;
 
   isDisabled?: boolean;
   isLoading?: boolean;

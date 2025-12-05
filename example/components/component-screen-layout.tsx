@@ -13,7 +13,7 @@ interface Props {
 export function ComponentScreenLayout({ title, children }: Props) {
   const theme = useTheme();
   return (
-    <SafeAreaView edges={["top", "bottom"]}>
+    <SafeAreaView edges={["top", "bottom"]} style={s.container}>
       <View style={s.header}>
         <Link href="/" asChild>
           <TouchableOpacity style={s.backButton}>
@@ -29,12 +29,17 @@ export function ComponentScreenLayout({ title, children }: Props) {
         </View>
       </View>
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
-      <ScrollView contentContainerStyle={s.content}>{children}</ScrollView>
+      <ScrollView contentContainerStyle={s.content} style={s.container}>
+        {children}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const s = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -42,6 +47,7 @@ const s = StyleSheet.create({
     gap: 16,
   },
   content: {
+    flexGrow: 1,
     padding: 24,
     gap: 24,
     maxWidth: 600,
