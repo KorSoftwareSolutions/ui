@@ -5,8 +5,8 @@ import { CalendarContext } from "./context";
 
 export interface CalendarRootProps {
   children?: React.ReactNode;
-  value?: Date;
-  onChange?: (date: Date | undefined) => void;
+  value?: Date | null;
+  onChange?: (date: Date | null) => void;
   defaultMonth?: Date;
   minDate?: Date;
   maxDate?: Date;

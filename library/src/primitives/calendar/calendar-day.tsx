@@ -14,7 +14,7 @@ export interface CalendarDayProps {
 
 const calculateState = (
   date: Date,
-  selected: Date | undefined,
+  selected: Date | null | undefined,
   isCurrentMonth: boolean,
   isDisabled: boolean,
   isHovered: boolean

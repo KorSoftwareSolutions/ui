@@ -2,8 +2,8 @@ import React from "react";
 import { CalendarStyles } from "./types";
 
 export interface CalendarContextValue {
-  value?: Date;
-  onChange?: (date: Date | undefined) => void;
+  value?: Date | null;
+  onChange?: (date: Date | null) => void;
   currentMonth: Date;
   setCurrentMonth: (month: Date) => void;
   minDate?: Date;

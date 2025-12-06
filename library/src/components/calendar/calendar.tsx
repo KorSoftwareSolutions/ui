@@ -1,15 +1,16 @@
 import React from "react";
-import { CalendarPrimitive } from "@/primitives";
+import { CalendarPrimitive, CalendarRootProps } from "@/primitives";
 import { CalendarVariants } from "./variants";
 
 export interface CalendarProps {
-  value?: Date;
-  onChange?: (date: Date | undefined) => void;
-  defaultMonth?: Date;
-  minDate?: Date;
-  maxDate?: Date;
-  variant?: keyof typeof CalendarVariants;
+  value?: CalendarRootProps["value"];
+  onChange?: CalendarRootProps["onChange"];
+  defaultMonth?: CalendarRootProps["defaultMonth"];
+  minDate?: CalendarRootProps["minDate"];
+  maxDate?: CalendarRootProps["maxDate"];
   weekDays?: string[];
+
+  variant?: keyof typeof CalendarVariants;
 }
 
 export function Calendar(props: CalendarProps) {
