@@ -1,0 +1,41 @@
+import React, { useState } from "react";
+import { View, StyleProp, ViewStyle } from "react-native";
+import { CalendarStyles } from "./types";
+import { CalendarContext } from "./context";
+
+export interface CalendarRootProps {
+  children?: React.ReactNode;
+  value?: Date;
+  onChange?: (date: Date | undefined) => void;
+  defaultMonth?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+  style?: StyleProp<ViewStyle>;
+  styles?: CalendarStyles;
+}
+
+export function CalendarRoot(props: CalendarRootProps) {
+  const { children, value, onChange, defaultMonth = new Date(), minDate, maxDate, style, styles, ...viewProps } = props;
+
+  const [currentMonth, setCurrentMonth] = useState<Date>(defaultMonth);
+
+  const containerStyle = [styles?.root, style];
+
+  return (
+    <CalendarContext.Provider
+      value={{
+        value,
+        onChange,
+        currentMonth,
+        setCurrentMonth,
+        styles,
+        minDate,
+        maxDate,
+      }}
+    >
+      <View {...viewProps} style={containerStyle}>
+        {children}
+      </View>
+    </CalendarContext.Provider>
+  );
+}

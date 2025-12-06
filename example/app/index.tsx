@@ -57,6 +57,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Popover",
     href: "/components/popover",
   },
+  {
+    title: "Calendar",
+    href: "/components/calendar",
+  },
 ];
 
 export default function Home() {
