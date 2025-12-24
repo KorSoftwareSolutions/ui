@@ -1,8 +1,7 @@
-import * as React from "react";
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { Platform, type View, type ViewStyle } from "react-native";
-
-const DEFAULT_PORTAL_HOST = "KOR_NATIVE_DEFAULT_HOST_NAME";
+import { useEffect, useSyncExternalStore, useState } from "react";
+import { Platform, View } from "react-native";
+import { DEFAULT_PORTAL_HOST, PortalHostProps, PortalProps } from "./portal.constants";
+import { createPortal } from "react-dom";
 
 type PortalMap = Map<string, React.ReactNode>;
 type PortalHostMap = Map<string, PortalMap>;
@@ -50,14 +49,44 @@ function removePortal(hostName: string, name: string) {
   emit();
 }
 
-export function PortalHost({ name = DEFAULT_PORTAL_HOST }: { name?: string }) {
+function NativePortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostProps) {
   const map = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const portalMap = map.get(name) ?? new Map<string, React.ReactNode>();
   if (portalMap.size === 0) return null;
-  return <>{Array.from(portalMap.values())}</>;
+
+  const Container = Platform.select({
+    default: (props: React.PropsWithChildren) => (
+      <View
+        {...props}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          elevation: 999,
+          zIndex: 999,
+          pointerEvents: "box-none",
+        }}
+      />
+    ),
+    ios: container?.ios,
+    android: container?.android,
+  });
+
+  return <Container>{Array.from(portalMap.values())}</Container>;
 }
 
-export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: { name: string; hostName?: string; children: React.ReactNode }) {
+function WebPortalHost() {
+  return <></>;
+}
+
+export const PortalHost = Platform.select({
+  default: NativePortalHost,
+  web: WebPortalHost,
+});
+
+function NativePortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
   useEffect(() => {
     updatePortal(hostName, name, children);
   }, [hostName, name, children]);
@@ -68,28 +97,25 @@ export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: { nam
     };
   }, [hostName, name]);
 
-  return null;
+  return <></>;
 }
 
-const ROOT: ViewStyle = {
-  flex: 1,
-};
+function WebPortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
+  const [container] = useState(() => {
+    let container = document.getElementById(hostName);
 
-export function useModalPortalRoot() {
-  const ref = useRef<View>(null);
-  const [offset, setSideOffSet] = useState(0);
+    if (!container) {
+      container = document.createElement("div");
+      container.id = hostName;
+      document.body.appendChild(container);
+    }
+    return container;
+  });
 
-  const onLayout = useCallback(() => {
-    if (Platform.OS === "web") return;
-    ref.current?.measure((_x, _y, _width, _height, _pageX, pageY) => {
-      setSideOffSet(-pageY);
-    });
-  }, []);
-
-  return {
-    ref,
-    offset,
-    onLayout,
-    style: ROOT,
-  };
+  return <>{createPortal(children, container, name)}</>;
 }
+
+export const Portal = Platform.select({
+  default: NativePortal,
+  web: WebPortal,
+});

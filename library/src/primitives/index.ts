@@ -10,4 +10,5 @@ export * from "./badge";
 export * from "./textarea";
 export * from "./dropdown-menu";
 export * from "./popover";
+export * from "./portal";
 export * from "./calendar";

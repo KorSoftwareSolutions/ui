@@ -2,6 +2,9 @@ import React, { useSyncExternalStore } from "react";
 import { View, StyleSheet } from "react-native";
 import { ToastComponent } from "./toast";
 import { ToastVariants } from "./variants";
+import { Portal } from "@/primitives/portal";
+
+export const TOAST_PORTAL_NAME = "toast-portal";
 
 export interface ToastConfig {
   id: string;
@@ -77,28 +80,22 @@ export function ToastContainer() {
   if (!toasts.length) return null;
 
   return (
-    <View style={styles.container} pointerEvents="box-none">
-      {toasts.map((toast) => (
-        <View key={toast.id} style={styles.toastWrapper}>
-          <ToastComponent title={toast.title} description={toast.description} variant={toast.variant} />
-        </View>
-      ))}
-    </View>
+    <Portal name={TOAST_PORTAL_NAME}>
+      <View style={s.wrapper}>
+        {toasts.map((toast) => (
+          <ToastComponent key={toast.id} title={toast.title} description={toast.description} variant={toast.variant} />
+        ))}
+      </View>
+    </Portal>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    top: 50,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    gap: 12,
-    zIndex: 9999,
-  },
-  toastWrapper: {
+const s = StyleSheet.create({
+  wrapper: {
     width: "100%",
     alignItems: "center",
+    position: "absolute",
+    top: 24,
+    gap: 8,
   },
 });
