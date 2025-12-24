@@ -1,10 +1,11 @@
 import { TextInput, TextInputProps } from "react-native";
 import { InputState, InputStyles } from "./types";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
+import { useFieldOptional } from "../field/context";
 
 export type InputPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
+  ref?: React.Ref<TextInput>;
   onChange?: TextInputProps["onChangeText"];
-
   isDisabled?: boolean;
 };
 
@@ -24,9 +25,10 @@ const calculateState = (props: InputPrimitiveProps, isFocused: boolean): InputSt
   return "default";
 };
 
-export function InputPrimitive(props: InputPrimitiveProps) {
+export const InputPrimitive = forwardRef<TextInput, InputPrimitiveProps>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const state = calculateState(props, isFocused);
+  const field = useFieldOptional();
 
   const composedStyles = [props.styles?.default?.style, props.styles?.[state]?.style, props.style];
   const composedProps = {
@@ -35,9 +37,12 @@ export function InputPrimitive(props: InputPrimitiveProps) {
     ...props,
   };
   const Component = props.render ?? TextInput;
+
   return (
     <Component
       {...composedProps}
+      ref={ref}
+      id={field?.id}
       onChange={undefined}
       onChangeText={props.onChange}
       onFocus={(e) => {
@@ -52,4 +57,6 @@ export function InputPrimitive(props: InputPrimitiveProps) {
       style={composedStyles}
     />
   );
-}
+});
+
+InputPrimitive.displayName = "InputPrimitive";

@@ -18,7 +18,7 @@ export function Field(props: FieldProps) {
 
   return (
     <FieldPrimitive.Root styles={variantStyles}>
-      {props.label && <FieldPrimitive.Label htmlFor={props.id}>{props.label}</FieldPrimitive.Label>}
+      {props.label && <FieldPrimitive.Label for={props.id}>{props.label}</FieldPrimitive.Label>}
       {props.description && <FieldPrimitive.Description>{props.description}</FieldPrimitive.Description>}
       {props.children}
       {props.error && <FieldPrimitive.Error>{props.error}</FieldPrimitive.Error>}
