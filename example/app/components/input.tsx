@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Calendar, Input, NumericInput, Popover, Typography } from "@korsolutions/ui/components";
+import { Input, NumericInput, Typography } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Pressable } from "react-native";
+import { DateInputDemo } from "@/components/date-input-demo";
 
 export default function InputComponentScreen() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -12,7 +12,6 @@ export default function InputComponentScreen() {
   const [percentValue, setPercentValue] = useState<number | null>(null);
   const [decimalValue, setDecimalValue] = useState<number | null>(null);
   const [constrainedValue, setConstrainedValue] = useState<number | null>(50);
-  const [dateValue, setDateValue] = useState<Date | undefined>(undefined);
 
   return (
     <ComponentScreenLayout title="Input">
@@ -53,23 +52,7 @@ export default function InputComponentScreen() {
       </UseCaseSection>
 
       <UseCaseSection title="Date Input (MM/DD/YYYY)">
-        <Popover
-          trigger={
-            <Pressable>
-              <Input value={dateValue ? dateValue.toLocaleDateString() : ""} placeholder="MM/DD/YYYY" editable={false} />
-            </Pressable>
-          }
-        >
-          {({ close }) => (
-            <Calendar
-              value={dateValue}
-              onChange={(date) => {
-                setDateValue(date);
-                close();
-              }}
-            />
-          )}
-        </Popover>
+        <DateInputDemo />
       </UseCaseSection>
     </ComponentScreenLayout>
   );

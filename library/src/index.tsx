@@ -19,4 +19,6 @@ export const UniversalUIProvider = ({ children, portalContainer }: ProviderProps
   );
 };
 
-export { useTheme } from "./themes";
+export { useTheme } from "./themes/provider";
+export * from "./themes/adapters";
+export * from "./themes/types";

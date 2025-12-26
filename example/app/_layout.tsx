@@ -1,20 +1,24 @@
 import "react-native-reanimated";
 import React from "react";
 import { Stack } from "expo-router";
-import { UniversalUIProvider, useTheme } from "@korsolutions/ui";
+import { UniversalUIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
+import { ThemeProvider } from "@react-navigation/native";
 
 function RootRouter() {
   const theme = useTheme();
+  const reactNavigationTheme = useReactNavigationTheme();
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: theme.colors.background },
-      }}
-    >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="components" />
-    </Stack>
+    <ThemeProvider value={reactNavigationTheme}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: theme.colors.background },
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="components" />
+      </Stack>
+    </ThemeProvider>
   );
 }
 

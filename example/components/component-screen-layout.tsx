@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "expo-router";
+import { Href, Link } from "expo-router";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
@@ -8,14 +8,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 interface Props {
   title: string;
   children: React.ReactNode;
+  backHref?: Href;
 }
 
-export function ComponentScreenLayout({ title, children }: Props) {
+export function ComponentScreenLayout({ title, children, backHref = "/" }: Props) {
   const theme = useTheme();
   return (
     <SafeAreaView edges={["top", "bottom"]} style={s.container}>
       <View style={s.header}>
-        <Link href="/" asChild>
+        <Link href={backHref} asChild>
           <TouchableOpacity style={s.backButton}>
             <MaterialCommunityIcons name="chevron-left" size={22} color={theme.colors.primary} />
             <Text style={[s.backButtonLabel, { color: theme.colors.primary }]}>Back</Text>
