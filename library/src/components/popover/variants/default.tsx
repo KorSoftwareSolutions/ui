@@ -6,6 +6,7 @@ export const usePopoverVariantDefault = (): PopoverStyles => {
     ({ colors, radius }): PopoverStyles => ({
       overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
+        zIndex: 999,
       },
       content: {
         backgroundColor: colors.surface,

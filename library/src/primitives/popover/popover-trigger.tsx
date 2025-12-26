@@ -16,7 +16,7 @@ export const PopoverTrigger = forwardRef<PopoverTriggerRef, PopoverTriggerProps>
   const triggerRef = useRef<View>(null);
 
   const onTriggerPress = async () => {
-    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+    triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
       popover.setTriggerPosition({
         height,
         width,
