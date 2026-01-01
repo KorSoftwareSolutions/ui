@@ -1,4 +1,4 @@
-import { PopoverStyles } from "@/primitives/popover/types";
+import { type PopoverStyles } from "@/primitives/popover/types";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const usePopoverVariantUnstyled = (): PopoverStyles => {

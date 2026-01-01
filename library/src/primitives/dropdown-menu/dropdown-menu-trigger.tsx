@@ -1,9 +1,10 @@
-import React, { forwardRef, RefAttributes, useImperativeHandle, useRef } from "react";
-import { PressableProps, View } from "react-native";
+import type { ViewRef } from "@/types/element.types";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import { type PressableProps } from "react-native";
 import { useDropdownMenu } from "./context";
 
 export interface DropdownMenuTriggerProps extends PressableProps {
-  children: React.ReactElement<RefAttributes<View> & PressableProps>;
+  children: React.ReactElement<PressableProps & React.RefAttributes<ViewRef>>;
 }
 
 export interface DropdownMenuTriggerRef {
@@ -13,10 +14,10 @@ export interface DropdownMenuTriggerRef {
 
 export const DropdownMenuTrigger = forwardRef<DropdownMenuTriggerRef, DropdownMenuTriggerProps>((props, ref) => {
   const dropdownMenu = useDropdownMenu();
-  const triggerRef = useRef<View>(null);
+  const triggerRef = useRef<ViewRef>(null);
 
   const onTriggerPress = async () => {
-    triggerRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+    triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
       dropdownMenu.setTriggerPosition({
         height,
         width,

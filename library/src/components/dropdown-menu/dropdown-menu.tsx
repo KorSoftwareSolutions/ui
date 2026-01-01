@@ -1,7 +1,7 @@
 import { DropdownMenuPrimitive } from "@/primitives";
 import React from "react";
+import { type PressableProps } from "react-native";
 import { DropdownMenuVariants } from "./variants";
-import { PressableProps } from "react-native";
 
 type DropdownMenuOption =
   | {
@@ -39,6 +39,8 @@ export function DropdownMenu(props: DropdownMenuProps) {
                 );
               } else if (option.type === "divider") {
                 return <DropdownMenuPrimitive.Divider key={Math.random().toString()} />;
+              } else {
+                return null;
               }
             })}
           </DropdownMenuPrimitive.Content>

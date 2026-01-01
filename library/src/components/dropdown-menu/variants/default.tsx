@@ -1,4 +1,4 @@
-import { DropdownMenuStyles } from "@/primitives";
+import { type DropdownMenuStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useDropdownMenuVariantDefault = (): DropdownMenuStyles => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { useEmpty } from "./context";
 
 export interface EmptyMediaProps {

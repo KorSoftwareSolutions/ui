@@ -1,4 +1,4 @@
-import { CardStyles } from "@/primitives";
+import { type CardStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useCardVariantDefault(): CardStyles {

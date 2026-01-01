@@ -1,4 +1,4 @@
-import { FieldStyles } from "@/primitives";
+import { type FieldStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useFieldVariantDefault = (): FieldStyles => {

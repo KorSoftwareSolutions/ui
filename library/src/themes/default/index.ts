@@ -1,4 +1,4 @@
-import { ThemeAssets } from "../types";
+import type { ThemeAssets } from "../types";
 import { darkColors, lightColors } from "./colors";
 
 export const defaultThemeAssets: ThemeAssets = {

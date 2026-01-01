@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
-import { useCard } from "./context";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useCard } from "./context";
 
 export interface CardFooterProps {
   children?: React.ReactNode;

@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarStyles } from "./types";
+import type { CalendarStyles } from "./types";
 
 export interface CalendarContextValue {
   value?: Date | null;

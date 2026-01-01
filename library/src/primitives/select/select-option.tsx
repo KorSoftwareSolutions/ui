@@ -1,8 +1,8 @@
-import { StyleProp, Text, TextStyle } from "react-native";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
-import { useSelect } from "./context";
 import { useEffect, useState } from "react";
-import { SelectOptionState, SelectState } from "./types";
+import { type StyleProp, Text, type TextStyle } from "react-native";
+import { useSelect } from "./context";
+import type { SelectOptionState, SelectState } from "./types";
 
 export interface SelectOptionProps {
   children: string;

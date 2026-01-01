@@ -1,4 +1,4 @@
-import { TextareaPrimitiveBaseProps } from "./textarea";
+import { type TextareaPrimitiveBaseProps } from "./textarea";
 
 export type TextareaState = "default" | "focused" | "disabled";
 

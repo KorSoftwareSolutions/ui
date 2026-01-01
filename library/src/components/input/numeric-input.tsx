@@ -1,7 +1,7 @@
+import { useNumericMask, type NumericMaskFormat } from "@/hooks/use-numeric-mask";
+import { type InputPrimitiveBaseProps } from "@/primitives";
 import React, { useEffect } from "react";
 import { Input } from "./input";
-import { InputPrimitiveBaseProps } from "@/primitives";
-import { useNumericMask, NumericMaskFormat } from "@/hooks/use-numeric-mask";
 
 export interface NumericInputProps extends Omit<InputPrimitiveBaseProps, "value" | "onChange" | "keyboardType"> {
   variant?: "default";

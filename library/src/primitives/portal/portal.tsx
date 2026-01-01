@@ -1,7 +1,6 @@
-import { useEffect, useSyncExternalStore, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Platform, View } from "react-native";
-import { DEFAULT_PORTAL_HOST, PortalHostProps, PortalProps } from "./portal.constants";
-import { createPortal } from "react-dom";
+import { DEFAULT_PORTAL_HOST, type PortalHostProps, type PortalProps } from "./portal.constants";
 
 type PortalMap = Map<string, React.ReactNode>;
 type PortalHostMap = Map<string, PortalMap>;
@@ -101,7 +100,7 @@ function NativePortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: Portal
 }
 
 function WebPortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
-  const [container] = useState(() => {
+  const [] = useState(() => {
     let container = document.getElementById(hostName);
 
     if (!container) {
@@ -112,7 +111,9 @@ function WebPortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalPro
     return container;
   });
 
-  return <>{createPortal(children, container, name)}</>;
+  const createPortal = require("react-dom").createPortal as typeof import("react-dom").createPortal;
+
+  return <>{createPortal(children, document.body, name)}</>;
 }
 
 export const Portal = Platform.select({

@@ -1,8 +1,8 @@
-import { CardRootProps } from "./card-root";
-import { CardHeaderProps } from "./card-header";
-import { CardTitleProps } from "./card-title";
-import { CardBodyProps } from "./card-body";
-import { CardFooterProps } from "./card-footer";
+import type { CardBodyProps } from "./card-body";
+import type { CardFooterProps } from "./card-footer";
+import type { CardHeaderProps } from "./card-header";
+import type { CardRootProps } from "./card-root";
+import type { CardTitleProps } from "./card-title";
 
 export type CardState = "default";
 

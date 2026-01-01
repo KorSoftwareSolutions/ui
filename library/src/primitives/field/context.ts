@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { FieldStyles } from "./types";
+import type { FieldStyles } from "./types";
 
 export interface FieldContext {
   styles?: FieldStyles;

@@ -1,7 +1,7 @@
-import { createContext, Dispatch, useContext } from "react";
-import { PopoverStyles } from "./types";
-import { LayoutRectangle } from "react-native";
-import { LayoutPosition } from "@/hooks/use-relative-position";
+import type { LayoutPosition } from "@/hooks/use-relative-position";
+import { createContext, type Dispatch, useContext } from "react";
+import type { LayoutRectangle } from "react-native";
+import type { PopoverStyles } from "./types";
 
 export interface PopoverContext {
   isOpen: boolean;

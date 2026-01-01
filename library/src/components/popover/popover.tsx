@@ -1,8 +1,8 @@
+import type { PopoverTriggerRef } from "@/primitives";
 import { PopoverPrimitive, usePopover } from "@/primitives";
 import React, { forwardRef } from "react";
+import { type PressableProps } from "react-native";
 import { PopoverVariants } from "./variants";
-import type { PopoverTriggerRef } from "@/primitives";
-import { PressableProps } from "react-native";
 
 interface PopoverChildrenProps {
   close: () => void;
@@ -38,9 +38,8 @@ const PopoverComponent = forwardRef<PopoverTriggerRef, PopoverProps>((props, ref
     <PopoverPrimitive.Root styles={styles}>
       <PopoverPrimitive.Trigger ref={ref}>{props.trigger}</PopoverPrimitive.Trigger>
       <PopoverPrimitive.Portal>
-        <PopoverPrimitive.Overlay closeOnPress={props.closeOnOverlayPress}>
-          <PopoverContentComponent>{props.children}</PopoverContentComponent>
-        </PopoverPrimitive.Overlay>
+        <PopoverPrimitive.Overlay closeOnPress={props.closeOnOverlayPress} />
+        <PopoverContentComponent>{props.children}</PopoverContentComponent>
       </PopoverPrimitive.Portal>
     </PopoverPrimitive.Root>
   );

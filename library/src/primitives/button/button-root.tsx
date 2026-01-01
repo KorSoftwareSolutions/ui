@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
-import { ButtonStyles, ButtonState } from "./types";
+import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
 import { ButtonPrimitiveContext } from "./button-context";
+import type { ButtonState, ButtonStyles } from "./types";
 
 export interface ButtonPrimitiveRootProps extends PressableProps {
   children?: React.ReactNode;

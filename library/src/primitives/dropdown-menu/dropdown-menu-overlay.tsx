@@ -1,6 +1,6 @@
 import React from "react";
+import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { useDropdownMenu } from "./context";
-import { Pressable, StyleProp, StyleSheet, ViewStyle } from "react-native";
 
 export interface DropdownMenuOverlayProps {
   children?: React.ReactNode;

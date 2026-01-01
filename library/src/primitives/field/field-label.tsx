@@ -1,6 +1,6 @@
 import React from "react";
+import { Text, type TextProps } from "react-native";
 import { useField } from "./context";
-import { Text, TextProps } from "react-native";
 
 export interface FieldLabelProps {
   children: string;

@@ -1,6 +1,6 @@
-import { ToastRootProps } from "./toast-root";
-import { ToastTitleProps } from "./toast-title";
-import { ToastDescriptionProps } from "./toast-description";
+import type { ToastDescriptionProps } from "./toast-description";
+import type { ToastRootProps } from "./toast-root";
+import type { ToastTitleProps } from "./toast-title";
 
 export interface ToastStyles {
   root?: ToastRootProps["style"];

@@ -1,6 +1,6 @@
-import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { useSelect } from "./context";
 
 export interface SelectContentProps {

@@ -1,8 +1,8 @@
-import React from "react";
-import { View, ViewProps, StyleProp, ViewStyle } from "react-native";
 import { getWeekDays, getWeeksInMonth } from "@/utils/date-utils";
-import { useCalendarContext } from "./context";
+import React from "react";
+import { View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
 import { CalendarDay } from "./calendar-day";
+import { useCalendarContext } from "./context";
 
 export interface CalendarWeekProps extends ViewProps {
   index: number;

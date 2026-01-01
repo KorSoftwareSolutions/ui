@@ -1,7 +1,7 @@
-import React from "react";
-import { ActivityIndicator, StyleProp, ViewStyle } from "react-native";
-import { useButtonPrimitive } from "./button-context";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { ActivityIndicator, type StyleProp, type ViewStyle } from "react-native";
+import { useButtonPrimitive } from "./button-context";
 
 interface ButtonSpinnerProps {
   style?: StyleProp<ViewStyle>;

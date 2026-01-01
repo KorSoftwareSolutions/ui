@@ -1,6 +1,6 @@
 import { AvatarPrimitive } from "@/primitives";
 import React, { useState } from "react";
-import { ImageSource } from "react-native";
+import type { ImageSource } from "react-native";
 import { AvatarVariants } from "./variants";
 
 export interface AvatarProps {

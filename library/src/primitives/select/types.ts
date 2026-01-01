@@ -1,9 +1,9 @@
-import { SelectRootProps } from "./select-root";
-import { SelectTriggerProps } from "./select-trigger";
-import { SelectValueProps } from "./select-value";
-import { SelectOverlayProps } from "./select-overlay";
-import { SelectContentProps } from "./select-content";
-import { SelectOptionProps } from "./select-option";
+import type { SelectContentProps } from "./select-content";
+import type { SelectOptionProps } from "./select-option";
+import type { SelectOverlayProps } from "./select-overlay";
+import type { SelectRootProps } from "./select-root";
+import type { SelectTriggerProps } from "./select-trigger";
+import type { SelectValueProps } from "./select-value";
 
 export type SelectState = "default" | "disabled";
 export type SelectOptionState = SelectState | "hovered" | "selected";

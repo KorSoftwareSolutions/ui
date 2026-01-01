@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { ToastStyles } from "./types";
+import type { ToastStyles } from "./types";
 
 export interface ToastContext {
   styles?: ToastStyles;

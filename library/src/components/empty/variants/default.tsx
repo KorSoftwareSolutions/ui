@@ -1,4 +1,4 @@
-import { EmptyStyles } from "@/primitives";
+import { type EmptyStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useEmptyVariantDefault(): EmptyStyles {

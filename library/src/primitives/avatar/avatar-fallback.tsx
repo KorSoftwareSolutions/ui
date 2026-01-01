@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, TextStyle, View } from "react-native";
+import { type StyleProp, type TextStyle, View } from "react-native";
 import { useAvatar } from "./context";
 
 export interface AvatarFallbackProps {

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { AvatarStyles } from "./types";
+import type { AvatarStyles } from "./types";
 
 export interface AvatarContext {
   styles?: AvatarStyles;

@@ -1,8 +1,8 @@
-import React from "react";
-import { Pressable, StyleProp, ViewStyle } from "react-native";
-import { useSelect } from "./context";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { normalizeLayout } from "@/utils/normalize-layout";
+import React from "react";
+import { Pressable, type StyleProp, type ViewStyle } from "react-native";
+import { useSelect } from "./context";
 
 interface SelectTriggerInjectionProps {
   onPress?: () => void;

@@ -1,5 +1,5 @@
+import { ButtonPrimitive, type ButtonPrimitiveRootProps } from "@/primitives";
 import React from "react";
-import { ButtonPrimitive, ButtonPrimitiveRootProps } from "@/primitives";
 import { ButtonVariants } from "./variants";
 
 interface ButtonProps {

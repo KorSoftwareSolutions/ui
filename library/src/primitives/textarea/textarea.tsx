@@ -1,6 +1,6 @@
-import { TextInput, TextInputProps } from "react-native";
-import { TextareaState, TextareaStyles } from "./types";
 import { useState } from "react";
+import { TextInput, type TextInputProps } from "react-native";
+import type { TextareaState, TextareaStyles } from "./types";
 
 export type TextareaPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
   onChange?: TextInputProps["onChangeText"];

@@ -1,10 +1,8 @@
 import React from "react";
+import { Pressable, type PressableProps, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { usePopover } from "./context";
-import { Pressable, PressableProps, StyleProp, StyleSheet, ViewStyle } from "react-native";
 
 export interface PopoverOverlayProps extends Omit<PressableProps, "onPress"> {
-  children?: React.ReactNode;
-
   onPress?: () => void;
   closeOnPress?: boolean;
 
@@ -29,9 +27,8 @@ export function PopoverOverlay(props: PopoverOverlayProps) {
         }
         props.onPress?.();
       }}
+      pointerEvents="auto"
       style={composedStyle}
-    >
-      {props.children}
-    </Component>
+    />
   );
 }

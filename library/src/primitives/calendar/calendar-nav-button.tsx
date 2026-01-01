@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Pressable, PressableProps, Text, StyleProp, ViewStyle, TextStyle } from "react-native";
+import { Pressable, Text, type PressableProps, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
 import { addMonths, subMonths } from "../../utils/date-utils";
 import { useCalendarContext } from "./context";
-import { CalendarNavButtonState } from "./types";
+import type { CalendarNavButtonState } from "./types";
 
 export interface CalendarNavButtonProps extends PressableProps {
   children?: React.ReactNode;

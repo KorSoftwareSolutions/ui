@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
-import { BadgeStyles } from "./types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { BadgeContext } from "./context";
+import type { BadgeStyles } from "./types";
 
 export interface BadgeRootProps {
   children?: React.ReactNode;

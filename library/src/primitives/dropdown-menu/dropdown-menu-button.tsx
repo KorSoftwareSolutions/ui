@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { StyleProp, Text, TextStyle } from "react-native";
+import { type StyleProp, Text, type TextStyle } from "react-native";
 import { useDropdownMenu } from "./context";
-import { DropdownMenuButtonState } from "./types";
+import type { DropdownMenuButtonState } from "./types";
 
 export interface DropdownMenuButtonProps {
   children?: string;

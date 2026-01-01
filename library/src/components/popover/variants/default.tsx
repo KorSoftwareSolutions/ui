@@ -1,4 +1,4 @@
-import { PopoverStyles } from "@/primitives/popover/types";
+import { type PopoverStyles } from "@/primitives/popover/types";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const usePopoverVariantDefault = (): PopoverStyles => {
@@ -18,6 +18,7 @@ export const usePopoverVariantDefault = (): PopoverStyles => {
         shadowOpacity: 0.15,
         shadowRadius: 12,
         elevation: 8,
+        zIndex: 1000,
       },
     })
   );

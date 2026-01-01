@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, PressableProps, StyleProp, ViewStyle } from "react-native";
+import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
 import { usePopover } from "./context";
 
 export interface PopoverCloseProps extends Omit<PressableProps, "onPress"> {

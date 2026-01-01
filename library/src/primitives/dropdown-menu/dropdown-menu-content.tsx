@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
-import { useDropdownMenu } from "./context";
 import { useRelativePosition } from "@/hooks/use-relative-position";
+import React from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useDropdownMenu } from "./context";
 
 export interface DropdownMenuContentProps {
   children?: React.ReactNode;

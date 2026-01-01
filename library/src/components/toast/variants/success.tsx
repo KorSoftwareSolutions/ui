@@ -1,4 +1,4 @@
-import { ToastStyles } from "@/primitives";
+import { type ToastStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useToastVariantSuccess = (): ToastStyles => {

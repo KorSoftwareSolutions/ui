@@ -1,7 +1,7 @@
-import React from "react";
-import { useSelect } from "./context";
-import { Pressable, StyleProp, StyleSheet, ViewStyle } from "react-native";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
+import { useSelect } from "./context";
 
 export interface SelectOverlayProps {
   children?: React.ReactNode;

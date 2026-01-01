@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Theme } from "@react-navigation/native";
+import type { Theme } from "@react-navigation/native";
 import { useTheme } from "../provider";
 import { Platform } from "react-native";
 
@@ -9,6 +9,7 @@ export function useReactNavigationTheme(): Theme {
   useEffect(() => {
     if (Platform.OS !== "web") return;
     const styles = document.createElement("style");
+    styles.id = "korsolutions-ui-react-navigation-theme";
     styles.innerHTML = `
       :root {
         --expo-router-modal-border: 1px solid ${theme.colors.border};

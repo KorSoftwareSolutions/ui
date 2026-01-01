@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { CardState, CardStyles } from "./types";
+import type { CardState, CardStyles } from "./types";
 
 export interface CardContext {
   state: CardState;

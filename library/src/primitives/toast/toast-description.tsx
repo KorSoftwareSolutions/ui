@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, Text, TextStyle } from "react-native";
+import { type StyleProp, Text, type TextStyle } from "react-native";
 import { useToast } from "./context";
 
 export interface ToastDescriptionProps {

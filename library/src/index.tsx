@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@/themes";
-import { PortalHost } from "./primitives/portal";
 import { ToastContainer } from "./components/toast/toast-manager";
-import { PortalHostProps } from "./primitives/portal/portal.constants";
+import { PortalHost } from "./primitives/portal";
+import { type PortalHostProps } from "./primitives/portal/portal.constants";
 
 export interface ProviderProps {
   children: React.ReactNode;
@@ -19,6 +19,6 @@ export const UniversalUIProvider = ({ children, portalContainer }: ProviderProps
   );
 };
 
-export { useTheme } from "./themes/provider";
 export * from "./themes/adapters";
+export { useTheme } from "./themes/provider";
 export * from "./themes/types";

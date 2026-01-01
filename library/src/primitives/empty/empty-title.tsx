@@ -1,6 +1,6 @@
 import React from "react";
+import { type StyleProp, Text, type TextStyle } from "react-native";
 import { useEmpty } from "./context";
-import { StyleProp, Text, TextStyle } from "react-native";
 
 export interface EmptyTitleProps {
   children: string;

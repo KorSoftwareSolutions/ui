@@ -1,5 +1,5 @@
 import React from "react";
-import { Text as RnText, TextProps as RnTextProps } from "react-native";
+import { Text as RnText, type TextProps as RnTextProps } from "react-native";
 import { TypographyVariants } from "./variants";
 
 export interface TypographyProps extends RnTextProps {

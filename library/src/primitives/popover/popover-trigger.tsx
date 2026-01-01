@@ -1,9 +1,10 @@
-import React, { forwardRef, RefAttributes, useImperativeHandle, useRef } from "react";
-import { PressableProps, View } from "react-native";
+import type { ViewRef } from "@/types/element.types";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import { type PressableProps } from "react-native";
 import { usePopover } from "./context";
 
 export interface PopoverTriggerProps extends PressableProps {
-  children: React.ReactElement<RefAttributes<View> & PressableProps>;
+  children: React.ReactElement<React.RefAttributes<ViewRef> & PressableProps>;
 }
 
 export interface PopoverTriggerRef {
@@ -13,7 +14,7 @@ export interface PopoverTriggerRef {
 
 export const PopoverTrigger = forwardRef<PopoverTriggerRef, PopoverTriggerProps>((props, ref) => {
   const popover = usePopover();
-  const triggerRef = useRef<View>(null);
+  const triggerRef = useRef<ViewRef>(null);
 
   const onTriggerPress = async () => {
     triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {

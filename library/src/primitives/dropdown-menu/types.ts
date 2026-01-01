@@ -1,7 +1,7 @@
-import { DropdownMenuContentProps } from "./dropdown-menu-content";
-import { DropdownMenuButtonProps } from "./dropdown-menu-button";
-import { DropdownMenuDividerProps } from "./dropdown-menu-divider";
-import { DropdownMenuOverlayProps } from "./dropdown-menu-overlay";
+import type { DropdownMenuButtonProps } from "./dropdown-menu-button";
+import type { DropdownMenuContentProps } from "./dropdown-menu-content";
+import type { DropdownMenuDividerProps } from "./dropdown-menu-divider";
+import type { DropdownMenuOverlayProps } from "./dropdown-menu-overlay";
 
 export type DropdownMenuButtonState = "default" | "hovered";
 

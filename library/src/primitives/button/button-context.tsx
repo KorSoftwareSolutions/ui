@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { ButtonState, ButtonStyles } from "./types";
+import type { ButtonState, ButtonStyles } from "./types";
 
 export interface ButtonPrimitiveContext {
   disabled?: boolean;

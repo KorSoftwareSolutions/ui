@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { EmptyStyles } from "./types";
+import type { EmptyStyles } from "./types";
 
 export interface EmptyContext {
   styles?: EmptyStyles;

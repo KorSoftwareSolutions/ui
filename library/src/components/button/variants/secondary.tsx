@@ -1,4 +1,4 @@
-import { ButtonStyles } from "@/primitives";
+import { type ButtonStyles } from "@/primitives";
 import { hslaSetRelativeLightness } from "@/utils/hsla-utils";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 

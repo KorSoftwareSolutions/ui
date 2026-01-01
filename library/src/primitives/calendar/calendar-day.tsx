@@ -1,8 +1,8 @@
+import { formatDate, isDateAfter, isDateBefore, isDateSameDay, isDateToday, isSameMonth } from "@/utils/date-utils";
 import React, { useMemo, useState } from "react";
-import { Text, StyleProp, TextStyle, ViewStyle, Pressable } from "react-native";
-import { formatDate, isDateSameDay, isDateToday, isDateBefore, isDateAfter, isSameMonth } from "@/utils/date-utils";
+import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
 import { useCalendarContext } from "./context";
-import { CalendarDayState } from "./types";
+import type { CalendarDayState } from "./types";
 
 export interface CalendarDayProps {
   date: Date;

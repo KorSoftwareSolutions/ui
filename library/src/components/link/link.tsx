@@ -1,5 +1,5 @@
 import React from "react";
-import { Text as RnText, TextProps as RnTextProps, Linking } from "react-native";
+import { Linking, Text as RnText, type TextProps as RnTextProps } from "react-native";
 import { LinkVariants } from "./variants";
 
 export interface LinkProps extends RnTextProps {

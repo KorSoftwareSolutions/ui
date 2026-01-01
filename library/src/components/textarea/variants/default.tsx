@@ -1,4 +1,4 @@
-import { TextareaStyles } from "@/primitives";
+import { type TextareaStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useTextareaVariantDefault(): TextareaStyles {

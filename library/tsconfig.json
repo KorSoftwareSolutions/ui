@@ -1,13 +1,32 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "customConditions": ["dev-source", "react-native", "react-native-strict-api"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "jsx": "react-native",
+    "lib": ["DOM", "ESNext"],
+    "module": "preserve",
+    "moduleDetection": "force",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "target": "ESNext",
     "strict": true,
+    "verbatimModuleSyntax": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "customConditions": ["dev-source"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*"]
+  "exclude": ["node_modules", "dist"]
 }

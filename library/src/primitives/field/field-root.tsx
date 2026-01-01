@@ -1,7 +1,7 @@
 import React, { useId } from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { FieldContext } from "./context";
-import { FieldStyles } from "./types";
+import type { FieldStyles } from "./types";
 
 export interface FieldPrimitiveRootProps {
   children?: React.ReactNode;

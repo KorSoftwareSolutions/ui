@@ -1,7 +1,7 @@
-import { EmptyDescriptionProps } from "./empty-description";
-import { EmptyMediaProps } from "./empty-media";
-import { EmptyRootProps } from "./empty-root";
-import { EmptyTitleProps } from "./empty-title";
+import type { EmptyDescriptionProps } from "./empty-description";
+import type { EmptyMediaProps } from "./empty-media";
+import type { EmptyRootProps } from "./empty-root";
+import type { EmptyTitleProps } from "./empty-title";
 
 export type EmptyStyles = {
   root?: EmptyRootProps["style"];

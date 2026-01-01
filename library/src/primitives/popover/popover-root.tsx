@@ -1,8 +1,8 @@
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks/use-relative-position";
 import React, { useState } from "react";
+import { type LayoutRectangle } from "react-native";
 import { PopoverContext } from "./context";
-import { PopoverStyles } from "./types";
-import { LayoutRectangle } from "react-native";
-import { DEFAULT_LAYOUT, DEFAULT_POSITION, LayoutPosition } from "@/hooks/use-relative-position";
+import type { PopoverStyles } from "./types";
 
 export interface PopoverRootProps {
   children?: React.ReactNode;

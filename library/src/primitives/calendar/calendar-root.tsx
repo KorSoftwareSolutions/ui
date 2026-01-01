@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleProp, ViewStyle } from "react-native";
-import { CalendarStyles } from "./types";
+import { View, type StyleProp, type ViewStyle } from "react-native";
 import { CalendarContext } from "./context";
+import type { CalendarStyles } from "./types";
 
 export interface CalendarRootProps {
   children?: React.ReactNode;

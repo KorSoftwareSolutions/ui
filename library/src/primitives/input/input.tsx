@@ -1,10 +1,11 @@
-import { TextInput, TextInputProps } from "react-native";
-import { InputState, InputStyles } from "./types";
-import { useState, forwardRef } from "react";
+import type { TextInputRef } from "@/types/element.types";
+import { forwardRef, useState } from "react";
+import { TextInput, type TextInputProps } from "react-native";
 import { useFieldOptional } from "../field/context";
+import type { InputState, InputStyles } from "./types";
 
 export type InputPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
-  ref?: React.Ref<TextInput>;
+  ref?: React.Ref<TextInputRef>;
   onChange?: TextInputProps["onChangeText"];
   isDisabled?: boolean;
 };
@@ -25,7 +26,7 @@ const calculateState = (props: InputPrimitiveProps, isFocused: boolean): InputSt
   return "default";
 };
 
-export const InputPrimitive = forwardRef<TextInput, InputPrimitiveProps>((props, ref) => {
+export const InputPrimitive = forwardRef<TextInputRef, InputPrimitiveProps>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const state = calculateState(props, isFocused);
   const field = useFieldOptional();

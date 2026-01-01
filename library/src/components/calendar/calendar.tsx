@@ -1,5 +1,5 @@
+import { CalendarPrimitive, type CalendarRootProps } from "@/primitives";
 import React from "react";
-import { CalendarPrimitive, CalendarRootProps } from "@/primitives";
 import { CalendarVariants } from "./variants";
 
 export interface CalendarProps {

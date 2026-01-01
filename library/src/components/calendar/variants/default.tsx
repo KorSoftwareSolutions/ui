@@ -1,4 +1,4 @@
-import { CalendarStyles } from "@/primitives";
+import { type CalendarStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useCalendarVariantDefault = (): CalendarStyles => {

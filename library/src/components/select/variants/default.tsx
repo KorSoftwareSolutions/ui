@@ -1,4 +1,4 @@
-import { SelectStyles } from "@/primitives";
+import { type SelectStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useSelectVariantDefault(): SelectStyles {

@@ -1,4 +1,4 @@
-import { BadgeStyles } from "@/primitives";
+import { type BadgeStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useBadgeVariantSecondary = (): BadgeStyles => {

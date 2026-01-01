@@ -1,4 +1,4 @@
-import { AvatarStyles } from "@/primitives";
+import type { AvatarStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useAvatarVariantDefault(): AvatarStyles {

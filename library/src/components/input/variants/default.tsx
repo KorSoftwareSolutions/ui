@@ -1,4 +1,4 @@
-import { InputStyles } from "@/primitives";
+import { type InputStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export function useInputVariantDefault(): InputStyles {

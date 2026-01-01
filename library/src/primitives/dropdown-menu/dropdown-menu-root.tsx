@@ -1,8 +1,8 @@
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks/use-relative-position";
 import React, { useState } from "react";
-import { LayoutRectangle } from "react-native";
-import { DropdownMenuStyles } from "./types";
+import { type LayoutRectangle } from "react-native";
 import { DropdownMenuContext } from "./context";
-import { DEFAULT_LAYOUT, DEFAULT_POSITION, LayoutPosition } from "@/hooks/use-relative-position";
+import type { DropdownMenuStyles } from "./types";
 
 export interface DropdownMenuRootProps {
   children?: React.ReactNode;

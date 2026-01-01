@@ -1,7 +1,7 @@
-import { createContext, Dispatch, useContext } from "react";
-import { LayoutRectangle } from "react-native";
-import { DropdownMenuStyles } from "./types";
-import { LayoutPosition } from "@/hooks/use-relative-position";
+import type { LayoutPosition } from "@/hooks/use-relative-position";
+import { createContext, type Dispatch, useContext } from "react";
+import type { LayoutRectangle } from "react-native";
+import type { DropdownMenuStyles } from "./types";
 
 export interface DropdownMenuContext {
   isOpen: boolean;

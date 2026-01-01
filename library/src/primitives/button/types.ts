@@ -1,5 +1,5 @@
-import { ButtonPrimitiveRootProps } from "./button-root";
-import { ButtonPrimitiveLabelProps } from "./button-label";
+import type { ButtonPrimitiveLabelProps } from "./button-label";
+import type { ButtonPrimitiveRootProps } from "./button-root";
 
 export type ButtonState = "default" | "disabled" | "loading" | "hovered";
 

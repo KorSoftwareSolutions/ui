@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { LayoutRectangle, StyleProp, View, ViewStyle } from "react-native";
-import { SelectContext } from "./context";
-import { SelectOption, SelectState, SelectStyles } from "./types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React, { useState } from "react";
+import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
+import { SelectContext } from "./context";
+import type { SelectOption, SelectState, SelectStyles } from "./types";
 
 interface SelectRootInjectedProps {
   style?: StyleProp<ViewStyle>;

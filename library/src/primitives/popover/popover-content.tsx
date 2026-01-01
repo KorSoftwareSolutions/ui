@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { usePopover } from "./context";
 import { useRelativePosition } from "@/hooks/use-relative-position";
 
@@ -33,6 +33,7 @@ export function PopoverContent(props: PopoverContentProps) {
       onLayout={(e) => {
         popover.setContentLayout(e.nativeEvent.layout);
       }}
+      pointerEvents="box-none"
       style={composedStyle}
     />
   );

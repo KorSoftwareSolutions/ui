@@ -1,5 +1,5 @@
+import { SelectPrimitive, type SelectRootBaseProps } from "@/primitives";
 import React from "react";
-import { SelectPrimitive, SelectRootBaseProps } from "@/primitives";
 import { SelectVariants } from "./variants";
 
 export interface SelectOption<T> {

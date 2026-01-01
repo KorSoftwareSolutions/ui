@@ -1,5 +1,5 @@
 import { useTheme } from "@/themes";
-import { Colors, FontFamily, FontSize, LetterSpacing, Radius } from "@/themes/types";
+import type { Colors, FontFamily, FontSize, LetterSpacing, Radius } from "@/themes/types";
 
 interface CallbackProps {
   colors: Colors;

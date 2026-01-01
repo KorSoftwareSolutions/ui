@@ -1,6 +1,6 @@
-import { AvatarFallbackProps } from "./avatar-fallback";
-import { AvatarImageProps } from "./avatar-image";
-import { AvatarRootProps } from "./avatar-root";
+import type { AvatarFallbackProps } from "./avatar-fallback";
+import type { AvatarImageProps } from "./avatar-image";
+import type { AvatarRootProps } from "./avatar-root";
 
 export type AvatarStyles = {
   root?: AvatarRootProps["style"];

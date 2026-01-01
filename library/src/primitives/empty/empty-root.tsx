@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { EmptyContext } from "./context";
-import { EmptyStyles } from "./types";
+import type { EmptyStyles } from "./types";
 
 export interface EmptyRootProps {
   children: React.ReactNode;

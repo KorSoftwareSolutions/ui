@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
-import { CardStyles } from "./types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import React from "react";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { CardContext } from "./context";
+import type { CardStyles } from "./types";
 
 export interface CardRootProps {
   children?: React.ReactNode;

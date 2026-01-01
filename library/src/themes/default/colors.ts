@@ -1,4 +1,4 @@
-import { Colors } from "../types";
+import type { Colors } from "../types";
 
 export const lightColors: Colors = {
   background: "hsla(223.81, 100%, 100%, 1)",

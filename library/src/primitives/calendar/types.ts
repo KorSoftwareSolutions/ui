@@ -1,10 +1,10 @@
-import { ViewStyle, TextStyle } from "react-native";
-import { CalendarWeekProps, CalendarWeeksProps } from "./calendar-weeks";
-import { CalendarWeekLabelProps, CalendarWeekLabelsProps } from "./calendar-week-labels";
-import { CalendarDayProps } from "./calendar-day";
-import { CalendarRootProps } from "./calendar-root";
-import { CalendarHeaderProps } from "./calendar-header";
-import { CalendarTitleProps } from "./calendar-title";
+import type { TextStyle, ViewStyle } from "react-native";
+import type { CalendarDayProps } from "./calendar-day";
+import type { CalendarHeaderProps } from "./calendar-header";
+import type { CalendarRootProps } from "./calendar-root";
+import type { CalendarTitleProps } from "./calendar-title";
+import type { CalendarWeekLabelProps, CalendarWeekLabelsProps } from "./calendar-week-labels";
+import type { CalendarWeekProps, CalendarWeeksProps } from "./calendar-weeks";
 
 export type CalendarDayState = "default" | "selected" | "today" | "disabled" | "deprioritized" | "hovered";
 export type CalendarNavButtonState = "default" | "disabled" | "hovered";

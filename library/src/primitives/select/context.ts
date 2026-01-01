@@ -1,6 +1,6 @@
-import { createContext, Dispatch, useContext } from "react";
-import { SelectOption, SelectState, SelectStyles } from "./types";
-import { LayoutRectangle } from "react-native";
+import { createContext, type Dispatch, useContext } from "react";
+import type { LayoutRectangle } from "react-native";
+import type { SelectOption, SelectState, SelectStyles } from "./types";
 
 export interface SelectContext {
   value?: string;

@@ -1,4 +1,4 @@
-import { InputPrimitiveBaseProps } from "./input";
+import { type InputPrimitiveBaseProps } from "./input";
 
 export type InputState = "default" | "focused" | "disabled";
 

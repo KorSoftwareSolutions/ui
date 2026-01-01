@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleProp, View, ViewStyle } from "react-native";
+import { type StyleProp, View, type ViewStyle } from "react-native";
 import { AvatarContext } from "./context";
-import { AvatarStyles } from "./types";
+import type { AvatarStyles } from "./types";
 
 export interface AvatarRootProps {
   children: React.ReactNode;
