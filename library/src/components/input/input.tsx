@@ -2,7 +2,7 @@ import { InputPrimitive, type InputPrimitiveBaseProps } from "@/primitives";
 import React from "react";
 import { InputVariants } from "./variants";
 
-interface InputProps extends InputPrimitiveBaseProps {
+export interface InputProps extends InputPrimitiveBaseProps {
   variant?: keyof typeof InputVariants;
 }
 

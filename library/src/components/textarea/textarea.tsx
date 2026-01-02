@@ -2,7 +2,7 @@ import { TextareaPrimitive, type TextareaPrimitiveBaseProps } from "@/primitives
 import React from "react";
 import { TextareaVariants } from "./variants";
 
-interface TextareaProps extends TextareaPrimitiveBaseProps {
+export interface TextareaProps extends TextareaPrimitiveBaseProps {
   variant?: keyof typeof TextareaVariants;
 }
 
