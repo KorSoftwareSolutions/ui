@@ -17,20 +17,33 @@ export const PopoverTrigger = forwardRef<PopoverTriggerRef, PopoverTriggerProps>
   const triggerRef = useRef<ViewRef>(null);
 
   const onTriggerPress = async () => {
-    triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
-      popover.setTriggerPosition({
-        height,
-        width,
-        pageX,
-        pageY,
+    if (!popover.isOpen) {
+      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
+        popover.setTriggerPosition({
+          height,
+          width,
+          pageX,
+          pageY,
+        });
+        popover.setIsOpen(true);
       });
-    });
-
-    popover.setIsOpen((prev) => !prev);
+    } else {
+      popover.setIsOpen(false);
+    }
   };
 
   useImperativeHandle(ref, () => ({
-    open: () => popover.setIsOpen(true),
+    open: () => {
+      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
+        popover.setTriggerPosition({
+          height,
+          width,
+          pageX,
+          pageY,
+        });
+        popover.setIsOpen(true);
+      });
+    },
     close: () => popover.setIsOpen(false),
   }));
 

@@ -17,20 +17,33 @@ export const DropdownMenuTrigger = forwardRef<DropdownMenuTriggerRef, DropdownMe
   const triggerRef = useRef<ViewRef>(null);
 
   const onTriggerPress = async () => {
-    triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
-      dropdownMenu.setTriggerPosition({
-        height,
-        width,
-        pageX,
-        pageY,
+    if (!dropdownMenu.isOpen) {
+      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
+        dropdownMenu.setTriggerPosition({
+          height,
+          width,
+          pageX,
+          pageY,
+        });
+        dropdownMenu.setIsOpen(true);
       });
-    });
-
-    dropdownMenu.setIsOpen((prev) => !prev);
+    } else {
+      dropdownMenu.setIsOpen(false);
+    }
   };
 
   useImperativeHandle(ref, () => ({
-    open: () => dropdownMenu.setIsOpen(true),
+    open: () => {
+      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
+        dropdownMenu.setTriggerPosition({
+          height,
+          width,
+          pageX,
+          pageY,
+        });
+        dropdownMenu.setIsOpen(true);
+      });
+    },
     close: () => dropdownMenu.setIsOpen(false),
   }));
 
