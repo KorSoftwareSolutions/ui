@@ -13,3 +13,4 @@ export * from "./popover";
 export * from "./portal";
 export * from "./calendar";
 export * from "./tabs";
+export * from "./checkbox";

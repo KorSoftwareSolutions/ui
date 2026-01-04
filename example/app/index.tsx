@@ -65,6 +65,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Tabs",
     href: "/components/tabs",
   },
+  {
+    title: "Checkbox",
+    href: "/components/checkbox",
+  },
 ];
 
 export default function Home() {
