@@ -1,8 +1,8 @@
+import { ComponentListItem, ComponentListItemProps } from "@/components/component-list-item";
+import { MainScreenLayout } from "@/components/main-screen-layout";
+import { useTheme } from "@korsolutions/ui";
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { ComponentListItem, ComponentListItemProps } from "@/components/component-list-item";
-import { useTheme } from "@korsolutions/ui";
-import { MainScreenLayout } from "@/components/main-screen-layout";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {
@@ -60,6 +60,10 @@ const COMPONENTS: ComponentListItemProps[] = [
   {
     title: "Calendar",
     href: "/components/calendar",
+  },
+  {
+    title: "Tabs",
+    href: "/components/tabs",
   },
 ];
 

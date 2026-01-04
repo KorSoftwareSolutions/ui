@@ -12,3 +12,4 @@ export * from "./dropdown-menu";
 export * from "./popover";
 export * from "./portal";
 export * from "./calendar";
+export * from "./tabs";

@@ -13,3 +13,4 @@ export * from "./textarea/textarea";
 export * from "./dropdown-menu/dropdown-menu";
 export * from "./popover/popover";
 export * from "./calendar/calendar";
+export * from "./tabs";
