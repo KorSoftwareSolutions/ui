@@ -15,3 +15,4 @@ export * from "./popover/popover";
 export * from "./calendar/calendar";
 export * from "./tabs";
 export * from "./checkbox";
+export * from "./alert-dialog";

@@ -1,6 +1,6 @@
 import React from "react";
 import { Portal } from "../portal";
-import { usePopover, PopoverContext } from "./context";
+import { PopoverContext, usePopover } from "./context";
 
 export interface PopoverPortalProps {
   children?: React.ReactNode;

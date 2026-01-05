@@ -6,6 +6,10 @@ import { FlatList, StyleSheet, View } from "react-native";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {
+    title: "Alert Dialog",
+    href: "/components/alert-dialog",
+  },
+  {
     title: "Input",
     href: "/components/input",
   },

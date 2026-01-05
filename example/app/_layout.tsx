@@ -1,8 +1,8 @@
-import "react-native-reanimated";
-import React from "react";
-import { Stack } from "expo-router";
 import { UniversalUIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
 import { ThemeProvider } from "@react-navigation/native";
+import { Stack } from "expo-router";
+import React from "react";
+import "react-native-reanimated";
 
 function RootRouter() {
   const theme = useTheme();
