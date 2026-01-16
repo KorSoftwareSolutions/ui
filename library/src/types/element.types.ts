@@ -1,4 +1,5 @@
-import type { TextInput, View } from "react-native";
+import type React from "react";
+import type { HostInstance, TextInput } from "react-native";
 
-export type ViewRef = React.ComponentRef<View>;
-export type TextInputRef = React.ComponentRef<TextInput>;
+export type ViewRef = HostInstance;
+export type TextInputRef = React.ComponentRef<typeof TextInput>;

@@ -7,7 +7,7 @@ export interface AlertDialogPrimitiveTriggerProps extends PressableProps {
   children: React.ReactElement<React.RefAttributes<ViewRef> & PressableProps>;
 }
 
-export function AlertDialogTrigger(props: AlertDialogPrimitiveTriggerProps) {
+export function AlertDialogTrigger(props: AlertDialogPrimitiveTriggerProps): React.ReactElement {
   const { onPress } = props;
   const { isOpen, setIsOpen } = useAlertDialog();
 

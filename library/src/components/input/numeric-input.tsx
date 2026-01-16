@@ -1,10 +1,10 @@
 import { useNumericMask, type NumericMaskFormat } from "@/hooks/use-numeric-mask";
-import { type InputPrimitiveBaseProps } from "@/primitives";
+import { InputPrimitive, type InputPrimitiveBaseProps } from "@/primitives";
 import React, { useEffect } from "react";
-import { Input } from "./input";
+import { InputVariants } from "./variants";
 
 export interface NumericInputProps extends Omit<InputPrimitiveBaseProps, "value" | "onChange" | "keyboardType"> {
-  variant?: "default";
+  variant?: keyof typeof InputVariants;
   value?: number | null;
   onChange?: (value: number | null) => void;
   format?: NumericMaskFormat;
@@ -42,7 +42,6 @@ export function NumericInput({
     onChange,
   });
 
-  // Sync external value changes with internal state
   useEffect(() => {
     if (value !== numericMask.numericValue) {
       numericMask.setValue(value ?? null);
@@ -59,15 +58,18 @@ export function NumericInput({
     onFocus?.(e);
   };
 
+  const useVariantStyles = InputVariants[variant];
+  const variantStyles = useVariantStyles();
+
   return (
-    <Input
+    <InputPrimitive
       {...props}
-      variant={variant}
       value={numericMask.value}
       onChange={numericMask.onChangeText}
       onBlur={handleBlur}
       onFocus={handleFocus}
       keyboardType={numericMask.keyboardType}
+      styles={variantStyles}
     />
   );
 }

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Input, NumericInput, Typography } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { UseCaseSection } from "@/components/use-case-section";
 import { DateInputDemo } from "@/components/date-input-demo";
+import { UseCaseSection } from "@/components/use-case-section";
+import { Input, NumericInput, Typography } from "@korsolutions/ui/components";
+import React, { useState } from "react";
 
 export default function InputComponentScreen() {
   const [inputValue, setInputValue] = useState<string>("");

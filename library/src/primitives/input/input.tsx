@@ -1,6 +1,6 @@
 import type { TextInputRef } from "@/types/element.types";
 import { forwardRef, useState } from "react";
-import { TextInput, type TextInputProps } from "react-native";
+import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 import { useFieldOptional } from "../field/context";
 import type { InputState, InputStyles } from "./types";
 
@@ -11,8 +11,6 @@ export type InputPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
 };
 
 export interface InputPrimitiveProps extends InputPrimitiveBaseProps {
-  render?: (props: InputPrimitiveProps) => React.ReactNode;
-
   styles?: InputStyles;
 }
 
@@ -31,16 +29,15 @@ export const InputPrimitive = forwardRef<TextInputRef, InputPrimitiveProps>((pro
   const state = calculateState(props, isFocused);
   const field = useFieldOptional();
 
-  const composedStyles = [props.styles?.default?.style, props.styles?.[state]?.style, props.style];
+  const composedStyles = StyleSheet.flatten([props.styles?.default?.style, props.styles?.[state]?.style, props.style]);
   const composedProps = {
     ...props.styles?.default,
     ...props.styles?.[state],
     ...props,
   };
-  const Component = props.render ?? TextInput;
 
   return (
-    <Component
+    <TextInput
       {...composedProps}
       ref={ref}
       id={field?.id}

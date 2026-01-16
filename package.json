@@ -1,18 +1,13 @@
 {
   "devDependencies": {
-    "typescript": "~5.9.2"
-  },
-  "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
+    "typescript": "~5.9.2",
+    "@types/bun": "latest"
   },
   "name": "universal-ui-monorepo",
   "private": true,
-  "scripts": {
-    "dev": "pnpm --filter example dev",
-    "lib:build": "pnpm --filter library build",
-    "lint": "pnpm -r lint",
-    "ts-check": "pnpm -r ts-check"
-  },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "workspaces": [
+    "library",
+    "example"
+  ]
 }
