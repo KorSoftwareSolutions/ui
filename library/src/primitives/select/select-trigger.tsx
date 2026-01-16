@@ -1,38 +1,36 @@
+import type { ViewRef } from "@/types/element.types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
-import { normalizeLayout } from "@/utils/normalize-layout";
-import React from "react";
+import { measureLayoutPosition } from "@/utils/normalize-layout";
+import React, { useRef } from "react";
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useSelect } from "./context";
-
-interface SelectTriggerInjectionProps {
-  onPress?: () => void;
-}
 
 export interface SelectTriggerProps {
   children?: React.ReactNode;
 
   style?: StyleProp<ViewStyle>;
-
-  render?: (props: SelectTriggerInjectionProps) => React.ReactElement;
 }
 
 export function SelectTrigger(props: SelectTriggerProps) {
   const select = useSelect();
+  const triggerRef = useRef<ViewRef>(null);
+
   const composedStyles = calculateComposedStyles(select.styles, select.state, "trigger", props.style);
-  const Component = props.render ?? Pressable;
+
+  const onTriggerPress = () => {
+    if (!select.isOpen) {
+      measureLayoutPosition(triggerRef.current, (layout) => {
+        select.setTriggerPosition(layout);
+        select.setIsOpen(true);
+      });
+    } else {
+      select.setIsOpen(false);
+    }
+  };
+
   return (
-    <Component
-      onPress={() => {
-        select.setIsOpen((prev) => !prev);
-      }}
-      onLayout={(e) => {
-        const layout = normalizeLayout(e.nativeEvent.layout);
-        select.setTriggerLayout(layout);
-      }}
-      disabled={select.isDisabled}
-      style={composedStyles}
-    >
+    <Pressable ref={triggerRef} onPress={onTriggerPress} disabled={select.isDisabled} style={composedStyles}>
       {props.children}
-    </Component>
+    </Pressable>
   );
 }

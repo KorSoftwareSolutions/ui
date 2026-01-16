@@ -1,4 +1,5 @@
 import type { ViewRef } from "@/types/element.types";
+import { measureLayoutPosition } from "@/utils/normalize-layout";
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { type PressableProps } from "react-native";
 import { usePopover } from "./context";
@@ -18,13 +19,8 @@ export const PopoverTrigger = forwardRef<PopoverTriggerRef, PopoverTriggerProps>
 
   const onTriggerPress = async () => {
     if (!popover.isOpen) {
-      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
-        popover.setTriggerPosition({
-          height,
-          width,
-          pageX,
-          pageY,
-        });
+      measureLayoutPosition(triggerRef.current, (layout) => {
+        popover.setTriggerPosition(layout);
         popover.setIsOpen(true);
       });
     } else {

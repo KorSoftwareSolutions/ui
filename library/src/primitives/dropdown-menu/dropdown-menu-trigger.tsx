@@ -1,4 +1,5 @@
 import type { ViewRef } from "@/types/element.types";
+import { measureLayoutPosition } from "@/utils/normalize-layout";
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { type PressableProps } from "react-native";
 import { useDropdownMenu } from "./context";
@@ -18,13 +19,8 @@ export const DropdownMenuTrigger = forwardRef<DropdownMenuTriggerRef, DropdownMe
 
   const onTriggerPress = async () => {
     if (!dropdownMenu.isOpen) {
-      triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
-        dropdownMenu.setTriggerPosition({
-          height,
-          width,
-          pageX,
-          pageY,
-        });
+      measureLayoutPosition(triggerRef.current, (layout) => {
+        dropdownMenu.setTriggerPosition(layout);
         dropdownMenu.setIsOpen(true);
       });
     } else {

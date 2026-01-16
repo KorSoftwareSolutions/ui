@@ -1,3 +1,4 @@
+import type { LayoutPosition } from "@/hooks";
 import { createContext, type Dispatch, useContext } from "react";
 import type { LayoutRectangle } from "react-native";
 import type { SelectOption, SelectState, SelectStyles } from "./types";
@@ -9,8 +10,10 @@ export interface SelectContext {
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
-  triggerLayout: LayoutRectangle | null;
-  setTriggerLayout: Dispatch<React.SetStateAction<LayoutRectangle | null>>;
+  triggerPosition: LayoutPosition;
+  setTriggerPosition: Dispatch<React.SetStateAction<LayoutPosition>>;
+  contentLayout: LayoutRectangle;
+  setContentLayout: Dispatch<React.SetStateAction<LayoutRectangle>>;
   options: Array<SelectOption>;
   setOptions: Dispatch<React.SetStateAction<Array<SelectOption>>>;
 

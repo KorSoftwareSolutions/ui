@@ -1,8 +1,8 @@
-import React from "react";
-import { Href, Link } from "expo-router";
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
+import { Href, Link } from "expo-router";
+import React from "react";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
@@ -16,7 +16,7 @@ export function ComponentScreenLayout({ title, children, backHref = "/" }: Props
   return (
     <SafeAreaView edges={["top", "bottom"]} style={s.container}>
       <View style={s.header}>
-        <Link href={backHref} asChild>
+        <Link href={backHref} dismissTo asChild>
           <TouchableOpacity style={s.backButton}>
             <MaterialCommunityIcons name="chevron-left" size={22} color={theme.colors.primary} />
             <Text style={[s.backButtonLabel, { color: theme.colors.primary }]}>Back</Text>

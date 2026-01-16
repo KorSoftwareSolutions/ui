@@ -1,3 +1,4 @@
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React, { useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
@@ -34,7 +35,8 @@ const calculateState = (props: SelectRootProps): SelectState => {
 
 export function SelectRoot(props: SelectRootProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [triggerLayout, setTriggerLayout] = useState<LayoutRectangle | null>(null);
+  const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
+  const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const state = calculateState(props);
@@ -49,8 +51,10 @@ export function SelectRoot(props: SelectRootProps) {
         placeholder: props.placeholder,
         isOpen,
         setIsOpen,
-        triggerLayout,
-        setTriggerLayout,
+        triggerPosition,
+        setTriggerPosition,
+        contentLayout,
+        setContentLayout,
         options,
         setOptions,
         state,
