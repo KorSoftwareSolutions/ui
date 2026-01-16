@@ -1,4 +1,4 @@
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Platform, View } from "react-native";
 import { DEFAULT_PORTAL_HOST, type PortalHostProps, type PortalProps } from "./portal.constants";
 
@@ -48,7 +48,7 @@ function removePortal(hostName: string, name: string) {
   emit();
 }
 
-function NativePortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostProps) {
+export function PortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostProps) {
   const map = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const portalMap = map.get(name) ?? new Map<string, React.ReactNode>();
   if (portalMap.size === 0) return null;
@@ -69,23 +69,13 @@ function NativePortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostP
         }}
       />
     ),
-    ios: container?.ios,
-    android: container?.android,
+    ...container,
   });
 
   return <Container>{Array.from(portalMap.values())}</Container>;
 }
 
-function WebPortalHost() {
-  return <></>;
-}
-
-export const PortalHost = Platform.select({
-  default: NativePortalHost,
-  web: WebPortalHost,
-});
-
-function NativePortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
+export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
   useEffect(() => {
     updatePortal(hostName, name, children);
   }, [hostName, name, children]);
@@ -98,25 +88,3 @@ function NativePortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: Portal
 
   return <></>;
 }
-
-function WebPortal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
-  const [] = useState(() => {
-    let container = document.getElementById(hostName);
-
-    if (!container) {
-      container = document.createElement("div");
-      container.id = hostName;
-      document.body.appendChild(container);
-    }
-    return container;
-  });
-
-  const createPortal = require("react-dom").createPortal as typeof import("react-dom").createPortal;
-
-  return <>{createPortal(children, document.body, name)}</>;
-}
-
-export const Portal = Platform.select({
-  default: NativePortal,
-  web: WebPortal,
-});
