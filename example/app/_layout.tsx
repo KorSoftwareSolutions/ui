@@ -3,6 +3,7 @@ import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
 import "react-native-reanimated";
+import { FullWindowOverlay } from "react-native-screens";
 
 function RootRouter() {
   const theme = useTheme();
@@ -24,7 +25,11 @@ function RootRouter() {
 
 export default function RootLayout() {
   return (
-    <UniversalUIProvider>
+    <UniversalUIProvider
+      portalContainer={{
+        ios: FullWindowOverlay,
+      }}
+    >
       <RootRouter />
     </UniversalUIProvider>
   );

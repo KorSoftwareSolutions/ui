@@ -1,5 +1,5 @@
 import React from "react";
-import { type StyleProp, View, type ViewStyle } from "react-native";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { useDropdownMenu } from "./context";
 
 export interface DropdownMenuDividerProps {
@@ -11,7 +11,7 @@ export interface DropdownMenuDividerProps {
 export function DropdownMenuDivider(props: DropdownMenuDividerProps) {
   const menu = useDropdownMenu();
 
-  const composedStyle = [menu.styles?.divider, props.style];
+  const composedStyle = StyleSheet.flatten([menu.styles?.divider, props.style]);
 
   const Component = props.render ?? View;
   return <Component {...props} style={composedStyle} />;
