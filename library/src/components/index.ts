@@ -3,6 +3,7 @@ export * from "./card/card";
 export * from "./input";
 export * from "./field/field";
 export * from "./select/select";
+export * from "./autocomplete/autocomplete";
 export * from "./typography/typography";
 export * from "./link/link";
 export * from "./empty/empty";

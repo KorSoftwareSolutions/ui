@@ -73,6 +73,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     title: "Checkbox",
     href: "/components/checkbox",
   },
+  {
+    title: "Autocomplete",
+    href: "/components/autocomplete",
+  },
 ];
 
 export default function Home() {

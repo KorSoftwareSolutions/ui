@@ -2,6 +2,7 @@ export * from "./field";
 export * from "./input";
 export * from "./button";
 export * from "./select";
+export * from "./autocomplete";
 export * from "./card";
 export * from "./empty";
 export * from "./avatar";

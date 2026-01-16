@@ -1,0 +1,45 @@
+import type { LayoutPosition } from "@/hooks";
+import { createContext, type Dispatch, useContext } from "react";
+import type { LayoutRectangle } from "react-native";
+import type { AutocompleteOption, AutocompleteState, AutocompleteStyles } from "./types";
+
+export interface AutocompleteContext {
+  value?: string;
+  onChange?: (value: string) => void;
+  placeholder?: string;
+
+  inputValue?: string;
+  setInputValue?: (value: string) => void;
+
+  isOpen: boolean;
+  setIsOpen: Dispatch<React.SetStateAction<boolean>>;
+  inputPosition: LayoutPosition;
+  setInputPosition: Dispatch<React.SetStateAction<LayoutPosition>>;
+  contentLayout: LayoutRectangle;
+  setContentLayout: Dispatch<React.SetStateAction<LayoutRectangle>>;
+
+  options: Array<AutocompleteOption>;
+  setOptions: Dispatch<React.SetStateAction<Array<AutocompleteOption>>>;
+
+  openOnFocus: boolean;
+
+  blurInput: () => void;
+  setBlurInput: Dispatch<React.SetStateAction<() => void>>;
+  setInputDisplayValueSetter: Dispatch<React.SetStateAction<(value: string) => void>>;
+  setInputDisplayValue: (value: string) => void;
+
+  isDisabled: boolean;
+
+  state: AutocompleteState;
+  styles: AutocompleteStyles | null;
+}
+
+export const AutocompleteContext = createContext<AutocompleteContext | undefined>(undefined);
+
+export const useAutocomplete = () => {
+  const context = useContext(AutocompleteContext);
+  if (!context) {
+    throw new Error("useAutocomplete must be used within an AutocompleteProvider");
+  }
+  return context;
+};
