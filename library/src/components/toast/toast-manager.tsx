@@ -1,8 +1,9 @@
+import { Portal } from "@/primitives/portal";
+import { useSafeAreaInsets } from "@/safe-area";
 import React, { useSyncExternalStore } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ToastComponent } from "./toast";
 import { ToastVariants } from "./variants";
-import { Portal } from "@/primitives/portal";
 
 export const TOAST_PORTAL_NAME = "toast-portal";
 
@@ -76,12 +77,13 @@ export const ToastAPI = {
 
 export function ToastContainer() {
   const toasts = useSyncExternalStore(subscribe, getSnapshot);
+  const insets = useSafeAreaInsets();
 
   if (!toasts.length) return null;
 
   return (
     <Portal name={TOAST_PORTAL_NAME}>
-      <View style={s.wrapper}>
+      <View style={[s.wrapper, { top: insets.top + 24 }]}>
         {toasts.map((toast) => (
           <ToastComponent key={toast.id} title={toast.title} description={toast.description} variant={toast.variant} />
         ))}
@@ -95,7 +97,6 @@ const s = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     position: "absolute",
-    top: 24,
     gap: 8,
   },
 });
