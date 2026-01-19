@@ -1,0 +1,14 @@
+{
+  "watch": [
+    "src"
+  ],
+  "ext": "ts,tsx",
+  "ignore": [
+    "dist",
+    "node_modules",
+    "scripts"
+  ],
+  "exec": "./scripts/build.sh",
+  "restartable": "rs",
+  "delay": 1000
+}

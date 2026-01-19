@@ -1,5 +1,4 @@
 import type { TextInputRef } from "@/types/element.types";
-import { setInnerInputValue } from "@/utils/input-utils";
 import { measureLayoutPosition } from "@/utils/normalize-layout";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { StyleSheet, TextInput, type StyleProp, type TextInputProps, type TextStyle } from "react-native";
@@ -61,12 +60,7 @@ export const AutocompleteInput = forwardRef<TextInputRef, AutocompleteInputProps
 
   useImperativeHandle(ref, () => inputRef.current!);
   useEffect(() => {
-    autocomplete.setBlurInput(() => () => {
-      inputRef.current?.blur();
-    });
-    autocomplete.setInputDisplayValueSetter(() => (v: string) => {
-      setInnerInputValue(inputRef.current!, v);
-    });
+    autocomplete.setInputRef(inputRef.current);
   }, []);
 
   return (

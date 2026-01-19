@@ -1,5 +1,6 @@
 import type { LayoutPosition } from "@/hooks";
-import { createContext, type Dispatch, useContext } from "react";
+import type { TextInputRef } from "@/types/element.types";
+import React, { createContext, type Dispatch, useContext } from "react";
 import type { LayoutRectangle } from "react-native";
 import type { AutocompleteOption, AutocompleteState, AutocompleteStyles } from "./types";
 
@@ -23,10 +24,8 @@ export interface AutocompleteContext {
 
   openOnFocus: boolean;
 
-  blurInput: () => void;
-  setBlurInput: Dispatch<React.SetStateAction<() => void>>;
-  setInputDisplayValueSetter: Dispatch<React.SetStateAction<(value: string) => void>>;
-  setInputDisplayValue: (value: string) => void;
+  inputRef: TextInputRef | null;
+  setInputRef: Dispatch<React.SetStateAction<TextInputRef | null>>;
 
   isDisabled: boolean;
 

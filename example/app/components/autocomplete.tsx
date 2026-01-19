@@ -65,8 +65,9 @@ export default function AutocompleteComponentScreen() {
         </Field>
       </UseCaseSection>
 
-      <UseCaseSection title="Custom Empty Message">
+      <UseCaseSection title="Preselected">
         <Autocomplete
+          value="red"
           options={[
             { value: "red", label: "Red" },
             { value: "blue", label: "Blue" },

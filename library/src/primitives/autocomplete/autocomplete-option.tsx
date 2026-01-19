@@ -1,4 +1,5 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import { setInnerInputValue } from "@/utils/input-utils";
 import { useEffect, useState } from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
 import { useAutocomplete } from "./context";
@@ -34,6 +35,18 @@ export function AutocompleteOption(props: AutocompleteOptionProps) {
   const optionState = calculateState(autocomplete.state, isHovered, isSelected);
   const composedStyles = calculateComposedStyles(autocomplete.styles, optionState, "option", props.style);
 
+  const handlePress = () => {
+    autocomplete.onChange?.(props.value);
+    autocomplete.setInputValue?.("");
+    autocomplete.setIsOpen(false);
+    if (autocomplete.inputRef) {
+      setInnerInputValue(autocomplete.inputRef, props.children);
+      autocomplete.inputRef.blur();
+    } else {
+      console.warn("Input reference is not available");
+    }
+  };
+
   useEffect(() => {
     autocomplete.setOptions((prev) => {
       if (prev.find((option) => option.value === props.value)) {
@@ -41,15 +54,10 @@ export function AutocompleteOption(props: AutocompleteOptionProps) {
       }
       return [...prev, { value: props.value, label: props.children }];
     });
+    return () => {
+      autocomplete.setOptions((prev) => prev.filter((option) => option.value !== props.value));
+    };
   }, [props.value, props.children]);
-
-  const handlePress = () => {
-    autocomplete.onChange?.(props.value);
-    autocomplete.setInputValue?.("");
-    autocomplete.setInputDisplayValue(props.children);
-    autocomplete.setIsOpen(false);
-    autocomplete.blurInput();
-  };
 
   const Component = props.render ?? Text;
   return (

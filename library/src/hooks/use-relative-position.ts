@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useWindowDimensions, type LayoutRectangle, type ScaledSize } from "react-native";
+import { useWindowDimensions, type DisplayMetrics, type LayoutRectangle } from "react-native";
 
 interface Insets {
   top?: number;
@@ -56,7 +56,7 @@ export interface LayoutPosition {
 }
 
 interface GetPositionArgs {
-  dimensions: ScaledSize;
+  dimensions: DisplayMetrics;
   avoidCollisions: boolean;
   triggerPosition: LayoutPosition;
   contentLayout: LayoutRectangle;
@@ -136,7 +136,7 @@ function getLeftPosition(
   alignOffset: number,
   insetLeft: number,
   insetRight: number,
-  dimensions: ScaledSize
+  dimensions: DisplayMetrics,
 ) {
   let left = 0;
   if (align === "start") {
@@ -183,6 +183,6 @@ function getContentStyle({
       alignOffset,
       insets,
       dimensions,
-    })
+    }),
   );
 }

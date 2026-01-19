@@ -1,13 +1,11 @@
 import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks";
+import type { TextInputRef } from "@/types/element.types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
+import { setInnerInputValue } from "@/utils/input-utils";
 import React, { useEffect, useMemo, useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
 import { AutocompleteContext } from "./context";
 import type { AutocompleteOption, AutocompleteState, AutocompleteStyles } from "./types";
-
-interface AutocompleteRootInjectedProps {
-  style?: StyleProp<ViewStyle>;
-}
 
 export interface AutocompleteRootBaseProps {
   value?: string;
@@ -21,7 +19,6 @@ export interface AutocompleteRootBaseProps {
 
 export interface AutocompleteRootProps extends AutocompleteRootBaseProps {
   children?: React.ReactNode;
-  render?: (props: AutocompleteRootInjectedProps) => React.ReactElement;
   styles?: AutocompleteStyles;
   style?: StyleProp<ViewStyle>;
 }
@@ -41,19 +38,21 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
   const [inputPosition, setInputPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [options, setOptions] = useState<Array<AutocompleteOption>>([]);
-  const [blurInput, setBlurInput] = useState<() => void>(() => () => {});
-  const [setInputDisplayValue, setInputDisplayValueSetter] = useState<(value: string) => void>(() => () => {});
+  const [inputRef, setInputRef] = useState<TextInputRef | null>(null);
 
   useEffect(() => {
+    if (!inputRef) return;
     if (props.value) {
       const selectedOption = options.find((opt) => opt.value === props.value);
       if (selectedOption) {
         props.setInputValue?.(selectedOption.label);
+        setInnerInputValue(inputRef, selectedOption.label);
       }
     } else {
       props.setInputValue?.("");
+      setInnerInputValue(inputRef, "");
     }
-  }, [props.value, options]);
+  }, [props.value, options, inputRef]);
 
   const state = calculateState(props, isOpen);
   const composedStyles = calculateComposedStyles(props.styles, state, "root", props.style);
@@ -75,10 +74,8 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
         options,
         setOptions,
         openOnFocus: props.openOnFocus ?? true,
-        blurInput,
-        setBlurInput,
-        setInputDisplayValue,
-        setInputDisplayValueSetter,
+        inputRef,
+        setInputRef,
         state,
         isDisabled: props.isDisabled ?? false,
         styles: props.styles ?? null,
@@ -96,16 +93,13 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
       inputPosition,
       contentLayout,
       options,
-      blurInput,
-      setInputDisplayValue,
       state,
     ],
   );
 
-  const Component = props.render ?? View;
   return (
     <AutocompleteContext.Provider value={contextValue}>
-      <Component style={composedStyles}>{props.children}</Component>
+      <View style={composedStyles}>{props.children}</View>
     </AutocompleteContext.Provider>
   );
 }

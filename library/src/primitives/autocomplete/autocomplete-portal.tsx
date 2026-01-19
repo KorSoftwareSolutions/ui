@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Portal } from "../portal";
-import { useAutocomplete, AutocompleteContext } from "./context";
+import { AutocompleteContext, useAutocomplete } from "./context";
 
 export interface AutocompletePortalProps {
   children?: React.ReactNode;
@@ -8,16 +8,6 @@ export interface AutocompletePortalProps {
 
 export function AutocompletePortal(props: AutocompletePortalProps) {
   const autocomplete = useAutocomplete();
-
-  useEffect(() => {
-    return () => {
-      autocomplete.setOptions([]);
-    };
-  }, []);
-
-  if (!autocomplete.isOpen) {
-    return null;
-  }
 
   return (
     <Portal name="autocomplete-portal">

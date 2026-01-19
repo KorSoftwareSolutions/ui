@@ -17,7 +17,7 @@ const calculateState = (
   selected: Date | null | undefined,
   isCurrentMonth: boolean,
   isDisabled: boolean,
-  isHovered: boolean
+  isHovered: boolean,
 ): CalendarDayState => {
   if (isDisabled) return "disabled";
   if (selected && isDateSameDay(date, selected)) return "selected";
@@ -42,7 +42,6 @@ export function CalendarDay(props: CalendarDayProps) {
   const state = calculateState(props.date, calendar.value, isCurrentMonth, isDisabled, isHovered);
 
   const handlePress = () => {
-    console.log("Day pressed:", isDisabled, calendar.onChange);
     if (isDisabled || !calendar.onChange) return;
     calendar.onChange(props.date);
   };

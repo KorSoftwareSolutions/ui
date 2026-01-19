@@ -1,4 +1,5 @@
 import { useRelativePosition } from "@/hooks/use-relative-position";
+import { useSafeAreaInsets } from "@/safe-area";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { usePopover } from "./context";
@@ -13,6 +14,7 @@ export interface PopoverContentProps {
 
 export function PopoverContent(props: PopoverContentProps) {
   const popover = usePopover();
+  const insets = useSafeAreaInsets();
 
   const positionStyle = useRelativePosition({
     align: "start",
@@ -22,6 +24,7 @@ export function PopoverContent(props: PopoverContentProps) {
     alignOffset: 0,
     side: "bottom",
     sideOffset: 0,
+    insets,
   });
 
   const composedStyle = [positionStyle, popover.styles?.content, props.style];

@@ -32,7 +32,6 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
         default: {
           color: colors.secondaryForeground,
           fontSize,
-          fontWeight: "bold",
           fontFamily,
         },
         disabled: {

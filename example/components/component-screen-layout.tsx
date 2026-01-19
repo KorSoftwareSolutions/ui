@@ -32,7 +32,7 @@ export function ComponentScreenLayout({ title, children, backHref = "/" }: Props
         </View>
       </View>
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
-      <ScrollView contentContainerStyle={s.content} style={s.container}>
+      <ScrollView keyboardShouldPersistTaps="handled" automaticallyAdjustKeyboardInsets contentContainerStyle={s.content} style={s.container}>
         {children}
       </ScrollView>
     </SafeAreaView>

@@ -9,7 +9,7 @@ export function DateInputDemo() {
     <Popover
       trigger={
         <Pressable>
-          <Input value={dateValue ? dateValue.toLocaleDateString() : ""} placeholder="MM/DD/YYYY" editable={false} />
+          <Input value={dateValue ? dateValue.toLocaleDateString() : ""} placeholder="MM/DD/YYYY" editable={false} pointerEvents="none" />
         </Pressable>
       }
     >

@@ -7,7 +7,6 @@ export interface AutocompleteOverlayProps {
   children?: React.ReactNode;
   onPress?: () => void;
   style?: StyleProp<ViewStyle>;
-  render?: (props: AutocompleteOverlayProps) => React.ReactElement;
 }
 
 export function AutocompleteOverlay(props: AutocompleteOverlayProps) {
@@ -15,15 +14,24 @@ export function AutocompleteOverlay(props: AutocompleteOverlayProps) {
 
   const composedStyles = calculateComposedStyles(autocomplete.styles, autocomplete.state, "overlay", props.style);
 
-  const Component = props.render ?? Pressable;
+  const handlePress = () => {
+    props.onPress?.();
+    autocomplete.setIsOpen(false);
+    autocomplete.inputRef?.blur();
+  };
+
   return (
-    <Component
-      onPress={() => {
-        autocomplete.setIsOpen(false);
-      }}
-      style={[StyleSheet.absoluteFill, composedStyles]}
+    <Pressable
+      onPress={handlePress}
+      style={[
+        StyleSheet.absoluteFill,
+        composedStyles,
+        {
+          display: autocomplete.isOpen ? "flex" : "none",
+        },
+      ]}
     >
       {props.children}
-    </Component>
+    </Pressable>
   );
 }

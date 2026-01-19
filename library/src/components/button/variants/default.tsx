@@ -32,7 +32,6 @@ export const useButtonVariantDefault = (): ButtonStyles => {
         default: {
           color: colors.primaryForeground,
           fontSize,
-          fontWeight: "bold",
           fontFamily,
         },
         disabled: {
@@ -53,6 +52,6 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           color: colors.mutedForeground,
         },
       },
-    })
+    }),
   );
 };

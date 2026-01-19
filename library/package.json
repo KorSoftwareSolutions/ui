@@ -1,6 +1,6 @@
 {
   "name": "@korsolutions/ui",
-  "version": "0.0.42",
+  "version": "0.0.43",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     }
   },
   "scripts": {
+    "dev": "nodemon",
     "prepare": "./scripts/build.sh",
     "ts-check": "tsc --noEmit"
   },
@@ -44,6 +45,7 @@
     "@types/react": "^19.2.3",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-module-resolver": "^5.0.2",
+    "nodemon": "^3.1.11",
     "react-native-builder-bob": "^0.40.17",
     "tsc-alias": "^1.8.16",
     "typescript": "^5.9.3"
