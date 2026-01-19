@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { View } from "react-native";
-import { Calendar, Typography } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
+import { Calendar, Typography } from "@korsolutions/ui/components";
+import React, { useState } from "react";
+import { View } from "react-native";
 
 export default function CalendarComponentScreen() {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   return (
     <ComponentScreenLayout title="Calendar">

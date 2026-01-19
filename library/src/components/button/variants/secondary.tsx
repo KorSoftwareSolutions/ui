@@ -30,7 +30,7 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
       },
       label: {
         default: {
-          color: colors.foreground,
+          color: colors.secondaryForeground,
           fontSize,
           fontWeight: "bold",
           fontFamily,
@@ -44,7 +44,7 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
       },
       spinner: {
         default: {
-          color: colors.primaryForeground,
+          color: colors.secondaryForeground,
         },
         disabled: {
           color: colors.mutedForeground,
@@ -53,6 +53,6 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
           color: colors.mutedForeground,
         },
       },
-    })
+    }),
   );
 };

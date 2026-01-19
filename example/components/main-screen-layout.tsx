@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeSwitcher } from "./theme-switcher";
 
 interface Props {
   title: string;
@@ -16,6 +17,7 @@ export function MainScreenLayout({ title, children }: Props) {
       <View style={s.header}>
         <Text style={[s.title, { color: theme.colors.foreground }]}>{title}</Text>
         <View style={s.actions}>
+          <ThemeSwitcher />
           <TouchableOpacity onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}>
             <MaterialCommunityIcons name="circle-half-full" size={24} color={theme.colors.foreground} />
           </TouchableOpacity>

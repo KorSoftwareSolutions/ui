@@ -4,6 +4,7 @@ import { Href, Link } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { ThemeSwitcher } from "./theme-switcher";
 
 interface Props {
   title: string;
@@ -24,6 +25,7 @@ export function ComponentScreenLayout({ title, children, backHref = "/" }: Props
         </Link>
         <Text style={[s.title, { color: theme.colors.foreground }]}>{title}</Text>
         <View style={s.actions}>
+          <ThemeSwitcher />
           <TouchableOpacity onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}>
             <MaterialCommunityIcons name="circle-half-full" size={24} color={theme.colors.foreground} />
           </TouchableOpacity>

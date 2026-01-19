@@ -1,7 +1,8 @@
 import { createContext, type PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
-import { themes } from "./themes";
-import type { Colors, ColorScheme, FontFamily, FontSize, LetterSpacing, Radius, ThemeName } from "./types";
+import { defaultThemeAssets } from "./default";
+import type { Colors, ColorScheme, FontFamily, FontSize, LetterSpacing, Radius, ThemeAssets } from "./types";
+import { mergeThemeAssets } from "./utils";
 
 interface ThemeContext {
   colors: Colors;
@@ -11,20 +12,23 @@ interface ThemeContext {
   letterSpacing: LetterSpacing;
   fontSize: FontSize;
   setColorScheme: (scheme: ColorScheme) => void;
-  setTheme: (themeName: ThemeName) => void;
-  themeName: ThemeName;
 }
 
 const ThemeContext = createContext<ThemeContext | null>(null);
 
-export const ThemeProvider = (props: PropsWithChildren) => {
-  const [themeName, setTheme] = useState<ThemeName>("default");
+export interface ThemeProviderProps extends PropsWithChildren {
+  theme?: Partial<ThemeAssets>;
+}
+
+export const ThemeProvider = (props: ThemeProviderProps) => {
+  const { children, theme } = props;
 
   const systemColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState<ColorScheme>(systemColorScheme === "dark" ? "dark" : "light");
 
-  const themesAssets = themes[themeName];
-  const colors = themesAssets.colors[colorScheme];
+  const themeAssets = theme ? mergeThemeAssets(defaultThemeAssets, theme) : defaultThemeAssets;
+
+  const colors = themeAssets.colors[colorScheme];
 
   useEffect(() => {
     if (systemColorScheme) {
@@ -35,18 +39,16 @@ export const ThemeProvider = (props: PropsWithChildren) => {
   return (
     <ThemeContext.Provider
       value={{
-        themeName,
-        setTheme,
         colorScheme,
         setColorScheme,
         colors,
-        radius: themesAssets.radius,
-        fontFamily: themesAssets.fontFamily,
-        letterSpacing: themesAssets.letterSpacing,
-        fontSize: themesAssets.fontSize,
+        radius: themeAssets.radius,
+        fontFamily: themeAssets.fontFamily,
+        letterSpacing: themeAssets.letterSpacing,
+        fontSize: themeAssets.fontSize,
       }}
     >
-      {props.children}
+      {children}
     </ThemeContext.Provider>
   );
 };

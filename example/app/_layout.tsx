@@ -4,6 +4,7 @@ import { Stack } from "expo-router";
 import React from "react";
 import "react-native-reanimated";
 import { FullWindowOverlay } from "react-native-screens";
+import { ThemeSelectionProvider, useThemeSelection } from "../contexts/theme-context";
 
 function RootRouter() {
   const theme = useTheme();
@@ -18,19 +19,31 @@ function RootRouter() {
       >
         <Stack.Screen name="index" />
         <Stack.Screen name="components" />
+        <Stack.Screen name="theme-selector" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>
   );
 }
 
-export default function RootLayout() {
+function ThemedApp() {
+  const { currentTheme } = useThemeSelection();
+
   return (
     <UniversalUIProvider
       portalContainer={{
         ios: FullWindowOverlay,
       }}
+      theme={currentTheme}
     >
       <RootRouter />
     </UniversalUIProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeSelectionProvider>
+      <ThemedApp />
+    </ThemeSelectionProvider>
   );
 }

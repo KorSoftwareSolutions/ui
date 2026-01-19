@@ -102,6 +102,7 @@ export default function Home() {
           {
             backgroundColor: theme.colors.surface,
             borderColor: theme.colors.border,
+            borderRadius: theme.radius,
           },
         ]}
         style={s.container}

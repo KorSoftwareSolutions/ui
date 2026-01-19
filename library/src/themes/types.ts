@@ -1,4 +1,3 @@
-export type ThemeName = "default";
 export type ColorScheme = "light" | "dark";
 
 type Color = `hsla(${number}, ${number}%, ${number}%, ${number})`;
