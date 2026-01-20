@@ -30,4 +30,5 @@ export * from "./themes/default";
 export { useTheme } from "./themes/provider";
 export * from "./themes/types";
 
+export * from "./primitives/alert";
 export * from "./safe-area";

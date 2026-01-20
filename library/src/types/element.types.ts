@@ -9,3 +9,5 @@ export type TextInputRef = HostInstance & {
   getNativeRef: () => HostInstance;
   setSelection: (start: number, end?: number) => void;
 };
+
+export type TextChildren = string | number | boolean | null | undefined | string[];

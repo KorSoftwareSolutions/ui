@@ -10,12 +10,44 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/alert-dialog",
   },
   {
-    title: "Input",
-    href: "/components/input",
+    title: "Alert",
+    href: "/components/alert",
+  },
+  {
+    title: "Autocomplete",
+    href: "/components/autocomplete",
+  },
+  {
+    title: "Avatar",
+    href: "/components/avatar",
+  },
+  {
+    title: "Badge",
+    href: "/components/badge",
   },
   {
     title: "Button",
     href: "/components/button",
+  },
+  {
+    title: "Calendar",
+    href: "/components/calendar",
+  },
+  {
+    title: "Card",
+    href: "/components/card",
+  },
+  {
+    title: "Checkbox",
+    href: "/components/checkbox",
+  },
+  {
+    title: "Dropdown Menu",
+    href: "/components/dropdown-menu",
+  },
+  {
+    title: "Input",
+    href: "/components/input",
   },
   {
     title: "Select",
@@ -26,10 +58,6 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/field",
   },
   {
-    title: "Card",
-    href: "/components/card",
-  },
-  {
     title: "Typography",
     href: "/components/typography",
   },
@@ -38,24 +66,12 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/empty",
   },
   {
-    title: "Avatar",
-    href: "/components/avatar",
-  },
-  {
     title: "Toast",
     href: "/components/toast",
   },
   {
-    title: "Badge",
-    href: "/components/badge",
-  },
-  {
     title: "Textarea",
     href: "/components/textarea",
-  },
-  {
-    title: "Dropdown Menu",
-    href: "/components/dropdown-menu",
   },
   {
     title: "Popover",
@@ -66,29 +82,19 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/progress",
   },
   {
-    title: "Calendar",
-    href: "/components/calendar",
-  },
-  {
     title: "Tabs",
     href: "/components/tabs",
-  },
-  {
-    title: "Checkbox",
-    href: "/components/checkbox",
-  },
-  {
-    title: "Autocomplete",
-    href: "/components/autocomplete",
   },
 ];
 
 export default function Home() {
   const theme = useTheme();
+
+  const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
   return (
     <MainScreenLayout title="Components">
       <FlatList
-        data={COMPONENTS}
+        data={sortedComponents}
         keyExtractor={(item) => item.title}
         renderItem={({ item }) => <ComponentListItem {...item} />}
         ItemSeparatorComponent={() => (
