@@ -1,3 +1,4 @@
+import type { DeepPartial } from "@/types/util.types";
 import { createContext, type PropsWithChildren, useContext, useEffect, useState } from "react";
 import { useColorScheme } from "react-native";
 import { defaultThemeAssets } from "./default";
@@ -17,7 +18,7 @@ interface ThemeContext {
 const ThemeContext = createContext<ThemeContext | null>(null);
 
 export interface ThemeProviderProps extends PropsWithChildren {
-  theme?: Partial<ThemeAssets>;
+  theme?: DeepPartial<ThemeAssets>;
 }
 
 export const ThemeProvider = (props: ThemeProviderProps) => {

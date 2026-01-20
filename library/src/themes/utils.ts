@@ -1,6 +1,7 @@
+import type { DeepPartial } from "@/types/util.types";
 import type { ThemeAssets } from "./types";
 
-export function mergeThemeAssets(base: ThemeAssets, override: Partial<ThemeAssets>): ThemeAssets {
+export function mergeThemeAssets(base: ThemeAssets, override: DeepPartial<ThemeAssets>): ThemeAssets {
   return {
     colors: {
       light: { ...base.colors.light, ...override.colors?.light },
