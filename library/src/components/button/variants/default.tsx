@@ -22,7 +22,7 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           opacity: 0.5,
         },
         loading: {
-          opacity: 0.8,
+          opacity: 0.5,
         },
         hovered: {
           backgroundColor: hslaSetRelativeLightness(colors.primary, -10),
@@ -34,23 +34,15 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           fontSize,
           fontFamily,
         },
-        disabled: {
-          color: colors.mutedForeground,
-        },
-        loading: {
-          color: colors.mutedForeground,
-        },
+        disabled: {},
+        loading: {},
       },
       spinner: {
         default: {
           color: colors.primaryForeground,
         },
-        disabled: {
-          color: colors.mutedForeground,
-        },
-        loading: {
-          color: colors.mutedForeground,
-        },
+        disabled: {},
+        loading: {},
       },
     }),
   );

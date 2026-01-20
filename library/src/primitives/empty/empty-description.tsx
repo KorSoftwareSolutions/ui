@@ -11,6 +11,6 @@ export interface EmptyDescriptionProps {
 export function EmptyDescription(props: EmptyDescriptionProps) {
   const empty = useEmpty();
   const composedStyles = [empty.styles?.description, props.style];
-  const Component = props.render ?? Text;
-  return <Component {...props} style={composedStyles} />;
+
+  return <Text {...props} style={composedStyles} />;
 }

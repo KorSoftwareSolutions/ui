@@ -22,7 +22,7 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
           opacity: 0.5,
         },
         loading: {
-          opacity: 0.8,
+          opacity: 0.5,
         },
         hovered: {
           backgroundColor: hslaSetRelativeLightness(colors.secondary, -1),

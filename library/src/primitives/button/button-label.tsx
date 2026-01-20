@@ -6,8 +6,6 @@ import { useButtonPrimitive } from "./button-context";
 export interface ButtonPrimitiveLabelProps {
   children?: string;
 
-  render?: (props: this) => React.ReactElement;
-
   style?: StyleProp<TextStyle>;
 }
 
@@ -16,6 +14,11 @@ export function ButtonLabel(props: ButtonPrimitiveLabelProps) {
 
   const calculatedStyle = calculateComposedStyles(button.styles, button.state, "label", props.style);
 
-  const Component = props.render ?? Text;
-  return <Component style={calculatedStyle}>{props.children}</Component>;
+  const isSelectable = button.state !== "disabled" && button.state !== "loading";
+
+  return (
+    <Text selectable={isSelectable} style={calculatedStyle}>
+      {props.children}
+    </Text>
+  );
 }
