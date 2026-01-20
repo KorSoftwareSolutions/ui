@@ -16,3 +16,4 @@ export * from "./calendar";
 export * from "./tabs";
 export * from "./checkbox";
 export * from "./alert-dialog";
+export * from "./progress";

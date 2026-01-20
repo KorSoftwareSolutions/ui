@@ -62,6 +62,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/popover",
   },
   {
+    title: "Progress",
+    href: "/components/progress",
+  },
+  {
     title: "Calendar",
     href: "/components/calendar",
   },
