@@ -1,10 +1,10 @@
-import { CardRoot } from "./card-root";
-import { CardHeader } from "./card-header";
-import { CardTitle } from "./card-title";
 import { CardBody } from "./card-body";
 import { CardFooter } from "./card-footer";
+import { CardHeader } from "./card-header";
+import { CardRoot } from "./card-root";
+import { CardTitle } from "./card-title";
 
-export const CardPrimitive = {
+export const Card = {
   Root: CardRoot,
   Header: CardHeader,
   Title: CardTitle,
@@ -12,9 +12,9 @@ export const CardPrimitive = {
   Footer: CardFooter,
 };
 
-export type { CardRootProps } from "./card-root";
-export type { CardHeaderProps } from "./card-header";
-export type { CardTitleProps } from "./card-title";
 export type { CardBodyProps } from "./card-body";
 export type { CardFooterProps } from "./card-footer";
+export type { CardHeaderProps } from "./card-header";
+export type { CardRootProps } from "./card-root";
+export type { CardTitleProps } from "./card-title";
 export type { CardStyles } from "./types";

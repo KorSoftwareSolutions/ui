@@ -1,27 +1,28 @@
+import type { PropsWithRender } from "@/types/props.types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
 import { CardContext } from "./context";
-import type { CardStyles } from "./types";
+import { CardVariants } from "./variants";
 
 export interface CardRootProps {
+  variant?: keyof typeof CardVariants;
   children?: React.ReactNode;
 
-  render?: (props: CardRootProps) => React.ReactNode;
-
   style?: StyleProp<ViewStyle>;
-  styles?: CardStyles;
 }
 
-export function CardRoot(props: CardRootProps) {
-  const composedStyle = calculateComposedStyles(props.styles, "default", "root", props.style);
+export function CardRoot(props: PropsWithRender<CardRootProps>) {
+  const variantStyles = CardVariants[props.variant || "default"]();
+
+  const composedStyle = calculateComposedStyles(variantStyles, "default", "root", props.style);
 
   const Component = props.render ?? View;
   return (
     <CardContext.Provider
       value={{
         state: "default",
-        styles: props.styles,
+        styles: variantStyles,
       }}
     >
       <Component {...props} style={composedStyle} />

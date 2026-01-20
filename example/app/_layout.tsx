@@ -20,6 +20,7 @@ function RootRouter() {
       >
         <Stack.Screen name="index" />
         <Stack.Screen name="components" />
+        <Stack.Screen name="theme" />
         <Stack.Screen name="theme-selector" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>

@@ -1,6 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Autocomplete, Field, Typography } from "@korsolutions/ui/components";
+import { Typography } from "@korsolutions/ui";
+import { Autocomplete, Field } from "@korsolutions/ui/components";
 import React, { useState } from "react";
 
 const fruits = [

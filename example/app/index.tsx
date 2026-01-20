@@ -1,8 +1,8 @@
 import { ComponentListItem, ComponentListItemProps } from "@/components/component-list-item";
 import { MainScreenLayout } from "@/components/main-screen-layout";
-import { useTheme } from "@korsolutions/ui";
+import { Card, List, useTheme } from "@korsolutions/ui";
 import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 const COMPONENTS: ComponentListItemProps[] = [
   {
@@ -92,31 +92,20 @@ export default function Home() {
 
   const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
   return (
-    <MainScreenLayout title="Components">
-      <FlatList
-        data={sortedComponents}
-        keyExtractor={(item) => item.title}
-        renderItem={({ item }) => <ComponentListItem {...item} />}
-        ItemSeparatorComponent={() => (
-          <View
-            style={[
-              s.divider,
-              {
-                backgroundColor: theme.colors.border,
-              },
-            ]}
+    <MainScreenLayout title="@korsolutions/ui">
+      <ScrollView contentContainerStyle={s.content} style={s.container}>
+        <Card.Root>
+          <List
+            data={sortedComponents}
+            keyExtractor={(item) => item.title}
+            renderItem={({ item }) => <ComponentListItem {...item} />}
+            renderSeparator={() => <View style={{ backgroundColor: theme.colors.border, height: 1 }} />}
           />
-        )}
-        contentContainerStyle={[
-          s.content,
-          {
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
-            borderRadius: theme.radius,
-          },
-        ]}
-        style={s.container}
-      />
+        </Card.Root>
+        <Card.Root>
+          <ComponentListItem title="Theme" href="/theme" />
+        </Card.Root>
+      </ScrollView>
     </MainScreenLayout>
   );
 }
@@ -126,14 +115,10 @@ const s = StyleSheet.create({
     padding: 24,
   },
   content: {
-    borderRadius: 8,
     overflow: "hidden",
-    borderWidth: 1,
     maxWidth: 600,
     width: "100%",
     alignSelf: "center",
-  },
-  divider: {
-    height: 1,
+    gap: 24,
   },
 });

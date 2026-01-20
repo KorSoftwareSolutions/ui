@@ -1,9 +1,9 @@
-import React from "react";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Empty, Avatar, Button, Card } from "@korsolutions/ui/components";
 import { UseCaseSection } from "@/components/use-case-section";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTheme } from "@korsolutions/ui";
+import { Card, useTheme } from "@korsolutions/ui";
+import { Avatar, Button, Empty } from "@korsolutions/ui/components";
+import React from "react";
 import { View } from "react-native";
 
 export default function EmptyComponentScreen() {
@@ -11,7 +11,7 @@ export default function EmptyComponentScreen() {
   return (
     <ComponentScreenLayout title="Empty">
       <UseCaseSection title="Default">
-        <Card>
+        <Card.Root>
           <Empty
             media={
               <Avatar
@@ -26,10 +26,10 @@ export default function EmptyComponentScreen() {
           >
             <Button>Send message</Button>
           </Empty>
-        </Card>
+        </Card.Root>
       </UseCaseSection>
       <UseCaseSection title="Icon">
-        <Card>
+        <Card.Root>
           <Empty
             media={<MaterialCommunityIcons name="wifi-off" size={24} color={theme.colors.mutedForeground} />}
             title="Network disconnected"
@@ -40,12 +40,12 @@ export default function EmptyComponentScreen() {
               <Button variant="secondary">Open settings</Button>
             </View>
           </Empty>
-        </Card>
+        </Card.Root>
       </UseCaseSection>
       <UseCaseSection title="Without media">
-        <Card>
+        <Card.Root>
           <Empty title="No notifications" description="You have no new notifications at the moment. Check back later for updates." />
-        </Card>
+        </Card.Root>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

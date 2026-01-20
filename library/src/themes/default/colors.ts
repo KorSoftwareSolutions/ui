@@ -16,10 +16,10 @@ export const lightColors: Colors = {
   border: "hsla(224, 0%, 90%, 1)",
   surface: "hsla(224, 0%, 100%, 1)",
 
-  danger: "hsla(352, 100%, 41%, 1)",
-  success: "hsla(227, 70%, 40%, 1)",
-  warning: "hsla(212, 100%, 79%, 1)",
-  info: "hsla(221, 86%, 54%, 1)",
+  danger: "hsla(360, 100%, 45%, 1)",
+  success: "hsla(140, 100%, 40%, 1)",
+  warning: "hsla(31, 92%, 45%, 1)",
+  info: "hsla(210, 92%, 45%, 1)",
 };
 
 export const darkColors: Colors = {
@@ -38,8 +38,8 @@ export const darkColors: Colors = {
   border: "hsla(224, 0%, 16%, 1)",
   surface: "hsla(224, 0%, 9%, 1)",
 
-  danger: "hsla(359, 100%, 70%, 1)",
-  success: "hsla(227, 70%, 40%, 1)",
-  warning: "hsla(212, 100%, 79%, 1)",
-  info: "hsla(221, 86%, 54%, 1)",
+  danger: "hsla(360, 100%, 45%, 1)",
+  success: "hsla(140, 100%, 40%, 1)",
+  warning: "hsla(31, 92%, 45%, 1)",
+  info: "hsla(210, 92%, 45%, 1)",
 };

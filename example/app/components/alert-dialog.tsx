@@ -1,6 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { AlertDialog, AsyncAlertDialog, Button, Typography } from "@korsolutions/ui/components";
+import { Typography } from "@korsolutions/ui";
+import { AlertDialog, AsyncAlertDialog, Button } from "@korsolutions/ui/components";
 import React from "react";
 
 export default function AlertDialogComponentScreen() {

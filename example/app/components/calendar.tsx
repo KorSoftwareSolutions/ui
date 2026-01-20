@@ -1,6 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Calendar, Typography } from "@korsolutions/ui/components";
+import { Typography } from "@korsolutions/ui";
+import { Calendar } from "@korsolutions/ui/components";
 import React, { useState } from "react";
 import { View } from "react-native";
 

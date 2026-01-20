@@ -7,7 +7,9 @@ export interface TypographyProps extends RnTextProps {
 }
 
 export function Typography(props: TypographyProps) {
-  const useVariantStyles = TypographyVariants[props.variant ?? "body-md"];
-  const variantStyles = useVariantStyles();
-  return <RnText {...props} style={variantStyles} />;
+  const variantStyles = TypographyVariants[props.variant ?? "body-md"]();
+
+  const combinedStyles = [variantStyles, props.style];
+
+  return <RnText {...props} style={combinedStyles} />;
 }

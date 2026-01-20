@@ -10,13 +10,12 @@ export function useCardVariantDefault(): CardStyles {
           borderColor: colors.border,
           borderRadius: radius,
           backgroundColor: colors.surface,
-          paddingVertical: 24,
-          gap: 24,
         },
       },
       header: {
         default: {
           paddingHorizontal: 24,
+          paddingTop: 24,
         },
       },
       title: {
@@ -29,10 +28,18 @@ export function useCardVariantDefault(): CardStyles {
       },
       body: {
         default: {
-          paddingHorizontal: 24,
+          padding: 24,
           gap: 24,
         },
       },
-    })
+      footer: {
+        default: {
+          flexDirection: "row",
+          paddingHorizontal: 24,
+          paddingBottom: 24,
+          gap: 24,
+        },
+      },
+    }),
   );
 }
