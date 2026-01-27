@@ -45,7 +45,7 @@ export const AutocompleteInput = forwardRef<TextInputRef, AutocompleteInputProps
   };
 
   const handleChangeText = (text: string) => {
-    autocomplete.setInputValue?.(text);
+    autocomplete.onInputChange?.(text);
 
     // Open dropdown when typing
     if (!autocomplete.isOpen && text.trim() && autocomplete.openOnFocus) {
@@ -69,7 +69,6 @@ export const AutocompleteInput = forwardRef<TextInputRef, AutocompleteInputProps
       ref={inputRef}
       id={field?.id}
       value={autocomplete.inputValue}
-      placeholder={autocomplete.placeholder}
       placeholderTextColor={placeholderTextColor}
       selectionColor={selectionColor}
       onChangeText={handleChangeText}

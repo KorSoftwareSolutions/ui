@@ -5,21 +5,21 @@ import { setInnerInputValue } from "@/utils/input-utils";
 import React, { useEffect, useMemo, useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
 import { AutocompleteContext } from "./context";
-import type { AutocompleteOption, AutocompleteState, AutocompleteStyles } from "./types";
+import type { AutocompleteOption, AutocompleteState } from "./types";
+import { AutocompleteVariants } from "./variants";
 
 export interface AutocompleteRootBaseProps {
   value?: string;
   onChange?: (value: string) => void;
   inputValue?: string;
-  setInputValue?: (value: string) => void;
-  placeholder?: string;
+  onInputChange?: (value: string) => void;
   isDisabled?: boolean;
   openOnFocus?: boolean;
 }
 
 export interface AutocompleteRootProps extends AutocompleteRootBaseProps {
+  variant?: keyof typeof AutocompleteVariants;
   children?: React.ReactNode;
-  styles?: AutocompleteStyles;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -34,6 +34,8 @@ const calculateState = (props: AutocompleteRootProps, isFocused: boolean): Autoc
 };
 
 export function AutocompleteRoot(props: AutocompleteRootProps) {
+  const variantStyles = AutocompleteVariants[props.variant ?? "default"]();
+
   const [isOpen, setIsOpen] = useState(false);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
   const [inputPosition, setInputPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
@@ -45,26 +47,22 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
     if (props.value) {
       const selectedOption = options.find((opt) => opt.value === props.value);
       if (selectedOption) {
-        props.setInputValue?.(selectedOption.label);
+        props.onInputChange?.(selectedOption.label);
         setInnerInputValue(inputRef, selectedOption.label);
       }
-    } else {
-      props.setInputValue?.("");
-      setInnerInputValue(inputRef, "");
     }
   }, [props.value, options, inputRef]);
 
   const state = calculateState(props, isOpen);
-  const composedStyles = calculateComposedStyles(props.styles, state, "root", props.style);
+  const composedStyles = calculateComposedStyles(variantStyles, state, "root", props.style);
 
   const contextValue = useMemo(
     () =>
       ({
         value: props.value,
         onChange: props.onChange,
-        placeholder: props.placeholder,
         inputValue: props.inputValue,
-        setInputValue: props.setInputValue,
+        onInputChange: props.onInputChange,
         isOpen,
         setIsOpen,
         inputPosition,
@@ -78,17 +76,16 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
         setInputRef,
         state,
         isDisabled: props.isDisabled ?? false,
-        styles: props.styles ?? null,
+        styles: variantStyles,
       }) satisfies AutocompleteContext,
     [
       props.value,
       props.onChange,
-      props.placeholder,
       props.openOnFocus,
       props.isDisabled,
-      props.styles,
+      variantStyles,
       props.inputValue,
-      props.setInputValue,
+      props.onInputChange,
       isOpen,
       inputPosition,
       contentLayout,

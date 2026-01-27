@@ -7,10 +7,8 @@ import type { AutocompleteOption, AutocompleteState, AutocompleteStyles } from "
 export interface AutocompleteContext {
   value?: string;
   onChange?: (value: string) => void;
-  placeholder?: string;
-
   inputValue?: string;
-  setInputValue?: (value: string) => void;
+  onInputChange?: (value: string) => void;
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;

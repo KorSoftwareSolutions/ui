@@ -37,7 +37,7 @@ export function AutocompleteOption(props: AutocompleteOptionProps) {
 
   const handlePress = () => {
     autocomplete.onChange?.(props.value);
-    autocomplete.setInputValue?.("");
+    autocomplete.onInputChange?.("");
     autocomplete.setIsOpen(false);
     if (autocomplete.inputRef) {
       setInnerInputValue(autocomplete.inputRef, props.children);

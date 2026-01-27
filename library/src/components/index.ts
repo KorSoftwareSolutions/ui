@@ -1,5 +1,4 @@
 export * from "./alert-dialog";
-export * from "./autocomplete/autocomplete";
 export * from "./avatar/avatar";
 export * from "./badge/badge";
 export * from "./button/button";
