@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Textarea } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
+import { Textarea } from "@korsolutions/ui";
+import React, { useState } from "react";
 
 export default function TextareaComponentScreen() {
   const [value, setValue] = useState("");

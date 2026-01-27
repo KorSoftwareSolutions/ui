@@ -36,6 +36,7 @@ export * from "./primitives/button";
 export * from "./primitives/card";
 export * from "./primitives/list";
 export * from "./primitives/select";
+export * from "./primitives/textarea";
 export * from "./primitives/typography";
 
 export * from "./safe-area";

@@ -10,5 +10,4 @@ export * from "./link/link";
 export * from "./popover/popover";
 export * from "./progress";
 export * from "./tabs";
-export * from "./textarea/textarea";
 export * from "./toast/index";
