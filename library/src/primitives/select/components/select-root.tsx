@@ -2,17 +2,19 @@ import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React, { useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
-import { SelectContext } from "./context";
-import type { SelectOption, SelectState, SelectStyles } from "./types";
+import { SelectContext } from "../context";
+import type { SelectOption, SelectState } from "../types";
+import { SelectVariants } from "../variants";
 
 interface SelectRootInjectedProps {
   style?: StyleProp<ViewStyle>;
 }
 
 export interface SelectRootBaseProps {
+  variant?: keyof typeof SelectVariants;
+
   value?: string;
   onChange?: (value: string) => void;
-  placeholder?: string;
 
   isDisabled?: boolean;
 }
@@ -22,7 +24,6 @@ export interface SelectRootProps extends SelectRootBaseProps {
 
   render?: (props: SelectRootInjectedProps) => React.ReactElement;
 
-  styles?: SelectStyles;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -34,13 +35,15 @@ const calculateState = (props: SelectRootProps): SelectState => {
 };
 
 export function SelectRoot(props: SelectRootProps) {
+  const variantStyles = SelectVariants[props.variant ?? "default"]();
+
   const [isOpen, setIsOpen] = useState(false);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
   const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const state = calculateState(props);
-  const composedStyles = calculateComposedStyles(props.styles, state, "root", props.style);
+  const composedStyles = calculateComposedStyles(variantStyles, state, "root", props.style);
 
   const Component = props.render ?? View;
   return (
@@ -48,7 +51,6 @@ export function SelectRoot(props: SelectRootProps) {
       value={{
         value: props.value,
         onChange: props.onChange,
-        placeholder: props.placeholder,
         isOpen,
         setIsOpen,
         triggerPosition,
@@ -59,7 +61,7 @@ export function SelectRoot(props: SelectRootProps) {
         setOptions,
         state,
         isDisabled: props.isDisabled ?? false,
-        styles: props.styles ?? null,
+        styles: variantStyles,
       }}
     >
       <Component style={composedStyles}>{props.children}</Component>

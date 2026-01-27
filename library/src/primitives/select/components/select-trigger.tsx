@@ -2,12 +2,11 @@ import type { ViewRef } from "@/types/element.types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { measureLayoutPosition } from "@/utils/normalize-layout";
 import React, { useRef } from "react";
-import { Pressable, type StyleProp, type ViewStyle } from "react-native";
-import { useSelect } from "./context";
+import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
+import { useSelect } from "../context";
 
 export interface SelectTriggerProps {
-  children?: React.ReactNode;
-
+  placeholder?: string;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -30,7 +29,25 @@ export function SelectTrigger(props: SelectTriggerProps) {
 
   return (
     <Pressable ref={triggerRef} onPress={onTriggerPress} disabled={select.isDisabled} style={composedStyles}>
-      {props.children}
+      <SelectValue placeholder={props.placeholder} />
     </Pressable>
   );
+}
+
+export interface SelectValueProps {
+  placeholder?: string;
+  style?: StyleProp<TextStyle>;
+}
+
+export function SelectValue(props: SelectValueProps) {
+  const select = useSelect();
+
+  const selectedOption = select.options.find((option) => option.value === select.value);
+  const selectedOptionLabel = selectedOption?.label;
+
+  const composedStyles = calculateComposedStyles(select.styles, select.state, selectedOptionLabel ? "value" : "placeholder");
+  if (typeof selectedOptionLabel !== "string") {
+    return <>{selectedOptionLabel}</>;
+  }
+  return <Text style={composedStyles}>{selectedOptionLabel ?? props.placeholder}</Text>;
 }

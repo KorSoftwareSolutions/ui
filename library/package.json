@@ -38,7 +38,8 @@
   "scripts": {
     "dev": "nodemon",
     "prepare": "./scripts/build.sh",
-    "ts-check": "tsc --noEmit"
+    "ts-check": "tsc --noEmit",
+    "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@react-navigation/native": "^7.1.28",

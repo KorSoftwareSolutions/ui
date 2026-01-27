@@ -31,9 +31,9 @@ export { useTheme } from "./themes/provider";
 export * from "./themes/types";
 
 export * from "./primitives/alert";
-export * from "./primitives/autocomplete";
 export * from "./primitives/card";
 export * from "./primitives/list";
+export * from "./primitives/select";
 export * from "./primitives/typography";
 
 export * from "./safe-area";

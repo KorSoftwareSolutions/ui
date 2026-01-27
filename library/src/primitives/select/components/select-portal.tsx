@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Portal } from "../portal";
-import { useSelect, SelectContext } from "./context";
+import { Portal } from "../../portal";
+import { SelectContext, useSelect } from "../context";
 
 export interface SelectPortalProps {
   children?: React.ReactNode;

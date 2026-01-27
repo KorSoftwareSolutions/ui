@@ -2,7 +2,7 @@ import { useRelativePosition } from "@/hooks/use-relative-position";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
-import { useSelect } from "./context";
+import { useSelect } from "../context";
 
 export interface SelectContentProps {
   children?: React.ReactNode;

@@ -1,20 +1,13 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
-import { useEffect, useState } from "react";
-import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useSelect } from "./context";
-import type { SelectOptionState, SelectState } from "./types";
+import React, { useEffect, useState } from "react";
+import { Pressable, Text } from "react-native";
+import { useSelect } from "../context";
+import type { SelectOptionState, SelectState } from "../types";
 
-export interface SelectOptionProps {
-  children: string;
+export type SelectOptionProps = {
   value: string;
-
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-
-  render?: (props: SelectOptionProps) => React.ReactElement;
-
-  style?: StyleProp<TextStyle>;
-}
+  children?: React.ReactNode;
+};
 
 const calculateState = (selectState: SelectState, hovered: boolean, selected: boolean): SelectOptionState => {
   if (selectState === "disabled") {
@@ -29,13 +22,13 @@ const calculateState = (selectState: SelectState, hovered: boolean, selected: bo
   return "default";
 };
 
-export function SelectOption(props: SelectOptionProps) {
+export function SelectOption(props: SelectOptionProps): React.ReactElement {
   const [isHovered, setIsHovered] = useState(false);
   const select = useSelect();
   const isSelected = select.value === props.value;
 
   const optionState = calculateState(select.state, isHovered, isSelected);
-  const composedStyles = calculateComposedStyles(select.styles, optionState, "option", props.style);
+  const composedStyles = calculateComposedStyles(select.styles, optionState, "option");
 
   useEffect(() => {
     select.setOptions((prev) => {
@@ -46,16 +39,20 @@ export function SelectOption(props: SelectOptionProps) {
     });
   }, [props.value, props.children]);
 
-  const Component = props.render ?? Text;
+  const Component = typeof props.children === "string" ? Text : Pressable;
+
   return (
     <Component
-      value={props.value}
       onPress={() => {
         select.onChange?.(props.value);
         select.setIsOpen(false);
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onPointerEnter={() => {
+        setIsHovered(true);
+      }}
+      onPointerLeave={() => {
+        setIsHovered(false);
+      }}
       style={composedStyles}
     >
       {props.children}

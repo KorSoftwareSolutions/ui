@@ -1,26 +1,23 @@
-import { SelectRoot } from "./select-root";
-import { SelectTrigger } from "./select-trigger";
-import { SelectValue } from "./select-value";
-import { SelectPortal } from "./select-portal";
-import { SelectOverlay } from "./select-overlay";
-import { SelectContent } from "./select-content";
-import { SelectOption } from "./select-option";
+import { SelectContent } from "./components/select-content";
+import { SelectOption } from "./components/select-option";
+import { SelectOverlay } from "./components/select-overlay";
+import { SelectPortal } from "./components/select-portal";
+import { SelectRoot } from "./components/select-root";
+import { SelectTrigger } from "./components/select-trigger";
 
-export const SelectPrimitive = {
+export const Select = {
   Root: SelectRoot,
   Trigger: SelectTrigger,
-  Value: SelectValue,
   Portal: SelectPortal,
   Overlay: SelectOverlay,
   Content: SelectContent,
   Option: SelectOption,
 };
 
-export type { SelectRootProps, SelectRootBaseProps } from "./select-root";
-export type { SelectTriggerProps } from "./select-trigger";
-export type { SelectValueProps } from "./select-value";
-export type { SelectPortalProps } from "./select-portal";
-export type { SelectOverlayProps } from "./select-overlay";
-export type { SelectContentProps } from "./select-content";
-export type { SelectOptionProps } from "./select-option";
+export type { SelectContentProps } from "./components/select-content";
+export type { SelectOptionProps } from "./components/select-option";
+export type { SelectOverlayProps } from "./components/select-overlay";
+export type { SelectPortalProps } from "./components/select-portal";
+export type { SelectRootBaseProps, SelectRootProps } from "./components/select-root";
+export type { SelectTriggerProps } from "./components/select-trigger";
 export type { SelectStyles } from "./types";

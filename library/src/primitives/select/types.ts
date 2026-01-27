@@ -1,9 +1,8 @@
-import type { SelectContentProps } from "./select-content";
-import type { SelectOptionProps } from "./select-option";
-import type { SelectOverlayProps } from "./select-overlay";
-import type { SelectRootProps } from "./select-root";
-import type { SelectTriggerProps } from "./select-trigger";
-import type { SelectValueProps } from "./select-value";
+import type { TextStyle } from "react-native";
+import type { SelectContentProps } from "./components/select-content";
+import type { SelectOverlayProps } from "./components/select-overlay";
+import type { SelectRootProps } from "./components/select-root";
+import type { SelectTriggerProps, SelectValueProps } from "./components/select-trigger";
 
 export type SelectState = "default" | "disabled";
 export type SelectOptionState = SelectState | "hovered" | "selected";
@@ -15,10 +14,10 @@ export interface SelectStyles {
   placeholder?: Partial<Record<SelectState, SelectValueProps["style"]>>;
   overlay?: Partial<Record<SelectState, SelectOverlayProps["style"]>>;
   content?: Partial<Record<SelectState, SelectContentProps["style"]>>;
-  option?: Partial<Record<SelectOptionState, SelectOptionProps["style"]>>;
+  option?: Partial<Record<SelectOptionState, TextStyle>>;
 }
 
 export interface SelectOption {
   value: string;
-  label: string;
+  label: React.ReactNode;
 }

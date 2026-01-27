@@ -1,41 +1,49 @@
-import { type AutocompleteStyles } from "@/primitives";
+import { type SelectStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
-export function useAutocompleteVariantDefault(): AutocompleteStyles {
+export function useSelectVariantDefault(): SelectStyles {
   return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): AutocompleteStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): SelectStyles => ({
       root: {
         default: {},
-        focused: {},
         disabled: {},
       },
-      input: {
-        placeholderTextColor: colors.mutedForeground,
-        selectionColor: colors.primary,
+      trigger: {
         default: {
           borderWidth: 1,
           borderColor: colors.border,
           borderRadius: radius,
-          backgroundColor: colors.surface,
+          justifyContent: "center",
           paddingVertical: 12,
           paddingHorizontal: 16,
-          outlineWidth: 0,
+          minHeight: 48,
+        },
+        disabled: {
+          backgroundColor: colors.muted,
+        },
+      },
+      value: {
+        default: {
           fontFamily,
           fontSize,
-          height: 48,
           color: colors.foreground,
-        },
-        focused: {
-          borderColor: colors.primary,
         },
         disabled: {
           color: colors.mutedForeground,
-          backgroundColor: colors.muted,
+        },
+      },
+      placeholder: {
+        default: {
+          fontFamily,
+          fontSize,
+          color: colors.mutedForeground,
+        },
+        disabled: {
+          color: colors.mutedForeground,
         },
       },
       overlay: {
         default: {},
-        focused: {},
         disabled: {},
       },
       content: {
@@ -46,9 +54,7 @@ export function useAutocompleteVariantDefault(): AutocompleteStyles {
           borderColor: colors.border,
           padding: 4,
           gap: 4,
-          minHeight: 40,
         },
-        focused: {},
         disabled: {},
       },
       option: {
@@ -69,18 +75,6 @@ export function useAutocompleteVariantDefault(): AutocompleteStyles {
         hovered: {
           backgroundColor: colors.muted,
         },
-      },
-      empty: {
-        default: {
-          paddingVertical: 12,
-          paddingHorizontal: 16,
-          fontFamily,
-          fontSize,
-          color: colors.mutedForeground,
-          textAlign: "center",
-        },
-        focused: {},
-        disabled: {},
       },
     }),
   );

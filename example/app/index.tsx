@@ -14,10 +14,6 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/alert",
   },
   {
-    title: "Autocomplete",
-    href: "/components/autocomplete",
-  },
-  {
     title: "Avatar",
     href: "/components/avatar",
   },

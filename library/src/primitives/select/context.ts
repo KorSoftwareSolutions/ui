@@ -6,7 +6,6 @@ import type { SelectOption, SelectState, SelectStyles } from "./types";
 export interface SelectContext {
   value?: string;
   onChange?: (value: string) => void;
-  placeholder?: string;
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
