@@ -31,6 +31,7 @@ export { useTheme } from "./themes/provider";
 export * from "./themes/types";
 
 export * from "./primitives/alert";
+export * from "./primitives/avatar";
 export * from "./primitives/card";
 export * from "./primitives/list";
 export * from "./primitives/select";

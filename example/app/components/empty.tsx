@@ -1,8 +1,8 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Card, useTheme } from "@korsolutions/ui";
-import { Avatar, Button, Empty } from "@korsolutions/ui/components";
+import { Avatar, Card, useTheme } from "@korsolutions/ui";
+import { Button, Empty } from "@korsolutions/ui/components";
 import React from "react";
 import { View } from "react-native";
 
@@ -14,12 +14,14 @@ export default function EmptyComponentScreen() {
         <Card.Root>
           <Empty
             media={
-              <Avatar
-                source={{
-                  uri: "https://avatars.githubusercontent.com/u/14353231",
-                }}
-                fallback="IK"
-              />
+              <Avatar.Root>
+                <Avatar.Image
+                  source={{
+                    uri: "https://avatars.githubusercontent.com/u/14353231",
+                  }}
+                />
+                <Avatar.Fallback>IK</Avatar.Fallback>
+              </Avatar.Root>
             }
             title="User offline"
             description="This user is currently offline. You can leave a message to notify them or try again later."

@@ -1,7 +1,7 @@
-import React from "react";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Avatar } from "@korsolutions/ui/components";
 import { UseCaseSection } from "@/components/use-case-section";
+import { Avatar } from "@korsolutions/ui";
+import React from "react";
 import { View } from "react-native";
 
 export default function AvatarComponentScreen() {
@@ -9,17 +9,21 @@ export default function AvatarComponentScreen() {
     <ComponentScreenLayout title="Avatar">
       <UseCaseSection title="Default">
         <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Avatar
-            source={{
-              uri: "https://avatars.githubusercontent.com/u/14353231",
-            }}
-            fallback="IK"
-          />
+          <Avatar.Root>
+            <Avatar.Image
+              source={{
+                uri: "https://avatars.githubusercontent.com/u/14353231",
+              }}
+            />
+            <Avatar.Fallback>IK</Avatar.Fallback>
+          </Avatar.Root>
         </View>
       </UseCaseSection>
       <UseCaseSection title="Text only">
         <View style={{ alignItems: "center", justifyContent: "center" }}>
-          <Avatar fallback="IK" />
+          <Avatar.Root>
+            <Avatar.Fallback>IK</Avatar.Fallback>
+          </Avatar.Root>
         </View>
       </UseCaseSection>
     </ComponentScreenLayout>

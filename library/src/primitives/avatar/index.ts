@@ -1,14 +1,14 @@
-import { AvatarRoot } from "./avatar-root";
-import { AvatarFallback } from "./avatar-fallback";
-import { AvatarImage } from "./avatar-image";
+import { AvatarFallback } from "./components/avatar-fallback";
+import { AvatarImage } from "./components/avatar-image";
+import { AvatarRoot } from "./components/avatar-root";
 
-export const AvatarPrimitive = {
+export const Avatar = {
   Root: AvatarRoot,
   Image: AvatarImage,
   Fallback: AvatarFallback,
 };
 
-export type { AvatarRootProps } from "./avatar-root";
-export type { AvatarFallbackProps } from "./avatar-fallback";
-export type { AvatarImageProps } from "./avatar-image";
+export type { AvatarFallbackProps } from "./components/avatar-fallback";
+export type { AvatarImageProps } from "./components/avatar-image";
+export type { AvatarRootProps } from "./components/avatar-root";
 export type { AvatarStyles } from "./types";

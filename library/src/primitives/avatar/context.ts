@@ -2,6 +2,9 @@ import { createContext, useContext } from "react";
 import type { AvatarStyles } from "./types";
 
 export interface AvatarContext {
+  imageLoaded: boolean;
+  setImageLoaded: (loaded: boolean) => void;
+
   styles?: AvatarStyles;
 }
 
