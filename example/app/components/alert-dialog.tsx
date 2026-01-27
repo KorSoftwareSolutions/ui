@@ -1,7 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Typography } from "@korsolutions/ui";
-import { AlertDialog, AsyncAlertDialog, Button } from "@korsolutions/ui/components";
+import { Button, Typography } from "@korsolutions/ui";
+import { AlertDialog, AsyncAlertDialog } from "@korsolutions/ui/components";
 import React from "react";
 
 export default function AlertDialogComponentScreen() {
@@ -29,7 +29,11 @@ export default function AlertDialogComponentScreen() {
 function BasicExample() {
   return (
     <AlertDialog
-      trigger={<Button>Show Dialog</Button>}
+      trigger={
+        <Button.Root>
+          <Button.Label>Show Alert Dialog</Button.Label>
+        </Button.Root>
+      }
       title="Are you sure?"
       description="This action cannot be undone. This will permanently delete your account and remove your data from our servers."
     />
@@ -39,7 +43,11 @@ function BasicExample() {
 function DestructiveExample() {
   return (
     <AlertDialog
-      trigger={<Button variant="secondary">Delete Account</Button>}
+      trigger={
+        <Button.Root variant="secondary">
+          <Button.Label>Delete Account</Button.Label>
+        </Button.Root>
+      }
       title="Delete Account"
       description="This action cannot be undone. This will permanently delete your account and remove your data from our servers."
       actionLabel="Delete"
@@ -59,7 +67,11 @@ function CallbackExample() {
 
   return (
     <AlertDialog
-      trigger={<Button>Confirm Action</Button>}
+      trigger={
+        <Button.Root>
+          <Button.Label>Confirm Action</Button.Label>
+        </Button.Root>
+      }
       title="Confirm your action"
       description="Are you sure you want to proceed with this operation?"
       actionLabel="Yes, Continue"
@@ -87,7 +99,9 @@ function AsyncExample() {
   return (
     <>
       {result && <Typography>Result: {result}</Typography>}
-      <Button onPress={handleAsyncClick}>Show Async Dialog</Button>
+      <Button.Root onPress={handleAsyncClick}>
+        <Button.Label>Show Async Dialog</Button.Label>
+      </Button.Root>
     </>
   );
 }

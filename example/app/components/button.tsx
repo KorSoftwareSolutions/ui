@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
+import { Button } from "@korsolutions/ui";
+import React from "react";
 
 export default function ButtonComponentScreen() {
   const onSubmit = () => {
@@ -11,32 +11,34 @@ export default function ButtonComponentScreen() {
   return (
     <ComponentScreenLayout title="Button">
       <UseCaseSection title="Default">
-        <Button onPress={onSubmit}>Submit</Button>
+        <Button.Root onPress={onSubmit}>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Disabled">
-        <Button onPress={onSubmit} isDisabled>
-          Submit
-        </Button>
+        <Button.Root onPress={onSubmit} isDisabled>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Loading">
-        <Button onPress={onSubmit} isLoading>
-          Submitting...
-        </Button>
+        <Button.Root onPress={onSubmit} isLoading>
+          <Button.Label>Submitting...</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Secondary">
-        <Button variant="secondary" onPress={onSubmit}>
-          Submit
-        </Button>
+        <Button.Root variant="secondary" onPress={onSubmit}>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Secondary disabled">
-        <Button variant="secondary" onPress={onSubmit} isDisabled>
-          Submit
-        </Button>
+        <Button.Root variant="secondary" onPress={onSubmit} isDisabled>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Secondary loading">
-        <Button variant="secondary" onPress={onSubmit} isLoading>
-          Submitting...
-        </Button>
+        <Button.Root variant="secondary" onPress={onSubmit} isLoading>
+          <Button.Label>Submitting...</Button.Label>
+        </Button.Root>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

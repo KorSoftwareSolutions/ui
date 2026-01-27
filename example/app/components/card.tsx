@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Card } from "@korsolutions/ui";
-import { Button, Field, Input } from "@korsolutions/ui/components";
+import { Button, Card } from "@korsolutions/ui";
+import { Field, Input } from "@korsolutions/ui/components";
 import React, { useState } from "react";
 
 export default function CardComponentScreen() {
@@ -22,7 +22,9 @@ export default function CardComponentScreen() {
           </Field>
         </Card.Body>
         <Card.Footer>
-          <Button>Login</Button>
+          <Button.Root onPress={() => console.log("Logging in...")}>
+            <Button.Label>Login</Button.Label>
+          </Button.Root>
         </Card.Footer>
       </Card.Root>
     </ComponentScreenLayout>

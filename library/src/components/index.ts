@@ -1,6 +1,5 @@
 export * from "./alert-dialog";
 export * from "./badge/badge";
-export * from "./button/button";
 export * from "./calendar/calendar";
 export * from "./checkbox";
 export * from "./dropdown-menu/dropdown-menu";

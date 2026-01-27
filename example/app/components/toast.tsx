@@ -1,13 +1,14 @@
-import React from "react";
-import { Toast, Button } from "@korsolutions/ui/components";
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
+import { Button } from "@korsolutions/ui";
+import { Toast } from "@korsolutions/ui/components";
+import React from "react";
 
 export default function ToastComponentScreen() {
   return (
     <ComponentScreenLayout title="Toast">
       <UseCaseSection title="Default">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "default-toast",
@@ -16,11 +17,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Default Toast
-        </Button>
+          <Button.Label>Show Default Toast</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Default (Title only)">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "notification-toast",
@@ -28,11 +29,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Toast (Title Only)
-        </Button>
+          <Button.Label>Show Toast (Title Only)</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Success">
-        <Button
+        <Button.Root
           variant="secondary"
           onPress={() => {
             Toast.show({
@@ -43,11 +44,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Success Toast
-        </Button>
+          <Button.Label>Show Success Toast</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Success (Title only)">
-        <Button
+        <Button.Root
           variant="secondary"
           onPress={() => {
             Toast.show({
@@ -57,11 +58,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Success (Title Only)
-        </Button>
+          <Button.Label>Show Success (Title Only)</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Danger">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "error-toast",
@@ -71,11 +72,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Error Toast
-        </Button>
+          <Button.Label>Show Error Toast</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Danger (Title only)">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "error-title-only",
@@ -84,11 +85,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show Error (Title Only)
-        </Button>
+          <Button.Label>Show Error (Title Only)</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Custom Duration">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "quick-toast",
@@ -98,11 +99,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Show 1s Toast
-        </Button>
+          <Button.Label>Show 1s Toast</Button.Label>
+        </Button.Root>
       </UseCaseSection>
       <UseCaseSection title="Duplicate Prevention (same ID)">
-        <Button
+        <Button.Root
           onPress={() => {
             Toast.show({
               id: "duplicate-test",
@@ -111,8 +112,8 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          Test Duplicate Prevention
-        </Button>
+          <Button.Label>Test Duplicate Prevention</Button.Label>
+        </Button.Root>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

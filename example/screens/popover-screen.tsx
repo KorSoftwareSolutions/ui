@@ -1,8 +1,8 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { DateInputDemo } from "@/components/date-input-demo";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Typography } from "@korsolutions/ui";
-import { Button, Popover } from "@korsolutions/ui/components";
+import { Button, Typography } from "@korsolutions/ui";
+import { Popover } from "@korsolutions/ui/components";
 import { PopoverTriggerRef } from "@korsolutions/ui/primitives";
 import { router, usePathname } from "expo-router";
 import React, { PropsWithChildren, useRef } from "react";
@@ -26,27 +26,51 @@ export function PopoverComponentScreen() {
   return (
     <ComponentScreenLayout title={isModalScreen ? "Popover modal" : "Popover"} backHref={isModalScreen ? "/components/popover" : undefined}>
       <UseCaseSection title="Default">
-        <Popover trigger={<Button>Open popover</Button>}>
+        <Popover
+          trigger={
+            <Button.Root>
+              <Button.Label>Open popover</Button.Label>
+            </Button.Root>
+          }
+        >
           <PopoverContentDemo />
         </Popover>
       </UseCaseSection>
 
       <UseCaseSection title="Controlled with ref">
         <View style={{ gap: 12 }}>
-          <Popover ref={triggerRef} trigger={<Button>Open controlled popover</Button>}>
+          <Popover
+            ref={triggerRef}
+            trigger={
+              <Button.Root>
+                <Button.Label>Open controlled popover</Button.Label>
+              </Button.Root>
+            }
+          >
             <PopoverContentDemo />
           </Popover>
 
-          <Button onPress={() => triggerRef.current?.open()}>Open via ref</Button>
+          <Button.Root onPress={() => triggerRef.current?.open()}>
+            <Button.Label>Open via ref</Button.Label>
+          </Button.Root>
         </View>
       </UseCaseSection>
 
       <UseCaseSection title="Without close on overlay press">
-        <Popover trigger={<Button>Open (No Close on Overlay)</Button>} closeOnOverlayPress={false}>
+        <Popover
+          trigger={
+            <Button.Root>
+              <Button.Label>Open (No Close on Overlay)</Button.Label>
+            </Button.Root>
+          }
+          closeOnOverlayPress={false}
+        >
           {({ close }) => (
             <>
               <PopoverContentDemo>
-                <Button onPress={close}>Close</Button>
+                <Button.Root onPress={close}>
+                  <Button.Label>Close</Button.Label>
+                </Button.Root>
               </PopoverContentDemo>
             </>
           )}
@@ -57,22 +81,30 @@ export function PopoverComponentScreen() {
       </UseCaseSection>
       {!isModalScreen && (
         <UseCaseSection title="In modal screen">
-          <Button onPress={() => router.navigate("/components/popover/modal")} variant="secondary">
-            Open Modal Screen
-          </Button>
+          <Button.Root onPress={() => router.navigate("/components/popover/modal")} variant="secondary">
+            <Button.Label>Open Modal Screen</Button.Label>
+          </Button.Root>
         </UseCaseSection>
       )}
       <View style={{ flex: 1 }} />
       <UseCaseSection title="Content with actions">
-        <Popover trigger={<Button>Custom Content</Button>}>
+        <Popover
+          trigger={
+            <Button.Root>
+              <Button.Label>Custom Content</Button.Label>
+            </Button.Root>
+          }
+        >
           {({ close }) => (
             <PopoverContentDemo>
               <Typography>This is custom content with actions.</Typography>
               <View style={{ flexDirection: "row", gap: 12 }}>
-                <Button onPress={close} variant="secondary">
-                  Cancel
-                </Button>
-                <Button onPress={close}>Confirm</Button>
+                <Button.Root onPress={close} variant="secondary">
+                  <Button.Label>Cancel</Button.Label>
+                </Button.Root>
+                <Button.Root onPress={close}>
+                  <Button.Label>Confirm</Button.Label>
+                </Button.Root>
               </View>
             </PopoverContentDemo>
           )}

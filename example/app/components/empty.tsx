@@ -1,8 +1,8 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar, Card, useTheme } from "@korsolutions/ui";
-import { Button, Empty } from "@korsolutions/ui/components";
+import { Avatar, Button, Card, useTheme } from "@korsolutions/ui";
+import { Empty } from "@korsolutions/ui/components";
 import React from "react";
 import { View } from "react-native";
 
@@ -26,7 +26,9 @@ export default function EmptyComponentScreen() {
             title="User offline"
             description="This user is currently offline. You can leave a message to notify them or try again later."
           >
-            <Button>Send message</Button>
+            <Button.Root>
+              <Button.Label>Send message</Button.Label>
+            </Button.Root>
           </Empty>
         </Card.Root>
       </UseCaseSection>
@@ -38,8 +40,12 @@ export default function EmptyComponentScreen() {
             description="This device is not connected to the internet. Please check your network settings and try again."
           >
             <View style={{ flexDirection: "row", gap: 16 }}>
-              <Button>Retry connection</Button>
-              <Button variant="secondary">Open settings</Button>
+              <Button.Root>
+                <Button.Label>Retry connection</Button.Label>
+              </Button.Root>
+              <Button.Root variant="secondary">
+                <Button.Label>Open settings</Button.Label>
+              </Button.Root>
             </View>
           </Empty>
         </Card.Root>

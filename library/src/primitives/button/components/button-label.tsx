@@ -1,16 +1,16 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useButtonPrimitive } from "./button-context";
+import { useButton } from "../context";
 
-export interface ButtonPrimitiveLabelProps {
+export interface ButtonLabelProps {
   children?: string;
 
   style?: StyleProp<TextStyle>;
 }
 
-export function ButtonLabel(props: ButtonPrimitiveLabelProps) {
-  const button = useButtonPrimitive();
+export function ButtonLabel(props: ButtonLabelProps) {
+  const button = useButton();
 
   const calculatedStyle = calculateComposedStyles(button.styles, button.state, "label", props.style);
 

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Pressable, type CursorValue, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
-import { ButtonPrimitiveContext } from "./button-context";
-import type { ButtonState, ButtonStyles } from "./types";
+import { ButtonContext } from "../context";
+import type { ButtonState } from "../types";
+import { ButtonVariants } from "../variants";
 
-export interface ButtonPrimitiveRootProps extends PressableProps {
+export interface ButtonRootProps extends PressableProps {
+  variant?: keyof typeof ButtonVariants;
   children?: React.ReactNode;
 
   isDisabled?: boolean;
   isLoading?: boolean;
 
   style?: StyleProp<ViewStyle>;
-  styles?: ButtonStyles;
 }
 
-const calculateState = (props: ButtonPrimitiveRootProps, isHovered: boolean): ButtonState => {
+const calculateState = (props: ButtonRootProps, isHovered: boolean): ButtonState => {
   if (props.isDisabled) {
     return "disabled";
   }
@@ -37,12 +38,13 @@ const cursorValue = (state: ButtonState): CursorValue => {
   }
 };
 
-export function ButtonRoot(props: ButtonPrimitiveRootProps) {
+export function ButtonRoot(props: ButtonRootProps) {
+  const variantStyles = ButtonVariants[props.variant ?? "default"]();
   const [isHovered, setIsHovered] = useState(false);
 
   const state = calculateState(props, isHovered);
 
-  const calculatedStyle = [props.styles?.root?.default, props.styles?.root?.[state], props.style];
+  const calculatedStyle = [variantStyles.root?.default, variantStyles.root?.[state], props.style];
 
   const handlePress: PressableProps["onPress"] = (event) => {
     if (props.isDisabled || props.isLoading) {
@@ -52,8 +54,10 @@ export function ButtonRoot(props: ButtonPrimitiveRootProps) {
     props.onPress?.(event);
   };
 
+  const contextValue: ButtonContext = { state, styles: variantStyles };
+
   return (
-    <ButtonPrimitiveContext.Provider value={{ disabled: props.isDisabled, state, styles: props.styles }}>
+    <ButtonContext.Provider value={contextValue}>
       <Pressable
         {...props}
         onPress={handlePress}
@@ -67,6 +71,6 @@ export function ButtonRoot(props: ButtonPrimitiveRootProps) {
           },
         ]}
       />
-    </ButtonPrimitiveContext.Provider>
+    </ButtonContext.Provider>
   );
 }
