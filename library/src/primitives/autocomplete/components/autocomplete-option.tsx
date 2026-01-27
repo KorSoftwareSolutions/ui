@@ -2,8 +2,8 @@ import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { setInnerInputValue } from "@/utils/input-utils";
 import { useEffect, useState } from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useAutocomplete } from "./context";
-import type { AutocompleteOptionState, AutocompleteState } from "./types";
+import { useAutocomplete } from "../context";
+import type { AutocompleteOptionState, AutocompleteState } from "../types";
 
 export interface AutocompleteOptionProps {
   children: string;

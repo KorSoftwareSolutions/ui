@@ -4,9 +4,9 @@ import { calculateComposedStyles } from "@/utils/calculate-styles";
 import { setInnerInputValue } from "@/utils/input-utils";
 import React, { useEffect, useMemo, useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
-import { AutocompleteContext } from "./context";
-import type { AutocompleteOption, AutocompleteState } from "./types";
-import { AutocompleteVariants } from "./variants";
+import { AutocompleteContext } from "../context";
+import type { AutocompleteOption, AutocompleteState } from "../types";
+import { AutocompleteVariants } from "../variants";
 
 export interface AutocompleteRootBaseProps {
   value?: string;
@@ -14,7 +14,6 @@ export interface AutocompleteRootBaseProps {
   inputValue?: string;
   onInputChange?: (value: string) => void;
   isDisabled?: boolean;
-  openOnFocus?: boolean;
 }
 
 export interface AutocompleteRootProps extends AutocompleteRootBaseProps {
@@ -50,6 +49,9 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
         props.onInputChange?.(selectedOption.label);
         setInnerInputValue(inputRef, selectedOption.label);
       }
+    } else {
+      props.onInputChange?.("");
+      setInnerInputValue(inputRef, "");
     }
   }, [props.value, options, inputRef]);
 
@@ -71,7 +73,6 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
         setContentLayout,
         options,
         setOptions,
-        openOnFocus: props.openOnFocus ?? true,
         inputRef,
         setInputRef,
         state,
@@ -81,7 +82,6 @@ export function AutocompleteRoot(props: AutocompleteRootProps) {
     [
       props.value,
       props.onChange,
-      props.openOnFocus,
       props.isDisabled,
       variantStyles,
       props.inputValue,

@@ -3,7 +3,7 @@ import { useSafeAreaInsets } from "@/safe-area";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { ScrollView, type StyleProp, type ViewStyle } from "react-native";
-import { useAutocomplete } from "./context";
+import { useAutocomplete } from "../context";
 
 export interface AutocompleteContentProps {
   children?: React.ReactNode;
@@ -17,14 +17,14 @@ export function AutocompleteContent(props: AutocompleteContentProps) {
 
   const positionStyle = useRelativePosition({
     align: "start",
-    avoidCollisions: true,
     triggerPosition: autocomplete.inputPosition,
     contentLayout: autocomplete.contentLayout,
     alignOffset: 0,
-    side: "bottom",
+    preferredSide: "bottom",
     sideOffset: 0,
     insets: safeAreaInsets,
   });
+
   return (
     <ScrollView
       onLayout={(e) => {

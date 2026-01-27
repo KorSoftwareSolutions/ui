@@ -1,7 +1,7 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
-import { useAutocomplete } from "./context";
+import { useAutocomplete } from "../context";
 
 export interface AutocompleteOverlayProps {
   children?: React.ReactNode;

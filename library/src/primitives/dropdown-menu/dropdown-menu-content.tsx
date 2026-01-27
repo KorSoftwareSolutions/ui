@@ -16,11 +16,10 @@ export function DropdownMenuContent(props: DropdownMenuContentProps) {
 
   const positionStyle = useRelativePosition({
     align: "start",
-    avoidCollisions: true,
     triggerPosition: menu.triggerPosition,
     contentLayout: menu.contentLayout,
     alignOffset: 0,
-    side: "bottom",
+    preferredSide: "bottom",
     sideOffset: 0,
   });
 

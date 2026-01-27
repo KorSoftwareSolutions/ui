@@ -18,11 +18,10 @@ export function SelectContent(props: SelectContentProps) {
 
   const positionStyle = useRelativePosition({
     align: "start",
-    avoidCollisions: true,
     triggerPosition: select.triggerPosition,
     contentLayout: select.contentLayout,
     alignOffset: 0,
-    side: "bottom",
+    preferredSide: "bottom",
     sideOffset: 0,
   });
 

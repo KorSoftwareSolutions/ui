@@ -46,7 +46,7 @@ export function useAutocompleteVariantDefault(): AutocompleteStyles {
           borderColor: colors.border,
           padding: 4,
           gap: 4,
-          maxHeight: 300,
+          minHeight: 40,
         },
         focused: {},
         disabled: {},
@@ -82,6 +82,6 @@ export function useAutocompleteVariantDefault(): AutocompleteStyles {
         focused: {},
         disabled: {},
       },
-    })
+    }),
   );
 }

@@ -18,11 +18,10 @@ export function PopoverContent(props: PopoverContentProps) {
 
   const positionStyle = useRelativePosition({
     align: "start",
-    avoidCollisions: true,
     triggerPosition: popover.triggerPosition,
     contentLayout: popover.contentLayout,
     alignOffset: 0,
-    side: "bottom",
+    preferredSide: "bottom",
     sideOffset: 0,
     insets,
   });

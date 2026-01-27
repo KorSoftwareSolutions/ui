@@ -8,7 +8,9 @@ import { Pressable } from "react-native";
 export default function AutocompleteComponentScreen() {
   return (
     <ComponentScreenLayout title="Autocomplete">
-      <DefaultSection />
+      <UseCaseSection title="Default">
+        <DefaultSection />
+      </UseCaseSection>
 
       <UseCaseSection title="Async Simulation">
         <AsyncSection />
@@ -51,22 +53,20 @@ const DefaultSection = () => {
   const filteredOptions = fruits.filter((fruit) => fruit.label.toLowerCase().includes((inputValue ?? "").toLowerCase()));
 
   return (
-    <UseCaseSection title="Default">
-      <Autocomplete.Root value={value} onChange={setValue} inputValue={inputValue} onInputChange={setInputValue}>
-        <Autocomplete.Input placeholder="Search fruits..." />
-        <Autocomplete.Portal>
-          <Autocomplete.Overlay />
-          <Autocomplete.Content>
-            <List
-              data={filteredOptions}
-              keyExtractor={(item) => item.value}
-              renderItem={({ item }) => <Autocomplete.Option value={item.value}>{item.label}</Autocomplete.Option>}
-              renderEmpty={() => <Autocomplete.Empty>No fruits found</Autocomplete.Empty>}
-            />
-          </Autocomplete.Content>
-        </Autocomplete.Portal>
-      </Autocomplete.Root>
-    </UseCaseSection>
+    <Autocomplete.Root value={value} onChange={setValue} inputValue={inputValue} onInputChange={setInputValue}>
+      <Autocomplete.Input placeholder="Search fruits..." />
+      <Autocomplete.Portal>
+        <Autocomplete.Overlay />
+        <Autocomplete.Content>
+          <List
+            data={filteredOptions}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => <Autocomplete.Option value={item.value}>{item.label}</Autocomplete.Option>}
+            renderEmpty={() => <Autocomplete.Empty>No fruits found</Autocomplete.Empty>}
+          />
+        </Autocomplete.Content>
+      </Autocomplete.Portal>
+    </Autocomplete.Root>
   );
 };
 
@@ -77,7 +77,6 @@ const AsyncSection = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onInputChange = (val: string) => {
-    console.log("Input changed:", val);
     setInputValue(val);
     setOptions([]);
 

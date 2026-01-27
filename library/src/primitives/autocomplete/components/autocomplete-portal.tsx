@@ -1,6 +1,6 @@
 import React from "react";
-import { Portal } from "../portal";
-import { AutocompleteContext, useAutocomplete } from "./context";
+import { Portal } from "../../portal";
+import { AutocompleteContext, useAutocomplete } from "../context";
 
 export interface AutocompletePortalProps {
   children?: React.ReactNode;

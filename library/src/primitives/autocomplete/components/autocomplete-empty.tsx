@@ -1,7 +1,7 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useAutocomplete } from "./context";
+import { useAutocomplete } from "../context";
 
 export interface AutocompleteEmptyProps {
   children?: React.ReactNode;

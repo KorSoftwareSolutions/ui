@@ -20,8 +20,6 @@ export interface AutocompleteContext {
   options: Array<AutocompleteOption>;
   setOptions: Dispatch<React.SetStateAction<Array<AutocompleteOption>>>;
 
-  openOnFocus: boolean;
-
   inputRef: TextInputRef | null;
   setInputRef: Dispatch<React.SetStateAction<TextInputRef | null>>;
 
