@@ -11,3 +11,4 @@ export type TextInputRef = HostInstance & {
 };
 
 export type TextChildren = string | number | boolean | null | undefined | string[];
+export type ElementChildren = React.ReactElement | React.ReactElement[];

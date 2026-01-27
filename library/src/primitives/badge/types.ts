@@ -1,5 +1,5 @@
-import type { BadgeLabelProps } from "./badge-label";
-import type { BadgeRootProps } from "./badge-root";
+import type { BadgeLabelProps } from "./components/badge-label";
+import type { BadgeRootProps } from "./components/badge-root";
 
 export type BadgeState = "default";
 

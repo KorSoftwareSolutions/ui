@@ -1,7 +1,7 @@
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useBadge } from "./context";
+import { useBadge } from "../context";
 
 export interface BadgeLabelProps {
   children?: string;

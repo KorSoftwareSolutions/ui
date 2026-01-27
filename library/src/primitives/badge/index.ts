@@ -1,11 +1,11 @@
-import { BadgeRoot } from "./badge-root";
-import { BadgeLabel } from "./badge-label";
+import { BadgeLabel } from "./components/badge-label";
+import { BadgeRoot } from "./components/badge-root";
 
-export const BadgePrimitive = {
+export const Badge = {
   Root: BadgeRoot,
   Label: BadgeLabel,
 };
 
-export type { BadgeRootProps } from "./badge-root";
-export type { BadgeLabelProps } from "./badge-label";
+export type { BadgeLabelProps } from "./components/badge-label";
+export type { BadgeRootProps } from "./components/badge-root";
 export type { BadgeStyles } from "./types";
