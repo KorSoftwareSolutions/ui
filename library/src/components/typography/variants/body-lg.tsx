@@ -8,6 +8,7 @@ export function useTextVariantBodyLg(): TextStyle {
       fontSize: fontSize * 1.25,
       fontFamily,
       letterSpacing,
-    })
+      lineHeight: fontSize * 1.5,
+    }),
   );
 }

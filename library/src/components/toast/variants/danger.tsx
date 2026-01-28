@@ -13,6 +13,14 @@ export const useToastVariantDanger = (): ToastStyles => {
         gap: 4,
         minWidth: 300,
         maxWidth: 400,
+        flexDirection: "row",
+      },
+      icon: {
+        color: colors.foreground,
+        size: 20,
+        style: {
+          marginTop: 2,
+        },
       },
       title: {
         color: colors.foreground,

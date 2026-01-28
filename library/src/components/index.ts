@@ -8,6 +8,7 @@ export * from "./card";
 export * from "./checkbox";
 export * from "./empty";
 export * from "./field";
+export * from "./icon";
 export * from "./input";
 export * from "./link";
 export * from "./list";

@@ -38,6 +38,10 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/checkbox",
   },
   {
+    title: "Icon",
+    href: "/components/icon",
+  },
+  {
     title: "Input",
     href: "/components/input",
   },
