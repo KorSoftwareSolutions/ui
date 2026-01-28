@@ -1,5 +1,4 @@
-import { Input, Popover, PopoverTriggerRef } from "@korsolutions/ui";
-import { Calendar } from "@korsolutions/ui/components";
+import { Calendar, Input, Popover, PopoverTriggerRef } from "@korsolutions/ui";
 import React, { useRef, useState } from "react";
 import { Pressable } from "react-native";
 
@@ -17,13 +16,28 @@ export function DateInputDemo() {
       <Popover.Portal>
         <Popover.Overlay />
         <Popover.Content>
-          <Calendar
+          {/* <Calendar
             value={dateValue}
             onChange={(date) => {
               setDateValue(date);
               popoverTriggerRef.current?.close();
             }}
-          />
+          /> */}
+          <Calendar.Root
+            value={dateValue}
+            onChange={(date) => {
+              setDateValue(date);
+              popoverTriggerRef.current?.close();
+            }}
+          >
+            <Calendar.Header>
+              <Calendar.NavButton direction="prev" />
+              <Calendar.Title />
+              <Calendar.NavButton direction="next" />
+            </Calendar.Header>
+            <Calendar.CalendarWeekLabels />
+            <Calendar.Weeks />
+          </Calendar.Root>
         </Popover.Content>
       </Popover.Portal>
     </Popover.Root>

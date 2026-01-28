@@ -103,7 +103,7 @@ interface ToastProps {
 
 export function ToastComponent(props: ToastProps) {
   return (
-    <ToastRoot>
+    <ToastRoot variant={props.variant}>
       <ToastTitle>{props.title}</ToastTitle>
       {!!props.description && <ToastDescription>{props.description}</ToastDescription>}
     </ToastRoot>

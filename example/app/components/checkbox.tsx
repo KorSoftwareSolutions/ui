@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Checkbox } from "@korsolutions/ui/components";
+import { Checkbox } from "@korsolutions/ui";
 import React from "react";
 
 export default function CheckboxComponentScreen() {
@@ -22,10 +22,6 @@ export default function CheckboxComponentScreen() {
         <OutlinedExample />
       </UseCaseSection>
 
-      <UseCaseSection title="Outlined with description">
-        <OutlinedDescriptionExample />
-      </UseCaseSection>
-
       <UseCaseSection title="Disabled">
         <DisabledExample />
       </UseCaseSection>
@@ -36,50 +32,62 @@ export default function CheckboxComponentScreen() {
 function DefaultExample() {
   const [checked, setChecked] = React.useState(false);
 
-  return <Checkbox value={checked} onChange={setChecked} />;
+  return (
+    <Checkbox.Root value={checked} onChange={setChecked}>
+      <Checkbox.Indicator />
+    </Checkbox.Root>
+  );
 }
 
 function TitleOnlyExample() {
   const [checked, setChecked] = React.useState(false);
 
-  return <Checkbox value={checked} onChange={setChecked} title="Accept terms and conditions" />;
+  return (
+    <Checkbox.Root value={checked} onChange={setChecked}>
+      <Checkbox.Indicator />
+      <Checkbox.Title>Accept terms and conditions</Checkbox.Title>
+    </Checkbox.Root>
+  );
 }
 
 function TitleDescriptionExample() {
   const [checked, setChecked] = React.useState(true);
 
   return (
-    <Checkbox
-      value={checked}
-      onChange={setChecked}
-      title="Enable notifications"
-      description="Receive email notifications about your account activity"
-    />
+    <Checkbox.Root value={checked} onChange={setChecked}>
+      <Checkbox.Indicator />
+      <Checkbox.Content>
+        <Checkbox.Title>Enable notifications</Checkbox.Title>
+        <Checkbox.Description>Receive updates and alerts about your account activity</Checkbox.Description>
+      </Checkbox.Content>
+    </Checkbox.Root>
   );
 }
 
 function OutlinedExample() {
   const [checked, setChecked] = React.useState(false);
 
-  return <Checkbox value={checked} onChange={setChecked} title="Subscribe to newsletter" variant="outlined" />;
-}
-
-function OutlinedDescriptionExample() {
-  const [checked, setChecked] = React.useState(false);
-
   return (
-    <Checkbox
-      value={checked}
-      onChange={setChecked}
-      title="Marketing communications"
-      description="I agree to receive marketing emails and promotional content"
-      variant="outlined"
-    />
+    <Checkbox.Root value={checked} onChange={setChecked} variant="outlined">
+      <Checkbox.Indicator />
+      <Checkbox.Content>
+        <Checkbox.Title>Subscribe to newsletter</Checkbox.Title>
+        <Checkbox.Description>Get the latest news and updates delivered to your inbox</Checkbox.Description>
+      </Checkbox.Content>
+    </Checkbox.Root>
   );
 }
 
 function DisabledExample() {
   const [checked, setChecked] = React.useState(true);
 
-  return <Checkbox value={checked} onChange={setChecked} title="This option is disabled" description="You cannot change this setting" isDisabled />;
+  return (
+    <Checkbox.Root value={checked} onChange={setChecked} isDisabled>
+      <Checkbox.Indicator />
+      <Checkbox.Content>
+        <Checkbox.Title>This option is disabled</Checkbox.Title>
+        <Checkbox.Description>You cannot change this setting</Checkbox.Description>
+      </Checkbox.Content>
+    </Checkbox.Root>
+  );
 }

@@ -1,4 +1,4 @@
-import { UniversalUIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
+import { UIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
@@ -32,7 +32,7 @@ function ThemedApp() {
   const safeAreaInsets = useSafeAreaInsets();
 
   return (
-    <UniversalUIProvider
+    <UIProvider
       portalContainer={{
         ios: FullWindowOverlay,
       }}
@@ -40,7 +40,7 @@ function ThemedApp() {
       safeAreaInsets={safeAreaInsets}
     >
       <RootRouter />
-    </UniversalUIProvider>
+    </UIProvider>
   );
 }
 

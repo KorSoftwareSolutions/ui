@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { AlertDialogAction } from "./components/alert-dialog-action";
+import { AlertDialogCancel } from "./components/alert-dialog-cancel";
+import { AlertDialogContent } from "./components/alert-dialog-content";
+import { AlertDialogDescription } from "./components/alert-dialog-description";
+import { AlertDialogFooter } from "./components/alert-dialog-footer";
+import { AlertDialogOverlay } from "./components/alert-dialog-overlay";
+import { AlertDialogPortal } from "./components/alert-dialog-portal";
+import { AlertDialogRoot } from "./components/alert-dialog-root";
+import { AlertDialogTitle } from "./components/alert-dialog-title";
 import { useAlertDialog } from "./context";
-import { AlertDialog } from "./index";
 import { AlertDialogVariants } from "./variants";
 
 interface AsyncAlertDialogProps {
+  variant?: keyof typeof AlertDialogVariants;
   title: string;
   description: string;
   actionLabel?: string;
   cancelLabel?: string;
-  variant?: keyof typeof AlertDialogVariants;
 }
 
 interface AsyncAlertDialogResult {
@@ -60,26 +68,26 @@ function AsyncAlertDialogContent({ instance }: { instance: AsyncAlertDialogInsta
   }, [setIsOpen]);
 
   return (
-    <AlertDialog.Portal>
-      <AlertDialog.Overlay onPress={handleCancel} />
-      <AlertDialog.Content>
-        <AlertDialog.Title>{title}</AlertDialog.Title>
-        <AlertDialog.Description>{description}</AlertDialog.Description>
-        <AlertDialog.Footer>
-          <AlertDialog.Cancel onPress={handleCancel}>{cancelLabel}</AlertDialog.Cancel>
-          <AlertDialog.Action onPress={handleAction}>{actionLabel}</AlertDialog.Action>
-        </AlertDialog.Footer>
-      </AlertDialog.Content>
-    </AlertDialog.Portal>
+    <AlertDialogPortal>
+      <AlertDialogOverlay onPress={handleCancel} />
+      <AlertDialogContent>
+        <AlertDialogTitle>{title}</AlertDialogTitle>
+        <AlertDialogDescription>{description}</AlertDialogDescription>
+        <AlertDialogFooter>
+          <AlertDialogCancel onPress={handleCancel}>{cancelLabel}</AlertDialogCancel>
+          <AlertDialogAction onPress={handleAction}>{actionLabel}</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialogPortal>
   );
 }
 
 // Component that renders a single dialog instance
 function AsyncAlertDialogInstance({ instance }: { instance: AsyncAlertDialogInstance }) {
   return (
-    <AlertDialog.Root {...instance.props}>
+    <AlertDialogRoot {...instance.props}>
       <AsyncAlertDialogContent instance={instance} />
-    </AlertDialog.Root>
+    </AlertDialogRoot>
   );
 }
 

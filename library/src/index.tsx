@@ -12,7 +12,7 @@ export interface ProviderProps {
   safeAreaInsets?: SafeAreaInsets;
 }
 
-export const UniversalUIProvider = ({ children, portalContainer, theme, safeAreaInsets }: ProviderProps) => {
+export const UIProvider = ({ children, portalContainer, theme, safeAreaInsets }: ProviderProps) => {
   return (
     <SafeAreaProvider insets={safeAreaInsets}>
       <ThemeProvider theme={theme}>
@@ -30,23 +30,6 @@ export * from "./themes/default";
 export { useTheme } from "./themes/provider";
 export * from "./themes/types";
 
-export * from "./components/alert";
-export * from "./components/avatar";
-export * from "./components/badge";
-export * from "./components/button";
-export * from "./components/card";
-export * from "./components/empty";
-export * from "./components/field";
-export * from "./components/input";
-export * from "./components/link";
-export * from "./components/list";
-export * from "./components/menu";
-export * from "./components/popover";
-export * from "./components/progress";
-export * from "./components/select";
-export * from "./components/tabs";
-export * from "./components/textarea";
-export * from "./components/toast";
-export * from "./components/typography";
+export * from "./components";
 
 export * from "./safe-area";

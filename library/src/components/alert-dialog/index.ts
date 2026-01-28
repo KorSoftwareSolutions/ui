@@ -22,6 +22,7 @@ export const AlertDialog = {
   Cancel: AlertDialogCancel,
 };
 
+export * from "./async-alert-dialog";
 export type { AlertDialogActionProps } from "./components/alert-dialog-action";
 export type { AlertDialogCancelProps } from "./components/alert-dialog-cancel";
 export type { AlertDialogContentProps } from "./components/alert-dialog-content";

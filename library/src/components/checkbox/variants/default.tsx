@@ -39,6 +39,11 @@ export const useCheckboxVariantDefault = (): CheckboxStyles => {
           lineHeight: 16,
         },
       },
+      content: {
+        default: {
+          flex: 1,
+        },
+      },
       title: {
         default: {
           color: colors.foreground,

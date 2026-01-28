@@ -42,7 +42,6 @@ export const useCheckboxVariantOutlined = (): CheckboxStyles => {
           backgroundColor: colors.primary,
           borderColor: colors.primary,
         },
-
         disabled: {
           opacity: 0.5,
         },
@@ -53,6 +52,11 @@ export const useCheckboxVariantOutlined = (): CheckboxStyles => {
           fontSize: 14,
           fontWeight: "bold",
           lineHeight: 16,
+        },
+      },
+      content: {
+        default: {
+          flex: 1,
         },
       },
       title: {

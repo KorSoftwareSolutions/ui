@@ -1,7 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button, Typography } from "@korsolutions/ui";
-import { AlertDialog, AsyncAlertDialog } from "@korsolutions/ui/components";
+import { AlertDialog, AsyncAlertDialog, Button, Typography } from "@korsolutions/ui";
 import React from "react";
 
 export default function AlertDialogComponentScreen() {
@@ -28,31 +27,51 @@ export default function AlertDialogComponentScreen() {
 
 function BasicExample() {
   return (
-    <AlertDialog
-      trigger={
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>
         <Button.Root>
           <Button.Label>Show Alert Dialog</Button.Label>
         </Button.Root>
-      }
-      title="Are you sure?"
-      description="This action cannot be undone. This will permanently delete your account and remove your data from our servers."
-    />
+      </AlertDialog.Trigger>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay />
+        <AlertDialog.Content>
+          <AlertDialog.Title>Are you sure?</AlertDialog.Title>
+          <AlertDialog.Description>
+            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+          </AlertDialog.Description>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+            <AlertDialog.Action>Continue</AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog.Root>
   );
 }
 
 function DestructiveExample() {
   return (
-    <AlertDialog
-      trigger={
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>
         <Button.Root variant="secondary">
           <Button.Label>Delete Account</Button.Label>
         </Button.Root>
-      }
-      title="Delete Account"
-      description="This action cannot be undone. This will permanently delete your account and remove your data from our servers."
-      actionLabel="Delete"
-      cancelLabel="Cancel"
-    />
+      </AlertDialog.Trigger>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay />
+        <AlertDialog.Content>
+          <AlertDialog.Title>Delete Account</AlertDialog.Title>
+          <AlertDialog.Description>
+            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+          </AlertDialog.Description>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+            <AlertDialog.Action>Delete</AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog.Root>
   );
 }
 
@@ -66,19 +85,24 @@ function CallbackExample() {
   };
 
   return (
-    <AlertDialog
-      trigger={
+    <AlertDialog.Root>
+      <AlertDialog.Trigger>
         <Button.Root>
           <Button.Label>Confirm Action</Button.Label>
         </Button.Root>
-      }
-      title="Confirm your action"
-      description="Are you sure you want to proceed with this operation?"
-      actionLabel="Yes, Continue"
-      cancelLabel="No, Cancel"
-      onAction={handleAction}
-      onCancel={handleCancel}
-    />
+      </AlertDialog.Trigger>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay />
+        <AlertDialog.Content>
+          <AlertDialog.Title>Confirm your action</AlertDialog.Title>
+          <AlertDialog.Description>Are you sure you want to proceed with this operation?</AlertDialog.Description>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel onPress={handleCancel}>No, Cancel</AlertDialog.Cancel>
+            <AlertDialog.Action onPress={handleAction}>Yes, Continue</AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog.Root>
   );
 }
 
