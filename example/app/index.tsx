@@ -38,12 +38,12 @@ const COMPONENTS: ComponentListItemProps[] = [
     href: "/components/checkbox",
   },
   {
-    title: "Dropdown Menu",
-    href: "/components/dropdown-menu",
-  },
-  {
     title: "Input",
     href: "/components/input",
+  },
+  {
+    title: "Menu",
+    href: "/components/menu",
   },
   {
     title: "Select",

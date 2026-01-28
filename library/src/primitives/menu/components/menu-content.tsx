@@ -1,18 +1,18 @@
 import { useRelativePosition } from "@/hooks/use-relative-position";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
-import { useDropdownMenu } from "./context";
+import { useMenu } from "../context";
 
-export interface DropdownMenuContentProps {
+export interface MenuContentProps {
   children?: React.ReactNode;
 
-  render?: (props: DropdownMenuContentProps) => React.ReactNode;
+  render?: (props: MenuContentProps) => React.ReactNode;
 
   style?: StyleProp<ViewStyle>;
 }
 
-export function DropdownMenuContent(props: DropdownMenuContentProps) {
-  const menu = useDropdownMenu();
+export function MenuContent(props: MenuContentProps) {
+  const menu = useMenu();
 
   const positionStyle = useRelativePosition({
     align: "start",

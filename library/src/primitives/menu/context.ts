@@ -1,9 +1,9 @@
 import type { LayoutPosition } from "@/hooks/use-relative-position";
 import { createContext, type Dispatch, useContext } from "react";
 import type { LayoutRectangle } from "react-native";
-import type { DropdownMenuStyles } from "./types";
+import type { MenuStyles } from "./types";
 
-export interface DropdownMenuContext {
+export interface MenuContext {
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
   triggerPosition: LayoutPosition;
@@ -11,15 +11,15 @@ export interface DropdownMenuContext {
   contentLayout: LayoutRectangle;
   setContentLayout: Dispatch<React.SetStateAction<LayoutRectangle>>;
 
-  styles?: DropdownMenuStyles;
+  styles?: MenuStyles;
 }
 
-export const DropdownMenuContext = createContext<DropdownMenuContext | undefined>(undefined);
+export const MenuContext = createContext<MenuContext | undefined>(undefined);
 
-export const useDropdownMenu = () => {
-  const context = useContext(DropdownMenuContext);
+export const useMenu = () => {
+  const context = useContext(MenuContext);
   if (!context) {
-    throw new Error("useDropdownMenu must be used within a DropdownMenuRoot");
+    throw new Error("useMenu must be used within a MenuRoot");
   }
   return context;
 };

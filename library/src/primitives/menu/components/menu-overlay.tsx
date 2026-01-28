@@ -1,17 +1,17 @@
 import React from "react";
 import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
-import { useDropdownMenu } from "./context";
+import { useMenu } from "../context";
 
-export interface DropdownMenuOverlayProps {
+export interface MenuOverlayProps {
   children?: React.ReactNode;
 
-  render?: (props: DropdownMenuOverlayProps) => React.ReactElement;
+  render?: (props: MenuOverlayProps) => React.ReactElement;
 
   style?: StyleProp<ViewStyle>;
 }
 
-export function DropdownMenuOverlay(props: DropdownMenuOverlayProps) {
-  const menu = useDropdownMenu();
+export function MenuOverlay(props: MenuOverlayProps) {
+  const menu = useMenu();
 
   const composedStyle = [StyleSheet.absoluteFill, menu.styles?.overlay, props.style];
 

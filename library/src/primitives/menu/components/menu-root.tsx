@@ -1,24 +1,24 @@
 import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "@/hooks/use-relative-position";
 import React, { useState } from "react";
 import { type LayoutRectangle } from "react-native";
-import { DropdownMenuContext } from "./context";
-import type { DropdownMenuStyles } from "./types";
+import { MenuContext } from "../context";
+import { MenuVariants } from "../variants";
 
-export interface DropdownMenuRootProps {
+export interface MenuRootProps {
+  variant?: keyof typeof MenuVariants;
   children?: React.ReactNode;
 
-  render?: (props: DropdownMenuRootProps) => React.ReactNode;
-
-  styles?: DropdownMenuStyles;
+  render?: (props: MenuRootProps) => React.ReactNode;
 }
 
-export function DropdownMenuRoot(props: DropdownMenuRootProps) {
+export function MenuRoot(props: MenuRootProps) {
+  const variantStyles = MenuVariants[props.variant || "default"]();
   const [isOpen, setIsOpen] = useState(false);
   const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
 
   return (
-    <DropdownMenuContext.Provider
+    <MenuContext.Provider
       value={{
         isOpen,
         setIsOpen,
@@ -26,10 +26,10 @@ export function DropdownMenuRoot(props: DropdownMenuRootProps) {
         setTriggerPosition,
         contentLayout,
         setContentLayout,
-        styles: props.styles,
+        styles: variantStyles,
       }}
     >
       {props.children}
-    </DropdownMenuContext.Provider>
+    </MenuContext.Provider>
   );
 }

@@ -1,9 +1,9 @@
-import { type DropdownMenuStyles } from "@/primitives";
+import { type MenuStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
-export const useDropdownMenuVariantDefault = (): DropdownMenuStyles => {
+export const useMenuVariantDefault = (): MenuStyles => {
   return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): DropdownMenuStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): MenuStyles => ({
       overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
       },
@@ -19,7 +19,7 @@ export const useDropdownMenuVariantDefault = (): DropdownMenuStyles => {
         shadowRadius: 12,
         elevation: 8,
       },
-      button: {
+      item: {
         default: {
           paddingVertical: 12,
           paddingHorizontal: 16,
@@ -31,10 +31,6 @@ export const useDropdownMenuVariantDefault = (): DropdownMenuStyles => {
           backgroundColor: colors.muted,
         },
       },
-      divider: {
-        height: 1,
-        backgroundColor: colors.border,
-      },
-    })
+    }),
   );
 };

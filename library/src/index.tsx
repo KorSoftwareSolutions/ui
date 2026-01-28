@@ -40,6 +40,7 @@ export * from "./primitives/field";
 export * from "./primitives/input";
 export * from "./primitives/link";
 export * from "./primitives/list";
+export * from "./primitives/menu";
 export * from "./primitives/popover";
 export * from "./primitives/progress";
 export * from "./primitives/select";
