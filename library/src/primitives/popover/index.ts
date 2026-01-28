@@ -1,11 +1,11 @@
-import { PopoverRoot } from "./popover-root";
-import { PopoverTrigger } from "./popover-trigger";
-import { PopoverPortal } from "./popover-portal";
-import { PopoverOverlay } from "./popover-overlay";
-import { PopoverContent } from "./popover-content";
-import { PopoverClose } from "./popover-close";
+import { PopoverClose } from "./components/popover-close";
+import { PopoverContent } from "./components/popover-content";
+import { PopoverOverlay } from "./components/popover-overlay";
+import { PopoverPortal } from "./components/popover-portal";
+import { PopoverRoot } from "./components/popover-root";
+import { PopoverTrigger } from "./components/popover-trigger";
 
-export const PopoverPrimitive = {
+export const Popover = {
   Root: PopoverRoot,
   Trigger: PopoverTrigger,
   Portal: PopoverPortal,
@@ -14,11 +14,11 @@ export const PopoverPrimitive = {
   Close: PopoverClose,
 };
 
-export type { PopoverRootProps } from "./popover-root";
-export type { PopoverTriggerProps, PopoverTriggerRef } from "./popover-trigger";
-export type { PopoverPortalProps } from "./popover-portal";
-export type { PopoverOverlayProps } from "./popover-overlay";
-export type { PopoverContentProps } from "./popover-content";
-export type { PopoverCloseProps } from "./popover-close";
-export type { PopoverContext } from "./context";
+export type { PopoverCloseProps } from "./components/popover-close";
+export type { PopoverContentProps } from "./components/popover-content";
+export type { PopoverOverlayProps } from "./components/popover-overlay";
+export type { PopoverPortalProps } from "./components/popover-portal";
+export type { PopoverRootProps } from "./components/popover-root";
+export type { PopoverTriggerProps, PopoverTriggerRef } from "./components/popover-trigger";
 export { usePopover } from "./context";
+export type { PopoverContext } from "./context";

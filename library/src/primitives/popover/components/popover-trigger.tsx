@@ -2,7 +2,7 @@ import type { ViewRef } from "@/types/element.types";
 import { measureLayoutPosition } from "@/utils/normalize-layout";
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { type PressableProps } from "react-native";
-import { usePopover } from "./context";
+import { usePopover } from "../context";
 
 export interface PopoverTriggerProps extends PressableProps {
   children: React.ReactElement<React.RefAttributes<ViewRef> & PressableProps>;

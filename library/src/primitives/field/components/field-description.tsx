@@ -1,6 +1,6 @@
 import React from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
-import { useField } from "./context";
+import { useField } from "../context";
 
 export interface FieldDescriptionProps {
   children: string;

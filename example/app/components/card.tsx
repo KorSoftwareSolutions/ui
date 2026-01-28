@@ -1,6 +1,5 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Button, Card, Input } from "@korsolutions/ui";
-import { Field } from "@korsolutions/ui/components";
+import { Button, Card, Field, Input } from "@korsolutions/ui";
 import React, { useState } from "react";
 
 export default function CardComponentScreen() {
@@ -14,12 +13,17 @@ export default function CardComponentScreen() {
           <Card.Title>Login to your account</Card.Title>
         </Card.Header>
         <Card.Body>
-          <Field label="Email" description="We'll never share your email.">
-            <Input value={emailValue} onChangeText={setEmailValue} placeholder="Email" />
-          </Field>
-          <Field label="Password" description="Must be at least 8 characters long.">
-            <Input value={passwordValue} onChangeText={setPasswordValue} placeholder="Password" secureTextEntry />
-          </Field>
+          <Field.Root>
+            <Field.Label for="email">Email</Field.Label>
+            <Field.Description>We&apos;ll never share your email.</Field.Description>
+            {/* <Field label="Email" description="We'll never share your email."> */}
+            <Input id="email" value={emailValue} onChangeText={setEmailValue} placeholder="Email" />
+          </Field.Root>
+          <Field.Root>
+            <Field.Label for="password">Password</Field.Label>
+            <Field.Description>Must be at least 8 characters long.</Field.Description>
+            <Input id="password" value={passwordValue} onChangeText={setPasswordValue} placeholder="Password" secureTextEntry />
+          </Field.Root>
         </Card.Body>
         <Card.Footer>
           <Button.Root onPress={() => console.log("Logging in...")}>

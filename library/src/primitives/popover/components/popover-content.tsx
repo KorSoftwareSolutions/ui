@@ -2,7 +2,7 @@ import { useRelativePosition } from "@/hooks/use-relative-position";
 import { useSafeAreaInsets } from "@/safe-area";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
-import { usePopover } from "./context";
+import { usePopover } from "../context";
 
 export interface PopoverContentProps {
   children?: React.ReactNode;

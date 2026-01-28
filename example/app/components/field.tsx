@@ -1,17 +1,20 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Input } from "@korsolutions/ui";
-import { Field } from "@korsolutions/ui/components";
+import { Field, Input } from "@korsolutions/ui";
 import React from "react";
 
 export default function FieldComponentScreen() {
   return (
     <ComponentScreenLayout title="Field">
-      <Field id="username" label="Username" description="Choose a unique username for your account.">
+      <Field.Root>
+        <Field.Label for="username">Username</Field.Label>
+        <Field.Description>Choose a unique username for your account.</Field.Description>
         <Input id="username" placeholder="Enter your username" />
-      </Field>
-      <Field id="password" label="Password" description="Choose a strong password for your account.">
+      </Field.Root>
+      <Field.Root>
+        <Field.Label for="password">Password</Field.Label>
+        <Field.Description>Your password must be at least 8 characters long.</Field.Description>
         <Input id="password" placeholder="Enter your password" />
-      </Field>
+      </Field.Root>
     </ComponentScreenLayout>
   );
 }

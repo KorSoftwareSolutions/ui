@@ -1,5 +1,5 @@
-import type { PopoverContentProps } from "./popover-content";
-import type { PopoverOverlayProps } from "./popover-overlay";
+import type { PopoverContentProps } from "./components/popover-content";
+import type { PopoverOverlayProps } from "./components/popover-overlay";
 
 export interface PopoverStyles {
   overlay?: PopoverOverlayProps["style"];

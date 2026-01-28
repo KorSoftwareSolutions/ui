@@ -1,7 +1,7 @@
-import type { FieldDescriptionProps } from "./field-description";
-import type { FieldErrorProps } from "./field-error";
-import type { FieldLabelProps } from "./field-label";
-import type { FieldPrimitiveRootProps } from "./field-root";
+import type { FieldDescriptionProps } from "./components/field-description";
+import type { FieldErrorProps } from "./components/field-error";
+import type { FieldLabelProps } from "./components/field-label";
+import type { FieldPrimitiveRootProps } from "./components/field-root";
 
 export interface FieldStyles {
   root?: FieldPrimitiveRootProps["style"];
