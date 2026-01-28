@@ -1,4 +1,4 @@
-import { type CheckboxStyles } from "@/primitives";
+import { type CheckboxStyles } from "@/components";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useCheckboxVariantOutlined = (): CheckboxStyles => {
@@ -77,6 +77,6 @@ export const useCheckboxVariantOutlined = (): CheckboxStyles => {
           opacity: 0.7,
         },
       },
-    })
+    }),
   );
 };

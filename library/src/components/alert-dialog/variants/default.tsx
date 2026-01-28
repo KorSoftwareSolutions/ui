@@ -1,4 +1,4 @@
-import { type AlertDialogStyles } from "@/primitives";
+import { type AlertDialogStyles } from "@/components";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useAlertDialogVariantDefault = (): AlertDialogStyles => {
@@ -77,6 +77,6 @@ export const useAlertDialogVariantDefault = (): AlertDialogStyles => {
         fontWeight: "500",
         fontFamily,
       },
-    })
+    }),
   );
 };

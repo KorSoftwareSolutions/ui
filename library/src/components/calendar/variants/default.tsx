@@ -1,4 +1,4 @@
-import { type CalendarStyles } from "@/primitives";
+import { type CalendarStyles } from "@/components";
 import { useThemedStyles } from "@/utils/use-themed-styles";
 
 export const useCalendarVariantDefault = (): CalendarStyles => {
@@ -122,6 +122,6 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
           opacity: 0.5,
         },
       },
-    })
+    }),
   );
 };
