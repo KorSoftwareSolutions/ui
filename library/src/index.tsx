@@ -1,9 +1,9 @@
 import { SafeAreaProvider, type SafeAreaInsets } from "@/safe-area";
 import { ThemeProvider, type ThemeProviderProps } from "@/themes";
 import { AsyncAlertDialogManager } from "./components/alert-dialog/async-alert-dialog";
-import { ToastContainer } from "./components/toast/toast-manager";
 import { PortalHost } from "./primitives/portal";
 import { type PortalHostProps } from "./primitives/portal/portal.constants";
+import { ToastContainer } from "./primitives/toast/manager";
 
 export interface ProviderProps {
   children: React.ReactNode;

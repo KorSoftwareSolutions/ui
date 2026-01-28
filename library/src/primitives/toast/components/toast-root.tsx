@@ -1,7 +1,7 @@
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
-import { ToastContext } from "./context";
-import type { ToastStyles } from "./types";
+import { ToastContext } from "../context";
+import type { ToastStyles } from "../types";
 
 export interface ToastRootProps {
   children?: React.ReactNode;

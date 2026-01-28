@@ -1,7 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button } from "@korsolutions/ui";
-import { Toast } from "@korsolutions/ui/components";
+import { Button, Toast } from "@korsolutions/ui";
 import React from "react";
 
 export default function ToastComponentScreen() {

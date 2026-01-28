@@ -1,5 +1,5 @@
-import { type ToastStyles } from "@/primitives";
 import { useThemedStyles } from "@/utils/use-themed-styles";
+import { type ToastStyles } from "../types";
 
 export const useToastVariantDanger = (): ToastStyles => {
   return useThemedStyles(
@@ -26,6 +26,6 @@ export const useToastVariantDanger = (): ToastStyles => {
         fontFamily,
         opacity: 0.9,
       },
-    })
+    }),
   );
 };

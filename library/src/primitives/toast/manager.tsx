@@ -2,7 +2,9 @@ import { Portal } from "@/primitives/portal";
 import { useSafeAreaInsets } from "@/safe-area";
 import React, { useSyncExternalStore } from "react";
 import { StyleSheet, View } from "react-native";
-import { ToastComponent } from "./toast";
+import { ToastDescription } from "./components/toast-description";
+import { ToastRoot } from "./components/toast-root";
+import { ToastTitle } from "./components/toast-title";
 import { ToastVariants } from "./variants";
 
 export const TOAST_PORTAL_NAME = "toast-portal";
@@ -89,6 +91,22 @@ export function ToastContainer() {
         ))}
       </View>
     </Portal>
+  );
+}
+
+interface ToastProps {
+  title: string;
+  description?: string;
+
+  variant?: keyof typeof ToastVariants;
+}
+
+export function ToastComponent(props: ToastProps) {
+  return (
+    <ToastRoot>
+      <ToastTitle>{props.title}</ToastTitle>
+      {!!props.description && <ToastDescription>{props.description}</ToastDescription>}
+    </ToastRoot>
   );
 }
 
