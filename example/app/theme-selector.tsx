@@ -1,5 +1,4 @@
-import { Typography, useTheme } from "@korsolutions/ui";
-import { Input } from "@korsolutions/ui/components";
+import { Input, Typography, useTheme } from "@korsolutions/ui";
 import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";

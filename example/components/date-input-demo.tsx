@@ -1,4 +1,5 @@
-import { Calendar, Input, Popover } from "@korsolutions/ui/components";
+import { Input } from "@korsolutions/ui";
+import { Calendar, Popover } from "@korsolutions/ui/components";
 import React, { useState } from "react";
 import { Pressable } from "react-native";
 

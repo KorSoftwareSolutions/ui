@@ -2,19 +2,18 @@ import type { TextInputRef } from "@/types/element.types";
 import { forwardRef, useState } from "react";
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 import { useFieldOptional } from "../field/context";
-import type { InputState, InputStyles } from "./types";
+import type { InputState } from "./types";
+import { InputVariants } from "./variants";
 
-export type InputPrimitiveBaseProps = Omit<TextInputProps, "onChange"> & {
+export type InputProps = Omit<TextInputProps, "onChange"> & {
+  variant?: keyof typeof InputVariants;
+
   ref?: React.Ref<TextInputRef>;
   onChange?: TextInputProps["onChangeText"];
   isDisabled?: boolean;
 };
 
-export interface InputPrimitiveProps extends InputPrimitiveBaseProps {
-  styles?: InputStyles;
-}
-
-const calculateState = (props: InputPrimitiveProps, isFocused: boolean): InputState => {
+const calculateState = (props: InputProps, isFocused: boolean): InputState => {
   if (props.isDisabled) {
     return "disabled";
   }
@@ -24,15 +23,16 @@ const calculateState = (props: InputPrimitiveProps, isFocused: boolean): InputSt
   return "default";
 };
 
-export const InputPrimitive = forwardRef<TextInputRef, InputPrimitiveProps>((props, ref) => {
+export const Input = forwardRef<TextInputRef, InputProps>((props, ref) => {
+  const variantStyles = InputVariants[props.variant || "default"]();
   const [isFocused, setIsFocused] = useState(false);
   const state = calculateState(props, isFocused);
   const field = useFieldOptional();
 
-  const composedStyles = StyleSheet.flatten([props.styles?.default?.style, props.styles?.[state]?.style, props.style]);
+  const composedStyles = StyleSheet.flatten([variantStyles.default?.style, variantStyles[state]?.style, props.style]);
   const composedProps = {
-    ...props.styles?.default,
-    ...props.styles?.[state],
+    ...variantStyles.default,
+    ...variantStyles[state],
     ...props,
   };
 
@@ -57,4 +57,4 @@ export const InputPrimitive = forwardRef<TextInputRef, InputPrimitiveProps>((pro
   );
 });
 
-InputPrimitive.displayName = "InputPrimitive";
+Input.displayName = "Input";

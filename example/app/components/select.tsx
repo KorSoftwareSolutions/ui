@@ -1,7 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { List, Select, Typography } from "@korsolutions/ui";
-import { Input } from "@korsolutions/ui/components";
+import { Input, List, Select, Typography } from "@korsolutions/ui";
 import React, { useState } from "react";
 import { View } from "react-native";
 

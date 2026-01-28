@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Button, Card } from "@korsolutions/ui";
-import { Field, Input } from "@korsolutions/ui/components";
+import { Button, Card, Input } from "@korsolutions/ui";
+import { Field } from "@korsolutions/ui/components";
 import React, { useState } from "react";
 
 export default function CardComponentScreen() {

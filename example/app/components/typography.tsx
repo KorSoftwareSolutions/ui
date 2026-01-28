@@ -1,7 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Card, Typography } from "@korsolutions/ui";
-import { Link } from "@korsolutions/ui/components";
+import { Card, Link, Typography } from "@korsolutions/ui";
 import React from "react";
 
 export default function TextComponentScreen() {

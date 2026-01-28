@@ -1,8 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { DateInputDemo } from "@/components/date-input-demo";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Typography } from "@korsolutions/ui";
-import { Input, NumericInput } from "@korsolutions/ui/components";
+import { Input, NumericInput, Typography } from "@korsolutions/ui";
 import React, { useState } from "react";
 
 export default function InputComponentScreen() {

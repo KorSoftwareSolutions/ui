@@ -1,6 +1,6 @@
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
-import { useEmpty } from "./context";
+import { useEmpty } from "../context";
 
 export interface EmptyMediaProps {
   children: React.ReactNode;

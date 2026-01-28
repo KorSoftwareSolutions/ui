@@ -1,17 +1,17 @@
-import { EmptyRoot } from "./empty-root";
-import { EmptyMedia } from "./empty-media";
-import { EmptyTitle } from "./empty-title";
-import { EmptyDescription } from "./empty-description";
+import { EmptyDescription } from "./components/empty-description";
+import { EmptyMedia } from "./components/empty-media";
+import { EmptyRoot } from "./components/empty-root";
+import { EmptyTitle } from "./components/empty-title";
 
-export const EmptyPrimitive = {
+export const Empty = {
   Root: EmptyRoot,
   Media: EmptyMedia,
   Title: EmptyTitle,
   Description: EmptyDescription,
 };
 
-export type { EmptyRootProps } from "./empty-root";
-export type { EmptyMediaProps } from "./empty-media";
-export type { EmptyTitleProps } from "./empty-title";
-export type { EmptyDescriptionProps } from "./empty-description";
+export type { EmptyDescriptionProps } from "./components/empty-description";
+export type { EmptyMediaProps } from "./components/empty-media";
+export type { EmptyRootProps } from "./components/empty-root";
+export type { EmptyTitleProps } from "./components/empty-title";
 export type { EmptyStyles } from "./types";

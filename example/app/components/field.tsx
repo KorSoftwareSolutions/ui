@@ -1,5 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
-import { Field, Input } from "@korsolutions/ui/components";
+import { Input } from "@korsolutions/ui";
+import { Field } from "@korsolutions/ui/components";
 import React from "react";
 
 export default function FieldComponentScreen() {

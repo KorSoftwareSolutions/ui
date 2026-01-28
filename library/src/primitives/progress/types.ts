@@ -1,5 +1,5 @@
-import type { ProgressIndicatorProps } from "./progress-indicator";
-import type { ProgressRootProps } from "./progress-root";
+import type { ProgressIndicatorProps } from "./components/progress-indicator";
+import type { ProgressRootProps } from "./components/progress-root";
 
 export type ProgressState = "default";
 

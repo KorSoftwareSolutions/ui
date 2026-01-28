@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Progress } from "@korsolutions/ui/components";
+import { Progress } from "@korsolutions/ui";
 import React from "react";
 import { View } from "react-native";
 
@@ -14,37 +14,36 @@ export default function ProgressComponentScreen() {
       <UseCaseSection title="Different values">
         <DifferentValuesExample />
       </UseCaseSection>
-
-      <UseCaseSection title="Custom colors">
-        <CustomColorsExample />
-      </UseCaseSection>
     </ComponentScreenLayout>
   );
 }
 
 function DefaultExample() {
-  return <Progress value={50} />;
+  return (
+    <Progress.Root value={50}>
+      <Progress.Indicator />
+    </Progress.Root>
+  );
 }
 
 function DifferentValuesExample() {
   return (
     <View style={{ gap: 16, width: "100%" }}>
-      <Progress value={0} />
-      <Progress value={25} />
-      <Progress value={50} />
-      <Progress value={75} />
-      <Progress value={100} />
-    </View>
-  );
-}
-
-function CustomColorsExample() {
-  return (
-    <View style={{ gap: 16, width: "100%" }}>
-      <Progress value={60} indicatorColor="#10b981" />
-      <Progress value={40} indicatorColor="#f59e0b" />
-      <Progress value={80} indicatorColor="#ef4444" />
-      <Progress value={90} indicatorColor="#8b5cf6" />
+      <Progress.Root value={0}>
+        <Progress.Indicator />
+      </Progress.Root>
+      <Progress.Root value={25}>
+        <Progress.Indicator />
+      </Progress.Root>
+      <Progress.Root value={50}>
+        <Progress.Indicator />
+      </Progress.Root>
+      <Progress.Root value={75}>
+        <Progress.Indicator />
+      </Progress.Root>
+      <Progress.Root value={100}>
+        <Progress.Indicator />
+      </Progress.Root>
     </View>
   );
 }

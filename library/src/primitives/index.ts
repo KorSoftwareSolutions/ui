@@ -10,6 +10,7 @@ export * from "./dropdown-menu";
 export * from "./empty";
 export * from "./field";
 export * from "./input";
+export * from "./link";
 export * from "./list";
 export * from "./popover";
 export * from "./portal";
