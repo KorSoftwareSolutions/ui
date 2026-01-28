@@ -16,6 +16,7 @@ export * from "./menu";
 export * from "./popover";
 export * from "./portal";
 export * from "./progress";
+export * from "./scroll-bar";
 export * from "./select";
 export * from "./tabs";
 export * from "./textarea";

@@ -25,6 +25,8 @@ export const UIProvider = ({ children, portalContainer, theme, safeAreaInsets }:
   );
 };
 
+export * from "./hooks/use-screen-size";
+
 export * from "./themes/adapters";
 export * from "./themes/default";
 export { useTheme } from "./themes/provider";

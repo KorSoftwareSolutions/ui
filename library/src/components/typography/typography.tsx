@@ -1,5 +1,5 @@
 import React from "react";
-import { Text as RnText, type TextProps as RnTextProps } from "react-native";
+import { Text as RnText, StyleSheet, type TextProps as RnTextProps } from "react-native";
 import { TypographyVariants } from "./variants";
 
 export interface TypographyProps extends RnTextProps {
@@ -9,7 +9,7 @@ export interface TypographyProps extends RnTextProps {
 export function Typography(props: TypographyProps) {
   const variantStyles = TypographyVariants[props.variant ?? "body-md"]();
 
-  const combinedStyles = [variantStyles, props.style];
+  const combinedStyles = StyleSheet.flatten([variantStyles, props.style]);
 
   return <RnText {...props} style={combinedStyles} />;
 }
