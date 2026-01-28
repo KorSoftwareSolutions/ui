@@ -1,12 +1,12 @@
 import type { StyleProp, TextStyle } from "react-native";
-import type { TabsPrimitiveListProps } from "./tabs-list";
-import type { TabsPrimitiveTriggerProps } from "./tabs-trigger";
+import type { TabsListProps } from "./components/tabs-list";
+import type { TabsTriggerProps } from "./components/tabs-trigger";
 
 export type TabsState = "default" | "active" | "disabled";
 
 export interface TabsStyles {
-  root?: TabsPrimitiveListProps["style"];
-  list?: TabsPrimitiveListProps["style"];
-  trigger?: Partial<Record<TabsState, TabsPrimitiveTriggerProps["style"]>>;
+  root?: TabsListProps["style"];
+  list?: TabsListProps["style"];
+  trigger?: Partial<Record<TabsState, TabsTriggerProps["style"]>>;
   triggerText?: Partial<Record<TabsState, StyleProp<TextStyle>>>;
 }

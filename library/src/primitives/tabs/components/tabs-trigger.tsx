@@ -1,9 +1,9 @@
 import React from "react";
 import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
-import { useTabsContext } from "./tabs-context";
-import type { TabsState } from "./types";
+import { useTabsContext } from "../context";
+import type { TabsState } from "../types";
 
-export interface TabsPrimitiveTriggerProps extends PressableProps {
+export interface TabsTriggerProps extends PressableProps {
   children: React.ReactNode;
   value: string;
   isDisabled?: boolean;
@@ -20,7 +20,7 @@ const calculateState = (isActive: boolean, isDisabled: boolean | undefined): Tab
   return "default";
 };
 
-export function TabsTrigger(props: TabsPrimitiveTriggerProps) {
+export function TabsTrigger(props: TabsTriggerProps) {
   const { children, value: triggerValue, isDisabled, style, ...pressableProps } = props;
   const { value, onChange, styles } = useTabsContext();
 

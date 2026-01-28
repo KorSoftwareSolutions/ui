@@ -43,6 +43,7 @@ export * from "./primitives/list";
 export * from "./primitives/popover";
 export * from "./primitives/progress";
 export * from "./primitives/select";
+export * from "./primitives/tabs";
 export * from "./primitives/textarea";
 export * from "./primitives/typography";
 

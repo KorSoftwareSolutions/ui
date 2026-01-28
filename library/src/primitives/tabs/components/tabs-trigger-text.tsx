@@ -1,15 +1,15 @@
 import React from "react";
 import { Text, type StyleProp, type TextProps, type TextStyle } from "react-native";
-import { useTabsContext } from "./tabs-context";
+import { useTabsContext } from "../context";
 
-export interface TabsPrimitiveTriggerTextProps extends TextProps {
+export interface TabsTriggerTextProps extends TextProps {
   children: React.ReactNode;
   value: string;
   isDisabled?: boolean;
   style?: StyleProp<TextStyle>;
 }
 
-export function TabsTriggerText(props: TabsPrimitiveTriggerTextProps) {
+export function TabsTriggerText(props: TabsTriggerTextProps) {
   const { children, value: triggerValue, isDisabled, style, ...textProps } = props;
   const { value, styles } = useTabsContext();
 

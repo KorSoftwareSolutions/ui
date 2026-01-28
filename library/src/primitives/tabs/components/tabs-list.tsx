@@ -1,13 +1,13 @@
 import React from "react";
 import { View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
-import { useTabsContext } from "./tabs-context";
+import { useTabsContext } from "../context";
 
-export interface TabsPrimitiveListProps extends ViewProps {
+export interface TabsListProps extends ViewProps {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
 
-export function TabsList(props: TabsPrimitiveListProps) {
+export function TabsList(props: TabsListProps) {
   const { children, style, ...viewProps } = props;
   const { styles } = useTabsContext();
 
