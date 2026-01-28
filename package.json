@@ -3,7 +3,7 @@
     "typescript": "~5.9.2",
     "@types/bun": "latest"
   },
-  "name": "universal-ui-monorepo",
+  "name": "kor-ui-monorepo",
   "private": true,
   "version": "1.0.0",
   "workspaces": [

@@ -35,12 +35,12 @@ example/
 
 Expo Router uses the file system for navigation:
 
-| File | Route | Purpose |
-|------|-------|---------|
-| `app/index.tsx` | `/` | Home page |
-| `app/components/button.tsx` | `/components/button` | Button demo |
-| `app/theme.tsx` | `/theme` | Theme showcase |
-| `app/theme-selector.tsx` | `/theme-selector` | Theme picker (modal) |
+| File                        | Route                | Purpose              |
+| --------------------------- | -------------------- | -------------------- |
+| `app/index.tsx`             | `/`                  | Home page            |
+| `app/components/button.tsx` | `/components/button` | Button demo          |
+| `app/theme.tsx`             | `/theme`             | Theme showcase       |
+| `app/theme-selector.tsx`    | `/theme-selector`    | Theme picker (modal) |
 
 ### Navigation Types
 
@@ -101,13 +101,14 @@ Provides consistent layout for demo pages:
 
 ```typescript
 interface Props {
-  title: string;        // Component name
+  title: string; // Component name
   children: React.ReactNode;
-  backHref?: Href;     // Back button destination (default: "/")
+  backHref?: Href; // Back button destination (default: "/")
 }
 ```
 
 Features:
+
 - Header with title and back button
 - Theme switcher
 - Color scheme toggle (light/dark)
@@ -122,12 +123,13 @@ Wraps individual use cases:
 
 ```typescript
 interface Props {
-  title: string;       // Use case name
+  title: string; // Use case name
   children: React.ReactNode;
 }
 ```
 
 Features:
+
 - Section heading
 - Consistent spacing
 - Clear visual separation
@@ -190,6 +192,7 @@ export const COMPONENTS: ComponentRoute[] = [
 ```
 
 The component will now appear:
+
 - In the home page list
 - In the web sidebar (desktop)
 - In navigation
@@ -229,6 +232,7 @@ export default function ComponentsLayout() {
 ```
 
 **Responsive Breakpoints**:
+
 - Mobile: < 768px (no sidebar)
 - Tablet: 768px - 1024px (no sidebar)
 - Desktop: > 1024px (sidebar visible)
@@ -303,6 +307,7 @@ export default function ComponentScreen() {
 ### Theme Switcher
 
 Available in the header of every component screen. Allows switching between:
+
 - Light/Dark color schemes
 - Different theme presets
 
@@ -397,6 +402,7 @@ export const COMPONENTS: ComponentRoute[] = [
 ```
 
 Used by:
+
 - Home page component list
 - Web sidebar navigation
 - Alphabetically sorted
@@ -415,6 +421,7 @@ bun dev
 ```
 
 Starts Expo dev server with options:
+
 - Press `i` for iOS simulator
 - Press `a` for Android emulator
 - Press `w` for web browser
@@ -470,19 +477,24 @@ app/components/
 ## Common Issues
 
 **Issue**: Component not appearing in navigation
+
 - **Fix**: Add to `constants/components.ts`
 
 **Issue**: Sidebar not showing on web
+
 - **Fix**: Ensure window width > 1024px
 
 **Issue**: Theme not updating
+
 - **Fix**: Check root layout has `UniversalUIProvider`
 
 **Issue**: Import errors
+
 - **Fix**: Use `@/` alias for example files
 - **Fix**: Import from `@korsolutions/ui` for library components
 
 **Issue**: Hot reload not working
+
 - **Fix**: Restart Expo dev server
 
 ## Best Practices

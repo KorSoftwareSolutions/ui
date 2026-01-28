@@ -7,7 +7,7 @@ This is a bun workspace monorepo for Universal UI (`@korsolutions/ui`), a librar
 ## Monorepo Structure
 
 ```
-universal-ui/
+kor-ui/
 ├── library/          # The @korsolutions/ui package
 │   ├── src/         # Source code (primitives, components, themes)
 │   ├── dist/        # Built package (gitignored)
@@ -21,29 +21,32 @@ universal-ui/
 
 ## Quick Command Reference
 
-| Task | Command | Location |
-|------|---------|----------|
-| Start example app | `bun dev` | Root |
-| Build library | `bun lib:build` | Root |
-| Type check all | `bun ts-check` | Root |
-| Lint all | `bun lint` | Root |
-| Build library | `bun build` | library/ |
-| Publish library | `bun publish` | library/ |
-| Start Expo | `bun dev` | example/ |
-| Web build | `bun web:build` | example/ |
+| Task              | Command         | Location |
+| ----------------- | --------------- | -------- |
+| Start example app | `bun dev`       | Root     |
+| Build library     | `bun lib:build` | Root     |
+| Type check all    | `bun ts-check`  | Root     |
+| Lint all          | `bun lint`      | Root     |
+| Build library     | `bun build`     | library/ |
+| Publish library   | `bun publish`   | library/ |
+| Start Expo        | `bun dev`       | example/ |
+| Web build         | `bun web:build` | example/ |
 
 ## Package Responsibilities
 
 ### Library Package (`library/`)
+
 **Purpose**: The UI component library itself
 
 **Contains**:
+
 - Primitives (unstyled, headless UI components)
 - Components (styled components using primitives)
 - Theme system and utilities
 - Type definitions
 
 **When to work here**:
+
 - Adding new components
 - Creating variants
 - Modifying themes
@@ -53,15 +56,18 @@ universal-ui/
 **See**: [`library/AGENTS.md`](library/AGENTS.md) for detailed component development patterns
 
 ### Example Package (`example/`)
+
 **Purpose**: Expo app demonstrating library components
 
 **Contains**:
+
 - Component demo pages
 - Navigation structure
 - Theme examples
 - Usage patterns
 
 **When to work here**:
+
 - Creating component demos
 - Testing components visually
 - Adding navigation for new components
@@ -123,17 +129,21 @@ bun publish
 ## Package Dependencies
 
 ### Library Dependencies
+
 - Minimal external dependencies
 - React Native core
 - Expo modules (router, haptics, etc.)
 
 ### Example Dependencies
+
 - `@korsolutions/ui: workspace:*` (local library)
 - Expo and React Native
 - lucide-react-native (for icons in demos)
 
 ### Workspace Resolution
+
 The example app imports the library as:
+
 ```typescript
 import { Button } from "@korsolutions/ui/components";
 ```
@@ -142,25 +152,27 @@ During development, this resolves to `library/src/` via the `dev-source` export 
 
 ## When to Work Where
 
-| Task | Location | Reference |
-|------|----------|-----------|
-| Add new primitive | `library/src/primitives/` | library/AGENTS.md |
-| Add new component | `library/src/components/` | library/AGENTS.md |
-| Add variant | `library/src/components/[name]/variants/` | library/AGENTS.md |
-| Modify theme | `library/src/themes/` | library/AGENTS.md |
-| Create demo | `example/app/components/` | example/AGENTS.md |
-| Add to navigation | `example/constants/components.ts` | example/AGENTS.md |
-| Platform-specific feature | `example/` | example/AGENTS.md |
+| Task                      | Location                                  | Reference         |
+| ------------------------- | ----------------------------------------- | ----------------- |
+| Add new primitive         | `library/src/primitives/`                 | library/AGENTS.md |
+| Add new component         | `library/src/components/`                 | library/AGENTS.md |
+| Add variant               | `library/src/components/[name]/variants/` | library/AGENTS.md |
+| Modify theme              | `library/src/themes/`                     | library/AGENTS.md |
+| Create demo               | `example/app/components/`                 | example/AGENTS.md |
+| Add to navigation         | `example/constants/components.ts`         | example/AGENTS.md |
+| Platform-specific feature | `example/`                                | example/AGENTS.md |
 
 ## Common Operations
 
 ### Install Dependencies
+
 ```bash
 # Root (installs for all packages)
 bun install
 ```
 
 ### Type Checking
+
 ```bash
 # Check all packages
 bun ts-check
@@ -170,6 +182,7 @@ bun -r ts-check
 ```
 
 ### Linting
+
 ```bash
 # Lint all packages
 bun lint
@@ -179,6 +192,7 @@ bun -r lint
 ```
 
 ### Building
+
 ```bash
 # Build library only
 bun lib:build
@@ -207,11 +221,11 @@ See `library/AGENTS.md` for detailed architecture documentation.
 
 ## Platform Support
 
-| Platform | Library | Example |
-|----------|---------|---------|
-| iOS | ✅ | ✅ |
-| Android | ✅ | ✅ |
-| Web | ✅ | ✅ (with responsive features) |
+| Platform | Library | Example                       |
+| -------- | ------- | ----------------------------- |
+| iOS      | ✅      | ✅                            |
+| Android  | ✅      | ✅                            |
+| Web      | ✅      | ✅ (with responsive features) |
 
 ## Environment Requirements
 
@@ -222,19 +236,23 @@ See `library/AGENTS.md` for detailed architecture documentation.
 ## Troubleshooting
 
 ### "Cannot find module @korsolutions/ui"
+
 - Run `bun install` from root
 - Check `example/package.json` has `"@korsolutions/ui": "workspace:*"`
 
 ### Library changes not reflecting
+
 - Ensure using `dev-source` export condition
 - Check `example/tsconfig.json` has `customConditions: ["dev-source"]`
 - Restart Expo dev server
 
 ### Type errors after changes
+
 - Run `bun ts-check` to see all errors
 - Ensure library is built: `cd library && bun build`
 
 ### Import path errors
+
 - Use `@/` alias in library for `library/src/`
 - Use `@/` alias in example for `example/`
 - Check respective `tsconfig.json` files for path mappings

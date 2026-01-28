@@ -29,6 +29,7 @@ Layer 3: Variants (themed style hooks)
 Headless UI components providing behavior without visual styles.
 
 **Pattern**:
+
 ```typescript
 // primitives/button/button-root.tsx
 export interface ButtonRootProps {
@@ -65,6 +66,7 @@ export const ButtonPrimitive = {
 ```
 
 **Key Rules**:
+
 - ❌ No inline styles or hardcoded colors
 - ❌ No theme access (`useTheme`)
 - ✅ Accept `styles` prop for variant injection
@@ -76,6 +78,7 @@ export const ButtonPrimitive = {
 Styled components using primitives with variant system.
 
 **Pattern**:
+
 ```typescript
 // components/button/components/button-root.tsx
 export interface ButtonRootProps extends ButtonPrimitiveRootProps {
@@ -98,6 +101,7 @@ export const Button = {
 ```
 
 **Key Rules**:
+
 - ✅ Use primitives as base
 - ✅ Apply variants for styling
 - ✅ Default variant is "default"
@@ -109,6 +113,7 @@ export const Button = {
 Theme-aware style hooks providing reactive styles.
 
 **Pattern**:
+
 ```typescript
 // components/button/variants/default.tsx
 import { useThemedStyles } from "@/utils/use-themed-styles";
@@ -131,7 +136,7 @@ export const useButtonVariantDefault = (): ButtonStyles => {
       spinner: {
         color: colors.background,
       },
-    })
+    }),
   );
 };
 
@@ -143,6 +148,7 @@ export const ButtonVariants = {
 ```
 
 **Key Rules**:
+
 - ✅ Always use `useThemedStyles` hook
 - ✅ Return complete style objects
 - ✅ Access theme tokens (colors, radius, fontSize, etc.)
@@ -328,7 +334,7 @@ export const useAlertVariantDefault = (): AlertStyles => {
         color: colors.mutedForeground,
         lineHeight: 20,
       },
-    })
+    }),
   );
 };
 ```
@@ -407,6 +413,7 @@ const composedProps = {
 ### Style Composition Order
 
 Always compose styles in this order:
+
 1. Variant styles (from `styles` prop)
 2. User styles (from `style` prop)
 
@@ -480,16 +487,16 @@ interface Theme {
 
 Always use theme tokens instead of hardcoded values:
 
-| Token | Usage |
-|-------|-------|
-| `colors.background` | Main background color |
-| `colors.foreground` | Main text color |
-| `colors.primary` | Primary action color |
-| `colors.muted` | Subtle background (hover states) |
-| `colors.border` | Border color |
-| `radius` | Border radius value |
-| `fontSize` | Base font size |
-| `fontFamily` | Font family string |
+| Token               | Usage                            |
+| ------------------- | -------------------------------- |
+| `colors.background` | Main background color            |
+| `colors.foreground` | Main text color                  |
+| `colors.primary`    | Primary action color             |
+| `colors.muted`      | Subtle background (hover states) |
+| `colors.border`     | Border color                     |
+| `radius`            | Border radius value              |
+| `fontSize`          | Base font size                   |
+| `fontFamily`        | Font family string               |
 
 ## Anti-Patterns (Avoid)
 
@@ -529,28 +536,28 @@ export const useVariant = (): Styles => {
 
 ```typescript
 // BAD
-backgroundColor: '#007AFF'
+backgroundColor: "#007AFF";
 ```
 
 ### ✅ Theme Colors
 
 ```typescript
 // GOOD
-backgroundColor: theme.colors.primary
+backgroundColor: theme.colors.primary;
 ```
 
 ### ❌ String Values for Spacing
 
 ```typescript
 // BAD
-padding: '16px'
+padding: "16px";
 ```
 
 ### ✅ Number Values
 
 ```typescript
 // GOOD
-padding: 16
+padding: 16;
 ```
 
 ## Type Safety
@@ -596,6 +603,7 @@ bun build
 ```
 
 This runs:
+
 1. `bob build` - Compiles TypeScript with Babel
 2. `tsc-alias` - Resolves path aliases in type definitions
 
@@ -641,18 +649,23 @@ dist/
 ## Common Issues
 
 **Issue**: "Cannot find module @/..."
+
 - **Fix**: Check `tsconfig.json` has path alias: `"@/*": ["./src/*"]`
 
 **Issue**: Styles not applying
+
 - **Fix**: Ensure variant styles passed to primitive via `styles` prop
 
 **Issue**: Theme not updating
+
 - **Fix**: Use `useThemedStyles` hook, not plain `useMemo`
 
 **Issue**: Type errors with compound exports
+
 - **Fix**: Export both types and components from index files
 
 **Issue**: Build fails
+
 - **Fix**: Run `bun build` from library directory, check for TypeScript errors
 
 ## Resources
