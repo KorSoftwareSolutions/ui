@@ -3,46 +3,46 @@ import type { ThemeAssets } from "@korsolutions/ui";
 export const claudeThemeAssets: ThemeAssets = {
   colors: {
     light: {
-      background: "hsla(48, 33%, 97%, 1)",
-      foreground: "hsla(48, 20%, 20%, 1)",
+      background: "hsl(48, 33%, 97%)",
+      foreground: "hsl(48, 20%, 20%)",
 
-      primary: "hsla(15, 56%, 52%, 1)",
-      primaryForeground: "hsla(0, 0%, 100%, 1)",
+      primary: "hsl(15, 56%, 52%)",
+      primaryForeground: "hsl(0, 0%, 100%)",
 
-      secondary: "hsla(46, 23%, 89%, 1)",
-      secondaryForeground: "hsla(51, 8%, 30%, 1)",
+      secondary: "hsl(46, 23%, 89%)",
+      secondaryForeground: "hsl(51, 8%, 30%)",
 
-      muted: "hsla(44, 29%, 90%, 1)",
-      mutedForeground: "hsla(50, 2%, 50%, 1)",
+      muted: "hsl(44, 29%, 90%)",
+      mutedForeground: "hsl(50, 2%, 50%)",
 
-      border: "hsla(50, 8%, 84%, 1)",
-      surface: "hsla(48, 33%, 97%, 1)",
+      border: "hsl(50, 8%, 84%)",
+      surface: "hsl(48, 33%, 97%)",
 
-      danger: "hsla(60, 3%, 8%, 1)",
-      success: "hsla(147, 78%, 42%, 1)",
-      warning: "hsla(42, 93%, 56%, 1)",
-      info: "hsla(252, 85%, 75%, 1)",
+      danger: "hsl(60, 3%, 8%)",
+      success: "hsl(147, 78%, 42%)",
+      warning: "hsl(42, 93%, 56%)",
+      info: "hsl(252, 85%, 75%)",
     },
     dark: {
-      background: "hsla(60, 3%, 15%, 1)",
-      foreground: "hsla(46, 10%, 74%, 1)",
+      background: "hsl(60, 3%, 15%)",
+      foreground: "hsl(46, 10%, 74%)",
 
-      primary: "hsla(15, 63%, 60%, 1)",
-      primaryForeground: "hsla(0, 0%, 100%, 1)",
+      primary: "hsl(15, 63%, 60%)",
+      primaryForeground: "hsl(0, 0%, 100%)",
 
-      secondary: "hsla(48, 33%, 97%, 1)",
-      secondaryForeground: "hsla(60, 2%, 18%, 1)",
+      secondary: "hsl(48, 33%, 97%)",
+      secondaryForeground: "hsl(60, 2%, 18%)",
 
-      muted: "hsla(60, 4%, 10%, 1)",
-      mutedForeground: "hsla(51, 9%, 69%, 1)",
+      muted: "hsl(60, 4%, 10%)",
+      mutedForeground: "hsl(51, 9%, 69%)",
 
-      border: "hsla(60, 5%, 23%, 1)",
-      surface: "hsla(60, 2%, 18%, 1)",
+      border: "hsl(60, 5%, 23%)",
+      surface: "hsl(60, 2%, 18%)",
 
-      danger: "hsla(0, 84%, 60%, 1)",
-      success: "hsla(147, 78%, 42%, 1)",
-      warning: "hsla(42, 93%, 56%, 1)",
-      info: "hsla(252, 85%, 75%, 1)",
+      danger: "hsl(0, 84%, 60%)",
+      success: "hsl(147, 78%, 42%)",
+      warning: "hsl(42, 93%, 56%)",
+      info: "hsl(252, 85%, 75%)",
     },
   },
   radius: 8,

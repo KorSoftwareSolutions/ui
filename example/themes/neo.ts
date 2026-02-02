@@ -3,46 +3,46 @@ import type { ThemeAssets } from "@korsolutions/ui";
 export const neoThemeAssets: ThemeAssets = {
   colors: {
     light: {
-      background: "hsla(0, 0%, 100%, 1)",
-      foreground: "hsla(0, 0%, 0%, 1)",
+      background: "hsl(0, 0%, 100%)",
+      foreground: "hsl(0, 0%, 0%)",
 
-      primary: "hsla(0, 100%, 60%, 1)",
-      primaryForeground: "hsla(0, 0%, 100%, 1)",
+      primary: "hsl(0, 100%, 60%)",
+      primaryForeground: "hsl(0, 0%, 100%)",
 
-      secondary: "hsla(60, 100%, 50%, 1)",
-      secondaryForeground: "hsla(0, 0%, 0%, 1)",
+      secondary: "hsl(60, 100%, 50%)",
+      secondaryForeground: "hsl(0, 0%, 0%)",
 
-      muted: "hsla(0, 0%, 94%, 1)",
-      mutedForeground: "hsla(0, 0%, 20%, 1)",
+      muted: "hsl(0, 0%, 94%)",
+      mutedForeground: "hsl(0, 0%, 20%)",
 
-      border: "hsla(0, 0%, 0%, 1)",
-      surface: "hsla(0, 0%, 100%, 1)",
+      border: "hsl(0, 0%, 0%)",
+      surface: "hsl(0, 0%, 100%)",
 
-      danger: "hsla(0, 0%, 0%, 1)",
-      success: "hsla(120, 100%, 40%, 1)",
-      warning: "hsla(60, 100%, 50%, 1)",
-      info: "hsla(216, 100%, 50%, 1)",
+      danger: "hsl(0, 0%, 0%)",
+      success: "hsl(120, 100%, 40%)",
+      warning: "hsl(60, 100%, 50%)",
+      info: "hsl(216, 100%, 50%)",
     },
     dark: {
-      background: "hsla(0, 0%, 0%, 1)",
-      foreground: "hsla(0, 0%, 100%, 1)",
+      background: "hsl(0, 0%, 0%)",
+      foreground: "hsl(0, 0%, 100%)",
 
-      primary: "hsla(0, 100%, 70%, 1)",
-      primaryForeground: "hsla(0, 0%, 0%, 1)",
+      primary: "hsl(0, 100%, 70%)",
+      primaryForeground: "hsl(0, 0%, 0%)",
 
-      secondary: "hsla(60, 100%, 60%, 1)",
-      secondaryForeground: "hsla(0, 0%, 0%, 1)",
+      secondary: "hsl(60, 100%, 60%)",
+      secondaryForeground: "hsl(0, 0%, 0%)",
 
-      muted: "hsla(0, 0%, 10%, 1)",
-      mutedForeground: "hsla(0, 0%, 80%, 1)",
+      muted: "hsl(0, 0%, 10%)",
+      mutedForeground: "hsl(0, 0%, 80%)",
 
-      border: "hsla(0, 0%, 100%, 1)",
-      surface: "hsla(0, 0%, 20%, 1)",
+      border: "hsl(0, 0%, 100%)",
+      surface: "hsl(0, 0%, 20%)",
 
-      danger: "hsla(0, 0%, 100%, 1)",
-      success: "hsla(120, 60%, 50%, 1)",
-      warning: "hsla(60, 100%, 60%, 1)",
-      info: "hsla(210, 100%, 60%, 1)",
+      danger: "hsl(0, 0%, 100%)",
+      success: "hsl(120, 60%, 50%)",
+      warning: "hsl(60, 100%, 60%)",
+      info: "hsl(210, 100%, 60%)",
     },
   },
   radius: 0,

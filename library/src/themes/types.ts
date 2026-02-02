@@ -1,6 +1,6 @@
 export type ColorScheme = "light" | "dark";
 
-type Color = `hsla(${number}, ${number}%, ${number}%, ${number})`;
+type Color = `hsl(${number}, ${number}%, ${number}%)`;
 
 export interface Colors {
   background: Color;

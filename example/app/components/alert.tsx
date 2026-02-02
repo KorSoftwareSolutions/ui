@@ -1,8 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Alert } from "@korsolutions/ui";
-import { InfoIcon } from "lucide-react-native";
+import { AlertCircleIcon, InfoIcon } from "lucide-react-native";
 import React from "react";
 import { View } from "react-native";
 
@@ -57,7 +56,7 @@ function WithIconExample() {
         </Alert.Body>
       </Alert.Root>
       <Alert.Root variant="destructive">
-        <Alert.Icon render={(props) => <MaterialCommunityIcons {...props} name="alert-circle" />} />
+        <Alert.Icon render={AlertCircleIcon} />
         <Alert.Body>
           <Alert.Title>Warning</Alert.Title>
           <Alert.Description>This action cannot be undone.</Alert.Description>

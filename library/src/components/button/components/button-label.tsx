@@ -1,10 +1,11 @@
+import type { TextChildren } from "@/types/element.types";
 import { calculateComposedStyles } from "@/utils/calculate-styles";
 import React from "react";
 import { type StyleProp, Text, type TextStyle } from "react-native";
 import { useButton } from "../context";
 
 export interface ButtonLabelProps {
-  children?: string;
+  children?: TextChildren;
 
   style?: StyleProp<TextStyle>;
 }
