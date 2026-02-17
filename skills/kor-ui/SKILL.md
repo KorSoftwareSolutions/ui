@@ -105,6 +105,7 @@ function SubmitButton() {
 | ---------------- | ---------------------------------------------------- | -------- | ------------------------------------------------------------------ |
 | **Input**        | Text input field                                     | default  | [Input Components](./references/components-inputs.md#input)        |
 | **NumericInput** | Formatted numeric input (currency, percentage, etc.) | default  | [Input Components](./references/components-inputs.md#numericinput) |
+| **PhoneInput**   | Phone number input with country selector (E.164)     | default  | [Input Components](./references/components-inputs.md#phoneinput)   |
 | **Textarea**     | Multi-line text input                                | default  | [Input Components](./references/components-inputs.md#textarea)     |
 | **Checkbox**     | Toggle selection with label                          | default  | [Input Components](./references/components-inputs.md#checkbox)     |
 | **Select**       | Dropdown selection with search                       | default  | [Input Components](./references/components-inputs.md#select)       |

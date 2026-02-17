@@ -6,6 +6,7 @@ This reference covers all input-related components in the Universal UI library, 
 
 - [Input](#input)
 - [NumericInput](#numericinput)
+- [PhoneInput](#phoneinput)
 - [Textarea](#textarea)
 - [Checkbox](#checkbox)
 - [Select](#select)
@@ -275,7 +276,7 @@ A specialized input component for numeric values with automatic formatting, loca
 **Do not use for**:
 
 - Free-form text (use Input instead)
-- Phone numbers (use Input with keyboardType)
+- Phone numbers (use PhoneInput instead)
 - Postal/zip codes (use Input)
 
 ### API
@@ -574,6 +575,247 @@ function FieldNumericInput() {
 - Automatically sets appropriate keyboard type for format
 - Announces numeric values correctly to screen readers
 - Properly handles locale-specific number formatting
+
+---
+
+## PhoneInput
+
+A phone number input component with an integrated country code selector. Formats phone numbers according to country-specific patterns and outputs values in E.164 format (e.g., `+12125551234`).
+
+### When to Use
+
+- Collecting phone numbers with international support
+- Forms that need country-specific phone formatting
+- When you need E.164 formatted phone values
+
+**Do not use for**:
+
+- Free-form text (use Input instead)
+- Numeric values (use NumericInput instead)
+
+### API
+
+#### Props
+
+```typescript
+interface PhoneInputProps {
+  // Value & Change (E.164 format)
+  value?: string;
+  onChange?: (e164Value: string) => void;
+
+  // Country
+  defaultCountry?: string; // ISO 3166-1 alpha-2 code, default: "US"
+  countries?: CountryData[]; // Override built-in country list
+
+  // Display
+  placeholder?: string;
+
+  // States
+  isDisabled?: boolean;
+
+  // Styling
+  variant?: "default";
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+#### CountryData
+
+```typescript
+interface CountryData {
+  code: string;      // ISO 3166-1 alpha-2 code, e.g. "US"
+  name: string;      // Display name, e.g. "United States"
+  dialCode: string;  // Dial code without plus, e.g. "1"
+  flag: string;      // Flag emoji, e.g. "🇺🇸"
+  format: string;    // Format pattern, e.g. "(###) ###-####"
+  priority: number;  // Priority for dial code conflicts
+}
+```
+
+#### States
+
+- **default**: Normal, unfocused state
+- **focused**: When the text input has focus
+- **disabled**: When `isDisabled={true}`
+
+#### Visual Structure
+
+The component renders as a single input-like row:
+
+```
+┌──────────────────────────────────┐
+│ 🇺🇸 +1  │  (212) 555-1234        │
+└──────────────────────────────────┘
+  ↑ Country    ↑ Formatted phone
+    button       number input
+```
+
+Tapping the country button opens a searchable dropdown picker.
+
+### Basic Usage
+
+```typescript
+import { PhoneInput } from "@korsolutions/ui";
+import { useState } from "react";
+
+function BasicPhoneInput() {
+  const [phone, setPhone] = useState("");
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChange={setPhone}
+      placeholder="Phone number"
+    />
+  );
+}
+```
+
+### Advanced Usage
+
+#### With Default Country
+
+```typescript
+import { PhoneInput } from "@korsolutions/ui";
+import { useState } from "react";
+
+function GermanPhoneInput() {
+  const [phone, setPhone] = useState("");
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChange={setPhone}
+      defaultCountry="DE"
+      placeholder="Telefonnummer"
+    />
+  );
+}
+```
+
+#### Pre-filled Value
+
+```typescript
+import { PhoneInput } from "@korsolutions/ui";
+import { useState } from "react";
+
+function PrefilledPhoneInput() {
+  const [phone, setPhone] = useState("+442071234567");
+
+  return (
+    <PhoneInput
+      value={phone}
+      onChange={setPhone}
+      placeholder="Phone number"
+    />
+  );
+  // Automatically detects UK (+44) and formats as "2071 234567"
+}
+```
+
+#### Disabled State
+
+```typescript
+<PhoneInput
+  value="+12125551234"
+  isDisabled
+  placeholder="Phone number"
+/>
+```
+
+#### With Field Component
+
+```typescript
+import { Field, PhoneInput } from "@korsolutions/ui";
+import { useState } from "react";
+
+function PhoneField() {
+  const [phone, setPhone] = useState("");
+
+  return (
+    <Field.Root>
+      <Field.Label>Phone Number</Field.Label>
+      <Field.Description>
+        We'll use this to verify your account
+      </Field.Description>
+      <PhoneInput
+        value={phone}
+        onChange={setPhone}
+        placeholder="Phone number"
+      />
+    </Field.Root>
+  );
+}
+```
+
+### Common Patterns
+
+#### Contact Form with Phone
+
+```typescript
+import { Field, Input, PhoneInput, Button } from "@korsolutions/ui";
+import { useState } from "react";
+import { View } from "react-native";
+
+function ContactForm() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  return (
+    <View style={{ gap: 16 }}>
+      <Field.Root>
+        <Field.Label>Full Name</Field.Label>
+        <Input value={name} onChange={setName} placeholder="John Doe" />
+      </Field.Root>
+
+      <Field.Root>
+        <Field.Label>Phone Number</Field.Label>
+        <PhoneInput
+          value={phone}
+          onChange={setPhone}
+          placeholder="Phone number"
+        />
+      </Field.Root>
+
+      <Button.Root onPress={() => console.log({ name, phone })}>
+        <Button.Label>Submit</Button.Label>
+      </Button.Root>
+    </View>
+  );
+}
+```
+
+#### Display E.164 Value
+
+```typescript
+import { PhoneInput, Typography } from "@korsolutions/ui";
+import { useState } from "react";
+import { View } from "react-native";
+
+function PhoneWithValue() {
+  const [phone, setPhone] = useState("");
+
+  return (
+    <View style={{ gap: 8 }}>
+      <PhoneInput
+        value={phone}
+        onChange={setPhone}
+        placeholder="Phone number"
+      />
+      <Typography variant="body-sm">
+        E.164: {phone || "empty"}
+      </Typography>
+    </View>
+  );
+}
+```
+
+### Accessibility
+
+- Uses native TextInput with `keyboardType="phone-pad"`
+- Country picker is keyboard navigable with search
+- Disabled state properly announced to screen readers
+- Country button is accessible as a pressable element
 
 ---
 
@@ -2106,6 +2348,7 @@ function InlineField() {
 4. **Use appropriate input types**
    - Text → Input
    - Numbers with formatting → NumericInput
+   - Phone numbers → PhoneInput
    - Multi-line → Textarea
    - Selection → Select
    - Boolean → Checkbox
