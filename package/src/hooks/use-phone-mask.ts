@@ -13,7 +13,7 @@ export interface UsePhoneMaskOptions {
   countries?: CountryData[];
 }
 
-export interface UsePhoneMaskReturn {
+export interface PhoneMask {
   displayValue: string;
   e164Value: string;
   country: CountryData;
@@ -78,7 +78,7 @@ export function usePhoneMask({
   onChange,
   onCountryChange,
   countries: customCountries,
-}: UsePhoneMaskOptions = {}): UsePhoneMaskReturn {
+}: UsePhoneMaskOptions = {}): PhoneMask {
   const availableCountries = customCountries ?? COUNTRIES;
   const isInternalChange = useRef(false);
 

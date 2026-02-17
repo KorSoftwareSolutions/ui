@@ -55,7 +55,7 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
       input: {
         default: {
           flex: 1,
-          paddingHorizontal: 12,
+          paddingHorizontal: 16,
           fontFamily,
           fontSize,
           color: colors.foreground,

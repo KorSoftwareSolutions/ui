@@ -108,11 +108,21 @@ export default function InputComponentScreen() {
         <DateInputDemo />
       </UseCaseSection>
       <UseCaseSection title="Phone">
-        <PhoneInput
+        <PhoneInput.Root value={phone} onChange={setPhone}>
+          <PhoneInput.Input />
+        </PhoneInput.Root>
+        <Typography variant="body-sm">E.164: {phone || "empty"}</Typography>
+      </UseCaseSection>
+      <UseCaseSection title="Phone Multiple Countries">
+        <PhoneInput.Root
           value={phone}
           onChange={setPhone}
-          placeholder="Phone number"
-        />
+          countryCodes={["AE", "US", "GB", "DE", "FR", "IN", "CN"]}
+          defaultCountry="US"
+        >
+          <PhoneInput.CountryPicker />
+          <PhoneInput.Input />
+        </PhoneInput.Root>
         <Typography variant="body-sm">E.164: {phone || "empty"}</Typography>
       </UseCaseSection>
     </ComponentScreenLayout>
