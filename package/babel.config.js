@@ -3,16 +3,6 @@ module.exports = function (api) {
 
   return {
     presets: ["module:react-native-builder-bob/babel-preset"],
-    plugins: [
-      [
-        require.resolve("babel-plugin-module-resolver"),
-        {
-          root: ["./src"],
-          alias: {
-            "@": "./src",
-          },
-        },
-      ],
-    ],
+    plugins: [],
   };
 };
