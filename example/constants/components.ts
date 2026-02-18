@@ -86,4 +86,8 @@ export const COMPONENTS: ComponentRoute[] = [
     title: "Tabs",
     href: "/components/tabs",
   },
+  {
+    title: "Touchable",
+    href: "/components/touchable",
+  },
 ];

@@ -1,6 +1,6 @@
 {
   "name": "@korsolutions/ui",
-  "version": "0.0.56",
+  "version": "0.0.58",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -29,12 +29,16 @@
     "@types/react": "^19.2.3",
     "@types/react-dom": "^19.2.3",
     "react-native-builder-bob": "^0.40.17",
+    "react-native-reanimated": "catalog:",
+    "react-native-worklets": "catalog:",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "react": "*",
     "react-dom": "*",
     "react-native": "*",
-    "react-native-web": "*"
+    "react-native-reanimated": "*",
+    "react-native-web": "*",
+    "react-native-worklets": "*"
   }
 }
