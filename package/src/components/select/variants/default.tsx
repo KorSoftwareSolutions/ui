@@ -13,6 +13,7 @@ export function useSelectVariantDefault(): SelectStyles {
           borderWidth: 1,
           borderColor: colors.border,
           borderRadius: radius,
+          backgroundColor: colors.surface,
           justifyContent: "center",
           paddingVertical: 12,
           paddingHorizontal: 16,
