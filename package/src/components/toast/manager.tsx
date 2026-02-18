@@ -1,8 +1,11 @@
 import React, { useSyncExternalStore } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "../../safe-area";
+import { useComponentsConfig } from "../../themes";
 import { Portal } from "../portal";
+import { ToastBody } from "./components/toast-body";
 import { ToastDescription } from "./components/toast-description";
+import { ToastIcon } from "./components/toast-icon";
 import { ToastRoot } from "./components/toast-root";
 import { ToastTitle } from "./components/toast-title";
 import { ToastVariants } from "./variants";
@@ -107,12 +110,19 @@ interface ToastProps {
 }
 
 export function ToastComponent(props: ToastProps) {
+  const config = useComponentsConfig();
+  const variant = props.variant ?? "default";
+  const IconComponent = config?.toast?.icons?.[variant];
+
   return (
-    <ToastRoot variant={props.variant}>
-      <ToastTitle>{props.title}</ToastTitle>
-      {!!props.description && (
-        <ToastDescription>{props.description}</ToastDescription>
-      )}
+    <ToastRoot variant={variant}>
+      {!!IconComponent && <ToastIcon render={IconComponent} />}
+      <ToastBody>
+        <ToastTitle>{props.title}</ToastTitle>
+        {!!props.description && (
+          <ToastDescription>{props.description}</ToastDescription>
+        )}
+      </ToastBody>
     </ToastRoot>
   );
 }

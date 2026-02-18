@@ -10,6 +10,9 @@ export default function SelectComponentScreen() {
       <UseCaseSection title="Default">
         <DefaultExample />
       </UseCaseSection>
+      <UseCaseSection title="Initial Value">
+        <InitialValueExample />
+      </UseCaseSection>
       <UseCaseSection title="Disabled">
         <DisabledExample />
       </UseCaseSection>
@@ -28,13 +31,48 @@ export default function SelectComponentScreen() {
 }
 
 const OPTIONS = [
-  { value: "apple", children: "Apple", icon: "🍎", description: "A sweet red fruit" },
-  { value: "banana", children: "Banana", icon: "🍌", description: "A long yellow fruit" },
-  { value: "cherry", children: "Cherry", icon: "🍒", description: "A small red fruit" },
-  { value: "date", children: "Date", icon: "🌴", description: "A sweet brown fruit" },
-  { value: "elderberry", children: "Elderberry", icon: "🫐", description: "A small dark berry" },
-  { value: "grape", children: "Grape", icon: "🍇", description: "A small round fruit" },
-  { value: "honeydew", children: "Honeydew", icon: "🍈", description: "A sweet green melon" },
+  {
+    value: "apple",
+    children: "Apple",
+    icon: "🍎",
+    description: "A sweet red fruit",
+  },
+  {
+    value: "banana",
+    children: "Banana",
+    icon: "🍌",
+    description: "A long yellow fruit",
+  },
+  {
+    value: "cherry",
+    children: "Cherry",
+    icon: "🍒",
+    description: "A small red fruit",
+  },
+  {
+    value: "date",
+    children: "Date",
+    icon: "🌴",
+    description: "A sweet brown fruit",
+  },
+  {
+    value: "elderberry",
+    children: "Elderberry",
+    icon: "🫐",
+    description: "A small dark berry",
+  },
+  {
+    value: "grape",
+    children: "Grape",
+    icon: "🍇",
+    description: "A small round fruit",
+  },
+  {
+    value: "honeydew",
+    children: "Honeydew",
+    icon: "🍈",
+    description: "A sweet green melon",
+  },
 ];
 
 function DefaultExample() {
@@ -45,7 +83,30 @@ function DefaultExample() {
       <Select.Portal>
         <Select.Overlay />
         <Select.Content>
-          <List data={OPTIONS} keyExtractor={(item) => item.value} renderItem={({ item }) => <Select.Option {...item} />} />
+          <List
+            data={OPTIONS}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => <Select.Option {...item} />}
+          />
+        </Select.Content>
+      </Select.Portal>
+    </Select.Root>
+  );
+}
+
+function InitialValueExample() {
+  const [value, setValue] = useState<string>("cherry");
+  return (
+    <Select.Root value={value} onChange={setValue}>
+      <Select.Trigger placeholder="Select a fruit" />
+      <Select.Portal>
+        <Select.Overlay />
+        <Select.Content>
+          <List
+            data={OPTIONS}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => <Select.Option {...item} />}
+          />
         </Select.Content>
       </Select.Portal>
     </Select.Root>
@@ -99,7 +160,9 @@ function ComboboxExample() {
   const [value, setValue] = useState<string>();
   const [inputValue, setInputValue] = useState<string>("");
 
-  const filteredOptions = OPTIONS.filter((option) => option.children.toLowerCase().includes(inputValue.toLowerCase()));
+  const filteredOptions = OPTIONS.filter((option) =>
+    option.children.toLowerCase().includes(inputValue.toLowerCase()),
+  );
 
   return (
     <Select.Root value={value} onChange={setValue}>
@@ -138,7 +201,11 @@ function AboveTheFoldExample() {
       <Select.Portal>
         <Select.Overlay />
         <Select.Content>
-          <List data={OPTIONS} keyExtractor={(item) => item.value} renderItem={({ item }) => <Select.Option {...item} />} />
+          <List
+            data={OPTIONS}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item }) => <Select.Option {...item} />}
+          />
         </Select.Content>
       </Select.Portal>
     </Select.Root>

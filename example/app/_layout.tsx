@@ -1,3 +1,4 @@
+import { componentsConfig } from "@/utils/theme-components-config";
 import {
   UIProvider,
   useReactNavigationTheme,
@@ -48,6 +49,7 @@ function ThemedApp() {
       }}
       theme={currentTheme}
       safeAreaInsets={safeAreaInsets}
+      components={componentsConfig}
     >
       <RootRouter />
     </UIProvider>

@@ -10,14 +10,18 @@ export const useToastVariantDefault = (): ToastStyles => {
         borderColor: colors.border,
         borderRadius: radius,
         padding: 16,
-        gap: 4,
+        gap: 12,
         minWidth: 300,
         maxWidth: 400,
         flexDirection: "row",
       },
+      body: {
+        flex: 1,
+        gap: 4,
+      },
       icon: {
         color: colors.foreground,
-        size: 20,
+        size: 16,
         style: {
           marginTop: 2,
         },

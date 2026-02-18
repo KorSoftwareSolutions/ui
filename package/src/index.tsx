@@ -3,13 +3,18 @@ import { PortalHost } from "./components/portal";
 import { type PortalHostProps } from "./components/portal/portal.constants";
 import { ToastContainer } from "./components/toast/manager";
 import { SafeAreaProvider, type SafeAreaInsets } from "./safe-area";
-import { ThemeProvider, type ThemeProviderProps } from "./themes";
+import {
+  ThemeProvider,
+  type ComponentsConfig,
+  type ThemeProviderProps,
+} from "./themes";
 
 export interface ProviderProps {
   children: React.ReactNode;
   portalContainer?: PortalHostProps["container"];
   theme?: ThemeProviderProps["theme"];
   safeAreaInsets?: SafeAreaInsets;
+  components?: ComponentsConfig;
 }
 
 export const UIProvider = ({
@@ -17,10 +22,11 @@ export const UIProvider = ({
   portalContainer,
   theme,
   safeAreaInsets,
+  components,
 }: ProviderProps) => {
   return (
     <SafeAreaProvider insets={safeAreaInsets}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} components={components}>
         <ToastContainer />
         {children}
         <PortalHost container={portalContainer} />
@@ -34,7 +40,7 @@ export * from "./hooks/use-screen-size";
 
 export * from "./themes/adapters";
 export * from "./themes/default";
-export { useTheme } from "./themes/provider";
+export { useTheme, type ComponentsConfig } from "./themes/provider";
 export * from "./themes/types";
 
 export * from "./components";

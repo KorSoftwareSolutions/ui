@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 import { useColorScheme } from "react-native";
+import type { ToastVariants } from "../components/toast/variants";
+import type { SvgProps } from "../types/props.types";
 import type { DeepPartial } from "../types/util.types";
 import { defaultThemeAssets } from "./default";
 import type {
@@ -27,16 +29,26 @@ interface ThemeContext {
   letterSpacing: LetterSpacing;
   fontSize: FontSize;
   setColorScheme: (scheme: ColorScheme) => void;
+  components?: ComponentsConfig;
+}
+
+export interface ComponentsConfig {
+  toast?: {
+    icons?: Partial<
+      Record<keyof typeof ToastVariants, (props: SvgProps) => React.ReactNode>
+    >;
+  };
 }
 
 const ThemeContext = createContext<ThemeContext | null>(null);
 
 export interface ThemeProviderProps extends PropsWithChildren {
   theme?: DeepPartial<ThemeAssets>;
+  components?: ComponentsConfig;
 }
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
-  const { children, theme } = props;
+  const { children, theme, components } = props;
 
   const systemColorScheme = useColorScheme();
   const [colorScheme, setColorScheme] = useState<ColorScheme>(
@@ -65,6 +77,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
         fontFamily: themeAssets.fontFamily,
         letterSpacing: themeAssets.letterSpacing,
         fontSize: themeAssets.fontSize,
+        components,
       }}
     >
       {children}
@@ -78,4 +91,12 @@ export const useTheme = () => {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
   return context;
+};
+
+export const useComponentsConfig = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useComponentsConfig must be used within a ThemeProvider");
+  }
+  return context.components;
 };

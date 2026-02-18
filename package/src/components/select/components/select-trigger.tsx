@@ -62,18 +62,17 @@ export function SelectValue(props: SelectValueProps) {
     (option) => option.value === select.value,
   );
   const selectedOptionLabel = selectedOption?.label;
+  const displayValue = selectedOptionLabel ?? select.value;
 
   const composedStyles = calculateComposedStyles(
     select.styles,
     select.state,
-    selectedOptionLabel ? "value" : "placeholder",
+    displayValue ? "value" : "placeholder",
   );
-  if (typeof selectedOptionLabel !== "string") {
-    return <>{selectedOptionLabel}</>;
+  if (!!displayValue && typeof displayValue !== "string") {
+    return <>{displayValue}</>;
   }
   return (
-    <Text style={composedStyles}>
-      {selectedOptionLabel ?? props.placeholder}
-    </Text>
+    <Text style={composedStyles}>{displayValue ?? props.placeholder}</Text>
   );
 }

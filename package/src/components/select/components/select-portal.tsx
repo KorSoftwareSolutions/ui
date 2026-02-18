@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { View } from "react-native";
 import { Portal } from "../../portal";
 import { SelectContext, useSelect } from "../context";
 
@@ -16,12 +17,23 @@ export function SelectPortal(props: SelectPortalProps) {
   }, []);
 
   if (!select.isOpen) {
-    return null;
+    return (
+      <View
+        style={{ display: "none" }}
+        aria-hidden
+        accessibilityElementsHidden
+        importantForAccessibility="no-hide-descendants"
+      >
+        {props.children}
+      </View>
+    );
   }
 
   return (
     <Portal name="select-portal">
-      <SelectContext.Provider value={select}>{props.children}</SelectContext.Provider>
+      <SelectContext.Provider value={select}>
+        {props.children}
+      </SelectContext.Provider>
     </Portal>
   );
 }
