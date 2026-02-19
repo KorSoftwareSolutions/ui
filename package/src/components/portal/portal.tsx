@@ -1,5 +1,13 @@
-import { useEffect, useMemo, useSyncExternalStore } from "react";
-import { Platform, View } from "react-native";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import { Platform, View, type HostInstance } from "react-native";
+import { PortalOffsetContext, type PortalOffset } from "./portal-offset";
 import {
   DEFAULT_PORTAL_HOST,
   type PortalHostProps,
@@ -59,6 +67,41 @@ function removePortal(hostName: string, name: string) {
   emit();
 }
 
+function DefaultContainer(props: React.PropsWithChildren) {
+  const containerRef = useRef<HostInstance>(null);
+  const [offset, setOffset] = useState<PortalOffset | null>(null);
+
+  const onLayout = useCallback(() => {
+    containerRef.current?.measureInWindow((pageX: number, pageY: number) => {
+      setOffset((prev) => {
+        if (prev?.x === pageX && prev?.y === pageY) return prev;
+        return { x: pageX, y: pageY };
+      });
+    });
+  }, []);
+
+  return (
+    <View
+      ref={containerRef}
+      onLayout={onLayout}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        elevation: 999,
+        zIndex: 999,
+        pointerEvents: "box-none",
+      }}
+    >
+      <PortalOffsetContext.Provider value={offset}>
+        {props.children}
+      </PortalOffsetContext.Provider>
+    </View>
+  );
+}
+
 export function PortalHost({
   name = DEFAULT_PORTAL_HOST,
   container,
@@ -68,21 +111,7 @@ export function PortalHost({
   const Container = useMemo(
     () =>
       Platform.select({
-        default: (props: React.PropsWithChildren) => (
-          <View
-            {...props}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              elevation: 999,
-              zIndex: 999,
-              pointerEvents: "box-none",
-            }}
-          />
-        ),
+        default: DefaultContainer,
         ...container,
       }),
     [container],

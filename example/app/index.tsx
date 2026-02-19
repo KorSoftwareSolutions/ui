@@ -37,14 +37,13 @@ export default function Home() {
 const s = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
   },
   content: {
     flexGrow: 1,
-    overflow: "hidden",
     maxWidth: 600,
     width: "100%",
     alignSelf: "center",
     gap: 24,
+    padding: 24,
   },
 });

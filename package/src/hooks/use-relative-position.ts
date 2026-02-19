@@ -5,6 +5,7 @@ import {
   type LayoutRectangle,
   type ViewStyle,
 } from "react-native";
+import { usePortalOffset } from "../components/portal";
 import { useSafeAreaInsets, type SafeAreaInsets } from "../safe-area";
 
 type UseRelativePositionArgs = Omit<
@@ -22,13 +23,15 @@ export function useRelativePosition({
 }: UseRelativePositionArgs): ViewStyle {
   const dimensions = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const portalOffset = usePortalOffset();
 
   return useMemo(() => {
     const hasLayout =
       triggerPosition.width > 0 &&
       triggerPosition.height > 0 &&
       contentLayout.width > 0 &&
-      contentLayout.height > 0;
+      contentLayout.height > 0 &&
+      portalOffset.isLoaded;
 
     if (!hasLayout) {
       return {
@@ -39,11 +42,22 @@ export function useRelativePosition({
       };
     }
 
+    // Adjust trigger position to account for the portal container's
+    // offset from the window origin. measureInWindow returns window-relative
+    // coordinates, but the portal content is positioned relative to its
+    // container which may not be at the window origin (e.g. on Android
+    // where the status bar offsets the view hierarchy).
+    const adjustedTriggerPosition: LayoutPosition = {
+      ...triggerPosition,
+      pageX: triggerPosition.pageX - portalOffset.value.x,
+      pageY: triggerPosition.pageY - portalOffset.value.y,
+    };
+
     const style = getContentStyle({
       align,
       contentLayout,
       preferredSide,
-      triggerPosition,
+      triggerPosition: adjustedTriggerPosition,
       alignOffset,
       insets,
       sideOffset,
@@ -61,6 +75,7 @@ export function useRelativePosition({
     dimensions.width,
     dimensions.height,
     sideOffset,
+    portalOffset,
   ]);
 }
 
