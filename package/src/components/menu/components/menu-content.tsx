@@ -20,7 +20,7 @@ export function MenuContent(props: MenuContentProps) {
     contentLayout: menu.contentLayout,
     alignOffset: 0,
     preferredSide: "bottom",
-    sideOffset: 0,
+    sideOffset: 2,
   });
 
   const composedStyle = [positionStyle, menu.styles?.content, props.style];

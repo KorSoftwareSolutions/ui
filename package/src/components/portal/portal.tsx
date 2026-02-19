@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useSyncExternalStore } from "react";
 import { Platform, View } from "react-native";
 import {
   DEFAULT_PORTAL_HOST,
@@ -65,27 +65,30 @@ export function PortalHost({
 }: PortalHostProps) {
   const map = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const portalMap = map.get(name) ?? new Map<string, React.ReactNode>();
+  const Container = useMemo(
+    () =>
+      Platform.select({
+        default: (props: React.PropsWithChildren) => (
+          <View
+            {...props}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              elevation: 999,
+              zIndex: 999,
+              pointerEvents: "box-none",
+            }}
+          />
+        ),
+        ...container,
+      }),
+    [container],
+  );
+
   if (portalMap.size === 0) return null;
-
-  const Container = Platform.select({
-    default: (props: React.PropsWithChildren) => (
-      <View
-        {...props}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          elevation: 999,
-          zIndex: 999,
-          pointerEvents: "box-none",
-        }}
-      />
-    ),
-    ...container,
-  });
-
   return <Container>{Array.from(portalMap.values())}</Container>;
 }
 

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Pressable, Text, type StyleProp, type ViewStyle } from "react-native";
+import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useMenu } from "../context";
 import type { MenuCheckboxItemState } from "../types";
 import { useOrganizedChildren } from "../use-organized-children";
+import { MenuSelectionIndicator } from "./menu-selection-indicator";
 
 export interface MenuCheckboxItemProps {
   children: React.ReactNode;
@@ -66,9 +67,7 @@ export function MenuCheckboxItem(props: MenuCheckboxItemProps) {
       style={composedStyle}
     >
       {organizedChildren}
-      <Text style={menu.styles?.checkboxIndicator}>
-        {props.checked ? "✓" : " "}
-      </Text>
+      <MenuSelectionIndicator isSelected={props.checked} />
     </Pressable>
   );
 }

@@ -36,6 +36,9 @@ export interface ComponentsConfig {
   toast?: {
     icons?: Partial<Record<keyof typeof ToastVariants, IconComponent>>;
   };
+  menu?: {
+    selectionIcon?: IconComponent;
+  };
 }
 
 const ThemeContext = createContext<ThemeContext | null>(null);

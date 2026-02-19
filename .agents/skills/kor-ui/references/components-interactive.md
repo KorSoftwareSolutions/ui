@@ -811,7 +811,7 @@ interface MenuSeparatorProps {
 
 #### Menu.CheckboxItem
 
-Toggleable menu item with a checkmark indicator at the end. Accepts `ReactNode` children with auto-styling like `Menu.Item`.
+Toggleable menu item with a selection indicator at the end. Accepts `ReactNode` children with auto-styling like `Menu.Item`. Uses a shared `MenuSelectionIndicator` component that renders a checkmark ("✓") by default, or a custom icon configured via `UIProvider`.
 
 ```typescript
 interface MenuCheckboxItemProps {
@@ -836,7 +836,7 @@ interface MenuCheckboxItemProps {
 
 **Behavior:**
 - Does NOT close menu by default (opt-in via `closeOnPress`)
-- Checkmark indicator ("✓") renders at the end of the row
+- Selection indicator renders at the end of the row (checkmark when checked, empty space when unchecked)
 - Tracks hover state
 - `accessibilityRole="checkbox"`
 
@@ -867,7 +867,7 @@ interface MenuRadioGroupProps {
 
 #### Menu.RadioItem
 
-Radio selection menu item with a dot indicator at the end. Must be used within `Menu.RadioGroup`. Accepts `ReactNode` children with auto-styling like `Menu.Item`.
+Radio selection menu item with a selection indicator at the end. Must be used within `Menu.RadioGroup`. Accepts `ReactNode` children with auto-styling like `Menu.Item`. Uses the same shared `MenuSelectionIndicator` as `Menu.CheckboxItem`.
 
 ```typescript
 interface MenuRadioItemProps {
@@ -890,7 +890,7 @@ interface MenuRadioItemProps {
 
 **Behavior:**
 - Does NOT close menu by default (opt-in via `closeOnPress`)
-- Filled dot indicator renders at the end when selected
+- Checkmark indicator renders at the end when selected (same as CheckboxItem)
 - Consumes `useMenuRadioGroup()` for selection state
 - `accessibilityRole="radio"`
 
@@ -922,7 +922,6 @@ interface MenuShortcutProps {
 type MenuButtonState = "default" | "hovered";
 type MenuCheckboxItemState = "default" | "hovered" | "disabled";
 type MenuRadioItemState = "default" | "hovered" | "selected" | "disabled";
-type MenuRadioIndicatorState = "default" | "selected";
 ```
 
 **Menu States:**
@@ -938,6 +937,20 @@ Menu items use a `useOrganizedChildren` hook that automatically styles children:
 
 This applies to `Menu.Item`, `Menu.CheckboxItem`, and `Menu.RadioItem`.
 
+### Custom Selection Icon
+
+Both `Menu.CheckboxItem` and `Menu.RadioItem` use a shared `MenuSelectionIndicator` component. By default it renders a text checkmark ("✓"). You can provide a custom icon component via the `UIProvider`'s `components` prop:
+
+```typescript
+import { Check } from "lucide-react-native";
+
+<UIProvider components={{ menu: { selectionIcon: Check } }}>
+  <App />
+</UIProvider>
+```
+
+The custom icon receives `selectionIndicator` styles from the variant (color, size, strokeWidth).
+
 ### Positioning with useRelativePosition
 
 The Menu.Content uses the `useRelativePosition` hook for smart positioning:
@@ -949,16 +962,17 @@ useRelativePosition({
   contentLayout,               // Menu content dimensions
   alignOffset: 0,              // Horizontal offset
   preferredSide: "bottom",     // Preferred vertical side
-  sideOffset: 0,              // Vertical offset
+  sideOffset: 2,              // Vertical offset (2px gap)
 });
 ```
 
 **Positioning Logic:**
 1. Measures trigger element position
-2. Calculates available space in all directions
-3. Positions menu on preferred side if space available
-4. Falls back to opposite side if needed
-5. Adjusts horizontal position to stay within viewport
+2. Waits for both trigger and content to have non-zero dimensions before positioning
+3. Calculates available space in all directions (respects safe area insets)
+4. Positions menu on preferred side if space available
+5. Falls back to opposite side if needed
+6. Adjusts horizontal position to stay within viewport
 
 ### Basic Examples
 
@@ -1422,7 +1436,6 @@ useRelativePosition({
   alignOffset: 0,
   preferredSide: "bottom",
   sideOffset: 0,
-  insets, // Safe area insets
 });
 ```
 
@@ -1431,7 +1444,8 @@ useRelativePosition({
 - `preferredSide`: "top" | "bottom" - Vertical placement preference
 - `alignOffset`: Horizontal offset in pixels
 - `sideOffset`: Vertical offset in pixels
-- `insets`: SafeAreaInsets for mobile positioning
+
+Note: Safe area insets are handled internally by the hook via `useSafeAreaInsets()`.
 
 ### Basic Examples
 

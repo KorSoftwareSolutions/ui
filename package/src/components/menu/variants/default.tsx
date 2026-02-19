@@ -67,13 +67,16 @@ export const useMenuVariantDefault = (): MenuStyles => {
           opacity: 0.5,
         },
       },
-      checkboxIndicator: {
-        fontSize: fontSize * 0.75,
-        fontWeight: "bold",
+      selectionIndicator: {
         color: colors.foreground,
+        fontSize: fontSize,
         width: fontSize,
-        textAlign: "center",
+        size: fontSize,
+        strokeWidth: 2,
         marginLeft: "auto",
+        style: {
+          marginLeft: "auto",
+        },
       },
       radioItem: {
         default: {
@@ -88,18 +91,6 @@ export const useMenuVariantDefault = (): MenuStyles => {
         },
         disabled: {
           opacity: 0.5,
-        },
-      },
-      radioIndicator: {
-        default: {
-          width: 8,
-          height: 8,
-          borderRadius: 4,
-          backgroundColor: "transparent",
-          marginLeft: "auto",
-        },
-        selected: {
-          backgroundColor: colors.foreground,
         },
       },
       shortcut: {

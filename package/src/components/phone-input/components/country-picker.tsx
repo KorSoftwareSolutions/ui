@@ -64,7 +64,7 @@ export function CountryPicker() {
     contentLayout,
     alignOffset: 0,
     preferredSide: "bottom",
-    sideOffset: 4,
+    sideOffset: 2,
   });
 
   const countryButtonStyles = StyleSheet.flatten([

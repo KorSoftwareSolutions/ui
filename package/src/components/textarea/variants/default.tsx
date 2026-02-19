@@ -1,3 +1,4 @@
+import { Platform } from "react-native";
 import { type TextareaStyles } from "../..";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 
@@ -15,6 +16,12 @@ export function useTextareaVariantDefault(): TextareaStyles {
           paddingVertical: 12,
           paddingHorizontal: 16,
           outlineWidth: 0,
+          ...Platform.select({
+            default: {},
+            web: {
+              outline: "none",
+            },
+          }),
           fontFamily,
           fontSize,
           minHeight: 120,

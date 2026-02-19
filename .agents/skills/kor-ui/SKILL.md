@@ -128,7 +128,7 @@ function SubmitButton() {
 | ------------ | ---------------------------------- | ------------------ | ------------------------------------------------------------------------- |
 | **Button**   | Action buttons with loading states | default, secondary | [Interactive Components](./references/components-interactive.md#button)   |
 | **Tabs**     | Tabbed navigation                  | default, line      | [Interactive Components](./references/components-interactive.md#tabs)     |
-| **Menu**     | Dropdown menus with icons, groups, checkbox/radio items | default            | [Interactive Components](./references/components-interactive.md#menu)     |
+| **Menu**     | Dropdown menus with icons, groups, checkbox/radio items, custom selection icon | default            | [Interactive Components](./references/components-interactive.md#menu)     |
 | **Popover**  | Positioned overlay content         | default            | [Interactive Components](./references/components-interactive.md#popover)  |
 | **Calendar** | Date picker with range selection   | default            | [Interactive Components](./references/components-interactive.md#calendar) |
 
@@ -315,6 +315,28 @@ Customize the theme via UIProvider:
 ```
 
 For detailed theming documentation, see [Theme Customization](./references/theme-customization.md).
+
+### Component Configuration
+
+Configure component-level behavior via the `components` prop on `UIProvider`:
+
+```tsx
+import { Check } from "lucide-react-native";
+
+<UIProvider
+  components={{
+    toast: {
+      icons: { success: CheckCircle, danger: AlertCircle },
+    },
+    menu: {
+      selectionIcon: Check, // Custom icon for checkbox/radio items
+    },
+  }}
+  safeAreaInsets={safeAreaInsets}
+>
+  <App />
+</UIProvider>
+```
 
 ## Common Patterns
 

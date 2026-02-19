@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Pressable, View, type StyleProp, type ViewStyle } from "react-native";
+import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useMenu, useMenuRadioGroup } from "../context";
 import type { MenuRadioItemState } from "../types";
 import { useOrganizedChildren } from "../use-organized-children";
+import { MenuSelectionIndicator } from "./menu-selection-indicator";
 
 export interface MenuRadioItemProps {
   children: React.ReactNode;
@@ -37,11 +38,6 @@ export function MenuRadioItem(props: MenuRadioItemProps) {
     props.style,
   ];
 
-  const indicatorStyle = [
-    menu.styles?.radioIndicator?.default,
-    isSelected ? menu.styles?.radioIndicator?.selected : undefined,
-  ];
-
   const handlePress = () => {
     if (props.disabled) return;
     radioGroup.onValueChange(props.value);
@@ -74,7 +70,7 @@ export function MenuRadioItem(props: MenuRadioItemProps) {
       style={composedStyle}
     >
       {organizedChildren}
-      <View style={indicatorStyle} />
+      <MenuSelectionIndicator isSelected={isSelected} />
     </Pressable>
   );
 }

@@ -11,8 +11,6 @@ export type MenuRadioItemState =
   | "selected"
   | "disabled";
 
-export type MenuRadioIndicatorState = "default" | "selected";
-
 export interface MenuStyles {
   content?: MenuContentProps["style"];
   item?: Partial<Record<MenuButtonState, StyleProp<ViewStyle>>>;
@@ -24,11 +22,8 @@ export interface MenuStyles {
   label?: StyleProp<TextStyle>;
   separator?: StyleProp<ViewStyle>;
   checkboxItem?: Partial<Record<MenuCheckboxItemState, StyleProp<ViewStyle>>>;
-  checkboxIndicator?: StyleProp<TextStyle>;
+  selectionIndicator?: TextStyle & SvgProps;
   radioGroup?: StyleProp<ViewStyle>;
   radioItem?: Partial<Record<MenuRadioItemState, StyleProp<ViewStyle>>>;
-  radioIndicator?: Partial<
-    Record<MenuRadioIndicatorState, StyleProp<ViewStyle>>
-  >;
   shortcut?: StyleProp<TextStyle>;
 }

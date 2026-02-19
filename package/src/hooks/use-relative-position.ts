@@ -5,29 +5,32 @@ import {
   type LayoutRectangle,
   type ViewStyle,
 } from "react-native";
-import type { SafeAreaInsets } from "../safe-area";
+import { useSafeAreaInsets, type SafeAreaInsets } from "../safe-area";
 
 type UseRelativePositionArgs = Omit<
   GetContentStyleArgs,
-  "triggerPosition" | "contentLayout" | "dimensions"
-> & {
-  triggerPosition: LayoutPosition | null;
-  contentLayout: LayoutRectangle | null;
-};
+  "dimensions" | "insets"
+>;
 
 export function useRelativePosition({
   align,
   triggerPosition,
   contentLayout,
   alignOffset,
-  insets,
   sideOffset,
   preferredSide,
 }: UseRelativePositionArgs): ViewStyle {
   const dimensions = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
   return useMemo(() => {
-    if (!triggerPosition || !contentLayout) {
+    const hasLayout =
+      triggerPosition.width > 0 &&
+      triggerPosition.height > 0 &&
+      contentLayout.width > 0 &&
+      contentLayout.height > 0;
+
+    if (!hasLayout) {
       return {
         position: "absolute",
         opacity: 0,
@@ -72,7 +75,7 @@ interface GetPositionArgs {
   dimensions: DisplayMetrics;
   triggerPosition: LayoutPosition;
   contentLayout: LayoutRectangle;
-  insets?: SafeAreaInsets;
+  insets: SafeAreaInsets;
 }
 
 interface GetSidePositionArgs extends GetPositionArgs {
@@ -95,8 +98,7 @@ export const DEFAULT_POSITION: LayoutPosition = {
 
 interface GetSideArgs {
   preferredSide: "top" | "bottom";
-  insetTop: number;
-  insetBottom: number;
+  insets: SafeAreaInsets;
   positionTop: number;
   positionBottom: number;
   contentLayout: LayoutRectangle;
@@ -105,29 +107,28 @@ interface GetSideArgs {
 
 function getSide({
   preferredSide,
-  insetTop,
-  insetBottom,
+  insets,
   positionTop,
   positionBottom,
   contentLayout,
   dimensions,
 }: GetSideArgs) {
   if (preferredSide === "bottom") {
-    const spaceBelow = dimensions.height - insetBottom - positionBottom;
+    const spaceBelow = dimensions.height - insets.bottom - positionBottom;
     if (spaceBelow >= contentLayout.height) {
       return "bottom";
     }
-    const spaceAbove = positionTop - insetTop;
+    const spaceAbove = positionTop - insets.top;
     if (spaceAbove > spaceBelow) {
       return "top";
     }
     return "bottom";
   }
-  const spaceAbove = positionTop - insetTop;
+  const spaceAbove = positionTop - insets.top;
   if (spaceAbove >= contentLayout.height) {
     return "top";
   }
-  const spaceBelow = dimensions.height - insetBottom - positionBottom;
+  const spaceBelow = dimensions.height - insets.bottom - positionBottom;
   if (spaceBelow > spaceAbove) {
     return "bottom";
   }
@@ -142,8 +143,6 @@ function getSidePosition({
   insets,
   dimensions,
 }: GetSidePositionArgs) {
-  const insetTop = insets?.top ?? 0;
-  const insetBottom = insets?.bottom ?? 0;
   const positionTop =
     triggerPosition?.pageY - sideOffset - contentLayout.height;
   const positionBottom =
@@ -151,8 +150,7 @@ function getSidePosition({
 
   const side = getSide({
     preferredSide,
-    insetTop,
-    insetBottom,
+    insets,
     positionTop,
     positionBottom,
     contentLayout,
@@ -162,15 +160,15 @@ function getSidePosition({
   if (side === "top") {
     return {
       top: Math.min(
-        Math.max(insetTop, positionTop),
-        dimensions.height - insetBottom - contentLayout.height,
+        Math.max(insets.top, positionTop),
+        dimensions.height - insets.bottom - contentLayout.height,
       ),
     };
   }
 
   return {
     top: Math.min(
-      dimensions.height - insetBottom - contentLayout.height,
+      dimensions.height - insets.bottom - contentLayout.height,
       positionBottom,
     ),
   };
@@ -189,9 +187,7 @@ function getAlignPosition({
   insets,
   dimensions,
 }: GetAlignPositionArgs) {
-  const insetLeft = insets?.left ?? 0;
-  const insetRight = insets?.right ?? 0;
-  const maxContentWidth = dimensions.width - insetLeft - insetRight;
+  const maxContentWidth = dimensions.width - insets.left - insets.right;
 
   const contentWidth = Math.min(contentLayout.width, maxContentWidth);
 
@@ -201,25 +197,24 @@ function getAlignPosition({
     triggerPosition.width,
     contentWidth,
     alignOffset,
-    insetLeft,
-    insetRight,
+    insets,
     dimensions,
   );
 
   const doesCollide =
-    left < insetLeft || left + contentWidth > dimensions.width - insetRight;
+    left < insets.left || left + contentWidth > dimensions.width - insets.right;
   if (doesCollide) {
-    const spaceLeft = left - insetLeft;
-    const spaceRight = dimensions.width - insetRight - (left + contentWidth);
+    const spaceLeft = left - insets.left;
+    const spaceRight = dimensions.width - insets.right - (left + contentWidth);
 
     if (spaceLeft > spaceRight && spaceLeft >= contentWidth) {
-      left = insetLeft;
+      left = insets.left;
     } else if (spaceRight >= contentWidth) {
-      left = dimensions.width - insetRight - contentWidth;
+      left = dimensions.width - insets.right - contentWidth;
     } else {
       const centeredPosition = Math.max(
-        insetLeft,
-        (dimensions.width - contentWidth - insetRight) / 2,
+        insets.left,
+        (dimensions.width - contentWidth - insets.right) / 2,
       );
       left = centeredPosition;
     }
@@ -234,8 +229,7 @@ function getLeftPosition(
   triggerWidth: number,
   contentWidth: number,
   alignOffset: number,
-  insetLeft: number,
-  insetRight: number,
+  insets: SafeAreaInsets,
   dimensions: DisplayMetrics,
 ) {
   let left = 0;
@@ -249,8 +243,11 @@ function getLeftPosition(
     left = triggerPageX + triggerWidth - contentWidth;
   }
   return Math.max(
-    insetLeft,
-    Math.min(left + alignOffset, dimensions.width - contentWidth - insetRight),
+    insets.left,
+    Math.min(
+      left + alignOffset,
+      dimensions.width - contentWidth - insets.right,
+    ),
   );
 }
 

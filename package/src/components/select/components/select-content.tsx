@@ -1,7 +1,7 @@
-import { useRelativePosition } from "../../../hooks/use-relative-position";
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useRelativePosition } from "../../../hooks/use-relative-position";
+import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import { useSelect } from "../context";
 
 export interface SelectContentProps {
@@ -14,7 +14,12 @@ export interface SelectContentProps {
 
 export function SelectContent(props: SelectContentProps) {
   const select = useSelect();
-  const composedStyles = calculateComposedStyles(select.styles, select.state, "content", props.style);
+  const composedStyles = calculateComposedStyles(
+    select.styles,
+    select.state,
+    "content",
+    props.style,
+  );
 
   const positionStyle = useRelativePosition({
     align: "start",
@@ -22,13 +27,17 @@ export function SelectContent(props: SelectContentProps) {
     contentLayout: select.contentLayout,
     alignOffset: 0,
     preferredSide: "bottom",
-    sideOffset: 0,
+    sideOffset: 2,
   });
 
   const Component = props.render ?? View;
   return (
     <Component
-      style={[positionStyle, composedStyles, { width: select.triggerPosition.width }]}
+      style={[
+        positionStyle,
+        composedStyles,
+        { width: select.triggerPosition.width },
+      ]}
       onLayout={(e) => {
         select.setContentLayout(e.nativeEvent.layout);
       }}
