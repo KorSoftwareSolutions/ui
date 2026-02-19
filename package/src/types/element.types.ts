@@ -1,4 +1,5 @@
 import type { HostInstance } from "react-native";
+import type { SvgProps } from "./props.types";
 
 export type ViewRef = HostInstance;
 export type TextInputRef = HostInstance & {
@@ -10,5 +11,13 @@ export type TextInputRef = HostInstance & {
   setSelection: (start: number, end?: number) => void;
 };
 
-export type TextChildren = string | number | boolean | null | undefined | string[];
+export type TextChildren =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | string[];
 export type ElementChildren = React.ReactElement | React.ReactElement[];
+
+export type IconComponent = (props: SvgProps) => React.ReactElement;

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { type StyleProp, Text, type TextStyle } from "react-native";
+import { Pressable, type StyleProp, type ViewStyle } from "react-native";
 import { useMenu } from "../context";
 import type { MenuButtonState } from "../types";
+import { useOrganizedChildren } from "../use-organized-children";
 
 export interface MenuItemProps {
-  children: string;
+  children: React.ReactNode;
   onPress?: () => void;
 
   render?: (props: MenuItemProps) => React.ReactNode;
-  style?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
 }
 
 const calculateState = (isHovered: boolean): MenuButtonState => {
@@ -22,23 +23,38 @@ export function MenuItem(props: MenuItemProps) {
   const menu = useMenu();
   const [isHovered, setIsHovered] = useState(false);
   const state = calculateState(isHovered);
-  const composedStyle = [menu.styles?.item?.default, menu.styles?.item?.[state], props.style];
+  const composedStyle = [
+    menu.styles?.item?.default,
+    menu.styles?.item?.[state],
+    props.style,
+  ];
 
   const handlePress = () => {
     props.onPress?.();
     menu.setIsOpen((prev) => !prev);
   };
 
-  const Component = props.render ?? Text;
+  const organizedChildren = useOrganizedChildren(props.children);
+
+  if (props.render) {
+    return (
+      <>
+        {props.render({
+          ...props,
+          children: organizedChildren,
+        })}
+      </>
+    );
+  }
+
   return (
-    <Component
-      {...props}
+    <Pressable
       onPress={handlePress}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
       style={composedStyle}
     >
-      {props.children}
-    </Component>
+      {organizedChildren}
+    </Pressable>
   );
 }

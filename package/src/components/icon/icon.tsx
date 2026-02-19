@@ -1,12 +1,18 @@
-import type { PropsWithRequiredRender, SvgProps } from "../../types/props.types";
 import React from "react";
+import type {
+  PropsWithRequiredRender,
+  SvgProps,
+} from "../../types/props.types";
 import { IconVariants } from "./variants";
 
 export type IconProps = SvgProps & {
   variant?: keyof typeof IconVariants;
 };
 
-export function Icon({ render: Component, ...props }: PropsWithRequiredRender<IconProps>) {
+export const Icon: React.FC<PropsWithRequiredRender<IconProps>> = ({
+  render: Component,
+  ...props
+}) => {
   const variantProps = IconVariants[props.variant ?? "default"]();
   const composedProps: SvgProps = {
     ...variantProps,
@@ -16,4 +22,4 @@ export function Icon({ render: Component, ...props }: PropsWithRequiredRender<Ic
   };
 
   return <Component {...composedProps} />;
-}
+};

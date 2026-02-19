@@ -1,6 +1,10 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { Platform, View } from "react-native";
-import { DEFAULT_PORTAL_HOST, type PortalHostProps, type PortalProps } from "./portal.constants";
+import {
+  DEFAULT_PORTAL_HOST,
+  type PortalHostProps,
+  type PortalProps,
+} from "./portal.constants";
 
 type PortalMap = Map<string, React.ReactNode>;
 type PortalHostMap = Map<string, PortalMap>;
@@ -11,7 +15,10 @@ type PortalStore = {
 };
 
 const store: PortalStore = {
-  map: new Map<string, PortalMap>().set(DEFAULT_PORTAL_HOST, new Map<string, React.ReactNode>()),
+  map: new Map<string, PortalMap>().set(
+    DEFAULT_PORTAL_HOST,
+    new Map<string, React.ReactNode>(),
+  ),
   listeners: new Set(),
 };
 
@@ -30,7 +37,11 @@ function subscribe(cb: () => void) {
   };
 }
 
-function updatePortal(hostName: string, name: string, children: React.ReactNode) {
+function updatePortal(
+  hostName: string,
+  name: string,
+  children: React.ReactNode,
+) {
   const next = new Map(store.map);
   const portal = next.get(hostName) ?? new Map<string, React.ReactNode>();
   portal.set(name, children);
@@ -48,7 +59,10 @@ function removePortal(hostName: string, name: string) {
   emit();
 }
 
-export function PortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostProps) {
+export function PortalHost({
+  name = DEFAULT_PORTAL_HOST,
+  container,
+}: PortalHostProps) {
   const map = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const portalMap = map.get(name) ?? new Map<string, React.ReactNode>();
   if (portalMap.size === 0) return null;
@@ -75,7 +89,11 @@ export function PortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHost
   return <Container>{Array.from(portalMap.values())}</Container>;
 }
 
-export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
+export function Portal({
+  name,
+  hostName = DEFAULT_PORTAL_HOST,
+  children,
+}: PortalProps) {
   useEffect(() => {
     updatePortal(hostName, name, children);
   }, [hostName, name, children]);

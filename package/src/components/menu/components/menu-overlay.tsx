@@ -1,5 +1,10 @@
 import React from "react";
-import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
+import {
+  Pressable,
+  type StyleProp,
+  StyleSheet,
+  type ViewStyle,
+} from "react-native";
 import { useMenu } from "../context";
 
 export interface MenuOverlayProps {
@@ -13,7 +18,11 @@ export interface MenuOverlayProps {
 export function MenuOverlay(props: MenuOverlayProps) {
   const menu = useMenu();
 
-  const composedStyle = [StyleSheet.absoluteFill, menu.styles?.overlay, props.style];
+  const composedStyle = StyleSheet.flatten([
+    StyleSheet.absoluteFill,
+    menu.styles?.overlay,
+    props.style,
+  ]);
 
   const Component = props.render ?? Pressable;
   return (

@@ -585,27 +585,35 @@ function TabsWithCounts() {
 
 ## Menu
 
-A dropdown menu component with trigger, overlay, and menu items.
+A dropdown menu component with trigger, overlay, and rich menu items including groups, labels, separators, checkbox items, radio items, and keyboard shortcuts.
 
 ### Overview
 
-The Menu component (also called Dropdown Menu) provides a floating menu that appears relative to a trigger element. It uses portal rendering for proper layering and includes automatic positioning.
+The Menu component (also called Dropdown Menu) provides a floating menu that appears relative to a trigger element. It uses portal rendering for proper layering and includes automatic positioning. Supports icons via the `Icon` component, grouped items, checkbox/radio selections, and keyboard shortcut hints.
 
 **When to use:**
 - Context menus
-- Action dropdowns
-- Option selectors
+- Action dropdowns with icons
+- Option selectors with checkbox/radio items
+- Grouped menu actions with labels and separators
 - More actions buttons
 
 ### Architecture
 
 ```typescript
-Menu.Root              // State container
-  ├─ Menu.Trigger      // Button that opens menu
-  └─ Menu.Portal       // Portal for overlay layer
-       ├─ Menu.Overlay     // Backdrop (closes on click)
-       └─ Menu.Content     // Menu container
-            └─ Menu.Item   // Individual menu option
+Menu.Root                    // State container
+  ├─ Menu.Trigger            // Button that opens menu
+  └─ Menu.Portal             // Portal for overlay layer
+       ├─ Menu.Overlay       // Backdrop (closes on click)
+       └─ Menu.Content       // Menu container
+            ├─ Menu.Label        // Non-interactive group label
+            ├─ Menu.Separator    // Visual divider line
+            ├─ Menu.Group        // Semantic grouping wrapper
+            │    └─ Menu.Item    // Individual menu option (supports icons)
+            ├─ Menu.CheckboxItem // Toggleable checked item (indicator at end)
+            ├─ Menu.RadioGroup   // Exclusive selection context
+            │    └─ Menu.RadioItem  // Radio option (indicator at end)
+            └─ Menu.Shortcut     // Keyboard shortcut hint text
 ```
 
 ### Complete API
@@ -693,7 +701,6 @@ interface MenuOverlayProps {
 **Behavior:**
 - Fills entire screen (absolute positioning)
 - Closes menu when pressed
-- Semi-transparent background
 
 #### Menu.Content
 
@@ -708,7 +715,7 @@ interface MenuContentProps {
 ```
 
 **Props:**
-- `children` - Menu.Item components
+- `children` - Menu items, groups, labels, separators
 - `render` - Custom container component
 - `style` - Additional content styles
 
@@ -719,37 +726,217 @@ interface MenuContentProps {
 
 #### Menu.Item
 
-Individual menu option.
+Individual menu option. Accepts `ReactNode` children — string children are auto-wrapped in styled `Text`, and `Icon` children are automatically styled with theme colors/size.
 
 ```typescript
 interface MenuItemProps {
-  children: string;
+  children: React.ReactNode;
   onPress?: () => void;
   render?: (props: MenuItemProps) => React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `children` - Menu item content (strings and `Icon` components are auto-styled)
+- `onPress` - Callback when item is selected
+- `render` - Custom render function
+- `style` - Additional container styles
+
+**Behavior:**
+- Closes menu automatically after press
+- Tracks hover state for visual feedback
+- Uses `Pressable` with `flexDirection: "row"` layout
+- String children are wrapped in `Text` with `itemText` styles
+- `Icon` children are cloned with `itemIcon` styles (color and size from theme)
+
+#### Menu.Group
+
+Semantic grouping wrapper for related menu items.
+
+```typescript
+interface MenuGroupProps {
+  children?: React.ReactNode;
+  render?: (props: MenuGroupProps) => React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `children` - Menu.Item or other menu sub-components
+- `render` - Custom render function
+- `style` - Additional container styles
+
+**Behavior:**
+- Renders a `View` with `role="group"`
+- Purely semantic — no visual styling by default
+
+#### Menu.Label
+
+Non-interactive text label, typically used to label groups of items.
+
+```typescript
+interface MenuLabelProps {
+  children: string;
+  render?: (props: MenuLabelProps) => React.ReactNode;
   style?: StyleProp<TextStyle>;
 }
 ```
 
 **Props:**
-- `children` - Menu item label
-- `onPress` - Callback when item is selected
-- `render` - Custom component (default: Text)
-- `style` - Additional item styles
+- `children` - Label text
+- `render` - Custom render function
+- `style` - Additional text styles
+
+**Visual Style:**
+- Smaller font size (0.75x), semibold weight, muted foreground color
+
+#### Menu.Separator
+
+Horizontal line divider between menu sections.
+
+```typescript
+interface MenuSeparatorProps {
+  render?: (props: MenuSeparatorProps) => React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `render` - Custom render function
+- `style` - Additional styles
+
+**Visual Style:**
+- 1px height, border color, with horizontal and vertical margins
+
+#### Menu.CheckboxItem
+
+Toggleable menu item with a checkmark indicator at the end. Accepts `ReactNode` children with auto-styling like `Menu.Item`.
+
+```typescript
+interface MenuCheckboxItemProps {
+  children: React.ReactNode;
+  checked: boolean;
+  onCheckedChange: (checked: boolean) => void;
+  disabled?: boolean;
+  closeOnPress?: boolean;
+  render?: (props: MenuCheckboxItemProps) => React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `children` - Item content (strings and `Icon` components are auto-styled)
+- `checked` - Whether the item is checked
+- `onCheckedChange` - Callback when checked state changes
+- `disabled` - Disables interaction
+- `closeOnPress` - Whether to close menu on press (default: false — stays open)
+- `render` - Custom render function
+- `style` - Additional container styles
 
 **Behavior:**
-- Closes menu automatically after press
-- Tracks hover state for visual feedback
-- Uses text component by default
+- Does NOT close menu by default (opt-in via `closeOnPress`)
+- Checkmark indicator ("✓") renders at the end of the row
+- Tracks hover state
+- `accessibilityRole="checkbox"`
+
+**States:** `"default" | "hovered" | "disabled"`
+
+#### Menu.RadioGroup
+
+Context provider for exclusive radio selection within a menu.
+
+```typescript
+interface MenuRadioGroupProps {
+  children?: React.ReactNode;
+  value: string;
+  onValueChange: (value: string) => void;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `children` - Menu.RadioItem components
+- `value` - Currently selected value
+- `onValueChange` - Callback when selection changes
+- `style` - Additional container styles
+
+**Behavior:**
+- Provides `MenuRadioGroupContext` to children
+- Renders a `View` with `role="radiogroup"`
+
+#### Menu.RadioItem
+
+Radio selection menu item with a dot indicator at the end. Must be used within `Menu.RadioGroup`. Accepts `ReactNode` children with auto-styling like `Menu.Item`.
+
+```typescript
+interface MenuRadioItemProps {
+  children: React.ReactNode;
+  value: string;
+  disabled?: boolean;
+  closeOnPress?: boolean;
+  render?: (props: MenuRadioItemProps) => React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `children` - Item content (strings and `Icon` components are auto-styled)
+- `value` - Value this item represents
+- `disabled` - Disables interaction
+- `closeOnPress` - Whether to close menu on press (default: false)
+- `render` - Custom render function
+- `style` - Additional container styles
+
+**Behavior:**
+- Does NOT close menu by default (opt-in via `closeOnPress`)
+- Filled dot indicator renders at the end when selected
+- Consumes `useMenuRadioGroup()` for selection state
+- `accessibilityRole="radio"`
+
+**States:** `"default" | "hovered" | "selected" | "disabled"`
+
+#### Menu.Shortcut
+
+Inline keyboard shortcut hint text.
+
+```typescript
+interface MenuShortcutProps {
+  children: string;
+  render?: (props: MenuShortcutProps) => React.ReactNode;
+  style?: StyleProp<TextStyle>;
+}
+```
+
+**Props:**
+- `children` - Shortcut text (e.g., "⌘C")
+- `render` - Custom render function
+- `style` - Additional text styles
+
+**Visual Style:**
+- Smaller font size (0.75x), muted foreground color
 
 ### State Management
 
 ```typescript
 type MenuButtonState = "default" | "hovered";
+type MenuCheckboxItemState = "default" | "hovered" | "disabled";
+type MenuRadioItemState = "default" | "hovered" | "selected" | "disabled";
+type MenuRadioIndicatorState = "default" | "selected";
 ```
 
 **Menu States:**
 - `isOpen` - Boolean controlling visibility
-- Item states: "default" or "hovered" (on web)
+- Item states: tracked per item via hover/disabled/selected
+
+### Icon Auto-Styling
+
+Menu items use a `useOrganizedChildren` hook that automatically styles children:
+- **String children** → wrapped in `<Text>` with `itemText` styles
+- **`Icon` children** → cloned with `itemIcon` props (color and size from theme)
+- **Other ReactNode children** → passed through unchanged
+
+This applies to `Menu.Item`, `Menu.CheckboxItem`, and `Menu.RadioItem`.
 
 ### Positioning with useRelativePosition
 
@@ -801,22 +988,162 @@ function SimpleMenu() {
 }
 ```
 
-#### With Custom Trigger
+#### Menu Items with Icons
 
 ```typescript
-function CustomTriggerMenu() {
+import { Button, Icon, Menu } from "@korsolutions/ui";
+import { Pencil, Copy, Trash2, Download } from "lucide-react-native";
+
+function IconMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Pressable style={customButtonStyle}>
-          <Text>⋮</Text>
-        </Pressable>
+        <Button.Root>
+          <Button.Label>Actions</Button.Label>
+        </Button.Root>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
         <Menu.Content>
-          <Menu.Item onPress={() => {}}>Action 1</Menu.Item>
-          <Menu.Item onPress={() => {}}>Action 2</Menu.Item>
+          <Menu.Item onPress={() => {}}>
+            <Icon render={Pencil} />
+            Rename
+          </Menu.Item>
+          <Menu.Item onPress={() => {}}>
+            <Icon render={Copy} />
+            Duplicate
+          </Menu.Item>
+          <Menu.Item onPress={() => {}}>
+            <Icon render={Download} />
+            Download
+          </Menu.Item>
+          <Menu.Separator />
+          <Menu.Item onPress={() => {}}>
+            <Icon render={Trash2} />
+            Delete
+          </Menu.Item>
+        </Menu.Content>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+```
+
+**Note:** `Icon` components are auto-styled with theme color and size — no need to pass `size` or `color` props manually.
+
+#### Groups, Labels & Separators
+
+```typescript
+import { Button, Icon, Menu } from "@korsolutions/ui";
+import { User, Settings, LogOut } from "lucide-react-native";
+
+function GroupedMenu() {
+  return (
+    <Menu.Root>
+      <Menu.Trigger>
+        <Button.Root>
+          <Button.Label>My Account</Button.Label>
+        </Button.Root>
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Overlay />
+        <Menu.Content>
+          <Menu.Label>My Account</Menu.Label>
+          <Menu.Separator />
+          <Menu.Group>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={User} />
+              Profile
+            </Menu.Item>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Settings} />
+              Settings
+            </Menu.Item>
+          </Menu.Group>
+          <Menu.Separator />
+          <Menu.Group>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={LogOut} />
+              Log out
+            </Menu.Item>
+          </Menu.Group>
+        </Menu.Content>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+```
+
+#### Checkbox Items
+
+```typescript
+import { useState } from "react";
+import { Button, Icon, Menu } from "@korsolutions/ui";
+import { BookmarkIcon, LinkIcon } from "lucide-react-native";
+
+function CheckboxMenu() {
+  const [showBookmarks, setShowBookmarks] = useState(true);
+  const [showFullUrls, setShowFullUrls] = useState(false);
+
+  return (
+    <Menu.Root>
+      <Menu.Trigger>
+        <Button.Root>
+          <Button.Label>View Options</Button.Label>
+        </Button.Root>
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Overlay />
+        <Menu.Content>
+          <Menu.Label>Appearance</Menu.Label>
+          <Menu.Separator />
+          <Menu.CheckboxItem
+            checked={showBookmarks}
+            onCheckedChange={setShowBookmarks}
+          >
+            <Icon render={BookmarkIcon} />
+            Show Bookmarks
+          </Menu.CheckboxItem>
+          <Menu.CheckboxItem
+            checked={showFullUrls}
+            onCheckedChange={setShowFullUrls}
+          >
+            <Icon render={LinkIcon} />
+            Show Full URLs
+          </Menu.CheckboxItem>
+        </Menu.Content>
+      </Menu.Portal>
+    </Menu.Root>
+  );
+}
+```
+
+#### Radio Items
+
+```typescript
+import { useState } from "react";
+import { Button, Menu } from "@korsolutions/ui";
+
+function RadioMenu() {
+  const [person, setPerson] = useState("pedro");
+
+  return (
+    <Menu.Root>
+      <Menu.Trigger>
+        <Button.Root>
+          <Button.Label>Select Person</Button.Label>
+        </Button.Root>
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Overlay />
+        <Menu.Content>
+          <Menu.Label>People</Menu.Label>
+          <Menu.Separator />
+          <Menu.RadioGroup value={person} onValueChange={setPerson}>
+            <Menu.RadioItem value="pedro">Pedro</Menu.RadioItem>
+            <Menu.RadioItem value="colm">Colm</Menu.RadioItem>
+            <Menu.RadioItem value="pedro-pascal">Pedro Pascal</Menu.RadioItem>
+          </Menu.RadioGroup>
         </Menu.Content>
       </Menu.Portal>
     </Menu.Root>
@@ -826,25 +1153,62 @@ function CustomTriggerMenu() {
 
 ### Advanced Examples
 
-#### Menu with Actions
+#### Complete Menu with All Features
 
 ```typescript
-function ActionsMenu({ itemId, onEdit, onDelete }) {
+import { useState } from "react";
+import { Button, Icon, Menu } from "@korsolutions/ui";
+import { Pencil, Copy, Trash2, Download, User, Settings, LogOut, BookmarkIcon } from "lucide-react-native";
+
+function FullFeaturedMenu() {
+  const [showBookmarks, setShowBookmarks] = useState(true);
+  const [sortBy, setSortBy] = useState("name");
+
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root variant="secondary">
-          <Button.Label>Actions</Button.Label>
+        <Button.Root>
+          <Button.Label>Options</Button.Label>
         </Button.Root>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
         <Menu.Content>
-          <Menu.Item onPress={() => onEdit(itemId)}>Edit</Menu.Item>
-          <Menu.Item onPress={() => navigator.share({ url: `/item/${itemId}` })}>
-            Share
+          <Menu.Label>Actions</Menu.Label>
+          <Menu.Separator />
+          <Menu.Group>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Pencil} />
+              Edit
+            </Menu.Item>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Copy} />
+              Duplicate
+            </Menu.Item>
+          </Menu.Group>
+          <Menu.Separator />
+          <Menu.Label>View</Menu.Label>
+          <Menu.Separator />
+          <Menu.CheckboxItem
+            checked={showBookmarks}
+            onCheckedChange={setShowBookmarks}
+          >
+            <Icon render={BookmarkIcon} />
+            Show Bookmarks
+          </Menu.CheckboxItem>
+          <Menu.Separator />
+          <Menu.Label>Sort By</Menu.Label>
+          <Menu.Separator />
+          <Menu.RadioGroup value={sortBy} onValueChange={setSortBy}>
+            <Menu.RadioItem value="name">Name</Menu.RadioItem>
+            <Menu.RadioItem value="date">Date</Menu.RadioItem>
+            <Menu.RadioItem value="size">Size</Menu.RadioItem>
+          </Menu.RadioGroup>
+          <Menu.Separator />
+          <Menu.Item onPress={() => {}}>
+            <Icon render={Trash2} />
+            Delete
           </Menu.Item>
-          <Menu.Item onPress={() => onDelete(itemId)}>Delete</Menu.Item>
         </Menu.Content>
       </Menu.Portal>
     </Menu.Root>
@@ -891,6 +1255,9 @@ function RefControlledMenu() {
 #### Context Menu for List Items
 
 ```typescript
+import { Icon } from "@korsolutions/ui";
+import { Eye, Pencil, Trash2 } from "lucide-react-native";
+
 function ListItemWithMenu({ item }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -904,9 +1271,19 @@ function ListItemWithMenu({ item }) {
         <Menu.Portal>
           <Menu.Overlay />
           <Menu.Content>
-            <Menu.Item onPress={() => {}}>View</Menu.Item>
-            <Menu.Item onPress={() => {}}>Edit</Menu.Item>
-            <Menu.Item onPress={() => {}}>Delete</Menu.Item>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Eye} />
+              View
+            </Menu.Item>
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Pencil} />
+              Edit
+            </Menu.Item>
+            <Menu.Separator />
+            <Menu.Item onPress={() => {}}>
+              <Icon render={Trash2} />
+              Delete
+            </Menu.Item>
           </Menu.Content>
         </Menu.Portal>
       </Menu.Root>

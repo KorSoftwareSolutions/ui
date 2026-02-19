@@ -128,7 +128,7 @@ function SubmitButton() {
 | ------------ | ---------------------------------- | ------------------ | ------------------------------------------------------------------------- |
 | **Button**   | Action buttons with loading states | default, secondary | [Interactive Components](./references/components-interactive.md#button)   |
 | **Tabs**     | Tabbed navigation                  | default, line      | [Interactive Components](./references/components-interactive.md#tabs)     |
-| **Menu**     | Dropdown menus                     | default            | [Interactive Components](./references/components-interactive.md#menu)     |
+| **Menu**     | Dropdown menus with icons, groups, checkbox/radio items | default            | [Interactive Components](./references/components-interactive.md#menu)     |
 | **Popover**  | Positioned overlay content         | default            | [Interactive Components](./references/components-interactive.md#popover)  |
 | **Calendar** | Date picker with range selection   | default            | [Interactive Components](./references/components-interactive.md#calendar) |
 

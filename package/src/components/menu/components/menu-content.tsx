@@ -1,6 +1,6 @@
-import { useRelativePosition } from "../../../hooks/use-relative-position";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useRelativePosition } from "../../../hooks/use-relative-position";
 import { useMenu } from "../context";
 
 export interface MenuContentProps {
@@ -26,6 +26,7 @@ export function MenuContent(props: MenuContentProps) {
   const composedStyle = [positionStyle, menu.styles?.content, props.style];
 
   const Component = props.render ?? View;
+
   return (
     <Component
       {...props}
