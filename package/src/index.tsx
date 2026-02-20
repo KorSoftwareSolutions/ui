@@ -2,6 +2,7 @@ import { AsyncAlertDialogManager } from "./components/alert-dialog/async-alert-d
 import { PortalHost } from "./components/portal";
 import { type PortalHostProps } from "./components/portal/portal.constants";
 import { ToastContainer } from "./components/toast/manager";
+import { useInitializeNavigationContainerRef } from "./hooks/use-is-react-navigation-modal";
 import { SafeAreaProvider, type SafeAreaInsets } from "./safe-area";
 import {
   ThemeProvider,
@@ -24,6 +25,9 @@ export const UIProvider = ({
   safeAreaInsets,
   components,
 }: ProviderProps) => {
+  // Temporary fix to calculate portal content relative position correctly when rendered in a React Navigation modal.
+  useInitializeNavigationContainerRef();
+
   return (
     <SafeAreaProvider insets={safeAreaInsets}>
       <ThemeProvider theme={theme} components={components}>

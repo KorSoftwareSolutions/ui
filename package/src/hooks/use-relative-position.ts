@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import {
+  Platform,
   useWindowDimensions,
   type DisplayMetrics,
   type LayoutRectangle,
@@ -7,11 +8,16 @@ import {
 } from "react-native";
 import { usePortalOffset } from "../components/portal";
 import { useSafeAreaInsets, type SafeAreaInsets } from "../safe-area";
+import { useIsReactNavigationModal } from "./use-is-react-navigation-modal";
 
 type UseRelativePositionArgs = Omit<
   GetContentStyleArgs,
   "dimensions" | "insets"
 >;
+
+type GetContentStyleArgs = GetPositionArgs &
+  GetSidePositionArgs &
+  GetAlignPositionArgs;
 
 export function useRelativePosition({
   align,
@@ -24,6 +30,8 @@ export function useRelativePosition({
   const dimensions = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const portalOffset = usePortalOffset();
+
+  const isReactNavigationModal = useIsReactNavigationModal();
 
   return useMemo(() => {
     const hasLayout =
@@ -53,7 +61,7 @@ export function useRelativePosition({
       pageY: triggerPosition.pageY - portalOffset.value.y,
     };
 
-    const style = getContentStyle({
+    const args: GetContentStyleArgs = {
       align,
       contentLayout,
       preferredSide,
@@ -62,7 +70,23 @@ export function useRelativePosition({
       insets,
       sideOffset,
       dimensions,
-    });
+    };
+
+    const sidePosition = getSidePosition(args);
+    const alignPosition = getAlignPosition(args);
+
+    const style: ViewStyle = {
+      position: "absolute",
+      ...sidePosition,
+      ...alignPosition,
+      // Temporary fix to calculate portal content relative position correctly when rendered in a React Navigation modal.
+      top: Platform.select({
+        default: sidePosition.top,
+        ios: isReactNavigationModal
+          ? sidePosition.top + insets.top
+          : sidePosition.top,
+      }),
+    };
 
     return style;
   }, [
@@ -76,6 +100,7 @@ export function useRelativePosition({
     dimensions.height,
     sideOffset,
     portalOffset,
+    isReactNavigationModal,
   ]);
 }
 
@@ -181,11 +206,13 @@ function getSidePosition({
     };
   }
 
+  let top = Math.min(
+    dimensions.height - insets.bottom - contentLayout.height,
+    positionBottom,
+  );
+
   return {
-    top: Math.min(
-      dimensions.height - insets.bottom - contentLayout.height,
-      positionBottom,
-    ),
+    top,
   };
 }
 
@@ -264,16 +291,4 @@ function getLeftPosition(
       dimensions.width - contentWidth - insets.right,
     ),
   );
-}
-
-type GetContentStyleArgs = GetPositionArgs &
-  GetSidePositionArgs &
-  GetAlignPositionArgs;
-
-function getContentStyle(args: GetContentStyleArgs): ViewStyle {
-  return {
-    position: "absolute",
-    ...getSidePosition(args),
-    ...getAlignPosition(args),
-  };
 }
