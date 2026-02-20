@@ -40,6 +40,21 @@ export default function ButtonComponentScreen() {
           <Button.Label>Submitting...</Button.Label>
         </Button.Root>
       </UseCaseSection>
+      <UseCaseSection title="Ghost">
+        <Button.Root variant="ghost" onPress={onSubmit}>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
+      </UseCaseSection>
+      <UseCaseSection title="Ghost disabled">
+        <Button.Root variant="ghost" onPress={onSubmit} isDisabled>
+          <Button.Label>Submit</Button.Label>
+        </Button.Root>
+      </UseCaseSection>
+      <UseCaseSection title="Ghost loading">
+        <Button.Root variant="ghost" onPress={onSubmit} isLoading>
+          <Button.Label>Submitting...</Button.Label>
+        </Button.Root>
+      </UseCaseSection>
     </ComponentScreenLayout>
   );
 }

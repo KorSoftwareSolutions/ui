@@ -5,6 +5,7 @@ Comprehensive guide to interactive components in Universal UI library. These com
 ## Table of Contents
 
 - [Button](#button)
+- [IconButton](#iconbutton)
 - [Tabs](#tabs)
 - [Menu](#menu)
 - [Popover](#popover)
@@ -42,7 +43,7 @@ The root container managing button state and interactions.
 
 ```typescript
 interface ButtonRootProps extends PressableProps {
-  variant?: "default" | "secondary";
+  variant?: "default" | "secondary" | "ghost";
   children?: React.ReactNode;
   isDisabled?: boolean;
   isLoading?: boolean;
@@ -155,6 +156,23 @@ Subtle action button with muted background.
 - Alternative options
 - Less prominent actions
 
+#### Ghost Variant
+
+Transparent button with no background or border.
+
+**Visual Style:**
+- Background: transparent
+- Text: `colors.foreground`
+- No border
+- Hover: Subtle secondary background (-1% lightness)
+- Disabled/Loading: 50% opacity, muted text color
+
+**Use cases:**
+- Toolbar actions
+- Inline actions that blend with content
+- Icon + text buttons in navigation
+- Actions that should not draw attention
+
 ### Basic Examples
 
 #### Simple Button
@@ -203,6 +221,18 @@ function SecondaryExample() {
   return (
     <Button.Root variant="secondary" onPress={() => console.log("Secondary")}>
       <Button.Label>Cancel</Button.Label>
+    </Button.Root>
+  );
+}
+```
+
+#### Ghost Variant
+
+```typescript
+function GhostExample() {
+  return (
+    <Button.Root variant="ghost" onPress={() => console.log("Ghost")}>
+      <Button.Label>Settings</Button.Label>
     </Button.Root>
   );
 }
@@ -280,6 +310,99 @@ function ConditionalButton({ hasChanges }) {
     <Button.Root isDisabled={!hasChanges} onPress={() => console.log("Save")}>
       <Button.Label>Save Changes</Button.Label>
     </Button.Root>
+  );
+}
+```
+
+---
+
+## IconButton
+
+An icon-only pressable button component. Uses the same render prop pattern as Icon.
+
+### Overview
+
+IconButton is a simple (non-compound) component that wraps a single icon in a pressable container. It shares the same variant system as Button (default, secondary, ghost).
+
+**When to use:**
+- Toolbar actions (settings, close, delete)
+- Icon-only actions where a label is unnecessary
+- Navigation icons
+- Compact action buttons
+
+### Complete API
+
+```typescript
+interface IconButtonProps extends Omit<PressableProps, "disabled" | "children"> {
+  render: (props: SvgProps) => React.ReactNode;
+  variant?: "default" | "secondary" | "ghost";
+  isDisabled?: boolean;
+  size?: number;
+  color?: ColorValue;
+  strokeWidth?: number;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Props:**
+- `render` - Icon component (e.g., from lucide-react-native)
+- `variant` - Visual style variant (default: "default")
+- `isDisabled` - Disables interaction
+- `size` - Icon size in pixels
+- `color` - Icon color (overrides variant color)
+- `strokeWidth` - Icon stroke width
+- `onPress` - Callback fired on press (inherited from PressableProps)
+- `style` - Additional container styles
+
+### Variants
+
+| Variant | Background | Icon Color | Use Case |
+|---------|-----------|------------|----------|
+| default | `colors.primary` | `colors.primaryForeground` | Primary actions |
+| secondary | `colors.secondary` | `colors.secondaryForeground` | Secondary actions |
+| ghost | transparent | `colors.foreground` | Subtle/toolbar actions |
+
+### Examples
+
+#### Basic Usage
+
+```typescript
+import { IconButton } from "@korsolutions/ui";
+import { Heart, Settings, Trash } from "lucide-react-native";
+
+// Default variant
+<IconButton render={Heart} onPress={() => console.log("Liked")} />
+
+// Secondary
+<IconButton render={Settings} variant="secondary" onPress={openSettings} />
+
+// Ghost (common for toolbars)
+<IconButton render={Settings} variant="ghost" onPress={openSettings} />
+```
+
+#### Custom Size and Color
+
+```typescript
+<IconButton render={Heart} size={32} />
+<IconButton render={Trash} variant="ghost" color="red" />
+```
+
+#### Disabled
+
+```typescript
+<IconButton render={Heart} isDisabled />
+```
+
+#### Toolbar Pattern
+
+```typescript
+function Toolbar() {
+  return (
+    <View style={{ flexDirection: "row", gap: 4 }}>
+      <IconButton render={Bold} variant="ghost" onPress={toggleBold} />
+      <IconButton render={Italic} variant="ghost" onPress={toggleItalic} />
+      <IconButton render={Underline} variant="ghost" onPress={toggleUnderline} />
+    </View>
   );
 }
 ```
@@ -1589,7 +1712,7 @@ function ClearableDatePicker() {
 
 ```typescript
 // Named imports
-import { Button, Tabs, Menu, Popover, Calendar } from "@korsolutions/ui";
+import { Button, IconButton, Tabs, Menu, Popover, Calendar } from "@korsolutions/ui";
 
 // Individual imports
 import { Button } from "@korsolutions/ui/components";

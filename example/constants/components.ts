@@ -43,6 +43,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/icon",
   },
   {
+    title: "Icon Button",
+    href: "/components/icon-button",
+  },
+  {
     title: "Input",
     href: "/components/input",
   },
@@ -53,6 +57,10 @@ export const COMPONENTS: ComponentRoute[] = [
   {
     title: "Select",
     href: "/components/select",
+  },
+  {
+    title: "Separator",
+    href: "/components/separator",
   },
   {
     title: "Field",

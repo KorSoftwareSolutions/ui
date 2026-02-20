@@ -257,6 +257,19 @@ See `library/AGENTS.md` for detailed architecture documentation.
 - Use `@/` alias in example for `example/`
 - Check respective `tsconfig.json` files for path mappings
 
+## Skill Maintenance
+
+When adding, removing, or modifying components in the library, update the kor-ui skill to reflect the changes:
+
+- **`skills/kor-ui/SKILL.md`** - Component overview tables, variant lists, and usage examples
+- **`skills/kor-ui/references/components-interactive.md`** - Button, IconButton, Tabs, Menu, Popover, Calendar
+- **`skills/kor-ui/references/components-layout.md`** - Card, Separator, ScrollBar, Portal, List
+- **`skills/kor-ui/references/components-display.md`** - Typography, Avatar, Badge, Icon, Empty, Progress
+- **`skills/kor-ui/references/components-inputs.md`** - Input, NumericInput, PhoneInput, Textarea, Checkbox, Select, Field
+- **`skills/kor-ui/references/components-feedback.md`** - Alert, AlertDialog, Toast
+
+The skill is for AI consumers to learn how to **use** the library. Focus on API surface, props, variants, and usage examples. Do not document internal implementation details.
+
 ## Related Documentation
 
 - **Library Development**: [`library/AGENTS.md`](library/AGENTS.md)

@@ -5,9 +5,10 @@ Complete reference for layout and structural components in Universal UI. These c
 ## Table of Contents
 
 1. [Card](#card)
-2. [ScrollBar](#scrollbar)
-3. [Portal](#portal)
-4. [List](#list)
+2. [Separator](#separator)
+3. [ScrollBar](#scrollbar)
+4. [Portal](#portal)
+5. [List](#list)
 
 ---
 
@@ -332,6 +333,78 @@ function LoginCard() {
 - **All Platforms**: Renders as a bordered, rounded container
 - **Shadow**: Add platform-specific shadow using `style` prop
 - **Responsive**: Use container width and padding adjustments for different screen sizes
+
+---
+
+## Separator
+
+A visual divider used to separate content sections. Simple non-compound component with variant-based orientation.
+
+### When to Use
+
+- Dividing sections of content
+- Separating list items
+- Visual breaks between groups of elements
+- Horizontal or vertical dividers in toolbars
+
+### Props
+
+```typescript
+interface SeparatorProps {
+  variant?: "horizontal" | "vertical";  // default: "horizontal"
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+### Variants
+
+| Variant | Behavior | Default |
+|---------|----------|---------|
+| horizontal | 1px tall, stretches full width | Yes |
+| vertical | 1px wide, stretches full height | No |
+
+Both variants use `colors.border` as background color.
+
+### Examples
+
+#### Horizontal (Default)
+
+```typescript
+import { Separator, Typography } from "@korsolutions/ui";
+
+<View style={{ gap: 12 }}>
+  <Typography>Section 1</Typography>
+  <Separator />
+  <Typography>Section 2</Typography>
+</View>
+```
+
+#### Vertical
+
+```typescript
+<View style={{ flexDirection: "row", alignItems: "center", gap: 12, height: 40 }}>
+  <Typography>Left</Typography>
+  <Separator variant="vertical" />
+  <Typography>Right</Typography>
+</View>
+```
+
+#### In a List
+
+```typescript
+<View>
+  <Typography>Item 1</Typography>
+  <Separator />
+  <Typography>Item 2</Typography>
+  <Separator />
+  <Typography>Item 3</Typography>
+</View>
+```
+
+### Notes
+
+- The vertical variant requires the parent to have a defined height (or use `alignSelf: "stretch"` in a flex container)
+- Uses `alignSelf: "stretch"` to fill the available width/height
 
 ---
 

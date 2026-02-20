@@ -1,6 +1,6 @@
 ---
 name: kor-ui
-description: Complete guide for using the Kor UI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with Universal UI, customizing themes, setting up the library, working with any of the 24+ components (Button, Input, Select, Alert, Card, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "Universal UI", "UIProvider", or asks about unstyled primitives, theme customization, or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
+description: Complete guide for using the Kor UI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with Universal UI, customizing themes, setting up the library, working with any of the 26+ components (Button, IconButton, Input, Select, Alert, Card, Separator, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "Universal UI", "UIProvider", or asks about unstyled primitives, theme customization, or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
 ---
 
 # Universal UI Library
@@ -92,12 +92,13 @@ function SubmitButton() {
 
 ### Layout & Structure
 
-| Component     | Description                                     | Variants | Reference                                                        |
-| ------------- | ----------------------------------------------- | -------- | ---------------------------------------------------------------- |
-| **Card**      | Content container with header, body, and footer | default  | [Layout Components](./references/components-layout.md#card)      |
-| **ScrollBar** | Custom scrollbar styling                        | default  | [Layout Components](./references/components-layout.md#scrollbar) |
-| **Portal**    | Render components outside hierarchy             | -        | [Layout Components](./references/components-layout.md#portal)    |
-| **List**      | Performance-optimized list rendering            | -        | [Layout Components](./references/components-layout.md#list)      |
+| Component       | Description                                     | Variants             | Reference                                                        |
+| --------------- | ----------------------------------------------- | -------------------- | ---------------------------------------------------------------- |
+| **Card**        | Content container with header, body, and footer | default              | [Layout Components](./references/components-layout.md#card)      |
+| **Separator**   | Visual divider between content                  | horizontal, vertical | [Layout Components](./references/components-layout.md#separator) |
+| **ScrollBar**   | Custom scrollbar styling                        | default              | [Layout Components](./references/components-layout.md#scrollbar) |
+| **Portal**      | Render components outside hierarchy             | -                    | [Layout Components](./references/components-layout.md#portal)    |
+| **List**        | Performance-optimized list rendering            | -                    | [Layout Components](./references/components-layout.md#list)      |
 
 ### Form Inputs
 
@@ -126,7 +127,8 @@ function SubmitButton() {
 
 | Component    | Description                        | Variants           | Reference                                                                 |
 | ------------ | ---------------------------------- | ------------------ | ------------------------------------------------------------------------- |
-| **Button**   | Action buttons with loading states | default, secondary | [Interactive Components](./references/components-interactive.md#button)   |
+| **Button**     | Action buttons with loading states   | default, secondary, ghost | [Interactive Components](./references/components-interactive.md#button)     |
+| **IconButton** | Icon-only pressable button           | default, secondary, ghost | [Interactive Components](./references/components-interactive.md#iconbutton) |
 | **Tabs**     | Tabbed navigation                  | default, line      | [Interactive Components](./references/components-interactive.md#tabs)     |
 | **Menu**     | Dropdown menus                     | default            | [Interactive Components](./references/components-interactive.md#menu)     |
 | **Popover**  | Positioned overlay content         | default            | [Interactive Components](./references/components-interactive.md#popover)  |
@@ -352,6 +354,42 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 )} />
 ```
 
+### Icon Button
+
+A pressable button that renders a single icon. Uses the same render prop pattern as Icon:
+
+```tsx
+import { IconButton } from "@korsolutions/ui";
+import { Heart, Settings, Trash } from "lucide-react-native";
+
+// Basic usage
+<IconButton render={Heart} onPress={() => console.log("Liked")} />
+
+// Variants (matches Button variants)
+<IconButton render={Settings} variant="secondary" />
+<IconButton render={Settings} variant="ghost" />
+
+// Custom size and color
+<IconButton render={Trash} size={32} color="red" />
+
+// Disabled
+<IconButton render={Heart} isDisabled />
+```
+
+### Separator
+
+A visual divider between content sections:
+
+```tsx
+import { Separator } from "@korsolutions/ui";
+
+// Horizontal (default)
+<Separator />
+
+// Vertical
+<Separator variant="vertical" />
+```
+
 ### Controlled State Management
 
 Most input components use controlled state:
@@ -421,6 +459,10 @@ Most components offer multiple variants:
 
 <Button.Root variant="secondary">
   <Button.Label>Secondary Button</Button.Label>
+</Button.Root>
+
+<Button.Root variant="ghost">
+  <Button.Label>Ghost Button</Button.Label>
 </Button.Root>
 
 // Alert variants
