@@ -44,7 +44,9 @@ export function useSelectVariantDefault(): SelectStyles {
         },
       },
       overlay: {
-        default: {},
+        default: {
+          zIndex: 999,
+        },
         disabled: {},
       },
       content: {
@@ -55,6 +57,7 @@ export function useSelectVariantDefault(): SelectStyles {
           borderColor: colors.border,
           padding: 4,
           gap: 4,
+          zIndex: 1000,
         },
         disabled: {},
       },

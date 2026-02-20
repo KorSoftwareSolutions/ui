@@ -1,12 +1,19 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Input, List, Select, Typography } from "@korsolutions/ui";
+import { Button, List, Select, Typography } from "@korsolutions/ui";
+import { router, usePathname } from "expo-router";
 import React, { useState } from "react";
 import { View } from "react-native";
 
-export default function SelectComponentScreen() {
+export function SelectComponentScreen() {
+  const pathname = usePathname();
+  const isModalScreen = pathname?.endsWith("/modal");
+
   return (
-    <ComponentScreenLayout title="Select">
+    <ComponentScreenLayout
+      title={isModalScreen ? "Select modal" : "Select"}
+      backHref={isModalScreen ? "/components/select" : undefined}
+    >
       <UseCaseSection title="Default">
         <DefaultExample />
       </UseCaseSection>
@@ -19,9 +26,16 @@ export default function SelectComponentScreen() {
       <UseCaseSection title="Custom Option">
         <CustomOptionExample />
       </UseCaseSection>
-      <UseCaseSection title="Combobox">
-        <ComboboxExample />
-      </UseCaseSection>
+      {!isModalScreen && (
+        <UseCaseSection title="In modal screen">
+          <Button.Root
+            onPress={() => router.navigate("/components/select/modal")}
+            variant="secondary"
+          >
+            <Button.Label>Open Modal Screen</Button.Label>
+          </Button.Root>
+        </UseCaseSection>
+      )}
       <View style={{ flex: 1 }} />
       <UseCaseSection title="Above the fold">
         <AboveTheFoldExample />
@@ -143,43 +157,6 @@ function CustomOptionExample() {
         <Select.Content>
           <List
             data={OPTIONS}
-            keyExtractor={(item) => item.value}
-            renderItem={({ item }) => (
-              <Select.Option {...item}>
-                <CustomOption {...item} />
-              </Select.Option>
-            )}
-          />
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
-  );
-}
-
-function ComboboxExample() {
-  const [value, setValue] = useState<string>();
-  const [inputValue, setInputValue] = useState<string>("");
-
-  const filteredOptions = OPTIONS.filter((option) =>
-    option.children.toLowerCase().includes(inputValue.toLowerCase()),
-  );
-
-  return (
-    <Select.Root value={value} onChange={setValue}>
-      <Select.Trigger placeholder="Select a fruit" />
-      <Select.Portal>
-        <Select.Overlay />
-        <Select.Content>
-          <Input
-            variant="secondary"
-            value={inputValue}
-            onChange={setInputValue}
-            placeholder="Type to filter..."
-            style={{ marginBottom: 8 }}
-            autoFocus
-          />
-          <List
-            data={filteredOptions}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => (
               <Select.Option {...item}>

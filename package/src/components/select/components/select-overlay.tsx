@@ -24,6 +24,7 @@ export function SelectOverlay(props: SelectOverlayProps) {
       onPress={() => {
         select.setIsOpen(false);
       }}
+      pointerEvents="auto"
       style={[StyleSheet.absoluteFill, composedStyles]}
     >
       {props.children}

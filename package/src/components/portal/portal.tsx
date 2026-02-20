@@ -7,6 +7,7 @@ import React, {
   useSyncExternalStore,
 } from "react";
 import { Platform, View, type HostInstance } from "react-native";
+import { measureLayoutPosition } from "../../utils/normalize-layout";
 import { PortalOffsetContext, type PortalOffset } from "./portal-offset";
 import {
   DEFAULT_PORTAL_HOST,
@@ -72,10 +73,10 @@ function DefaultContainer(props: React.PropsWithChildren) {
   const [offset, setOffset] = useState<PortalOffset | null>(null);
 
   const onLayout = useCallback(() => {
-    containerRef.current?.measureInWindow((pageX: number, pageY: number) => {
+    measureLayoutPosition(containerRef.current, (layout) => {
       setOffset((prev) => {
-        if (prev?.x === pageX && prev?.y === pageY) return prev;
-        return { x: pageX, y: pageY };
+        if (prev?.x === layout.pageX && prev?.y === layout.pageY) return prev;
+        return { x: layout.pageX, y: layout.pageY };
       });
     });
   }, []);

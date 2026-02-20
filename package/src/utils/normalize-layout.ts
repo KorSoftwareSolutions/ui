@@ -25,6 +25,16 @@ export const measureLayoutPosition = (
   ref: HostInstance | null,
   callback: (layout: LayoutPosition) => void,
 ) => {
+  if (ref && "getBoundingClientRect" in ref) {
+    const rect = (ref as unknown as { getBoundingClientRect: () => DOMRect }).getBoundingClientRect();
+    callback({
+      height: isValidNumber(rect.height) ? rect.height : 0,
+      width: isValidNumber(rect.width) ? rect.width : 0,
+      pageX: isValidNumber(rect.x) ? rect.x : 0,
+      pageY: isValidNumber(rect.y) ? rect.y : 0,
+    });
+    return;
+  }
   ref?.measureInWindow((pageX, pageY, width, height) => {
     callback({
       height: isValidNumber(height) ? height : 0,

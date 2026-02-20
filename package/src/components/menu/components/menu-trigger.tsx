@@ -31,13 +31,8 @@ export const MenuTrigger = forwardRef<MenuTriggerRef, MenuTriggerProps>(
 
     useImperativeHandle(ref, () => ({
       open: () => {
-        triggerRef.current?.measureInWindow((pageX, pageY, width, height) => {
-          menu.setTriggerPosition({
-            height,
-            width,
-            pageX,
-            pageY,
-          });
+        measureLayoutPosition(triggerRef.current, (layout) => {
+          menu.setTriggerPosition(layout);
           menu.setIsOpen(true);
         });
       },
