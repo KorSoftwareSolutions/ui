@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 import type { ToastVariants } from "../components/toast/variants";
-import type { IconComponent } from "../types/element.types";
+import type { SvgProps } from "../types/props.types";
 import type { DeepPartial } from "../types/util.types";
 import { defaultThemeAssets } from "./default";
 import type {
@@ -34,10 +34,12 @@ interface ThemeContext {
 
 export interface ComponentsConfig {
   toast?: {
-    icons?: Partial<Record<keyof typeof ToastVariants, IconComponent>>;
+    icons?: Partial<
+      Record<keyof typeof ToastVariants, React.ComponentType<SvgProps>>
+    >;
   };
   menu?: {
-    selectionIcon?: IconComponent;
+    selectionIcon?: React.ComponentType<SvgProps>;
   };
 }
 

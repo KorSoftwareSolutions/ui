@@ -10,7 +10,7 @@ export type ToastIconProps = SvgProps;
 export function ToastIcon({
   render: Component,
   ...props
-}: PropsWithRequiredRender<ToastIconProps>) {
+}: PropsWithRequiredRender<SvgProps>) {
   const toast = useToast();
 
   const composedProps = {

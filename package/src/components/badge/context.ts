@@ -1,8 +1,7 @@
 import { createContext, useContext } from "react";
-import type { BadgeState, BadgeStyles } from "./types";
+import type { BadgeStyles } from "./types";
 
 export interface BadgeContext {
-  state: BadgeState;
   styles?: BadgeStyles;
 }
 

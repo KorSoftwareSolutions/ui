@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
+import { useOrganizedChildren } from "../../../hooks/use-organized-children";
 import { useMenu } from "../context";
 import type { MenuCheckboxItemState } from "../types";
-import { useOrganizedChildren } from "../use-organized-children";
 import { MenuSelectionIndicator } from "./menu-selection-indicator";
 
 export interface MenuCheckboxItemProps {
@@ -43,7 +43,14 @@ export function MenuCheckboxItem(props: MenuCheckboxItemProps) {
     }
   };
 
-  const organizedChildren = useOrganizedChildren(props.children);
+  const textStyles = menu.styles?.itemText;
+  const iconStyles = menu.styles?.itemIcon;
+
+  const organizedChildren = useOrganizedChildren(
+    props.children,
+    textStyles,
+    iconStyles,
+  );
 
   if (props.render) {
     return (

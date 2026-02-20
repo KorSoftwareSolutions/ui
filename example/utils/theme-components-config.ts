@@ -1,5 +1,10 @@
 import { ComponentsConfig } from "@korsolutions/ui";
-import { CircleCheckIcon, CircleXIcon, InfoIcon } from "lucide-react-native";
+import {
+  CheckIcon,
+  CircleCheckIcon,
+  CircleXIcon,
+  InfoIcon,
+} from "lucide-react-native";
 
 export const componentsConfig: ComponentsConfig = {
   toast: {
@@ -8,5 +13,8 @@ export const componentsConfig: ComponentsConfig = {
       danger: CircleXIcon,
       default: InfoIcon,
     },
+  },
+  menu: {
+    selectionIcon: CheckIcon,
   },
 };

@@ -1,9 +1,9 @@
-import type { BadgeLabelProps } from "./components/badge-label";
-import type { BadgeRootProps } from "./components/badge-root";
-
-export type BadgeState = "default";
+import type { TextStyle } from "react-native";
+import type { IconProps } from "../icon";
+import type { BadgeProps } from "./badge";
 
 export interface BadgeStyles {
-  root?: Partial<Record<BadgeState, BadgeRootProps["style"]>>;
-  label?: Partial<Record<BadgeState, BadgeLabelProps["style"]>>;
+  root?: BadgeProps["style"];
+  text?: TextStyle;
+  icon?: IconProps;
 }

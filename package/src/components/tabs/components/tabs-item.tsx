@@ -6,9 +6,9 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
+import { useOrganizedChildren } from "../../../hooks/use-organized-children";
 import { useTabsContext } from "../context";
 import type { TabsItemState } from "../types";
-import { useOrganizedChildren } from "../use-organized-children";
 
 export interface TabsItemProps extends PressableProps {
   children: React.ReactNode;

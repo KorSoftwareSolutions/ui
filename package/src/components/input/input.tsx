@@ -1,6 +1,6 @@
-import type { TextInputRef } from "../../types/element.types";
 import { forwardRef, useState } from "react";
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
+import type { TextInputRef } from "../../types/element.types";
 import { useFieldOptional } from "../field/context";
 import type { InputState } from "./types";
 import { InputVariants } from "./variants";
@@ -29,7 +29,11 @@ export const Input = forwardRef<TextInputRef, InputProps>((props, ref) => {
   const state = calculateState(props, isFocused);
   const field = useFieldOptional();
 
-  const composedStyles = StyleSheet.flatten([variantStyles.default?.style, variantStyles[state]?.style, props.style]);
+  const composedStyles = StyleSheet.flatten([
+    variantStyles.default?.style,
+    variantStyles[state]?.style,
+    props.style,
+  ]);
   const composedProps = {
     ...variantStyles.default,
     ...variantStyles[state],

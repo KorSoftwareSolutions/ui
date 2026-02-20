@@ -1,5 +1,6 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type { SvgProps } from "../../types/props.types";
+import type { IconProps } from "../icon";
 import type { MenuContentProps } from "./components/menu-content";
 import type { MenuOverlayProps } from "./components/menu-overlay";
 
@@ -15,7 +16,7 @@ export interface MenuStyles {
   content?: MenuContentProps["style"];
   item?: Partial<Record<MenuButtonState, StyleProp<ViewStyle>>>;
   itemText?: StyleProp<TextStyle>;
-  itemIcon?: SvgProps;
+  itemIcon?: IconProps;
   overlay?: MenuOverlayProps["style"];
 
   group?: StyleProp<ViewStyle>;

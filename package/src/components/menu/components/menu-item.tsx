@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Pressable, type StyleProp, type ViewStyle } from "react-native";
+import { useOrganizedChildren } from "../../../hooks/use-organized-children";
 import { useMenu } from "../context";
 import type { MenuButtonState } from "../types";
-import { useOrganizedChildren } from "../use-organized-children";
 
 export interface MenuItemProps {
   children: React.ReactNode;
@@ -34,7 +34,14 @@ export function MenuItem(props: MenuItemProps) {
     menu.setIsOpen((prev) => !prev);
   };
 
-  const organizedChildren = useOrganizedChildren(props.children);
+  const textStyles = menu.styles?.itemText;
+  const iconStyles = menu.styles?.itemIcon;
+
+  const organizedChildren = useOrganizedChildren(
+    props.children,
+    textStyles,
+    iconStyles,
+  );
 
   if (props.render) {
     return (
