@@ -29,9 +29,7 @@ function BasicExample() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root>
-          <Button.Label>Show Alert Dialog</Button.Label>
-        </Button.Root>
+        <Button>Show Alert Dialog</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -54,9 +52,7 @@ function DestructiveExample() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root variant="secondary">
-          <Button.Label>Delete Account</Button.Label>
-        </Button.Root>
+        <Button variant="secondary">Delete Account</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -87,9 +83,7 @@ function CallbackExample() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root>
-          <Button.Label>Confirm Action</Button.Label>
-        </Button.Root>
+        <Button>Confirm Action</Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -123,9 +117,7 @@ function AsyncExample() {
   return (
     <>
       {result && <Typography>Result: {result}</Typography>}
-      <Button.Root onPress={handleAsyncClick}>
-        <Button.Label>Show Async Dialog</Button.Label>
-      </Button.Root>
+      <Button onPress={handleAsyncClick}>Show Async Dialog</Button>
     </>
   );
 }

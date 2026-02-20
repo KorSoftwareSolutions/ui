@@ -277,12 +277,12 @@ Ensure you're using compound components correctly:
 
 ```typescript
 // Wrong - missing children
-<Button.Root onPress={handlePress} />
+<Button onPress={handlePress} />
 
 // Correct - with children
-<Button.Root onPress={handlePress}>
-  <Button.Label>Submit</Button.Label>
-</Button.Root>
+<Button onPress={handlePress}>
+  Submit
+</Button>
 
 // Wrong - incorrect nesting
 <Alert>
@@ -300,14 +300,14 @@ Check for conditional rendering issues:
 
 ```typescript
 // Wrong - might return undefined
-<Button.Root>
-  {isLoading && <Button.Spinner />}
-</Button.Root>
+<Button>
+  {isLoading && <ActivityIndicator />}
+</Button>
 
 // Correct - always has content
-<Button.Root>
-  {isLoading ? <Button.Spinner /> : <Button.Label>Submit</Button.Label>}
-</Button.Root>
+<Button>
+  {isLoading ? <ActivityIndicator /> : Submit}
+</Button>
 ```
 
 **Prevention Tips**:
@@ -428,8 +428,8 @@ export const ButtonVariants = {
 };
 
 // Usage - must match key exactly
-<Button.Root variant="destructive"> // Correct
-<Button.Root variant="danger"> // Wrong - not in variants object
+<Button variant="destructive"> // Correct
+<Button variant="danger"> // Wrong - not in variants object
 ```
 
 **Prevention Tips**:
@@ -484,7 +484,7 @@ Ensure portal components use correct host name:
 // Default portal (recommended)
 <Dialog.Root>
   <Dialog.Trigger>
-    <Button.Root><Button.Label>Open</Button.Label></Button.Root>
+    <Button>Open</Button>
   </Dialog.Trigger>
   <Dialog.Portal>
     <Dialog.Content>

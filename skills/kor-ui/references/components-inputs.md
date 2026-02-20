@@ -580,7 +580,7 @@ function FieldNumericInput() {
 
 ## PhoneInput
 
-A phone number input component with an integrated country code selector. Formats phone numbers according to country-specific patterns and outputs values in E.164 format (e.g., `+12125551234`).
+A phone number input component with an integrated country code selector. Formats phone numbers according to country-specific patterns and outputs values in E.164 format (e.g., `+12125551234`). Uses the compound component pattern.
 
 ### When to Use
 
@@ -593,42 +593,53 @@ A phone number input component with an integrated country code selector. Formats
 - Free-form text (use Input instead)
 - Numeric values (use NumericInput instead)
 
-### API
-
-#### Props
+### Architecture
 
 ```typescript
-interface PhoneInputProps {
-  // Value & Change (E.164 format)
-  value?: string;
+PhoneInput.Root           // State container, value/onChange
+  ├─ PhoneInput.CountryPicker  // Optional country selector button + dropdown
+  └─ PhoneInput.Input          // Phone number text input
+```
+
+### API
+
+#### PhoneInput.Root
+
+Root container managing phone state, formatting, and country selection.
+
+```typescript
+interface PhoneInputRootProps {
+  value?: string;                    // E.164 format value
   onChange?: (e164Value: string) => void;
-
-  // Country
-  defaultCountry?: string; // ISO 3166-1 alpha-2 code, default: "US"
-  countries?: CountryData[]; // Override built-in country list
-
-  // Display
-  placeholder?: string;
-
-  // States
+  defaultCountry?: string;           // ISO 3166-1 alpha-2 code, default: "US"
+  countryCodes?: CountryCode[];      // Which countries to include, default: ["US"]
   isDisabled?: boolean;
-
-  // Styling
   variant?: "default";
+  placeholder?: string;
   style?: StyleProp<ViewStyle>;
+  children?: React.ReactNode;
 }
 ```
 
-#### CountryData
+#### PhoneInput.CountryPicker
+
+Country selector button that opens a searchable dropdown. Include this when supporting multiple countries.
+
+**No props** — reads everything from context.
+
+**Behavior:**
+- Displays current country flag and dial code
+- Opens a searchable dropdown picker on press
+- Positioned relative to the root container
+
+#### PhoneInput.Input
+
+Phone number text input with automatic formatting.
 
 ```typescript
-interface CountryData {
-  code: string;      // ISO 3166-1 alpha-2 code, e.g. "US"
-  name: string;      // Display name, e.g. "United States"
-  dialCode: string;  // Dial code without plus, e.g. "1"
-  flag: string;      // Flag emoji, e.g. "🇺🇸"
-  format: string;    // Format pattern, e.g. "(###) ###-####"
-  priority: number;  // Priority for dial code conflicts
+interface PhoneInputProps {
+  placeholder?: string;
+  style?: StyleProp<TextStyle>;
 }
 ```
 
@@ -640,19 +651,18 @@ interface CountryData {
 
 #### Visual Structure
 
-The component renders as a single input-like row:
-
 ```
 ┌──────────────────────────────────┐
 │ 🇺🇸 +1  │  (212) 555-1234        │
 └──────────────────────────────────┘
-  ↑ Country    ↑ Formatted phone
-    button       number input
+  ↑ CountryPicker  ↑ PhoneInput.Input
 ```
 
 Tapping the country button opens a searchable dropdown picker.
 
 ### Basic Usage
+
+Single country (no country picker needed):
 
 ```typescript
 import { PhoneInput } from "@korsolutions/ui";
@@ -662,33 +672,34 @@ function BasicPhoneInput() {
   const [phone, setPhone] = useState("");
 
   return (
-    <PhoneInput
-      value={phone}
-      onChange={setPhone}
-      placeholder="Phone number"
-    />
+    <PhoneInput.Root value={phone} onChange={setPhone}>
+      <PhoneInput.Input />
+    </PhoneInput.Root>
   );
 }
 ```
 
 ### Advanced Usage
 
-#### With Default Country
+#### With Country Picker (Multiple Countries)
 
 ```typescript
 import { PhoneInput } from "@korsolutions/ui";
 import { useState } from "react";
 
-function GermanPhoneInput() {
+function MultiCountryPhoneInput() {
   const [phone, setPhone] = useState("");
 
   return (
-    <PhoneInput
+    <PhoneInput.Root
       value={phone}
       onChange={setPhone}
-      defaultCountry="DE"
-      placeholder="Telefonnummer"
-    />
+      countryCodes={["US", "GB", "DE", "FR", "IN"]}
+      defaultCountry="US"
+    >
+      <PhoneInput.CountryPicker />
+      <PhoneInput.Input />
+    </PhoneInput.Root>
   );
 }
 ```
@@ -703,24 +714,21 @@ function PrefilledPhoneInput() {
   const [phone, setPhone] = useState("+442071234567");
 
   return (
-    <PhoneInput
-      value={phone}
-      onChange={setPhone}
-      placeholder="Phone number"
-    />
+    <PhoneInput.Root value={phone} onChange={setPhone} countryCodes={["US", "GB"]}>
+      <PhoneInput.CountryPicker />
+      <PhoneInput.Input />
+    </PhoneInput.Root>
   );
-  // Automatically detects UK (+44) and formats as "2071 234567"
+  // Automatically detects UK (+44) and formats accordingly
 }
 ```
 
 #### Disabled State
 
 ```typescript
-<PhoneInput
-  value="+12125551234"
-  isDisabled
-  placeholder="Phone number"
-/>
+<PhoneInput.Root value="+12125551234" isDisabled>
+  <PhoneInput.Input />
+</PhoneInput.Root>
 ```
 
 #### With Field Component
@@ -738,11 +746,9 @@ function PhoneField() {
       <Field.Description>
         We'll use this to verify your account
       </Field.Description>
-      <PhoneInput
-        value={phone}
-        onChange={setPhone}
-        placeholder="Phone number"
-      />
+      <PhoneInput.Root value={phone} onChange={setPhone}>
+        <PhoneInput.Input />
+      </PhoneInput.Root>
     </Field.Root>
   );
 }
@@ -770,16 +776,14 @@ function ContactForm() {
 
       <Field.Root>
         <Field.Label>Phone Number</Field.Label>
-        <PhoneInput
-          value={phone}
-          onChange={setPhone}
-          placeholder="Phone number"
-        />
+        <PhoneInput.Root value={phone} onChange={setPhone}>
+          <PhoneInput.Input />
+        </PhoneInput.Root>
       </Field.Root>
 
-      <Button.Root onPress={() => console.log({ name, phone })}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={() => console.log({ name, phone })}>
+        Submit
+      </Button>
     </View>
   );
 }
@@ -797,11 +801,9 @@ function PhoneWithValue() {
 
   return (
     <View style={{ gap: 8 }}>
-      <PhoneInput
-        value={phone}
-        onChange={setPhone}
-        placeholder="Phone number"
-      />
+      <PhoneInput.Root value={phone} onChange={setPhone}>
+        <PhoneInput.Input />
+      </PhoneInput.Root>
       <Typography variant="body-sm">
         E.164: {phone || "empty"}
       </Typography>
@@ -1020,13 +1022,13 @@ function CommentForm() {
         placeholder="Write a comment..."
         isDisabled={isSubmitting}
       />
-      <Button.Root
+      <Button
         onPress={handleSubmit}
         isDisabled={!comment.trim() || isSubmitting}
         isLoading={isSubmitting}
       >
-        <Button.Label>Post Comment</Button.Label>
-      </Button.Root>
+        Post Comment
+      </Button>
     </View>
   );
 }
@@ -1074,9 +1076,9 @@ function FeedbackForm() {
         />
       </Field.Root>
 
-      <Button.Root onPress={() => {}}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={() => {}}>
+        Submit
+      </Button>
     </View>
   );
 }
@@ -2235,9 +2237,9 @@ function CompleteForm() {
           />
         </Field.Root>
 
-        <Button.Root onPress={handleSubmit}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button onPress={handleSubmit}>
+          Submit
+        </Button>
       </View>
     </ScrollView>
   );
@@ -2356,9 +2358,9 @@ function InlineField() {
 5. **Disable during submission**
    ```typescript
    <Input isDisabled={isSubmitting} />
-   <Button.Root isLoading={isSubmitting}>
-     <Button.Label>Submit</Button.Label>
-   </Button.Root>
+   <Button isLoading={isSubmitting}>
+     Submit
+   </Button>
    ```
 
 ### Performance Tips

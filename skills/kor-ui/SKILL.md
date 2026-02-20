@@ -56,9 +56,9 @@ function MyComponent() {
   return (
     <Card.Root>
       <Card.Body>
-        <Button.Root onPress={() => console.log("Pressed")}>
-          <Button.Label>Click Me</Button.Label>
-        </Button.Root>
+        <Button onPress={() => console.log("Pressed")}>
+          Click Me
+        </Button>
       </Card.Body>
     </Card.Root>
   );
@@ -81,9 +81,9 @@ function SubmitButton() {
   };
 
   return (
-    <Button.Root variant="default" isLoading={loading} onPress={handleSubmit}>
-      <Button.Label>Submit</Button.Label>
-    </Button.Root>
+    <Button variant="default" isLoading={loading} onPress={handleSubmit}>
+      Submit
+    </Button>
   );
 }
 ```
@@ -171,9 +171,9 @@ Most components share similar sub-component naming:
 ### Example: Button
 
 ```tsx
-<Button.Root variant="default" onPress={handlePress} isLoading={loading}>
-  <Button.Label>Submit Form</Button.Label>
-</Button.Root>
+<Button variant="default" onPress={handlePress} isLoading={loading}>
+  Submit Form
+</Button>
 ```
 
 ### Example: Alert with Icon
@@ -207,9 +207,9 @@ Component styles are always composed with variant styles first, allowing user st
 
 ```tsx
 // Variant styles are applied first
-<Button.Root style={{ marginTop: 16 }}>
-  <Button.Label style={{ fontWeight: "bold" }}>Custom Button</Button.Label>
-</Button.Root>
+<Button style={{ marginTop: 16 }}>
+  Custom Button
+</Button>
 ```
 
 This ensures your custom styles always take precedence over variant defaults.
@@ -421,21 +421,21 @@ function Form() {
 Buttons support loading states with built-in spinner:
 
 ```tsx
-<Button.Root isLoading={isSubmitting} onPress={handleSubmit}>
-  <Button.Label>Submit</Button.Label>
-</Button.Root>
+<Button isLoading={isSubmitting} onPress={handleSubmit}>
+  Submit
+</Button>
 ```
 
-When `isLoading` is true, the button displays `Button.Spinner` and disables interaction.
+When `isLoading` is true, the button displays `ActivityIndicator` and disables interaction.
 
 ### Disabled States
 
 Most components support disabled states:
 
 ```tsx
-<Button.Root isDisabled={!formValid} onPress={handleSubmit}>
-  <Button.Label>Submit</Button.Label>
-</Button.Root>
+<Button isDisabled={!formValid} onPress={handleSubmit}>
+  Submit
+</Button>
 
 <Input isDisabled value={email} onChange={setEmail} />
 
@@ -453,17 +453,17 @@ Most components offer multiple variants:
 
 ```tsx
 // Button variants
-<Button.Root variant="default">
-  <Button.Label>Default Button</Button.Label>
-</Button.Root>
+<Button variant="default">
+  Default Button
+</Button>
 
-<Button.Root variant="secondary">
-  <Button.Label>Secondary Button</Button.Label>
-</Button.Root>
+<Button variant="secondary">
+  Secondary Button
+</Button>
 
-<Button.Root variant="ghost">
-  <Button.Label>Ghost Button</Button.Label>
-</Button.Root>
+<Button variant="ghost">
+  Ghost Button
+</Button>
 
 // Alert variants
 <Alert.Root variant="default">
@@ -489,14 +489,14 @@ Most components offer multiple variants:
 Override component styles using the `style` prop:
 
 ```tsx
-<Button.Root
+<Button
   style={{
     marginTop: 20,
     backgroundColor: "blue",
   }}
 >
-  <Button.Label style={{ color: "white", fontSize: 18 }}>Custom Styled</Button.Label>
-</Button.Root>
+  Custom Styled
+</Button>
 ```
 
 ## Import Reference
@@ -597,9 +597,9 @@ const customTheme = {
 
 ```tsx
 // This works - style prop overrides variant
-<Button.Root style={{ backgroundColor: "red" }}>
-  <Button.Label>Red Button</Button.Label>
-</Button.Root>
+<Button style={{ backgroundColor: "red" }}>
+  Red Button
+</Button>
 ```
 
 For comprehensive troubleshooting, see [Troubleshooting Guide](./references/troubleshooting.md).

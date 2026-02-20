@@ -6,7 +6,7 @@ import { getElementProp } from "../utils/element-utils";
 export function useOrganizedChildren(
   children: React.ReactNode,
   textStyle: StyleProp<TextStyle> | undefined,
-  iconProps: IconProps | undefined,
+  iconProps: IconProps | undefined | null,
 ): React.ReactNode {
   const organizedChildren = useMemo(() => {
     if (typeof children === "string") {

@@ -1,11 +1,15 @@
-import type { ButtonLabelProps } from "./components/button-label";
-import type { ButtonRootProps } from "./components/button-root";
-import type { ButtonSpinnerProps } from "./components/button-spinner";
+import type {
+  ActivityIndicatorProps,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
+import type { IconProps } from "../icon";
 
 export type ButtonState = "default" | "disabled" | "loading" | "hovered";
 
 export interface ButtonStyles {
-  root?: Partial<Record<ButtonState, ButtonRootProps["style"]>>;
-  label?: Partial<Record<ButtonState, ButtonLabelProps["style"]>>;
-  spinner?: Partial<Record<ButtonState, ButtonSpinnerProps>>;
+  root?: Partial<Record<ButtonState, ViewStyle>>;
+  text?: Partial<Record<ButtonState, TextStyle>>;
+  icon?: Partial<Record<ButtonState, IconProps>>;
+  spinner?: Partial<Record<ButtonState, ActivityIndicatorProps>>;
 }

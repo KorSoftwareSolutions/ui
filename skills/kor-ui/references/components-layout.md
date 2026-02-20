@@ -180,9 +180,9 @@ interface CardBodyProps {
 ```typescript
 <Card.Body>
   <Text>Card content goes here</Text>
-  <Button.Root>
-    <Button.Label>Action</Button.Label>
-  </Button.Root>
+  <Button>
+    Action
+  </Button>
 </Card.Body>
 
 // Custom spacing
@@ -220,12 +220,12 @@ interface CardFooterProps {
 
 ```typescript
 <Card.Footer>
-  <Button.Root variant="secondary">
-    <Button.Label>Cancel</Button.Label>
-  </Button.Root>
-  <Button.Root>
-    <Button.Label>Submit</Button.Label>
-  </Button.Root>
+  <Button variant="secondary">
+    Cancel
+  </Button>
+  <Button>
+    Submit
+  </Button>
 </Card.Footer>
 
 // Vertical layout
@@ -277,9 +277,9 @@ function LoginCard() {
         </Field.Root>
       </Card.Body>
       <Card.Footer>
-        <Button.Root onPress={() => console.log("Login")}>
-          <Button.Label>Login</Button.Label>
-        </Button.Root>
+        <Button onPress={() => console.log("Login")}>
+          Login
+        </Button>
       </Card.Footer>
     </Card.Root>
   );
@@ -658,18 +658,18 @@ function ModalExample() {
 
   return (
     <>
-      <Button.Root onPress={() => setIsOpen(true)}>
-        <Button.Label>Open Modal</Button.Label>
-      </Button.Root>
+      <Button onPress={() => setIsOpen(true)}>
+        Open Modal
+      </Button>
 
       {isOpen && (
         <Portal name="modal">
           <View style={styles.modalOverlay}>
             <View style={styles.modalContent}>
               <Text>Modal Content</Text>
-              <Button.Root onPress={() => setIsOpen(false)}>
-                <Button.Label>Close</Button.Label>
-              </Button.Root>
+              <Button onPress={() => setIsOpen(false)}>
+                Close
+              </Button>
             </View>
           </View>
         </Portal>

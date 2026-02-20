@@ -24,9 +24,7 @@ export default function EmptyComponentScreen() {
             </Empty.Media>
             <Empty.Title>User offline</Empty.Title>
             <Empty.Description>This user is currently offline. You can leave a message to notify them or try again later.</Empty.Description>
-            <Button.Root>
-              <Button.Label>Send message</Button.Label>
-            </Button.Root>
+            <Button>Send message</Button>
           </Empty.Root>
         </Card.Root>
       </UseCaseSection>
@@ -39,12 +37,8 @@ export default function EmptyComponentScreen() {
             <Empty.Title>Network disconnected</Empty.Title>
             <Empty.Description>This device is not connected to the internet. Please check your network settings and try again.</Empty.Description>
             <View style={{ flexDirection: "row", gap: 16 }}>
-              <Button.Root>
-                <Button.Label>Retry connection</Button.Label>
-              </Button.Root>
-              <Button.Root variant="secondary">
-                <Button.Label>Open settings</Button.Label>
-              </Button.Root>
+              <Button>Retry connection</Button>
+              <Button variant="secondary">Open settings</Button>
             </View>
           </Empty.Root>
         </Card.Root>

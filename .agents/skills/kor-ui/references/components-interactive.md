@@ -29,14 +29,14 @@ The Button component provides a complete interactive button implementation with 
 ### Architecture
 
 ```typescript
-Button.Root      // Container with state management
+Button      // Container with state management
   ├─ Button.Label    // Text content
-  └─ Button.Spinner  // Loading indicator
+  └─ ActivityIndicator  // Loading indicator
 ```
 
 ### Complete API
 
-#### Button.Root
+#### Button
 
 The root container managing button state and interactions.
 
@@ -82,7 +82,7 @@ interface ButtonLabelProps {
 - Non-selectable when disabled or loading
 - Automatically inherits button state for styling
 
-#### Button.Spinner
+#### ActivityIndicator
 
 Loading indicator displayed during async operations.
 
@@ -164,9 +164,9 @@ import { Button } from "@korsolutions/ui";
 
 function Example() {
   return (
-    <Button.Root onPress={() => console.log("Pressed")}>
-      <Button.Label>Submit</Button.Label>
-    </Button.Root>
+    <Button onPress={() => console.log("Pressed")}>
+      Submit
+    </Button>
   );
 }
 ```
@@ -176,9 +176,9 @@ function Example() {
 ```typescript
 function DisabledExample() {
   return (
-    <Button.Root isDisabled onPress={() => console.log("Won't fire")}>
-      <Button.Label>Disabled</Button.Label>
-    </Button.Root>
+    <Button isDisabled onPress={() => console.log("Won't fire")}>
+      Disabled
+    </Button>
   );
 }
 ```
@@ -188,10 +188,10 @@ function DisabledExample() {
 ```typescript
 function LoadingExample() {
   return (
-    <Button.Root isLoading onPress={() => console.log("Won't fire")}>
-      <Button.Spinner />
-      <Button.Label>Loading...</Button.Label>
-    </Button.Root>
+    <Button isLoading onPress={() => console.log("Won't fire")}>
+      <ActivityIndicator />
+      Loading...
+    </Button>
   );
 }
 ```
@@ -201,9 +201,9 @@ function LoadingExample() {
 ```typescript
 function SecondaryExample() {
   return (
-    <Button.Root variant="secondary" onPress={() => console.log("Secondary")}>
-      <Button.Label>Cancel</Button.Label>
-    </Button.Root>
+    <Button variant="secondary" onPress={() => console.log("Secondary")}>
+      Cancel
+    </Button>
   );
 }
 ```
@@ -229,10 +229,10 @@ function AsyncExample() {
   };
 
   return (
-    <Button.Root isLoading={isLoading} onPress={handleSubmit}>
-      {isLoading && <Button.Spinner />}
-      <Button.Label>{isLoading ? "Submitting..." : "Submit"}</Button.Label>
-    </Button.Root>
+    <Button isLoading={isLoading} onPress={handleSubmit}>
+      {isLoading && <ActivityIndicator />}
+      {isLoading ? "Submitting..." : "Submit"}
+    </Button>
   );
 }
 ```
@@ -243,12 +243,12 @@ function AsyncExample() {
 function FormActions({ onSubmit, onCancel }) {
   return (
     <View style={{ flexDirection: "row", gap: 12 }}>
-      <Button.Root variant="secondary" onPress={onCancel}>
-        <Button.Label>Cancel</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={onSubmit}>
-        <Button.Label>Save Changes</Button.Label>
-      </Button.Root>
+      <Button variant="secondary" onPress={onCancel}>
+        Cancel
+      </Button>
+      <Button onPress={onSubmit}>
+        Save Changes
+      </Button>
     </View>
   );
 }
@@ -264,10 +264,10 @@ import { SaveIcon } from "lucide-react-native";
 
 function IconButton() {
   return (
-    <Button.Root onPress={() => console.log("Save")}>
+    <Button onPress={() => console.log("Save")}>
       <Icon render={SaveIcon} size={20} />
-      <Button.Label>Save</Button.Label>
-    </Button.Root>
+      Save
+    </Button>
   );
 }
 ```
@@ -277,9 +277,9 @@ function IconButton() {
 ```typescript
 function ConditionalButton({ hasChanges }) {
   return (
-    <Button.Root isDisabled={!hasChanges} onPress={() => console.log("Save")}>
-      <Button.Label>Save Changes</Button.Label>
-    </Button.Root>
+    <Button isDisabled={!hasChanges} onPress={() => console.log("Save")}>
+      Save Changes
+    </Button>
   );
 }
 ```
@@ -654,7 +654,7 @@ interface MenuTriggerRef {
 ```
 
 **Props:**
-- `children` - Single pressable element (e.g., Button.Root)
+- `children` - Single pressable element (e.g., Button)
 
 **Behavior:**
 - Clones child element and adds menu toggle functionality
@@ -985,9 +985,9 @@ function SimpleMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Options</Button.Label>
-        </Button.Root>
+        <Button>
+          Options
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1012,9 +1012,9 @@ function IconMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Actions</Button.Label>
-        </Button.Root>
+        <Button>
+          Actions
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1055,9 +1055,9 @@ function GroupedMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>My Account</Button.Label>
-        </Button.Root>
+        <Button>
+          My Account
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1102,9 +1102,9 @@ function CheckboxMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>View Options</Button.Label>
-        </Button.Root>
+        <Button>
+          View Options
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1144,9 +1144,9 @@ function RadioMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Select Person</Button.Label>
-        </Button.Root>
+        <Button>
+          Select Person
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1181,9 +1181,9 @@ function FullFeaturedMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Options</Button.Label>
-        </Button.Root>
+        <Button>
+          Options
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -1244,9 +1244,9 @@ function RefControlledMenu() {
 
   return (
     <>
-      <Button.Root onPress={openMenu}>
-        <Button.Label>Open Menu</Button.Label>
-      </Button.Root>
+      <Button onPress={openMenu}>
+        Open Menu
+      </Button>
 
       <Menu.Root>
         <Menu.Trigger ref={menuRef}>
@@ -1278,9 +1278,9 @@ function ListItemWithMenu({ item }) {
       <Text style={{ flex: 1 }}>{item.name}</Text>
       <Menu.Root>
         <Menu.Trigger>
-          <Button.Root variant="secondary">
-            <Button.Label>⋮</Button.Label>
-          </Button.Root>
+          <Button variant="secondary">
+            ⋮
+          </Button>
         </Menu.Trigger>
         <Menu.Portal>
           <Menu.Overlay />
@@ -1458,9 +1458,9 @@ function SimplePopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Show Info</Button.Label>
-        </Button.Root>
+        <Button>
+          Show Info
+        </Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1468,9 +1468,9 @@ function SimplePopover() {
           <View style={{ padding: 16 }}>
             <Text>This is additional information</Text>
             <Popover.Close>
-              <Button.Root variant="secondary">
-                <Button.Label>Close</Button.Label>
-              </Button.Root>
+              <Button variant="secondary">
+                Close
+              </Button>
             </Popover.Close>
           </View>
         </Popover.Content>
@@ -1487,9 +1487,9 @@ function TooltipStylePopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Hover me</Button.Label>
-        </Button.Root>
+        <Button>
+          Hover me
+        </Button>
       </Popover.Trigger>
       <Popover.Portal>
         {/* No Overlay - clicking outside still closes */}
@@ -1515,9 +1515,9 @@ function FormPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Add Item</Button.Label>
-        </Button.Root>
+        <Button>
+          Add Item
+        </Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1527,13 +1527,13 @@ function FormPopover() {
             <Input.Root value={name} onChangeText={setName} placeholder="Item name" />
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Popover.Close>
-                <Button.Root variant="secondary" style={{ flex: 1 }}>
-                  <Button.Label>Cancel</Button.Label>
-                </Button.Root>
+                <Button variant="secondary" style={{ flex: 1 }}>
+                  Cancel
+                </Button>
               </Popover.Close>
-              <Button.Root style={{ flex: 1 }} onPress={() => console.log(name)}>
-                <Button.Label>Add</Button.Label>
-              </Button.Root>
+              <Button style={{ flex: 1 }} onPress={() => console.log(name)}>
+                Add
+              </Button>
             </View>
           </View>
         </Popover.Content>
@@ -1837,11 +1837,11 @@ function DatePickerPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>
+        <Button>
+          
             {date ? date.toLocaleDateString() : "Select date"}
-          </Button.Label>
-        </Button.Root>
+          
+        </Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1952,13 +1952,13 @@ function ClearableDatePicker() {
         <Calendar.Weeks />
       </Calendar.Root>
       {date && (
-        <Button.Root
+        <Button
           variant="secondary"
           onPress={() => setDate(null)}
           style={{ marginTop: 12 }}
         >
-          <Button.Label>Clear Selection</Button.Label>
-        </Button.Root>
+          Clear Selection
+        </Button>
       )}
     </View>
   );

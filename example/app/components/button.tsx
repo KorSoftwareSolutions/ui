@@ -1,6 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button } from "@korsolutions/ui";
+import { Button, Icon } from "@korsolutions/ui";
+import { LogIn, Mail, Save, Trash2 } from "lucide-react-native";
 import React from "react";
 
 export default function ButtonComponentScreen() {
@@ -11,49 +12,65 @@ export default function ButtonComponentScreen() {
   return (
     <ComponentScreenLayout title="Button">
       <UseCaseSection title="Default">
-        <Button.Root onPress={onSubmit}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button onPress={onSubmit}>Submit</Button>
+      </UseCaseSection>
+      <UseCaseSection title="With Icons">
+        <Button onPress={onSubmit}>
+          <Icon render={Save} />
+          Save
+        </Button>
+        <Button variant="secondary" onPress={onSubmit}>
+          <Icon render={Mail} />
+          Send Email
+        </Button>
+        <Button variant="ghost" onPress={onSubmit}>
+          <Icon render={Trash2} />
+          Delete
+        </Button>
+        <Button onPress={onSubmit}>
+          <Icon render={LogIn} />
+          Sign In
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Disabled">
-        <Button.Root onPress={onSubmit} isDisabled>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button onPress={onSubmit} isDisabled>
+          Submit
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Loading">
-        <Button.Root onPress={onSubmit} isLoading>
-          <Button.Label>Submitting...</Button.Label>
-        </Button.Root>
+        <Button onPress={onSubmit} isLoading>
+          Submitting...
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Secondary">
-        <Button.Root variant="secondary" onPress={onSubmit}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button variant="secondary" onPress={onSubmit}>
+          Submit
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Secondary disabled">
-        <Button.Root variant="secondary" onPress={onSubmit} isDisabled>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button variant="secondary" onPress={onSubmit} isDisabled>
+          Submit
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Secondary loading">
-        <Button.Root variant="secondary" onPress={onSubmit} isLoading>
-          <Button.Label>Submitting...</Button.Label>
-        </Button.Root>
+        <Button variant="secondary" onPress={onSubmit} isLoading>
+          Submitting...
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Ghost">
-        <Button.Root variant="ghost" onPress={onSubmit}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button variant="ghost" onPress={onSubmit}>
+          Submit
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Ghost disabled">
-        <Button.Root variant="ghost" onPress={onSubmit} isDisabled>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button variant="ghost" onPress={onSubmit} isDisabled>
+          Submit
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Ghost loading">
-        <Button.Root variant="ghost" onPress={onSubmit} isLoading>
-          <Button.Label>Submitting...</Button.Label>
-        </Button.Root>
+        <Button variant="ghost" onPress={onSubmit} isLoading>
+          Submitting...
+        </Button>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

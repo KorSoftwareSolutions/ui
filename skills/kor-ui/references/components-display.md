@@ -552,9 +552,9 @@ function ThemedIcon() {
 // Icon button
 import { Button } from "@korsolutions/ui";
 
-<Button.Root style={{ width: 40, height: 40, padding: 0 }}>
+<Button style={{ width: 40, height: 40, padding: 0 }}>
   <Icon render={Heart} color="#FFF" size={20} />
-</Button.Root>
+</Button>
 
 // Navigation items
 const navigationItems = [
@@ -694,9 +694,9 @@ import { Avatar, Button } from "@korsolutions/ui";
   <Empty.Description>
     This user is currently offline. Try again later.
   </Empty.Description>
-  <Button.Root>
-    <Button.Label>Send message</Button.Label>
-  </Button.Root>
+  <Button>
+    Send message
+  </Button>
 </Empty.Root>
 
 // Network error with actions
@@ -720,12 +720,12 @@ function NetworkError() {
         Please check your network settings and try again.
       </Empty.Description>
       <View style={{ flexDirection: "row", gap: 16 }}>
-        <Button.Root onPress={retry}>
-          <Button.Label>Retry</Button.Label>
-        </Button.Root>
-        <Button.Root variant="secondary" onPress={openSettings}>
-          <Button.Label>Settings</Button.Label>
-        </Button.Root>
+        <Button onPress={retry}>
+          Retry
+        </Button>
+        <Button variant="secondary" onPress={openSettings}>
+          Settings
+        </Button>
       </View>
     </Empty.Root>
   );
@@ -755,9 +755,9 @@ function NetworkError() {
   <Empty.Description>
     Get started by creating your first item.
   </Empty.Description>
-  <Button.Root onPress={onCreate}>
-    <Button.Label>Create item</Button.Label>
-  </Button.Root>
+  <Button onPress={onCreate}>
+    Create item
+  </Button>
 </Empty.Root>
 
 // Conditional rendering

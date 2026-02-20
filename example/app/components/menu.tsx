@@ -24,9 +24,7 @@ export default function MenuComponentScreen() {
       <UseCaseSection title="Default">
         <Menu.Root>
           <Menu.Trigger>
-            <Button.Root>
-              <Button.Label>Open menu</Button.Label>
-            </Button.Root>
+            <Button>Open menu</Button>
           </Menu.Trigger>
           <Menu.Portal>
             <Menu.Overlay />
@@ -57,9 +55,7 @@ export default function MenuComponentScreen() {
       <UseCaseSection title="With Groups, Labels & Separators">
         <Menu.Root>
           <Menu.Trigger>
-            <Button.Root>
-              <Button.Label>My Account</Button.Label>
-            </Button.Root>
+            <Button>My Account</Button>
           </Menu.Trigger>
           <Menu.Portal>
             <Menu.Overlay />
@@ -91,9 +87,7 @@ export default function MenuComponentScreen() {
       <UseCaseSection title="Checkbox Items">
         <Menu.Root>
           <Menu.Trigger>
-            <Button.Root>
-              <Button.Label>View Options</Button.Label>
-            </Button.Root>
+            <Button>View Options</Button>
           </Menu.Trigger>
           <Menu.Portal>
             <Menu.Overlay />
@@ -122,9 +116,7 @@ export default function MenuComponentScreen() {
       <UseCaseSection title="Radio Items">
         <Menu.Root>
           <Menu.Trigger>
-            <Button.Root>
-              <Button.Label>Select Person</Button.Label>
-            </Button.Root>
+            <Button>Select Person</Button>
           </Menu.Trigger>
           <Menu.Portal>
             <Menu.Overlay />

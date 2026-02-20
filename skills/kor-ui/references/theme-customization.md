@@ -554,16 +554,16 @@ function ThemeSwitcher() {
   const theme = useTheme();
 
   return (
-    <Button.Root
+    <Button
       onPress={() => {
         const newScheme = theme.colorScheme === "light" ? "dark" : "light";
         theme.setColorScheme(newScheme);
       }}
     >
-      <Button.Label>
+      
         Switch to {theme.colorScheme === "light" ? "dark" : "light"} mode
-      </Button.Label>
-    </Button.Root>
+      
+    </Button>
   );
 }
 ```

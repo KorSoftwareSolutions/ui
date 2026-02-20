@@ -485,9 +485,9 @@ export default function Example() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root>
-          <Button.Label>Show Dialog</Button.Label>
-        </Button.Root>
+        <Button>
+          Show Dialog
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -525,9 +525,9 @@ export default function Example() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root>
-          <Button.Label>Delete Account</Button.Label>
-        </Button.Root>
+        <Button>
+          Delete Account
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -580,9 +580,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={handleDelete}>
-      <Button.Label>Delete Account</Button.Label>
-    </Button.Root>
+    <Button onPress={handleDelete}>
+      Delete Account
+    </Button>
   );
 }
 ```
@@ -624,9 +624,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={handleRiskyOperation}>
-      <Button.Label>Start Operation</Button.Label>
-    </Button.Root>
+    <Button onPress={handleRiskyOperation}>
+      Start Operation
+    </Button>
   );
 }
 ```
@@ -664,9 +664,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={handleMultiStep}>
-      <Button.Label>Start Process</Button.Label>
-    </Button.Root>
+    <Button onPress={handleMultiStep}>
+      Start Process
+    </Button>
   );
 }
 ```
@@ -776,9 +776,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={showToast}>
-      <Button.Label>Show Toast</Button.Label>
-    </Button.Root>
+    <Button onPress={showToast}>
+      Show Toast
+    </Button>
   );
 }
 ```
@@ -797,9 +797,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={showToast}>
-      <Button.Label>Save Settings</Button.Label>
-    </Button.Root>
+    <Button onPress={showToast}>
+      Save Settings
+    </Button>
   );
 }
 ```
@@ -822,9 +822,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={handleSubmit}>
-      <Button.Label>Submit</Button.Label>
-    </Button.Root>
+    <Button onPress={handleSubmit}>
+      Submit
+    </Button>
   );
 }
 ```
@@ -849,9 +849,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={handleDelete}>
-      <Button.Label>Delete</Button.Label>
-    </Button.Root>
+    <Button onPress={handleDelete}>
+      Delete
+    </Button>
   );
 }
 ```
@@ -882,12 +882,12 @@ export default function Example() {
 
   return (
     <>
-      <Button.Root onPress={showQuickToast}>
-        <Button.Label>Quick (1s)</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={showLongToast}>
-        <Button.Label>Long (10s)</Button.Label>
-      </Button.Root>
+      <Button onPress={showQuickToast}>
+        Quick (1s)
+      </Button>
+      <Button onPress={showLongToast}>
+        Long (10s)
+      </Button>
     </>
   );
 }
@@ -916,12 +916,12 @@ export default function Example() {
 
   return (
     <>
-      <Button.Root onPress={showPersistentToast}>
-        <Button.Label>Start Process</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={dismissToast}>
-        <Button.Label>Dismiss</Button.Label>
-      </Button.Root>
+      <Button onPress={showPersistentToast}>
+        Start Process
+      </Button>
+      <Button onPress={dismissToast}>
+        Dismiss
+      </Button>
     </>
   );
 }
@@ -944,9 +944,9 @@ export default function Example() {
   };
 
   return (
-    <Button.Root onPress={showToast}>
-      <Button.Label>Click Multiple Times</Button.Label>
-    </Button.Root>
+    <Button onPress={showToast}>
+      Click Multiple Times
+    </Button>
   );
 }
 ```
@@ -1006,9 +1006,9 @@ export default function Example() {
           placeholder="Enter your name"
         />
       </Input.Root>
-      <Button.Root onPress={handleSubmit} isLoading={isLoading}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={handleSubmit} isLoading={isLoading}>
+        Submit
+      </Button>
     </>
   );
 }
@@ -1101,12 +1101,12 @@ export default function FormExample() {
 
       {/* Form fields here */}
 
-      <Button.Root onPress={handleSubmit}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={handleCancel}>
-        <Button.Label>Cancel</Button.Label>
-      </Button.Root>
+      <Button onPress={handleSubmit}>
+        Submit
+      </Button>
+      <Button onPress={handleCancel}>
+        Cancel
+      </Button>
     </>
   );
 }

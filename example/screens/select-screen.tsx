@@ -28,12 +28,12 @@ export function SelectComponentScreen() {
       </UseCaseSection>
       {!isModalScreen && (
         <UseCaseSection title="In modal screen">
-          <Button.Root
+          <Button
             onPress={() => router.navigate("/components/select/modal")}
             variant="secondary"
           >
-            <Button.Label>Open Modal Screen</Button.Label>
-          </Button.Root>
+            Open Modal Screen
+          </Button>
         </UseCaseSection>
       )}
       <View style={{ flex: 1 }} />

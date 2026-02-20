@@ -26,9 +26,7 @@ export default function CardComponentScreen() {
           </Field.Root>
         </Card.Body>
         <Card.Footer>
-          <Button.Root onPress={() => console.log("Logging in...")}>
-            <Button.Label>Login</Button.Label>
-          </Button.Root>
+          <Button onPress={() => console.log("Logging in...")}>Login</Button>
         </Card.Footer>
       </Card.Root>
     </ComponentScreenLayout>

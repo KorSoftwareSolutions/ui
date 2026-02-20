@@ -152,9 +152,9 @@ function ValidatedForm() {
         )}
       </Field.Root>
 
-      <Button.Root onPress={handleSubmit}>
-        <Button.Label>Sign In</Button.Label>
-      </Button.Root>
+      <Button onPress={handleSubmit}>
+        Sign In
+      </Button>
     </>
   );
 }
@@ -272,15 +272,15 @@ function FormWithSubmit() {
         />
       </Field.Root>
 
-      <Button.Root
+      <Button
         onPress={handleSubmit}
         isLoading={isLoading}
         isDisabled={!email}
       >
-        <Button.Label>
+        
           {isLoading ? "Submitting..." : "Submit"}
-        </Button.Label>
-      </Button.Root>
+        
+      </Button>
     </>
   );
 }
@@ -362,9 +362,9 @@ function BasicConfirmation() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root>
-          <Button.Label>Show Alert Dialog</Button.Label>
-        </Button.Root>
+        <Button>
+          Show Alert Dialog
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -403,9 +403,9 @@ function DestructiveConfirmation() {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger>
-        <Button.Root variant="secondary">
-          <Button.Label>Delete Account</Button.Label>
-        </Button.Root>
+        <Button variant="secondary">
+          Delete Account
+        </Button>
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay />
@@ -466,9 +466,9 @@ function AsyncDialogExample() {
       {result && (
         <Typography variant="body-md">Result: {result}</Typography>
       )}
-      <Button.Root onPress={handleAsyncAction}>
-        <Button.Label>Show Async Dialog</Button.Label>
-      </Button.Root>
+      <Button onPress={handleAsyncAction}>
+        Show Async Dialog
+      </Button>
     </>
   );
 }
@@ -495,9 +495,9 @@ function FormModal() {
 
   return (
     <>
-      <Button.Root onPress={() => setIsOpen(true)}>
-        <Button.Label>Add User</Button.Label>
-      </Button.Root>
+      <Button onPress={() => setIsOpen(true)}>
+        Add User
+      </Button>
 
       <Modal
         visible={isOpen}
@@ -537,15 +537,15 @@ function FormModal() {
             </Card.Content>
 
             <Card.Footer style={styles.footer}>
-              <Button.Root
+              <Button
                 variant="secondary"
                 onPress={() => setIsOpen(false)}
               >
-                <Button.Label>Cancel</Button.Label>
-              </Button.Root>
-              <Button.Root onPress={handleSubmit}>
-                <Button.Label>Submit</Button.Label>
-              </Button.Root>
+                Cancel
+              </Button>
+              <Button onPress={handleSubmit}>
+                Submit
+              </Button>
             </Card.Footer>
           </Card.Root>
         </View>
@@ -759,9 +759,9 @@ function EmptyStateWithAvatar() {
           This user is currently offline. You can leave a message to
           notify them or try again later.
         </Empty.Description>
-        <Button.Root>
-          <Button.Label>Send message</Button.Label>
-        </Button.Root>
+        <Button>
+          Send message
+        </Button>
       </Empty.Root>
     </Card.Root>
   );
@@ -786,12 +786,12 @@ function EmptyStateWithIcon() {
           your network settings and try again.
         </Empty.Description>
         <View style={{ flexDirection: "row", gap: 16 }}>
-          <Button.Root>
-            <Button.Label>Retry connection</Button.Label>
-          </Button.Root>
-          <Button.Root variant="secondary">
-            <Button.Label>Open settings</Button.Label>
-          </Button.Root>
+          <Button>
+            Retry connection
+          </Button>
+          <Button variant="secondary">
+            Open settings
+          </Button>
         </View>
       </Empty.Root>
     </Card.Root>
@@ -896,9 +896,9 @@ function DropdownMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Open menu</Button.Label>
-        </Button.Root>
+        <Button>
+          Open menu
+        </Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -973,9 +973,9 @@ function SuccessToast() {
   };
 
   return (
-    <Button.Root onPress={showSuccess}>
-      <Button.Label>Show Success</Button.Label>
-    </Button.Root>
+    <Button onPress={showSuccess}>
+      Show Success
+    </Button>
   );
 }
 ```
@@ -996,9 +996,9 @@ function ErrorToast() {
   };
 
   return (
-    <Button.Root onPress={showError}>
-      <Button.Label>Show Error</Button.Label>
-    </Button.Root>
+    <Button onPress={showError}>
+      Show Error
+    </Button>
   );
 }
 ```
@@ -1029,12 +1029,12 @@ function CustomDurationToast() {
 
   return (
     <>
-      <Button.Root onPress={showQuickToast}>
-        <Button.Label>Show 1s Toast</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={showLongToast}>
-        <Button.Label>Show 10s Toast</Button.Label>
-      </Button.Root>
+      <Button onPress={showQuickToast}>
+        Show 1s Toast
+      </Button>
+      <Button onPress={showLongToast}>
+        Show 10s Toast
+      </Button>
     </>
   );
 }
@@ -1101,11 +1101,11 @@ function LoadingStates() {
 
   return (
     <View style={{ gap: 16 }}>
-      <Button.Root isLoading={isLoading} onPress={handleAsyncAction}>
-        <Button.Label>
+      <Button isLoading={isLoading} onPress={handleAsyncAction}>
+        
           {isLoading ? "Processing..." : "Start Process"}
-        </Button.Label>
-      </Button.Root>
+        
+      </Button>
 
       {isLoading && (
         <>
@@ -1233,26 +1233,26 @@ function ButtonsWithIcons() {
   return (
     <View style={{ gap: 12 }}>
       {/* Icon with label */}
-      <Button.Root>
+      <Button>
         <Icon render={Heart} size={20} />
-        <Button.Label>Like</Button.Label>
-      </Button.Root>
+        Like
+      </Button>
 
       {/* Icon only button */}
-      <Button.Root>
+      <Button>
         <Icon render={Download} size={20} />
-      </Button.Root>
+      </Button>
 
       {/* Multiple buttons in a row */}
       <View style={{ flexDirection: "row", gap: 8 }}>
-        <Button.Root variant="secondary">
+        <Button variant="secondary">
           <Icon render={Share} size={18} />
-          <Button.Label>Share</Button.Label>
-        </Button.Root>
-        <Button.Root variant="secondary">
+          Share
+        </Button>
+        <Button variant="secondary">
           <Icon render={Trash} size={18} />
-          <Button.Label>Delete</Button.Label>
-        </Button.Root>
+          Delete
+        </Button>
       </View>
     </View>
   );
@@ -1313,9 +1313,9 @@ function ControlledInput() {
         onChange={setValue}
         placeholder="Enter text"
       />
-      <Button.Root onPress={handleSubmit}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={handleSubmit}>
+        Submit
+      </Button>
     </>
   );
 }
@@ -1364,14 +1364,14 @@ function ToggleState() {
         <Checkbox.Label>Accept terms and conditions</Checkbox.Label>
       </Checkbox.Root>
 
-      <Button.Root
+      <Button
         onPress={() => setIsVisible(!isVisible)}
         isDisabled={!isChecked}
       >
-        <Button.Label>
+        
           {isVisible ? "Hide" : "Show"} Details
-        </Button.Label>
-      </Button.Root>
+        
+      </Button>
 
       {isVisible && (
         <Typography>Additional details are visible</Typography>

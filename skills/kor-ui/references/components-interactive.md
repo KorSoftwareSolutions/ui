@@ -15,11 +15,11 @@ Comprehensive guide to interactive components in Universal UI library. These com
 
 ## Button
 
-A pressable button component with loading and disabled states, supporting multiple variants.
+A pressable button component with loading and disabled states, supporting multiple variants. Accepts string children and `<Icon>` elements directly — text and icons are automatically styled by the variant.
 
 ### Overview
 
-The Button component provides a complete interactive button implementation with built-in state management for loading, disabled, and hover states. It follows the compound component pattern with separate Root, Label, and Spinner sub-components.
+The Button component provides a complete interactive button implementation with built-in state management for loading, disabled, and hover states. Pass strings and `<Icon>` elements as children — they are automatically wrapped and styled. When `isLoading` is set, a spinner is automatically shown.
 
 **When to use:**
 - Primary and secondary actions in forms
@@ -27,22 +27,10 @@ The Button component provides a complete interactive button implementation with 
 - Submit buttons with loading indicators
 - Any interactive clickable element requiring visual feedback
 
-### Architecture
-
-```typescript
-Button.Root      // Container with state management
-  ├─ Button.Label    // Text content
-  └─ Button.Spinner  // Loading indicator
-```
-
 ### Complete API
 
-#### Button.Root
-
-The root container managing button state and interactions.
-
 ```typescript
-interface ButtonRootProps extends PressableProps {
+interface ButtonProps extends PressableProps {
   variant?: "default" | "secondary" | "ghost";
   children?: React.ReactNode;
   isDisabled?: boolean;
@@ -53,54 +41,19 @@ interface ButtonRootProps extends PressableProps {
 
 **Props:**
 - `variant` - Visual style variant (default: "default")
+- `children` - String text and/or `<Icon>` elements (auto-styled)
 - `isDisabled` - Disables interaction and shows disabled state
-- `isLoading` - Shows loading state and prevents interaction
+- `isLoading` - Shows loading state, prevents interaction, shows spinner
 - `onPress` - Callback fired on button press (inherited from PressableProps)
 - `style` - Additional styles to apply
 
 **Behavior:**
 - Prevents `onPress` when `isDisabled` or `isLoading`
-- Automatically sets cursor based on state
-- Tracks hover state for styling
-- Provides context to child components
-
-#### Button.Label
-
-Text content for the button.
-
-```typescript
-interface ButtonLabelProps {
-  children?: string;
-  style?: StyleProp<TextStyle>;
-}
-```
-
-**Props:**
-- `children` - Button text
-- `style` - Additional text styles
-
-**Behavior:**
-- Non-selectable when disabled or loading
-- Automatically inherits button state for styling
-
-#### Button.Spinner
-
-Loading indicator displayed during async operations.
-
-```typescript
-interface ButtonSpinnerProps {
-  style?: StyleProp<ViewStyle>;
-  color?: string;
-}
-```
-
-**Props:**
-- `color` - Spinner color (defaults to variant color)
-- `style` - Additional container styles
-
-**Behavior:**
-- Uses React Native's ActivityIndicator
-- Automatically inherits button state for styling
+- Automatically sets cursor based on state (pointer, not-allowed, wait)
+- Tracks hover state for styling on web
+- String children are automatically wrapped in styled `<Text>`
+- `<Icon>` children are automatically cloned with variant-appropriate props
+- Spinner is automatically shown when `isLoading` is true
 
 ### State Management
 
@@ -110,12 +63,6 @@ The Button component manages four states internally:
 type ButtonState = "default" | "disabled" | "loading" | "hovered";
 ```
 
-**State Transitions:**
-- `isDisabled={true}` → "disabled" state
-- `isLoading={true}` → "loading" state
-- Mouse hover (web) → "hovered" state
-- Otherwise → "default" state
-
 **State Priority:**
 1. Disabled (highest)
 2. Loading
@@ -124,54 +71,13 @@ type ButtonState = "default" | "disabled" | "loading" | "hovered";
 
 ### Variants
 
-#### Default Variant
+| Variant | Background | Text Color | Border | Hover | Use Case |
+|---------|-----------|------------|--------|-------|----------|
+| default | `colors.primary` | `colors.primaryForeground` | `colors.border` | -10% lightness | Primary actions |
+| secondary | `colors.secondary` | `colors.secondaryForeground` | `colors.border` | -1% lightness | Secondary actions |
+| ghost | transparent | `colors.foreground` | none | subtle secondary bg | Toolbar/subtle actions |
 
-Primary action button with solid background.
-
-**Visual Style:**
-- Background: `colors.primary`
-- Text: `colors.primaryForeground`
-- Border: `colors.border`
-- Hover: Darker primary color (-10% lightness)
-- Disabled/Loading: 50% opacity
-
-**Use cases:**
-- Primary form actions (Submit, Save, Continue)
-- Main call-to-action buttons
-- Confirm actions
-
-#### Secondary Variant
-
-Subtle action button with muted background.
-
-**Visual Style:**
-- Background: `colors.secondary`
-- Text: `colors.secondaryForeground`
-- Border: `colors.border`
-- Hover: Slightly darker secondary (-1% lightness)
-- Disabled/Loading: 50% opacity, muted text color
-
-**Use cases:**
-- Secondary actions (Cancel, Back)
-- Alternative options
-- Less prominent actions
-
-#### Ghost Variant
-
-Transparent button with no background or border.
-
-**Visual Style:**
-- Background: transparent
-- Text: `colors.foreground`
-- No border
-- Hover: Subtle secondary background (-1% lightness)
-- Disabled/Loading: 50% opacity, muted text color
-
-**Use cases:**
-- Toolbar actions
-- Inline actions that blend with content
-- Icon + text buttons in navigation
-- Actions that should not draw attention
+All variants: Disabled/Loading = 50% opacity.
 
 ### Basic Examples
 
@@ -182,9 +88,7 @@ import { Button } from "@korsolutions/ui";
 
 function Example() {
   return (
-    <Button.Root onPress={() => console.log("Pressed")}>
-      <Button.Label>Submit</Button.Label>
-    </Button.Root>
+    <Button onPress={() => console.log("Pressed")}>Submit</Button>
   );
 }
 ```
@@ -192,50 +96,33 @@ function Example() {
 #### Disabled State
 
 ```typescript
-function DisabledExample() {
-  return (
-    <Button.Root isDisabled onPress={() => console.log("Won't fire")}>
-      <Button.Label>Disabled</Button.Label>
-    </Button.Root>
-  );
-}
+<Button isDisabled onPress={() => console.log("Won't fire")}>
+  Disabled
+</Button>
 ```
 
 #### Loading State
 
 ```typescript
-function LoadingExample() {
-  return (
-    <Button.Root isLoading onPress={() => console.log("Won't fire")}>
-      <Button.Spinner />
-      <Button.Label>Loading...</Button.Label>
-    </Button.Root>
-  );
-}
+<Button isLoading onPress={() => console.log("Won't fire")}>
+  Submitting...
+</Button>
 ```
 
 #### Secondary Variant
 
 ```typescript
-function SecondaryExample() {
-  return (
-    <Button.Root variant="secondary" onPress={() => console.log("Secondary")}>
-      <Button.Label>Cancel</Button.Label>
-    </Button.Root>
-  );
-}
+<Button variant="secondary" onPress={() => console.log("Secondary")}>
+  Cancel
+</Button>
 ```
 
 #### Ghost Variant
 
 ```typescript
-function GhostExample() {
-  return (
-    <Button.Root variant="ghost" onPress={() => console.log("Ghost")}>
-      <Button.Label>Settings</Button.Label>
-    </Button.Root>
-  );
-}
+<Button variant="ghost" onPress={() => console.log("Ghost")}>
+  Settings
+</Button>
 ```
 
 ### Advanced Examples
@@ -259,10 +146,9 @@ function AsyncExample() {
   };
 
   return (
-    <Button.Root isLoading={isLoading} onPress={handleSubmit}>
-      {isLoading && <Button.Spinner />}
-      <Button.Label>{isLoading ? "Submitting..." : "Submit"}</Button.Label>
-    </Button.Root>
+    <Button isLoading={isLoading} onPress={handleSubmit}>
+      {isLoading ? "Submitting..." : "Submit"}
+    </Button>
   );
 }
 ```
@@ -273,12 +159,8 @@ function AsyncExample() {
 function FormActions({ onSubmit, onCancel }) {
   return (
     <View style={{ flexDirection: "row", gap: 12 }}>
-      <Button.Root variant="secondary" onPress={onCancel}>
-        <Button.Label>Cancel</Button.Label>
-      </Button.Root>
-      <Button.Root onPress={onSubmit}>
-        <Button.Label>Save Changes</Button.Label>
-      </Button.Root>
+      <Button variant="secondary" onPress={onCancel}>Cancel</Button>
+      <Button onPress={onSubmit}>Save Changes</Button>
     </View>
   );
 }
@@ -289,15 +171,15 @@ function FormActions({ onSubmit, onCancel }) {
 #### Button with Icon
 
 ```typescript
-import { Icon } from "@korsolutions/ui";
+import { Button, Icon } from "@korsolutions/ui";
 import { SaveIcon } from "lucide-react-native";
 
-function IconButton() {
+function SaveButton() {
   return (
-    <Button.Root onPress={() => console.log("Save")}>
-      <Icon render={SaveIcon} size={20} />
-      <Button.Label>Save</Button.Label>
-    </Button.Root>
+    <Button onPress={() => console.log("Save")}>
+      <Icon render={SaveIcon} />
+      Save
+    </Button>
   );
 }
 ```
@@ -307,9 +189,9 @@ function IconButton() {
 ```typescript
 function ConditionalButton({ hasChanges }) {
   return (
-    <Button.Root isDisabled={!hasChanges} onPress={() => console.log("Save")}>
-      <Button.Label>Save Changes</Button.Label>
-    </Button.Root>
+    <Button isDisabled={!hasChanges} onPress={() => console.log("Save")}>
+      Save Changes
+    </Button>
   );
 }
 ```
@@ -769,7 +651,7 @@ interface MenuTriggerRef {
 ```
 
 **Props:**
-- `children` - Single pressable element (e.g., Button.Root)
+- `children` - Single pressable element (e.g., Button)
 
 **Behavior:**
 - Clones child element and adds menu toggle functionality
@@ -907,9 +789,7 @@ function SimpleMenu() {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root>
-          <Button.Label>Options</Button.Label>
-        </Button.Root>
+        <Button>Options</Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -956,9 +836,7 @@ function ActionsMenu({ itemId, onEdit, onDelete }) {
   return (
     <Menu.Root>
       <Menu.Trigger>
-        <Button.Root variant="secondary">
-          <Button.Label>Actions</Button.Label>
-        </Button.Root>
+        <Button variant="secondary">Actions</Button>
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Overlay />
@@ -989,9 +867,7 @@ function RefControlledMenu() {
 
   return (
     <>
-      <Button.Root onPress={openMenu}>
-        <Button.Label>Open Menu</Button.Label>
-      </Button.Root>
+      <Button onPress={openMenu}>Open Menu</Button>
 
       <Menu.Root>
         <Menu.Trigger ref={menuRef}>
@@ -1020,9 +896,7 @@ function ListItemWithMenu({ item }) {
       <Text style={{ flex: 1 }}>{item.name}</Text>
       <Menu.Root>
         <Menu.Trigger>
-          <Button.Root variant="secondary">
-            <Button.Label>⋮</Button.Label>
-          </Button.Root>
+          <Button variant="secondary">⋮</Button>
         </Menu.Trigger>
         <Menu.Portal>
           <Menu.Overlay />
@@ -1190,9 +1064,7 @@ function SimplePopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Show Info</Button.Label>
-        </Button.Root>
+        <Button>Show Info</Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1200,9 +1072,7 @@ function SimplePopover() {
           <View style={{ padding: 16 }}>
             <Text>This is additional information</Text>
             <Popover.Close>
-              <Button.Root variant="secondary">
-                <Button.Label>Close</Button.Label>
-              </Button.Root>
+              <Button variant="secondary">Close</Button>
             </Popover.Close>
           </View>
         </Popover.Content>
@@ -1219,9 +1089,7 @@ function TooltipStylePopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Hover me</Button.Label>
-        </Button.Root>
+        <Button>Hover me</Button>
       </Popover.Trigger>
       <Popover.Portal>
         {/* No Overlay - clicking outside still closes */}
@@ -1247,9 +1115,7 @@ function FormPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Add Item</Button.Label>
-        </Button.Root>
+        <Button>Add Item</Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1259,13 +1125,9 @@ function FormPopover() {
             <Input.Root value={name} onChangeText={setName} placeholder="Item name" />
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Popover.Close>
-                <Button.Root variant="secondary" style={{ flex: 1 }}>
-                  <Button.Label>Cancel</Button.Label>
-                </Button.Root>
+                <Button variant="secondary" style={{ flex: 1 }}>Cancel</Button>
               </Popover.Close>
-              <Button.Root style={{ flex: 1 }} onPress={() => console.log(name)}>
-                <Button.Label>Add</Button.Label>
-              </Button.Root>
+              <Button style={{ flex: 1 }} onPress={() => console.log(name)}>Add</Button>
             </View>
           </View>
         </Popover.Content>
@@ -1569,11 +1431,7 @@ function DatePickerPopover() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>
-            {date ? date.toLocaleDateString() : "Select date"}
-          </Button.Label>
-        </Button.Root>
+        <Button>{date ? date.toLocaleDateString() : "Select date"}</Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
@@ -1684,13 +1542,13 @@ function ClearableDatePicker() {
         <Calendar.Weeks />
       </Calendar.Root>
       {date && (
-        <Button.Root
+        <Button
           variant="secondary"
           onPress={() => setDate(null)}
           style={{ marginTop: 12 }}
         >
-          <Button.Label>Clear Selection</Button.Label>
-        </Button.Root>
+          Clear Selection
+        </Button>
       )}
     </View>
   );

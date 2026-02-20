@@ -7,7 +7,7 @@ export default function ToastComponentScreen() {
   return (
     <ComponentScreenLayout title="Toast">
       <UseCaseSection title="Default">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "default-toast",
@@ -16,11 +16,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Default Toast</Button.Label>
-        </Button.Root>
+          Show Default Toast
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Default (Title only)">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "notification-toast",
@@ -28,11 +28,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Toast (Title Only)</Button.Label>
-        </Button.Root>
+          Show Toast (Title Only)
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Success">
-        <Button.Root
+        <Button
           variant="secondary"
           onPress={() => {
             Toast.show({
@@ -43,11 +43,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Success Toast</Button.Label>
-        </Button.Root>
+          Show Success Toast
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Success (Title only)">
-        <Button.Root
+        <Button
           variant="secondary"
           onPress={() => {
             Toast.show({
@@ -57,11 +57,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Success (Title Only)</Button.Label>
-        </Button.Root>
+          Show Success (Title Only)
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Danger">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "error-toast",
@@ -71,11 +71,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Error Toast</Button.Label>
-        </Button.Root>
+          Show Error Toast
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Danger (Title only)">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "error-title-only",
@@ -84,11 +84,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show Error (Title Only)</Button.Label>
-        </Button.Root>
+          Show Error (Title Only)
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Custom Duration">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "quick-toast",
@@ -98,11 +98,11 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Show 1s Toast</Button.Label>
-        </Button.Root>
+          Show 1s Toast
+        </Button>
       </UseCaseSection>
       <UseCaseSection title="Duplicate Prevention (same ID)">
-        <Button.Root
+        <Button
           onPress={() => {
             Toast.show({
               id: "duplicate-test",
@@ -111,8 +111,8 @@ export default function ToastComponentScreen() {
             });
           }}
         >
-          <Button.Label>Test Duplicate Prevention</Button.Label>
-        </Button.Root>
+          Test Duplicate Prevention
+        </Button>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

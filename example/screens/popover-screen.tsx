@@ -34,9 +34,9 @@ export function PopoverComponentScreen() {
       </UseCaseSection>
       {!isModalScreen && (
         <UseCaseSection title="In modal screen">
-          <Button.Root onPress={() => router.navigate("/components/popover/modal")} variant="secondary">
-            <Button.Label>Open Modal Screen</Button.Label>
-          </Button.Root>
+          <Button onPress={() => router.navigate("/components/popover/modal")} variant="secondary">
+            Open Modal Screen
+          </Button>
         </UseCaseSection>
       )}
       <View style={{ flex: 1 }} />
@@ -52,17 +52,13 @@ function DefaultExample() {
   return (
     <Popover.Root>
       <Popover.Trigger ref={triggerRef}>
-        <Button.Root>
-          <Button.Label>Open popover</Button.Label>
-        </Button.Root>
+        <Button>Open popover</Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
         <Popover.Content>
           <PopoverContentDemo>
-            <Button.Root onPress={() => triggerRef.current?.close()}>
-              <Button.Label>Close</Button.Label>
-            </Button.Root>
+            <Button onPress={() => triggerRef.current?.close()}>Close</Button>
           </PopoverContentDemo>
         </Popover.Content>
       </Popover.Portal>
@@ -74,18 +70,14 @@ function WithoutCloseOnOverlayExample() {
   return (
     <Popover.Root>
       <Popover.Trigger>
-        <Button.Root>
-          <Button.Label>Open (No Close on Overlay)</Button.Label>
-        </Button.Root>
+        <Button>Open (No Close on Overlay)</Button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay closeOnPress={false} />
         <Popover.Content>
           <PopoverContentDemo>
             <Popover.Close>
-              <Button.Root>
-                <Button.Label>Close</Button.Label>
-              </Button.Root>
+              <Button>Close</Button>
             </Popover.Close>
           </PopoverContentDemo>
         </Popover.Content>
@@ -99,9 +91,7 @@ function ContentWithActionsExample() {
   return (
     <Popover.Root>
       <Popover.Trigger ref={triggerRef}>
-        <Button.Root>
-          <Button.Label>Custom Content</Button.Label>
-        </Button.Root>
+        <Button>Custom Content</Button>
       </Popover.Trigger>
 
       <Popover.Portal>
@@ -110,12 +100,12 @@ function ContentWithActionsExample() {
           <PopoverContentDemo>
             <Typography>This is custom content with actions.</Typography>
             <View style={{ flexDirection: "row", gap: 12 }}>
-              <Button.Root onPress={() => triggerRef.current?.close()} variant="secondary">
-                <Button.Label>Cancel</Button.Label>
-              </Button.Root>
-              <Button.Root onPress={() => triggerRef.current?.close()}>
-                <Button.Label>Confirm</Button.Label>
-              </Button.Root>
+              <Button onPress={() => triggerRef.current?.close()} variant="secondary">
+                Cancel
+              </Button>
+              <Button onPress={() => triggerRef.current?.close()}>
+                Confirm
+              </Button>
             </View>
           </PopoverContentDemo>
         </Popover.Content>

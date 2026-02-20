@@ -777,9 +777,9 @@ function ContactForm() {
         />
       </Field.Root>
 
-      <Button.Root onPress={() => console.log({ name, phone })}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={() => console.log({ name, phone })}>
+        Submit
+      </Button>
     </View>
   );
 }
@@ -1020,13 +1020,13 @@ function CommentForm() {
         placeholder="Write a comment..."
         isDisabled={isSubmitting}
       />
-      <Button.Root
+      <Button
         onPress={handleSubmit}
         isDisabled={!comment.trim() || isSubmitting}
         isLoading={isSubmitting}
       >
-        <Button.Label>Post Comment</Button.Label>
-      </Button.Root>
+        Post Comment
+      </Button>
     </View>
   );
 }
@@ -1074,9 +1074,9 @@ function FeedbackForm() {
         />
       </Field.Root>
 
-      <Button.Root onPress={() => {}}>
-        <Button.Label>Submit</Button.Label>
-      </Button.Root>
+      <Button onPress={() => {}}>
+        Submit
+      </Button>
     </View>
   );
 }
@@ -2235,9 +2235,9 @@ function CompleteForm() {
           />
         </Field.Root>
 
-        <Button.Root onPress={handleSubmit}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button onPress={handleSubmit}>
+          Submit
+        </Button>
       </View>
     </ScrollView>
   );
@@ -2356,9 +2356,9 @@ function InlineField() {
 5. **Disable during submission**
    ```typescript
    <Input isDisabled={isSubmitting} />
-   <Button.Root isLoading={isSubmitting}>
-     <Button.Label>Submit</Button.Label>
-   </Button.Root>
+   <Button isLoading={isSubmitting}>
+     Submit
+   </Button>
    ```
 
 ### Performance Tips

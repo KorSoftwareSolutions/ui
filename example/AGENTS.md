@@ -74,21 +74,15 @@ export default function ButtonScreen() {
   return (
     <ComponentScreenLayout title="Button">
       <UseCaseSection title="Default">
-        <Button.Root onPress={() => console.log("pressed")}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button onPress={() => console.log("pressed")}>Submit</Button>
       </UseCaseSection>
 
       <UseCaseSection title="Disabled">
-        <Button.Root isDisabled onPress={() => console.log("pressed")}>
-          <Button.Label>Submit</Button.Label>
-        </Button.Root>
+        <Button isDisabled onPress={() => console.log("pressed")}>Submit</Button>
       </UseCaseSection>
 
       <UseCaseSection title="Loading">
-        <Button.Root isLoading onPress={() => console.log("pressed")}>
-          <Button.Label>Submitting...</Button.Label>
-        </Button.Root>
+        <Button isLoading onPress={() => console.log("pressed")}>Submitting...</Button>
       </UseCaseSection>
     </ComponentScreenLayout>
   );
@@ -318,12 +312,8 @@ Available in the header of every component screen. Allows switching between:
 ```typescript
 <UseCaseSection title="Variants">
   <View style={{ flexDirection: "row", gap: 16 }}>
-    <Button.Root variant="default">
-      <Button.Label>Default</Button.Label>
-    </Button.Root>
-    <Button.Root variant="secondary">
-      <Button.Label>Secondary</Button.Label>
-    </Button.Root>
+    <Button variant="default">Default</Button>
+    <Button variant="secondary">Secondary</Button>
   </View>
 </UseCaseSection>
 ```
@@ -333,10 +323,10 @@ Available in the header of every component screen. Allows switching between:
 ```typescript
 import { HeartIcon } from "lucide-react-native";
 
-<Button.Root>
-  <Icon render={HeartIcon} size={20} />
-  <Button.Label>Like</Button.Label>
-</Button.Root>
+<Button>
+  <Icon render={HeartIcon} />
+  Like
+</Button>
 ```
 
 ### Interactive Demos
@@ -356,11 +346,9 @@ export default function ComponentScreen() {
   return (
     <ComponentScreenLayout title="Component">
       <UseCaseSection title="Interactive">
-        <Button.Root isLoading={isLoading} onPress={handlePress}>
-          <Button.Label>
-            {isLoading ? "Loading..." : "Click me"}
-          </Button.Label>
-        </Button.Root>
+        <Button isLoading={isLoading} onPress={handlePress}>
+          {isLoading ? "Loading..." : "Click me"}
+        </Button>
       </UseCaseSection>
     </ComponentScreenLayout>
   );

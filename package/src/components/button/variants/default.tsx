@@ -1,6 +1,7 @@
-import { type ButtonStyles } from "../..";
+import type { CursorValue } from "react-native";
 import { hslaSetRelativeLightness } from "../../../utils/hsla-utils";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
+import type { ButtonStyles } from "../types";
 
 export const useButtonVariantDefault = (): ButtonStyles => {
   return useThemedStyles(
@@ -17,32 +18,37 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           backgroundColor: colors.primary,
           borderWidth: 1,
           borderColor: colors.border,
+          cursor: "pointer",
         },
         disabled: {
           opacity: 0.5,
+          cursor: "not-allowed" as CursorValue,
         },
         loading: {
           opacity: 0.5,
+          cursor: "wait" as CursorValue,
         },
         hovered: {
           backgroundColor: hslaSetRelativeLightness(colors.primary, -10),
         },
       },
-      label: {
+      text: {
         default: {
           color: colors.primaryForeground,
           fontSize,
           fontFamily,
         },
-        disabled: {},
-        loading: {},
+      },
+      icon: {
+        default: {
+          color: colors.primaryForeground,
+          size: fontSize,
+        },
       },
       spinner: {
         default: {
           color: colors.primaryForeground,
         },
-        disabled: {},
-        loading: {},
       },
     }),
   );
