@@ -1,0 +1,37 @@
+import React, { useMemo } from "react";
+import { Text, type StyleProp, type TextStyle } from "react-native";
+import { getElementProp } from "../../utils/element-utils";
+import { Icon, type IconProps } from "../icon";
+
+export function useOrganizedChildren(
+  children: React.ReactNode,
+  textStyle: StyleProp<TextStyle> | undefined,
+  iconProps: IconProps | undefined,
+) {
+  const organizedChildren = useMemo(() => {
+    if (typeof children === "string") {
+      return <Text style={textStyle}>{children}</Text>;
+    }
+    if (Array.isArray(children)) {
+      return children.map((child, index) => {
+        if (typeof child === "string") {
+          return (
+            <Text key={index} style={textStyle}>
+              {child}
+            </Text>
+          );
+        } else if (React.isValidElement(child) && child.type === Icon) {
+          return React.cloneElement(child as React.ReactElement<any>, {
+            key: child.key,
+            ...iconProps,
+            style: [iconProps?.style, getElementProp(child, "style")],
+          });
+        }
+        return child;
+      });
+    }
+    return children;
+  }, [children, iconProps, textStyle]);
+
+  return organizedChildren;
+}

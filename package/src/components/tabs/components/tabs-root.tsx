@@ -1,5 +1,11 @@
 import React, { useMemo } from "react";
-import { View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
+import {
+  StyleSheet,
+  View,
+  type StyleProp,
+  type ViewProps,
+  type ViewStyle,
+} from "react-native";
 import { TabsContext } from "../context";
 import { TabsVariants } from "../variants";
 
@@ -23,10 +29,11 @@ export function TabsRoot(props: TabsRootProps) {
     }),
     [value, onChange, variantStyles],
   );
+  const composedStyles = StyleSheet.flatten([variantStyles?.root, style]);
 
   return (
     <TabsContext.Provider value={contextValue}>
-      <View {...viewProps} style={style}>
+      <View {...viewProps} style={composedStyles}>
         {children}
       </View>
     </TabsContext.Provider>
