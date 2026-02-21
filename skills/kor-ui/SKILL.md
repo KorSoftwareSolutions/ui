@@ -109,7 +109,8 @@ function SubmitButton() {
 | **PhoneInput**   | Phone number input with country selector (E.164)     | default  | [Input Components](./references/components-inputs.md#phoneinput)   |
 | **Textarea**     | Multi-line text input                                | default  | [Input Components](./references/components-inputs.md#textarea)     |
 | **Checkbox**     | Toggle selection with label                          | default  | [Input Components](./references/components-inputs.md#checkbox)     |
-| **Select**       | Dropdown selection with search                       | default  | [Input Components](./references/components-inputs.md#select)       |
+| **Select**       | Dropdown selection from a list of options             | default  | [Input Components](./references/components-inputs.md#select)       |
+| **Combobox**     | Autocomplete input with filterable dropdown          | default  | [Input Components](./references/components-inputs.md#combobox)     |
 | **Field**        | Form field wrapper with label and validation         | -        | [Input Components](./references/components-inputs.md#field)        |
 
 ### Display Components
@@ -611,7 +612,7 @@ Consult these detailed references as needed:
 ### Component References
 
 - [Layout Components](./references/components-layout.md) - Card, ScrollBar, Portal, List
-- [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, Select, Field
+- [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, Select, Combobox, Field
 - [Display Components](./references/components-display.md) - Typography, Avatar, Badge, Icon, Empty, Progress
 - [Interactive Components](./references/components-interactive.md) - Button, Tabs, Menu, Popover, Calendar
 - [Feedback Components](./references/components-feedback.md) - Alert, AlertDialog, Toast

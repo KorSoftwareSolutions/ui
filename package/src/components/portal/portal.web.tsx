@@ -13,6 +13,7 @@ export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: Porta
     if (!container) {
       container = document.createElement("div");
       container.id = hostName;
+      container.style.pointerEvents = "auto";
       document.body.appendChild(container);
     }
     return container;

@@ -39,6 +39,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/checkbox",
   },
   {
+    title: "Combobox",
+    href: "/components/combobox",
+  },
+  {
     title: "Icon",
     href: "/components/icon",
   },

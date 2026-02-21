@@ -10,6 +10,7 @@ This reference covers all input-related components in the Universal UI library, 
 - [Textarea](#textarea)
 - [Checkbox](#checkbox)
 - [Select](#select)
+- [Combobox](#combobox)
 - [Field](#field)
 
 ---
@@ -1444,11 +1445,11 @@ A compound component for creating dropdown select menus with a portal overlay. I
 
 - Selecting a single option from a list
 - Dropdown menus with many options
-- Filterable/searchable selects (combobox pattern)
 - When you need a native-like select experience
 
 **Do not use for**:
 
+- Searchable/filterable selections (use Combobox instead)
 - Multiple selections (use Checkbox list instead)
 - Very few options (2-3, consider Radio buttons)
 - Navigation menus (use Menu component)
@@ -1626,58 +1627,6 @@ function CustomOptionSelect() {
                     <Typography variant="body-sm">{item.description}</Typography>
                   </View>
                 </View>
-              </Select.Option>
-            )}
-          />
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
-  );
-}
-```
-
-#### Combobox (Searchable Select)
-
-```typescript
-import { Select, List, Input } from "@korsolutions/ui";
-import { useState } from "react";
-
-function ComboboxSelect() {
-  const [value, setValue] = useState<string>();
-  const [search, setSearch] = useState("");
-
-  const allOptions = [
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-    { value: "cherry", label: "Cherry" },
-    { value: "date", label: "Date" },
-    { value: "elderberry", label: "Elderberry" },
-  ];
-
-  const filteredOptions = allOptions.filter((opt) =>
-    opt.label.toLowerCase().includes(search.toLowerCase())
-  );
-
-  return (
-    <Select.Root value={value} onChange={setValue}>
-      <Select.Trigger placeholder="Search fruits..." />
-      <Select.Portal>
-        <Select.Overlay />
-        <Select.Content>
-          <Input
-            variant="secondary"
-            value={search}
-            onChange={setSearch}
-            placeholder="Type to filter..."
-            autoFocus
-            style={{ marginBottom: 8 }}
-          />
-          <List
-            data={filteredOptions}
-            keyExtractor={(item) => item.value}
-            renderItem={({ item }) => (
-              <Select.Option value={item.value}>
-                {item.label}
               </Select.Option>
             )}
           />
@@ -1889,6 +1838,328 @@ function DependentSelects() {
 - Supports Escape key to close
 - Overlay click closes dropdown
 - Properly manages focus when opening/closing
+
+---
+
+## Combobox
+
+An autocomplete input with a filterable dropdown list of options. The user types to search/filter, then selects from the matching results. Similar to Select but with a text input trigger instead of a static button.
+
+### When to Use
+
+- Searchable selection from a large list of options
+- Autocomplete/typeahead inputs
+- When users need to filter options by typing
+- When you want a Select-like experience with search built in
+
+**Do not use for**:
+
+- Small lists with 2-5 options (use Select instead)
+- Free-form text (use Input instead)
+- Navigation menus (use Menu instead)
+
+### Sub-Components
+
+- **Combobox.Root** - Container and state manager
+- **Combobox.Trigger** - Text input that opens the dropdown and filters options
+- **Combobox.Portal** - Portal for overlay rendering
+- **Combobox.Overlay** - Background overlay (closes on click)
+- **Combobox.Content** - Container for options list
+- **Combobox.Option** - Individual selectable option (auto-filters based on search)
+- **Combobox.Empty** - Message shown when no options match the search query
+
+### API
+
+#### Combobox.Root
+
+```typescript
+interface ComboboxRootProps {
+  // Value & Change
+  value?: string;
+  onChange?: (value: string) => void;
+
+  // Filtering
+  onSearchChange?: (query: string) => void;  // Called when search text changes
+  filter?: (value: string, query: string) => boolean;  // Custom filter (default: label match). Use () => true for async.
+
+  // Styling
+  variant?: "default";
+  style?: StyleProp<ViewStyle>;
+
+  // State
+  isDisabled?: boolean;
+
+  // Content
+  children?: React.ReactNode;
+}
+```
+
+#### Combobox.Trigger
+
+```typescript
+interface ComboboxTriggerProps {
+  placeholder?: string;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+Contains a TextInput. On focus, opens the dropdown. Typing filters options. When closed, displays the selected value.
+
+#### Combobox.Portal
+
+```typescript
+interface ComboboxPortalProps {
+  children?: React.ReactNode;
+}
+```
+
+Renders children in a portal overlay. Required for proper z-index layering.
+
+#### Combobox.Overlay
+
+```typescript
+interface ComboboxOverlayProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+Background overlay. Clicking closes the combobox.
+
+#### Combobox.Content
+
+```typescript
+interface ComboboxContentProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+Container for options. Positions itself relative to Trigger.
+
+#### Combobox.Option
+
+```typescript
+interface ComboboxOptionProps {
+  value: string;
+  label?: string;
+  children?: React.ReactNode;
+}
+```
+
+Individual option. Automatically filters based on the search query — matches against `label` or `children` (if string). Returns `null` when it doesn't match. Closes combobox when selected. The `label` prop is used for display in the trigger when selected (falls back to `children` if not provided).
+
+#### Combobox.Empty
+
+```typescript
+interface ComboboxEmptyProps {
+  children?: React.ReactNode;
+}
+```
+
+Shown only when no options match the current search query.
+
+#### States
+
+- **default**: Normal state
+- **disabled**: When `isDisabled={true}`
+
+#### Option States
+
+- **default**: Normal option state
+- **hovered**: On pointer hover (web)
+- **selected**: When option value matches Combobox value
+- **disabled**: Inherited from Combobox.Root
+
+### Basic Usage
+
+```typescript
+import { Combobox } from "@korsolutions/ui";
+import { useState } from "react";
+
+function BasicCombobox() {
+  const [value, setValue] = useState("");
+
+  return (
+    <Combobox.Root value={value} onChange={setValue}>
+      <Combobox.Trigger placeholder="Select framework..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.Empty>No results found.</Combobox.Empty>
+          <Combobox.Option value="next">Next.js</Combobox.Option>
+          <Combobox.Option value="remix">Remix</Combobox.Option>
+          <Combobox.Option value="astro">Astro</Combobox.Option>
+          <Combobox.Option value="nuxt">Nuxt</Combobox.Option>
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+### Advanced Usage
+
+#### Disabled State
+
+```typescript
+<Combobox.Root value="" isDisabled>
+  <Combobox.Trigger placeholder="Select framework..." />
+  <Combobox.Portal>
+    <Combobox.Overlay />
+    <Combobox.Content>
+      <Combobox.Option value="next">Next.js</Combobox.Option>
+    </Combobox.Content>
+  </Combobox.Portal>
+</Combobox.Root>
+```
+
+#### With Field Component
+
+```typescript
+import { Field, Combobox } from "@korsolutions/ui";
+import { useState } from "react";
+
+function ComboboxField() {
+  const [framework, setFramework] = useState("");
+
+  return (
+    <Field.Root>
+      <Field.Label>Framework</Field.Label>
+      <Field.Description>Choose your preferred framework</Field.Description>
+      <Combobox.Root value={framework} onChange={setFramework}>
+        <Combobox.Trigger placeholder="Search frameworks..." />
+        <Combobox.Portal>
+          <Combobox.Overlay />
+          <Combobox.Content>
+            <Combobox.Empty>No framework found.</Combobox.Empty>
+            <Combobox.Option value="next">Next.js</Combobox.Option>
+            <Combobox.Option value="remix">Remix</Combobox.Option>
+            <Combobox.Option value="astro">Astro</Combobox.Option>
+          </Combobox.Content>
+        </Combobox.Portal>
+      </Combobox.Root>
+    </Field.Root>
+  );
+}
+```
+
+#### Dynamic Options
+
+```typescript
+import { Combobox } from "@korsolutions/ui";
+import { useState } from "react";
+
+function DynamicCombobox() {
+  const [value, setValue] = useState("");
+
+  const frameworks = [
+    { value: "next", label: "Next.js" },
+    { value: "remix", label: "Remix" },
+    { value: "astro", label: "Astro" },
+    { value: "nuxt", label: "Nuxt" },
+    { value: "svelte", label: "SvelteKit" },
+  ];
+
+  return (
+    <Combobox.Root value={value} onChange={setValue}>
+      <Combobox.Trigger placeholder="Select framework..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.Empty>No framework found.</Combobox.Empty>
+          {frameworks.map((fw) => (
+            <Combobox.Option key={fw.value} value={fw.value}>
+              {fw.label}
+            </Combobox.Option>
+          ))}
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+#### Async / Remote Search
+
+Use `onSearchChange` and `filter={() => true}` to fetch results from an API:
+
+```typescript
+import { Combobox, Typography } from "@korsolutions/ui";
+import { useState, useEffect } from "react";
+
+function AsyncCombobox() {
+  const [value, setValue] = useState("");
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<{ value: string; label: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!query) {
+      setResults([]);
+      return;
+    }
+
+    setIsLoading(true);
+    const controller = new AbortController();
+
+    fetch(`/api/search?q=${encodeURIComponent(query)}`, {
+      signal: controller.signal,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setResults(data.results);
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false));
+
+    return () => controller.abort();
+  }, [query]);
+
+  return (
+    <Combobox.Root
+      value={value}
+      onChange={setValue}
+      onSearchChange={setQuery}
+      filter={() => true}
+    >
+      <Combobox.Trigger placeholder="Search..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          {isLoading ? (
+            <Typography style={{ padding: 12, textAlign: "center" }}>
+              Loading...
+            </Typography>
+          ) : (
+            <>
+              <Combobox.Empty>No results found.</Combobox.Empty>
+              {results.map((item) => (
+                <Combobox.Option key={item.value} value={item.value}>
+                  {item.label}
+                </Combobox.Option>
+              ))}
+            </>
+          )}
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+**Key points:**
+- `filter={() => true}` disables built-in filtering — you control which options appear
+- `onSearchChange` fires whenever the input text changes — use it to trigger your fetch
+- `Combobox.Empty` shows when no options pass the filter
+
+### Accessibility
+
+- Trigger uses native TextInput for full keyboard support
+- Options are keyboard navigable
+- Screen readers announce selected value
+- Overlay click closes dropdown
+- Disabled state properly announced to screen readers
 
 ---
 

@@ -1,7 +1,13 @@
 import { useTheme } from "@korsolutions/ui";
 import { Href } from "expo-router";
 import React, { createContext, useContext, useRef } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "./screen-header";
 
@@ -11,7 +17,11 @@ interface Props {
   backHref?: Href;
 }
 
-export function ComponentScreenLayout({ title, children, backHref = "/" }: Props) {
+export function ComponentScreenLayout({
+  title,
+  children,
+  backHref = "/",
+}: Props) {
   const theme = useTheme();
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -24,7 +34,10 @@ export function ComponentScreenLayout({ title, children, backHref = "/" }: Props
       <SafeAreaView edges={["top", "bottom"]} style={s.container}>
         <ScreenHeader title={title} backHref={backHref} />
         <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
-        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={s.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={s.container}
+        >
           <ScrollView
             ref={scrollViewRef}
             keyboardShouldPersistTaps="handled"
