@@ -535,7 +535,7 @@ import { UIProvider } from "@korsolutions/ui";
 
 ```tsx
 // Component prop types
-import type { ButtonRootProps } from "@korsolutions/ui";
+import type { ButtonProps } from "@korsolutions/ui";
 import type { InputProps } from "@korsolutions/ui";
 
 // Theme types
