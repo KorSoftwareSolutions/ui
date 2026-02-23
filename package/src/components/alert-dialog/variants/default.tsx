@@ -13,6 +13,7 @@ export const useAlertDialogVariantDefault = (): AlertDialogStyles => {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 999,
       },
       content: {
         backgroundColor: colors.background,
@@ -31,6 +32,7 @@ export const useAlertDialogVariantDefault = (): AlertDialogStyles => {
         transform: [{ translateX: "-50%" }, { translateY: "-50%" }],
         borderWidth: 1,
         borderColor: colors.border,
+        zIndex: 1000,
       },
       title: {
         fontSize: fontSize * 1.25,

@@ -12,9 +12,12 @@ export function AlertDialogPortal(props: AlertDialogPortalProps) {
   if (!alertDialog.isOpen) {
     return null;
   }
+
   return (
     <Portal name="alert-dialog-content">
-      <AlertDialogContext.Provider value={alertDialog}>{props.children}</AlertDialogContext.Provider>
+      <AlertDialogContext.Provider value={alertDialog}>
+        {props.children}
+      </AlertDialogContext.Provider>
     </Portal>
   );
 }

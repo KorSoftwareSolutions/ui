@@ -32,7 +32,9 @@ interface AsyncAlertDialogInstance {
 // Global state
 const dialogQueue: AsyncAlertDialogInstance[] = [];
 let currentDialog: AsyncAlertDialogInstance | null = null;
-let setCurrentDialogFn: ((dialog: AsyncAlertDialogInstance | null) => void) | null = null;
+let setCurrentDialogFn:
+  | ((dialog: AsyncAlertDialogInstance | null) => void)
+  | null = null;
 
 // Process next dialog in queue
 function processQueue() {
@@ -55,8 +57,17 @@ function closeDialog(confirmed: boolean) {
 }
 
 // Inner component that has access to the dialog context
-function AsyncAlertDialogContent({ instance }: { instance: AsyncAlertDialogInstance }) {
-  const { title, description, actionLabel = "Continue", cancelLabel = "Cancel" } = instance.props;
+function AsyncAlertDialogContent({
+  instance,
+}: {
+  instance: AsyncAlertDialogInstance;
+}) {
+  const {
+    title,
+    description,
+    actionLabel = "Continue",
+    cancelLabel = "Cancel",
+  } = instance.props;
   const { setIsOpen } = useAlertDialog();
 
   const handleAction = () => closeDialog(true);
@@ -74,8 +85,12 @@ function AsyncAlertDialogContent({ instance }: { instance: AsyncAlertDialogInsta
         <AlertDialogTitle>{title}</AlertDialogTitle>
         <AlertDialogDescription>{description}</AlertDialogDescription>
         <AlertDialogFooter>
-          <AlertDialogCancel onPress={handleCancel}>{cancelLabel}</AlertDialogCancel>
-          <AlertDialogAction onPress={handleAction}>{actionLabel}</AlertDialogAction>
+          <AlertDialogCancel onPress={handleCancel}>
+            {cancelLabel}
+          </AlertDialogCancel>
+          <AlertDialogAction onPress={handleAction}>
+            {actionLabel}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialogPortal>
@@ -83,7 +98,11 @@ function AsyncAlertDialogContent({ instance }: { instance: AsyncAlertDialogInsta
 }
 
 // Component that renders a single dialog instance
-function AsyncAlertDialogInstance({ instance }: { instance: AsyncAlertDialogInstance }) {
+function AsyncAlertDialogInstance({
+  instance,
+}: {
+  instance: AsyncAlertDialogInstance;
+}) {
   return (
     <AlertDialogRoot {...instance.props}>
       <AsyncAlertDialogContent instance={instance} />
