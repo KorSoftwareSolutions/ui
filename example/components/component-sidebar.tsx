@@ -1,5 +1,5 @@
 import { COMPONENTS } from "@/constants/components";
-import { ScrollBar, Typography, useTheme } from "@korsolutions/ui";
+import { Typography, useTheme } from "@korsolutions/ui";
 import { Href, Link } from "expo-router";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -10,7 +10,9 @@ interface ComponentSidebarProps {
 
 export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
   const theme = useTheme();
-  const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
+  const sortedComponents = [...COMPONENTS].sort((a, b) =>
+    a.title.localeCompare(b.title),
+  );
 
   return (
     <View
@@ -25,10 +27,14 @@ export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
       <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
         <Typography variant="heading-md">Components</Typography>
       </View>
-      <ScrollBar />
       <ScrollView style={styles.list}>
         {sortedComponents.map((component) => (
-          <SidebarItem key={String(component.href)} title={component.title} href={component.href} isActive={currentPath === String(component.href)} />
+          <SidebarItem
+            key={String(component.href)}
+            title={component.title}
+            href={component.href}
+            isActive={currentPath === String(component.href)}
+          />
         ))}
       </ScrollView>
     </View>
@@ -45,9 +51,19 @@ function SidebarItem({ title, href, isActive }: SidebarItemProps) {
   const theme = useTheme();
 
   return (
-    <Link href={href} asChild style={[styles.item, isActive && { backgroundColor: theme.colors.muted }]}>
+    <Link
+      href={href}
+      asChild
+      style={[styles.item, isActive && { backgroundColor: theme.colors.muted }]}
+    >
       <Pressable>
-        <Typography style={{ color: isActive ? theme.colors.primary : theme.colors.foreground }}>{title}</Typography>
+        <Typography
+          style={{
+            color: isActive ? theme.colors.primary : theme.colors.foreground,
+          }}
+        >
+          {title}
+        </Typography>
       </Pressable>
     </Link>
   );

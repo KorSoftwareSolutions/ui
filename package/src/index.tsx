@@ -1,3 +1,4 @@
+import { ScrollBar } from "./components";
 import { AsyncAlertDialogManager } from "./components/alert-dialog/async-alert-dialog";
 import { PortalHost } from "./components/portal";
 import { type PortalHostProps } from "./components/portal/portal.constants";
@@ -31,6 +32,7 @@ export const UIProvider = ({
   return (
     <SafeAreaProvider insets={safeAreaInsets}>
       <ThemeProvider theme={theme} components={components}>
+        <ScrollBar />
         <ToastContainer />
         {children}
         <PortalHost container={portalContainer} />
