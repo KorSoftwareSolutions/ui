@@ -91,9 +91,6 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
         disabled: {
           opacity: 0.3,
         },
-        deprioritized: {
-          backgroundColor: "transparent",
-        },
         hovered: {
           backgroundColor: colors.muted,
         },
@@ -116,10 +113,6 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
         },
         disabled: {
           color: colors.mutedForeground,
-        },
-        deprioritized: {
-          color: colors.mutedForeground,
-          opacity: 0.5,
         },
       },
     }),

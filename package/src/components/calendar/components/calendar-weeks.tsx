@@ -20,6 +20,9 @@ function CalendarWeek(props: CalendarWeekProps) {
   return (
     <View {...viewProps} style={composedStyle}>
       {days.map((day, index) => {
+        if (!day) {
+          return <View key={index} style={styles?.dayButton?.default} />;
+        }
         return <CalendarDay key={index} date={day} />;
       })}
     </View>

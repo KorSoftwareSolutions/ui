@@ -6,7 +6,7 @@ import type { CalendarTitleProps } from "./components/calendar-title";
 import type { CalendarWeekLabelProps, CalendarWeekLabelsProps } from "./components/calendar-week-labels";
 import type { CalendarWeekProps, CalendarWeeksProps } from "./components/calendar-weeks";
 
-export type CalendarDayState = "default" | "selected" | "today" | "disabled" | "deprioritized" | "hovered";
+export type CalendarDayState = "default" | "selected" | "today" | "disabled" | "hovered";
 export type CalendarNavButtonState = "default" | "disabled" | "hovered";
 
 export interface CalendarStyles {

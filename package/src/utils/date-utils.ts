@@ -70,35 +70,23 @@ export const isSameMonth = (date1: Date, date2: Date): boolean => {
   return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth();
 };
 
-export const getWeekDays = (month: number, year: number, week: number): Date[] => {
-  const days: Date[] = [];
+export const getWeekDays = (month: number, year: number, week: number): (Date | null)[] => {
+  const days: (Date | null)[] = [];
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const daysInMonth = getDaysInMonth(new Date(year, month));
 
-  // Calculate the date of the first day in the week
-  const startDay = week * 7 - (firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1);
+  // Calculate the date of the first day in the week (Sunday-start)
+  const startDay = week * 7 - firstDayOfMonth + 1;
 
   for (let i = 0; i < 7; i++) {
     const day = startDay + i;
-    let date: Date;
 
-    if (day < 1) {
-      // Days from previous month
-      const prevMonth = month === 0 ? 11 : month - 1;
-      const prevYear = month === 0 ? year - 1 : year;
-      const daysInPrevMonth = getDaysInMonth(new Date(prevYear, prevMonth));
-      date = new Date(prevYear, prevMonth, daysInPrevMonth + day);
-    } else if (day > daysInMonth) {
-      // Days from next month
-      const nextMonth = month === 11 ? 0 : month + 1;
-      const nextYear = month === 11 ? year + 1 : year;
-      date = new Date(nextYear, nextMonth, day - daysInMonth);
+    if (day < 1 || day > daysInMonth) {
+      // Outside current month — empty cell
+      days.push(null);
     } else {
-      // Days from current month
-      date = new Date(year, month, day);
+      days.push(new Date(year, month, day));
     }
-
-    days.push(date);
   }
 
   return days;
