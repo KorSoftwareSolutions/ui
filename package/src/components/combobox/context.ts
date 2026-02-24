@@ -1,7 +1,7 @@
 import { createContext, type Dispatch, useContext } from "react";
 import type { LayoutRectangle } from "react-native";
 import type { LayoutPosition } from "../../hooks";
-import type { ComboboxOption, ComboboxState, ComboboxStyles } from "./types";
+import type { ComboboxState, ComboboxStyles } from "./types";
 
 export interface ComboboxContext {
   value?: string;
@@ -13,13 +13,9 @@ export interface ComboboxContext {
   setTriggerPosition: Dispatch<React.SetStateAction<LayoutPosition>>;
   contentLayout: LayoutRectangle;
   setContentLayout: Dispatch<React.SetStateAction<LayoutRectangle>>;
-  options: Array<ComboboxOption>;
-  setOptions: Dispatch<React.SetStateAction<Array<ComboboxOption>>>;
 
-  searchQuery: string;
-  setSearchQuery: Dispatch<React.SetStateAction<string>>;
-
-  filter: (value: string, query: string) => boolean;
+  inputValue: string;
+  setInputValue: Dispatch<React.SetStateAction<string>>;
 
   isDisabled: boolean;
 

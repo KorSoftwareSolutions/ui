@@ -15,9 +15,3 @@ export interface ComboboxStyles {
   option?: Partial<Record<ComboboxOptionState, TextStyle>>;
   empty?: Partial<Record<ComboboxState, TextStyle>>;
 }
-
-export interface ComboboxOption {
-  value: string;
-  label: React.ReactNode;
-  keywords?: string[];
-}

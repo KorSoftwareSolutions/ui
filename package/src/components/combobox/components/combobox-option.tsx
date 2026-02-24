@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import { useCombobox } from "../context";
 import type { ComboboxOptionState, ComboboxState } from "../types";
@@ -26,9 +26,7 @@ const calculateState = (
   return "default";
 };
 
-export function ComboboxOption(
-  props: ComboboxOptionProps,
-): React.ReactElement | null {
+export function ComboboxOption(props: ComboboxOptionProps) {
   const [isHovered, setIsHovered] = useState(false);
   const combobox = useCombobox();
   const isSelected = combobox.value === props.value;
@@ -39,33 +37,16 @@ export function ComboboxOption(
     combobox.styles?.option?.[optionState],
   ]);
 
-  useEffect(() => {
-    combobox.setOptions((prev) => {
-      if (prev.find((option) => option.value === props.value)) {
-        return prev;
-      }
-      return [
-        ...prev,
-        {
-          value: props.value,
-          label: props.label ?? props.children,
-        },
-      ];
-    });
-  }, [props.value, props.label, props.children]);
-
-  if (!combobox.filter(props.value, combobox.searchQuery)) {
-    return null;
-  }
-
   const Component = typeof props.children === "string" ? Text : Pressable;
 
   return (
     <Component
       onPress={() => {
-        combobox.onChange?.(props.value);
+        const label =
+          props.label ??
+          (typeof props.children === "string" ? props.children : props.value);
+        combobox.onChange?.(label);
         combobox.setIsOpen(false);
-        combobox.setSearchQuery("");
       }}
       onPointerEnter={() => {
         setIsHovered(true);

@@ -24,21 +24,14 @@ export function ComboboxTrigger(props: ComboboxTriggerProps) {
   const triggerRef = useRef<TextInputRef>(null);
 
   const triggerState = calculateState(combobox.isDisabled, combobox.isOpen);
-  const selectedOption = combobox.options.find(
-    (option) => option.value === combobox.value,
-  );
 
   const displayValue = combobox.isOpen
-    ? combobox.searchQuery
-    : selectedOption
-      ? typeof selectedOption.label === "string"
-        ? selectedOption.label
-        : selectedOption.value
-      : "";
+    ? combobox.inputValue
+    : combobox.value ?? "";
 
   const open = () => {
     if (combobox.isDisabled) return;
-    combobox.setSearchQuery("");
+    combobox.setInputValue(combobox.value ?? "");
     requestAnimationFrame(() => {
       measureLayoutPosition(triggerRef.current, (layout) => {
         combobox.setTriggerPosition(layout);
@@ -82,7 +75,7 @@ export function ComboboxTrigger(props: ComboboxTriggerProps) {
       onChange={undefined}
       onChangeText={(text) => {
         if (combobox.isDisabled) return;
-        combobox.setSearchQuery(text);
+        combobox.setInputValue(text);
         if (!combobox.isOpen) {
           open();
         }

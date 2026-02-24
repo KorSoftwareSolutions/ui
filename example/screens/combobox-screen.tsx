@@ -1,9 +1,9 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
 import { Button, Combobox, List, Typography, useTheme } from "@korsolutions/ui";
-import { Globe, Monitor, Smartphone, Tv } from "lucide-react-native";
 import { router, usePathname } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { Globe, Monitor, Smartphone, Tv } from "lucide-react-native";
+import React, { useEffect, useMemo, useState } from "react";
 import { View } from "react-native";
 
 const frameworks = [
@@ -91,16 +91,26 @@ const platforms = [
   },
 ];
 
+function filterByLabel(
+  items: { value: string; label: string }[],
+  query: string,
+) {
+  if (!query) return items;
+  const lower = query.toLowerCase();
+  return items.filter((item) => item.label.toLowerCase().includes(lower));
+}
+
 export function ComboboxComponentScreen() {
-  const { colors } = useTheme();
   const pathname = usePathname();
   const isModalScreen = pathname?.endsWith("/modal");
 
   const [value, setValue] = useState("");
-  const [value2, setValue2] = useState("");
-  const [platformValue, setPlatformValue] = useState("");
-  const [asyncValue, setAsyncValue] = useState("");
-  const { setQuery, results, isLoading } = useAsyncSearch();
+  const [search, setSearch] = useState("");
+
+  const filteredFrameworks = useMemo(
+    () => filterByLabel(frameworks, search),
+    [search],
+  );
 
   return (
     <ComponentScreenLayout
@@ -108,17 +118,27 @@ export function ComboboxComponentScreen() {
       backHref={isModalScreen ? "/components/combobox" : undefined}
     >
       <UseCaseSection title="Default">
-        <Combobox.Root value={value} onChange={setValue}>
+        <Combobox.Root
+          value={value}
+          onChange={setValue}
+          onInputChange={setSearch}
+        >
           <Combobox.Trigger placeholder="Select framework..." />
           <Combobox.Portal>
             <Combobox.Overlay />
             <Combobox.Content>
-              <Combobox.Empty>No framework found.</Combobox.Empty>
-              {frameworks.map((fw) => (
-                <Combobox.Option key={fw.value} value={fw.value}>
-                  {fw.label}
-                </Combobox.Option>
-              ))}
+              <List
+                data={filteredFrameworks}
+                keyExtractor={(item) => item.value}
+                renderItem={({ item: fw }) => (
+                  <Combobox.Option key={fw.value} value={fw.value}>
+                    {fw.label}
+                  </Combobox.Option>
+                )}
+                renderEmpty={() => (
+                  <Combobox.Empty>No framework found.</Combobox.Empty>
+                )}
+              />
             </Combobox.Content>
           </Combobox.Portal>
         </Combobox.Root>
@@ -140,94 +160,12 @@ export function ComboboxComponentScreen() {
         </Combobox.Root>
       </UseCaseSection>
 
-      <UseCaseSection title="With Keywords">
-        <Combobox.Root value={value2} onChange={setValue2}>
-          <Combobox.Trigger placeholder="Search languages..." />
-          <Combobox.Portal>
-            <Combobox.Overlay />
-            <Combobox.Content>
-              <Combobox.Empty>No language found.</Combobox.Empty>
-              <Combobox.Option value="ts">TypeScript</Combobox.Option>
-              <Combobox.Option value="py">Python</Combobox.Option>
-              <Combobox.Option value="rs">Rust</Combobox.Option>
-              <Combobox.Option value="go">Go</Combobox.Option>
-            </Combobox.Content>
-          </Combobox.Portal>
-        </Combobox.Root>
-      </UseCaseSection>
-
       <UseCaseSection title="Custom Items">
-        <Combobox.Root value={platformValue} onChange={setPlatformValue}>
-          <Combobox.Trigger placeholder="Select platform..." />
-          <Combobox.Portal>
-            <Combobox.Overlay />
-            <Combobox.Content>
-              <Combobox.Empty>No platform found.</Combobox.Empty>
-              {platforms.map((platform) => (
-                <Combobox.Option
-                  key={platform.value}
-                  value={platform.value}
-                  label={platform.label}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 12,
-                      paddingVertical: 12,
-                      paddingHorizontal: 16,
-                    }}
-                  >
-                    <platform.icon size={20} color={colors.foreground} />
-                    <View>
-                      <Typography variant="body-md">
-                        {platform.label}
-                      </Typography>
-                      <Typography
-                        variant="body-sm"
-                        style={{ color: colors.mutedForeground }}
-                      >
-                        {platform.description}
-                      </Typography>
-                    </View>
-                  </View>
-                </Combobox.Option>
-              ))}
-            </Combobox.Content>
-          </Combobox.Portal>
-        </Combobox.Root>
+        <CustomItemsExample />
       </UseCaseSection>
 
       <UseCaseSection title="Async Search">
-        <Combobox.Root
-          value={asyncValue}
-          onChange={setAsyncValue}
-          onSearchChange={setQuery}
-          filter={() => true}
-        >
-          <Combobox.Trigger placeholder="Search cities..." />
-          <Combobox.Portal>
-            <Combobox.Overlay />
-            <Combobox.Content>
-              {isLoading ? (
-                <Combobox.Empty>Loading...</Combobox.Empty>
-              ) : (
-                <List
-                  data={results}
-                  keyExtractor={(item) => item}
-                  renderItem={({ item }) => (
-                    <Combobox.Option key={item} value={item}>
-                      {item}
-                    </Combobox.Option>
-                  )}
-                  renderEmpty={() => (
-                    <Combobox.Empty>No cities found.</Combobox.Empty>
-                  )}
-                />
-              )}
-            </Combobox.Content>
-          </Combobox.Portal>
-        </Combobox.Root>
+        <AsyncSearchExample />
       </UseCaseSection>
 
       {!isModalScreen && (
@@ -243,3 +181,103 @@ export function ComboboxComponentScreen() {
     </ComponentScreenLayout>
   );
 }
+const CustomItemsExample = () => {
+  const { colors } = useTheme();
+  const [platformValue, setPlatformValue] = useState("");
+  const [platformSearch, setPlatformSearch] = useState("");
+
+  const filteredPlatforms = useMemo(
+    () =>
+      filterByLabel(
+        platforms.map((p) => ({ value: p.value, label: p.label })),
+        platformSearch,
+      ).map(
+        (item) => platforms.find((p) => p.value === item.value)!,
+      ) as typeof platforms,
+    [platformSearch],
+  );
+
+  return (
+    <Combobox.Root
+      value={platformValue}
+      onChange={setPlatformValue}
+      onInputChange={setPlatformSearch}
+    >
+      <Combobox.Trigger placeholder="Select platform..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <List
+            data={filteredPlatforms}
+            keyExtractor={(item) => item.value}
+            renderItem={({ item: platform }) => (
+              <Combobox.Option
+                key={platform.value}
+                value={platform.value}
+                label={platform.label}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 12,
+                    paddingVertical: 12,
+                    paddingHorizontal: 16,
+                  }}
+                >
+                  <platform.icon size={20} color={colors.foreground} />
+                  <View>
+                    <Typography variant="body-md">{platform.label}</Typography>
+                    <Typography
+                      variant="body-sm"
+                      style={{ color: colors.mutedForeground }}
+                    >
+                      {platform.description}
+                    </Typography>
+                  </View>
+                </View>
+              </Combobox.Option>
+            )}
+            renderEmpty={() => (
+              <Combobox.Empty>No platform found.</Combobox.Empty>
+            )}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+};
+
+const AsyncSearchExample = () => {
+  const [asyncValue, setAsyncValue] = useState("");
+  const { setQuery, results, isLoading } = useAsyncSearch();
+
+  return (
+    <Combobox.Root
+      value={asyncValue}
+      onChange={setAsyncValue}
+      onInputChange={setQuery}
+    >
+      <Combobox.Trigger placeholder="Search cities..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <List
+            data={results}
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <Combobox.Option key={item} value={item}>
+                {item}
+              </Combobox.Option>
+            )}
+            renderEmpty={() => (
+              <Combobox.Empty>
+                {isLoading ? "Loading..." : "No city found."}
+              </Combobox.Empty>
+            )}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+};

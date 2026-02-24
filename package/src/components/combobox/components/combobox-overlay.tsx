@@ -24,8 +24,8 @@ export function ComboboxOverlay(props: ComboboxOverlayProps) {
   return (
     <Pressable
       onPress={() => {
+        combobox.onChange?.(combobox.inputValue);
         combobox.setIsOpen(false);
-        combobox.setSearchQuery("");
       }}
       pointerEvents="auto"
       style={[StyleSheet.absoluteFill, composedStyles]}

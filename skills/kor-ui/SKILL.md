@@ -110,7 +110,7 @@ function SubmitButton() {
 | **Textarea**     | Multi-line text input                                | default  | [Input Components](./references/components-inputs.md#textarea)     |
 | **Checkbox**     | Toggle selection with label                          | default  | [Input Components](./references/components-inputs.md#checkbox)     |
 | **Select**       | Dropdown selection from a list of options             | default  | [Input Components](./references/components-inputs.md#select)       |
-| **Combobox**     | Autocomplete input with filterable dropdown          | default  | [Input Components](./references/components-inputs.md#combobox)     |
+| **Combobox**     | Autocomplete input with dropdown (consumer-side filtering) | default  | [Input Components](./references/components-inputs.md#combobox)     |
 | **Field**        | Form field wrapper with label and validation         | -        | [Input Components](./references/components-inputs.md#field)        |
 
 ### Display Components
