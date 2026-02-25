@@ -28,7 +28,9 @@ export function MenuOverlay(props: MenuOverlayProps) {
   return (
     <Component
       onPress={() => {
-        menu.setIsOpen(false);
+        requestAnimationFrame(() => {
+          menu.setIsOpen(false);
+        });
       }}
       style={composedStyle}
     >

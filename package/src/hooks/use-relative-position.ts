@@ -46,7 +46,6 @@ export function useRelativePosition({
         position: "absolute",
         opacity: 0,
         top: dimensions.height,
-        zIndex: -9999999,
       };
     }
 

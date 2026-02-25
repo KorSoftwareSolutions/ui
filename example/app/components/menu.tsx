@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button, Icon, Menu } from "@korsolutions/ui";
+import { Button, Icon, Menu, Separator } from "@korsolutions/ui";
 import {
   BookmarkIcon,
   Copy,
@@ -42,7 +42,7 @@ export default function MenuComponentScreen() {
                 <Icon render={Download} />
                 Download
               </Menu.Item>
-              <Menu.Separator />
+              <Separator />
               <Menu.Item onPress={() => alert("Delete clicked")}>
                 <Icon render={Trash2} />
                 Delete
@@ -61,24 +61,20 @@ export default function MenuComponentScreen() {
             <Menu.Overlay />
             <Menu.Content>
               <Menu.Label>My Account</Menu.Label>
-              <Menu.Separator />
-              <Menu.Group>
-                <Menu.Item onPress={() => {}}>
-                  <Icon render={User} />
-                  Profile
-                </Menu.Item>
-                <Menu.Item onPress={() => {}}>
-                  <Icon render={Settings} />
-                  Settings
-                </Menu.Item>
-              </Menu.Group>
-              <Menu.Separator />
-              <Menu.Group>
-                <Menu.Item onPress={() => {}}>
-                  <Icon render={LogOut} />
-                  Log out
-                </Menu.Item>
-              </Menu.Group>
+              <Separator />
+              <Menu.Item onPress={() => {}}>
+                <Icon render={User} />
+                Profile
+              </Menu.Item>
+              <Menu.Item onPress={() => {}}>
+                <Icon render={Settings} />
+                Settings
+              </Menu.Item>
+              <Separator />
+              <Menu.Item onPress={() => {}}>
+                <Icon render={LogOut} />
+                Log out
+              </Menu.Item>
             </Menu.Content>
           </Menu.Portal>
         </Menu.Root>
@@ -93,17 +89,17 @@ export default function MenuComponentScreen() {
             <Menu.Overlay />
             <Menu.Content>
               <Menu.Label>Appearance</Menu.Label>
-              <Menu.Separator />
+              <Separator />
               <Menu.CheckboxItem
-                checked={showBookmarks}
-                onCheckedChange={setShowBookmarks}
+                value={showBookmarks}
+                onChange={setShowBookmarks}
               >
                 <Icon render={BookmarkIcon} />
                 Show Bookmarks
               </Menu.CheckboxItem>
               <Menu.CheckboxItem
-                checked={showFullUrls}
-                onCheckedChange={setShowFullUrls}
+                value={showFullUrls}
+                onChange={setShowFullUrls}
               >
                 <Icon render={LinkIcon} />
                 Show Full URLs
@@ -122,8 +118,8 @@ export default function MenuComponentScreen() {
             <Menu.Overlay />
             <Menu.Content>
               <Menu.Label>People</Menu.Label>
-              <Menu.Separator />
-              <Menu.RadioGroup value={person} onValueChange={setPerson}>
+              <Separator />
+              <Menu.RadioGroup value={person} onChange={setPerson}>
                 <Menu.RadioItem value="pedro">Pedro</Menu.RadioItem>
                 <Menu.RadioItem value="colm">Colm</Menu.RadioItem>
                 <Menu.RadioItem value="pedro-pascal">
