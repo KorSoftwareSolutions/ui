@@ -67,6 +67,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/separator",
   },
   {
+    title: "Spinner",
+    href: "/components/spinner",
+  },
+  {
     title: "Field",
     href: "/components/field",
   },

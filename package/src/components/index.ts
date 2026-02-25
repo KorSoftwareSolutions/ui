@@ -22,6 +22,7 @@ export * from "./progress";
 export * from "./scroll-bar";
 export * from "./select";
 export * from "./separator";
+export * from "./spinner";
 export * from "./tabs";
 export * from "./textarea";
 export * from "./toast";
