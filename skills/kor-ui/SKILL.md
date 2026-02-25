@@ -1,6 +1,6 @@
 ---
 name: kor-ui
-description: Complete guide for using the Kor UI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with Universal UI, customizing themes, setting up the library, working with any of the 26+ components (Button, IconButton, Input, Select, Alert, Card, Separator, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "Universal UI", "UIProvider", or asks about unstyled primitives, theme customization, or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
+description: Complete guide for using the Kor UI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with Universal UI, customizing themes, setting up the library, working with any of the 27+ components (Button, IconButton, Input, Select, Checkbox, RadioGroup, Alert, Card, Separator, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "Universal UI", "UIProvider", or asks about unstyled primitives, theme customization, or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
 ---
 
 # Universal UI Library
@@ -107,7 +107,8 @@ function SubmitButton() {
 | **NumericInput** | Formatted numeric input (currency, percentage, etc.) | default  | [Input Components](./references/components-inputs.md#numericinput) |
 | **PhoneInput**   | Phone number input with country selector (E.164)     | default  | [Input Components](./references/components-inputs.md#phoneinput)   |
 | **Textarea**     | Multi-line text input                                | default  | [Input Components](./references/components-inputs.md#textarea)     |
-| **Checkbox**     | Toggle selection with label                          | default  | [Input Components](./references/components-inputs.md#checkbox)     |
+| **Checkbox**     | Toggle selection with label                          | default, outlined  | [Input Components](./references/components-inputs.md#checkbox)     |
+| **RadioGroup**   | Single selection from a group of options             | default, outlined  | [Input Components](./references/components-inputs.md#radiogroup)   |
 | **Select**       | Dropdown selection from a list of options             | default  | [Input Components](./references/components-inputs.md#select)       |
 | **Combobox**     | Autocomplete input with dropdown (consumer-side filtering) | default  | [Input Components](./references/components-inputs.md#combobox)     |
 | **Field**        | Form field wrapper with label and validation         | -        | [Input Components](./references/components-inputs.md#field)        |
@@ -613,7 +614,7 @@ Consult these detailed references as needed:
 ### Component References
 
 - [Layout Components](./references/components-layout.md) - Card, Separator, Portal, List
-- [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, Select, Combobox, Field
+- [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, RadioGroup, Select, Combobox, Field
 - [Display Components](./references/components-display.md) - Typography, Avatar, Badge, Icon, Empty, Progress
 - [Interactive Components](./references/components-interactive.md) - Button, Tabs, Menu, Popover, Calendar
 - [Feedback Components](./references/components-feedback.md) - Alert, AlertDialog, Toast

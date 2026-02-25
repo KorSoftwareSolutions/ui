@@ -99,6 +99,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/progress",
   },
   {
+    title: "Radio Group",
+    href: "/components/radio-group",
+  },
+  {
     title: "Tabs",
     href: "/components/tabs",
   },

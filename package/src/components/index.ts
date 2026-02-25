@@ -19,6 +19,7 @@ export * from "./phone-input";
 export * from "./popover";
 export * from "./portal";
 export * from "./progress";
+export * from "./radio-group";
 export * from "./scroll-bar";
 export * from "./select";
 export * from "./separator";

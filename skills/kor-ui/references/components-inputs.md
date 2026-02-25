@@ -9,6 +9,7 @@ This reference covers all input-related components in the Universal UI library, 
 - [PhoneInput](#phoneinput)
 - [Textarea](#textarea)
 - [Checkbox](#checkbox)
+- [RadioGroup](#radiogroup)
 - [Select](#select)
 - [Combobox](#combobox)
 - [Field](#field)
@@ -2160,6 +2161,172 @@ function AsyncCombobox() {
 - Screen readers announce selected value
 - Overlay click closes dropdown
 - Disabled state properly announced to screen readers
+
+---
+
+## RadioGroup
+
+A compound component for single-selection from a group of options. Supports per-item disabled states, title, description, and two variants.
+
+### When to Use
+
+- Mutually exclusive choices (billing period, shipping method, plan tier)
+- Settings where only one option can be active at a time
+- Preference selections with optional descriptions
+
+**Do not use for**:
+
+- Multiple simultaneous selections (use Checkbox instead)
+- Long lists of options (use Select instead)
+
+### Sub-Components
+
+| Sub-Component              | Description                                          |
+| -------------------------- | ---------------------------------------------------- |
+| `RadioGroup.Root`          | Container; holds group value, onChange, and variant  |
+| `RadioGroup.Item`          | Pressable option row; provides item-level context    |
+| `RadioGroup.Indicator`     | Circular radio button with dot when selected         |
+| `RadioGroup.Content`       | Flex wrapper for title and description               |
+| `RadioGroup.Title`         | Primary label text                                   |
+| `RadioGroup.Description`   | Secondary helper text                                |
+
+### API
+
+#### `RadioGroup.Root` Props
+
+```typescript
+interface RadioGroupRootProps {
+  value?: string;               // Controlled selected value
+  onChange: (value: string) => void; // Called when selection changes
+  isDisabled?: boolean;         // Disables entire group
+  variant?: "default" | "outlined";
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+#### `RadioGroup.Item` Props
+
+```typescript
+interface RadioGroupItemProps {
+  value: string;                // The value this item represents
+  isDisabled?: boolean;         // Disables this item only
+  children: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+#### `RadioGroup.Indicator` Props
+
+```typescript
+interface RadioGroupIndicatorProps {
+  style?: StyleProp<ViewStyle>;     // Outer circle style override
+  dotStyle?: StyleProp<ViewStyle>;  // Inner dot style override
+}
+```
+
+#### `RadioGroup.Content`, `RadioGroup.Title`, `RadioGroup.Description`
+
+Standard `ViewProps` / `TextProps` with `style` override.
+
+### Variants
+
+| Variant    | Description                                          |
+| ---------- | ---------------------------------------------------- |
+| `default`  | Plain rows, no border                                |
+| `outlined` | Each item is a bordered card; hover and selected states add a primary border |
+
+### Basic Usage
+
+```tsx
+import { RadioGroup } from "@korsolutions/ui";
+import { useState } from "react";
+
+function PlanSelector() {
+  const [plan, setPlan] = useState("monthly");
+
+  return (
+    <RadioGroup.Root value={plan} onChange={setPlan}>
+      <RadioGroup.Item value="monthly">
+        <RadioGroup.Indicator />
+        <RadioGroup.Content>
+          <RadioGroup.Title>Monthly billing</RadioGroup.Title>
+          <RadioGroup.Description>Pay month-to-month, cancel anytime</RadioGroup.Description>
+        </RadioGroup.Content>
+      </RadioGroup.Item>
+      <RadioGroup.Item value="annual">
+        <RadioGroup.Indicator />
+        <RadioGroup.Content>
+          <RadioGroup.Title>Annual billing</RadioGroup.Title>
+          <RadioGroup.Description>Save 20% with a yearly subscription</RadioGroup.Description>
+        </RadioGroup.Content>
+      </RadioGroup.Item>
+    </RadioGroup.Root>
+  );
+}
+```
+
+### Outlined Variant
+
+```tsx
+<RadioGroup.Root value={value} onChange={setValue} variant="outlined">
+  <RadioGroup.Item value="standard">
+    <RadioGroup.Indicator />
+    <RadioGroup.Content>
+      <RadioGroup.Title>Standard shipping</RadioGroup.Title>
+      <RadioGroup.Description>5–7 business days</RadioGroup.Description>
+    </RadioGroup.Content>
+  </RadioGroup.Item>
+  <RadioGroup.Item value="express">
+    <RadioGroup.Indicator />
+    <RadioGroup.Content>
+      <RadioGroup.Title>Express shipping</RadioGroup.Title>
+      <RadioGroup.Description>2–3 business days</RadioGroup.Description>
+    </RadioGroup.Content>
+  </RadioGroup.Item>
+</RadioGroup.Root>
+```
+
+### Disabled States
+
+Disable the entire group or individual items:
+
+```tsx
+{/* Entire group disabled */}
+<RadioGroup.Root value={value} onChange={setValue} isDisabled>
+  <RadioGroup.Item value="a">
+    <RadioGroup.Indicator />
+    <RadioGroup.Content>
+      <RadioGroup.Title>Option A</RadioGroup.Title>
+    </RadioGroup.Content>
+  </RadioGroup.Item>
+</RadioGroup.Root>
+
+{/* Single item disabled */}
+<RadioGroup.Root value={value} onChange={setValue}>
+  <RadioGroup.Item value="free">
+    <RadioGroup.Indicator />
+    <RadioGroup.Content>
+      <RadioGroup.Title>Free plan</RadioGroup.Title>
+    </RadioGroup.Content>
+  </RadioGroup.Item>
+  <RadioGroup.Item value="enterprise" isDisabled>
+    <RadioGroup.Indicator />
+    <RadioGroup.Content>
+      <RadioGroup.Title>Enterprise plan</RadioGroup.Title>
+      <RadioGroup.Description>Contact sales to enable</RadioGroup.Description>
+    </RadioGroup.Content>
+  </RadioGroup.Item>
+</RadioGroup.Root>
+```
+
+### States
+
+| State      | Trigger                                                   |
+| ---------- | --------------------------------------------------------- |
+| `default`  | Normal unselected state                                   |
+| `selected` | Item value matches group value                            |
+| `hovered`  | Pointer hovering over item (web)                          |
+| `disabled` | `isDisabled` on Root or Item                              |
 
 ---
 
