@@ -1,6 +1,8 @@
 import { ComponentsConfig } from "@korsolutions/ui";
 import {
   CheckIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
   CircleCheckIcon,
   CircleXIcon,
   InfoIcon,
@@ -16,5 +18,9 @@ export const componentsConfig: ComponentsConfig = {
   },
   menu: {
     selectionIcon: CheckIcon,
+  },
+  calendar: {
+    prevIcon: ChevronLeftIcon,
+    nextIcon: ChevronRightIcon,
   },
 };

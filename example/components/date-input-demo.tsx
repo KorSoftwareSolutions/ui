@@ -10,19 +10,17 @@ export function DateInputDemo() {
     <Popover.Root>
       <Popover.Trigger ref={popoverTriggerRef}>
         <Pressable>
-          <Input value={dateValue ? dateValue.toLocaleDateString() : ""} placeholder="MM/DD/YYYY" editable={false} pointerEvents="none" />
+          <Input
+            value={dateValue ? dateValue.toLocaleDateString() : ""}
+            placeholder="MM/DD/YYYY"
+            editable={false}
+            pointerEvents="none"
+          />
         </Pressable>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Overlay />
         <Popover.Content>
-          {/* <Calendar
-            value={dateValue}
-            onChange={(date) => {
-              setDateValue(date);
-              popoverTriggerRef.current?.close();
-            }}
-          /> */}
           <Calendar.Root
             value={dateValue}
             onChange={(date) => {
@@ -31,9 +29,8 @@ export function DateInputDemo() {
             }}
           >
             <Calendar.Header>
-              <Calendar.NavButton direction="prev" />
               <Calendar.Title />
-              <Calendar.NavButton direction="next" />
+              <Calendar.NavButtons />
             </Calendar.Header>
             <Calendar.CalendarWeekLabels />
             <Calendar.Weeks />

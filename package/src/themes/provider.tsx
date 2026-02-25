@@ -41,6 +41,10 @@ export interface ComponentsConfig {
   menu?: {
     selectionIcon?: React.ComponentType<SvgProps>;
   };
+  calendar?: {
+    prevIcon?: React.ComponentType<SvgProps>;
+    nextIcon?: React.ComponentType<SvgProps>;
+  };
 }
 
 const ThemeContext = createContext<ThemeContext | null>(null);

@@ -1,7 +1,12 @@
-import { formatDate } from "../../../utils/date-utils";
 import React from "react";
-import { Text, type StyleProp, type TextProps, type TextStyle } from "react-native";
-import { useCalendarContext } from "../context";
+import {
+  Text,
+  type StyleProp,
+  type TextProps,
+  type TextStyle,
+} from "react-native";
+import { formatDate } from "../../../utils/date-utils";
+import { useCalendarContext } from "./calendar-context";
 
 export interface CalendarTitleProps extends TextProps {
   children?: React.ReactNode;

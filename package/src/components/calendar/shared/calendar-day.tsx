@@ -1,8 +1,21 @@
-import { formatDate, isDateAfter, isDateBefore, isDateSameDay, isDateToday } from "../../../utils/date-utils";
 import React, { useMemo, useState } from "react";
-import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
-import { useCalendarContext } from "../context";
-import type { CalendarDayState } from "../types";
+import {
+  Pressable,
+  Text,
+  View,
+  type StyleProp,
+  type TextStyle,
+  type ViewStyle,
+} from "react-native";
+import {
+  formatDate,
+  isDateAfter,
+  isDateBefore,
+  isDateSameDay,
+  isDateToday,
+} from "../../../utils/date-utils";
+import { useCalendarContext } from "./calendar-context";
+import type { CalendarDayState } from "./types";
 
 export interface CalendarDayProps {
   date: Date;
@@ -30,20 +43,38 @@ export function CalendarDay(props: CalendarDayProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const isDisabled = useMemo(() => {
-    if (calendar.minDate && isDateBefore(props.date, calendar.minDate)) return true;
-    if (calendar.maxDate && isDateAfter(props.date, calendar.maxDate)) return true;
+    if (calendar.minDate && isDateBefore(props.date, calendar.minDate))
+      return true;
+    if (calendar.maxDate && isDateAfter(props.date, calendar.maxDate))
+      return true;
     return false;
   }, [props.date, calendar.minDate, calendar.maxDate]);
 
-  const state = calculateState(props.date, calendar.value, isDisabled, isHovered);
+  const isMarked =
+    calendar.markedDates?.some((d) => isDateSameDay(d, props.date)) ?? false;
+
+  const state = calculateState(
+    props.date,
+    calendar.value,
+    isDisabled,
+    isHovered,
+  );
 
   const handlePress = () => {
     if (isDisabled || !calendar.onChange) return;
     calendar.onChange(props.date);
   };
 
-  const composedStyle = [calendar.styles?.dayButton?.default, calendar.styles?.dayButton?.[state], props.style];
-  const composedTextStyle = [calendar.styles?.dayText?.default, calendar.styles?.dayText?.[state], props.textStyle];
+  const composedStyle = [
+    calendar.styles?.dayButton?.default,
+    calendar.styles?.dayButton?.[state],
+    props.style,
+  ];
+  const composedTextStyle = [
+    calendar.styles?.dayText?.default,
+    calendar.styles?.dayText?.[state],
+    props.textStyle,
+  ];
 
   return (
     <Pressable
@@ -54,6 +85,7 @@ export function CalendarDay(props: CalendarDayProps) {
       style={composedStyle}
     >
       <Text style={composedTextStyle}>{formatDate(props.date, "d")}</Text>
+      {isMarked && <View style={calendar.styles?.dayMarker} />}
     </Pressable>
   );
 }

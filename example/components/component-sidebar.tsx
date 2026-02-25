@@ -14,6 +14,16 @@ export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
     a.title.localeCompare(b.title),
   );
 
+  const isActive = (href: Href) => {
+    const matchingComponents = sortedComponents.filter((component) =>
+      String(component.href).startsWith(String(href)),
+    );
+    if (matchingComponents.length > 1) {
+      return currentPath === String(href);
+    }
+    return currentPath.startsWith(String(href));
+  };
+
   return (
     <View
       style={[
@@ -33,7 +43,7 @@ export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
             key={String(component.href)}
             title={component.title}
             href={component.href}
-            isActive={currentPath === String(component.href)}
+            isActive={isActive(component.href)}
           />
         ))}
       </ScrollView>

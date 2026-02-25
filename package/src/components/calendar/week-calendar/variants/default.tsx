@@ -1,16 +1,16 @@
-import { type CalendarStyles } from "../..";
-import { useThemedStyles } from "../../../utils/use-themed-styles";
+import { hslaSetRelativeLightness } from "../../../../utils/hsla-utils";
+import { useThemedStyles } from "../../../../utils/use-themed-styles";
+import type { WeekCalendarStyles } from "../types";
 
-export const useCalendarVariantDefault = (): CalendarStyles => {
+export const useWeekCalendarVariantDefault = (): WeekCalendarStyles => {
   return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): CalendarStyles => ({
+    ({ colors, radius, fontFamily, fontSize }): WeekCalendarStyles => ({
       root: {
         padding: 16,
         backgroundColor: colors.background,
         borderRadius: radius,
         borderWidth: 1,
         borderColor: colors.border,
-        width: 324,
       },
       header: {
         flexDirection: "row",
@@ -25,24 +25,38 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
         fontFamily,
         color: colors.foreground,
       },
+      navButtons: {
+        flexDirection: "row",
+        gap: 4,
+      },
       navButton: {
         default: {
           width: 32,
           height: 32,
-          borderRadius: radius * 0.5,
+          borderRadius: radius,
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "transparent",
         },
         disabled: {
-          opacity: 0.3,
+          opacity: 0.5,
+        },
+        hovered: {
+          backgroundColor: hslaSetRelativeLightness(colors.secondary, -1),
         },
       },
-      navButtonText: {
+      navButtonIcon: {
         default: {
-          fontSize: fontSize * 1.5,
           color: colors.foreground,
-          fontWeight: "500",
+          size: fontSize * 1.25,
+          style: {
+            color: colors.foreground,
+            fontSize: fontSize * 1.25,
+            lineHeight: fontSize * 1.25,
+            textAlign: "center",
+            fontWeight: "500",
+            pointerEvents: "none",
+          },
         },
         disabled: {
           color: colors.mutedForeground,
@@ -63,11 +77,10 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
         width: 40,
         textAlign: "center",
       },
-      weeks: {
-        flexDirection: "column",
-        gap: 2,
+      swipeContainer: {
+        overflow: "hidden",
       },
-      week: {
+      weekStrip: {
         flexDirection: "row",
         justifyContent: "space-between",
         gap: 2,
@@ -114,6 +127,14 @@ export const useCalendarVariantDefault = (): CalendarStyles => {
         disabled: {
           color: colors.mutedForeground,
         },
+      },
+      dayMarker: {
+        width: 5,
+        height: 5,
+        borderRadius: 2.5,
+        backgroundColor: colors.primary,
+        marginTop: 2,
+        alignSelf: "center",
       },
     }),
   );

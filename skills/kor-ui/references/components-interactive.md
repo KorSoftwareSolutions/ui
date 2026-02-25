@@ -1167,35 +1167,24 @@ function HelpTooltip({ title, description }) {
 
 ## Calendar
 
-A date picker component with month navigation and date selection.
+The calendar system includes three components: **Calendar** (month view), **WeekCalendar** (week strip), and **CalendarTimeline** (day timeline). They can be used independently or combined.
 
-### Overview
+### Calendar (Month View)
 
-The Calendar component provides a full-featured date picker with month/year navigation, date range constraints, and visual states for selected, today, and disabled dates.
+A compound component for month-based date selection with navigation.
 
-**When to use:**
-- Date input fields
-- Date range pickers
-- Scheduling interfaces
-- Filtering by date
-
-### Architecture
+#### Architecture
 
 ```typescript
 Calendar.Root              // State container
   ├─ Calendar.Header       // Month/year navigation
-  │    ├─ Calendar.NavButton   // Previous/next month
+  │    ├─ Calendar.NavButtons  // Previous/next month buttons
   │    └─ Calendar.Title       // Current month/year
-  ├─ Calendar.WeekLabels   // Day name headers (S M T W T F S)
+  ├─ Calendar.CalendarWeekLabels  // Day name headers (Su Mo Tu ...)
   └─ Calendar.Weeks        // Grid of dates
-       └─ Calendar.Day     // Individual date button
 ```
 
-### Complete API
-
-#### Calendar.Root
-
-Root container managing selected date and current month.
+#### Calendar.Root API
 
 ```typescript
 interface CalendarRootProps {
@@ -1206,191 +1195,41 @@ interface CalendarRootProps {
   defaultMonth?: Date;
   minDate?: Date;
   maxDate?: Date;
+  markedDates?: Date[];
   style?: StyleProp<ViewStyle>;
 }
 ```
 
 **Props:**
-- `variant` - Visual style variant
 - `value` - Currently selected date (controlled)
 - `onChange` - Callback when date is selected
 - `defaultMonth` - Initial month to display (default: current month)
-- `minDate` - Earliest selectable date
-- `maxDate` - Latest selectable date
-- `style` - Additional container styles
+- `minDate` / `maxDate` - Date range constraints
+- `markedDates` - Array of dates to show a dot indicator on
 
-#### Calendar.Header
-
-Container for navigation and title.
-
-```typescript
-interface CalendarHeaderProps {
-  children?: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
-}
-```
-
-#### Calendar.Title
-
-Displays current month and year.
-
-```typescript
-interface CalendarTitleProps {
-  style?: StyleProp<TextStyle>;
-}
-```
-
-**Behavior:**
-- Automatically displays current month from context
-- Format: "January 2026"
-
-#### Calendar.NavButton
-
-Previous/next month navigation button.
-
-```typescript
-interface CalendarNavButtonProps {
-  direction: "prev" | "next";
-  render: (props: SvgProps) => React.ReactElement;
-  style?: StyleProp<ViewStyle>;
-}
-```
-
-**Props:**
-- `direction` - "prev" for previous month, "next" for next month
-- `render` - Icon component (e.g., ChevronLeftIcon)
-- `style` - Additional button styles
-
-**Behavior:**
-- Navigates to previous/next month
-- Automatically disabled if minDate/maxDate would be exceeded
-
-#### Calendar.WeekLabels
-
-Day name headers (Sun, Mon, Tue, etc.).
-
-```typescript
-interface CalendarWeekLabelsProps {
-  weekDays?: string[];
-  style?: StyleProp<ViewStyle>;
-}
-```
-
-**Props:**
-- `weekDays` - Custom day labels (default: ["S", "M", "T", "W", "T", "F", "S"])
-- `style` - Container styles
-
-#### Calendar.Weeks
-
-Grid container for all dates in the month.
-
-```typescript
-interface CalendarWeeksProps {
-  style?: StyleProp<ViewStyle>;
-}
-```
-
-**Behavior:**
-- Automatically renders all weeks for current month
-- Includes dates from previous/next month to fill grid
-
-#### Calendar.Day
-
-Individual date button.
-
-```typescript
-interface CalendarDayProps {
-  date: Date;
-  onPress?: () => void;
-  style?: StyleProp<ViewStyle>;
-  textStyle?: StyleProp<TextStyle>;
-}
-```
-
-**Props:**
-- `date` - Date this button represents
-- `onPress` - Override default selection behavior
-- `style` - Additional button styles
-- `textStyle` - Additional text styles
-
-**Behavior:**
-- Calls `onChange` with date when pressed
-- Automatically disabled if outside minDate/maxDate range
-- Visual states: default, selected, today, disabled, deprioritized, hovered
-
-### State Management
-
-```typescript
-type CalendarDayState =
-  | "default"
-  | "selected"
-  | "today"
-  | "disabled"
-  | "deprioritized"
-  | "hovered";
-```
-
-**State Priority:**
-1. Disabled (outside date range)
-2. Selected (matches value)
-3. Today (current date)
-4. Hovered (mouse over on web)
-5. Deprioritized (dates outside current month)
-6. Default
-
-**Date States:**
-- `selected` - Matches current value
-- `today` - Is today's date
-- `disabled` - Outside min/max range or disabled
-- `deprioritized` - From previous/next month (faded)
-- `hovered` - Mouse hover on web
-
-### Basic Examples
-
-#### Simple Date Picker
+#### Basic Example
 
 ```typescript
 import { Calendar } from "@korsolutions/ui";
 import { useState } from "react";
 
-function SimpleDatePicker() {
+function MonthCalendar() {
   const [date, setDate] = useState<Date | null>(new Date());
 
   return (
     <Calendar.Root value={date} onChange={setDate}>
       <Calendar.Header>
         <Calendar.Title />
+        <Calendar.NavButtons />
       </Calendar.Header>
-      <Calendar.WeekLabels />
+      <Calendar.CalendarWeekLabels />
       <Calendar.Weeks />
     </Calendar.Root>
   );
 }
 ```
 
-#### With Navigation Buttons
-
-```typescript
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react-native";
-
-function NavigableCalendar() {
-  const [date, setDate] = useState<Date | null>(null);
-
-  return (
-    <Calendar.Root value={date} onChange={setDate}>
-      <Calendar.Header>
-        <Calendar.NavButton direction="prev" render={ChevronLeftIcon} />
-        <Calendar.Title />
-        <Calendar.NavButton direction="next" render={ChevronRightIcon} />
-      </Calendar.Header>
-      <Calendar.WeekLabels />
-      <Calendar.Weeks />
-    </Calendar.Root>
-  );
-}
-```
-
-#### With Date Range Constraints
+#### Date Range Constraints
 
 ```typescript
 function ConstrainedCalendar() {
@@ -1399,34 +1238,23 @@ function ConstrainedCalendar() {
   const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
   return (
-    <Calendar.Root
-      value={date}
-      onChange={setDate}
-      minDate={today}
-      maxDate={nextMonth}
-    >
+    <Calendar.Root value={date} onChange={setDate} minDate={today} maxDate={nextMonth}>
       <Calendar.Header>
         <Calendar.Title />
+        <Calendar.NavButtons />
       </Calendar.Header>
-      <Calendar.WeekLabels />
+      <Calendar.CalendarWeekLabels />
       <Calendar.Weeks />
     </Calendar.Root>
   );
 }
 ```
 
-### Advanced Examples
-
 #### Date Picker in Popover
 
 ```typescript
 function DatePickerPopover() {
   const [date, setDate] = useState<Date | null>(null);
-
-  const handleDateSelect = (newDate: Date | null) => {
-    setDate(newDate);
-    // Popover.Close would be used here
-  };
 
   return (
     <Popover.Root>
@@ -1436,13 +1264,12 @@ function DatePickerPopover() {
       <Popover.Portal>
         <Popover.Overlay />
         <Popover.Content>
-          <Calendar.Root value={date} onChange={handleDateSelect}>
+          <Calendar.Root value={date} onChange={setDate}>
             <Calendar.Header>
-              <Calendar.NavButton direction="prev" render={ChevronLeftIcon} />
               <Calendar.Title />
-              <Calendar.NavButton direction="next" render={ChevronRightIcon} />
+              <Calendar.NavButtons />
             </Calendar.Header>
-            <Calendar.WeekLabels />
+            <Calendar.CalendarWeekLabels />
             <Calendar.Weeks />
           </Calendar.Root>
         </Popover.Content>
@@ -1452,107 +1279,202 @@ function DatePickerPopover() {
 }
 ```
 
-#### Future Dates Only
+---
+
+### WeekCalendar
+
+A single, self-contained component that displays a swipeable week strip with date selection and navigation. Not a compound component — everything is rendered automatically.
+
+#### API
 
 ```typescript
-function FutureDatePicker() {
-  const [date, setDate] = useState<Date | null>(null);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Start of today
-
-  return (
-    <Calendar.Root value={date} onChange={setDate} minDate={today}>
-      <Calendar.Header>
-        <Calendar.Title />
-      </Calendar.Header>
-      <Calendar.WeekLabels />
-      <Calendar.Weeks />
-    </Calendar.Root>
-  );
+interface WeekCalendarProps {
+  value?: Date | null;
+  onChange?: (date: Date | null) => void;
+  defaultWeek?: Date;
+  minDate?: Date;
+  maxDate?: Date;
+  markedDates?: Date[];
+  weekDays?: string[];
+  variant?: "default";
+  style?: StyleProp<ViewStyle>;
 }
 ```
 
-#### Custom Week Day Labels
+**Props:**
+- `value` - Currently selected date (controlled)
+- `onChange` - Callback when date is selected
+- `defaultWeek` - Initial week to display (default: current week)
+- `minDate` / `maxDate` - Date range constraints
+- `markedDates` - Array of dates to show a dot indicator on
+- `weekDays` - Custom day labels (default: `["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]`)
+- `variant` - Visual style variant
+- `style` - Additional container styles
+
+**Behavior:**
+- Renders header with title and prev/next navigation buttons
+- Renders week day labels
+- Renders a horizontally swipeable strip with three weeks (previous, current, next)
+- Swiping left/right navigates between weeks
+- Tapping a day calls `onChange`
+- Days in `markedDates` show a small dot indicator
+
+#### Basic Example
 
 ```typescript
-function CustomLabelsCalendar() {
-  const [date, setDate] = useState<Date | null>(null);
-  const customDays = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+import { WeekCalendar } from "@korsolutions/ui";
+import { useState } from "react";
 
-  return (
-    <Calendar.Root value={date} onChange={setDate}>
-      <Calendar.Header>
-        <Calendar.Title />
-      </Calendar.Header>
-      <Calendar.WeekLabels weekDays={customDays} />
-      <Calendar.Weeks />
-    </Calendar.Root>
-  );
-}
-```
-
-### Common Patterns
-
-#### Form Field with Date Picker
-
-```typescript
-function DateField({ label, value, onChange }) {
-  return (
-    <Field.Root>
-      <Field.Label>{label}</Field.Label>
-      <Popover.Root>
-        <Popover.Trigger>
-          <Input.Root
-            value={value?.toLocaleDateString() || ""}
-            placeholder="Select date"
-            editable={false}
-          />
-        </Popover.Trigger>
-        <Popover.Portal>
-          <Popover.Overlay />
-          <Popover.Content>
-            <Calendar.Root value={value} onChange={onChange}>
-              <Calendar.Header>
-                <Calendar.Title />
-              </Calendar.Header>
-              <Calendar.WeekLabels />
-              <Calendar.Weeks />
-            </Calendar.Root>
-          </Popover.Content>
-        </Popover.Portal>
-      </Popover.Root>
-    </Field.Root>
-  );
-}
-```
-
-#### Clear Button
-
-```typescript
-function ClearableDatePicker() {
+function WeekExample() {
   const [date, setDate] = useState<Date | null>(new Date());
 
+  return <WeekCalendar value={date} onChange={setDate} />;
+}
+```
+
+#### With Marked Dates
+
+```typescript
+function WeekWithMarkers() {
+  const [date, setDate] = useState<Date | null>(new Date());
+  const markedDates = [new Date(2026, 1, 24), new Date(2026, 1, 26)];
+
+  return <WeekCalendar value={date} onChange={setDate} markedDates={markedDates} />;
+}
+```
+
+---
+
+### CalendarTimeline
+
+A single, self-contained component that displays a scrollable day timeline with hour rows. It is **generic** — it accepts any event type and uses accessor functions and a render callback so the consumer controls the event UI.
+
+#### API
+
+```typescript
+interface CalendarTimelineProps<T> {
+  events?: T[];
+  date: Date;
+  startHour?: number;
+  endHour?: number;
+  getStart: (event: T) => Date;
+  getEnd: (event: T) => Date;
+  keyExtractor: (event: T) => string;
+  renderEvent: (event: T, layout: TimelineEventLayout) => React.ReactNode;
+  variant?: "default";
+  style?: StyleProp<ViewStyle>;
+}
+
+interface TimelineEventLayout {
+  top: number;
+  height: number;
+  left: string;
+  width: string;
+}
+```
+
+**Props:**
+- `events` - Array of event objects (any type)
+- `date` - The day to display
+- `startHour` / `endHour` - Hour range to display (default: 0–24)
+- `getStart` - Accessor returning the event's start Date
+- `getEnd` - Accessor returning the event's end Date
+- `keyExtractor` - Returns a unique key string for each event
+- `renderEvent` - Render callback for event UI. Receives the event and its computed `TimelineEventLayout` (top, height, left, width). The layout positioning is handled by the timeline — your component fills the allocated space.
+- `variant` - Visual style variant
+- `style` - Additional container styles
+
+**Behavior:**
+- Two-column layout: time labels (left) + events column (right)
+- Events are filtered to the given `date` automatically
+- Overlapping events are grouped and laid out side-by-side with percentage-based widths
+- Shows a red current-time indicator when viewing today
+- Scrollable vertically
+
+#### Basic Example
+
+```typescript
+import { CalendarTimeline } from "@korsolutions/ui";
+import { useMemo } from "react";
+import { Text, View } from "react-native";
+
+interface MyEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  color: string;
+}
+
+function TimelineExample() {
+  const events: MyEvent[] = useMemo(() => [
+    { id: "1", title: "Standup", start: new Date(2026, 1, 24, 9, 0), end: new Date(2026, 1, 24, 9, 30), color: "hsl(210, 80%, 50%)" },
+    { id: "2", title: "Review", start: new Date(2026, 1, 24, 11, 0), end: new Date(2026, 1, 24, 12, 0), color: "hsl(150, 60%, 40%)" },
+  ], []);
+
   return (
-    <View>
-      <Calendar.Root value={date} onChange={setDate}>
-        <Calendar.Header>
-          <Calendar.Title />
-        </Calendar.Header>
-        <Calendar.WeekLabels />
-        <Calendar.Weeks />
-      </Calendar.Root>
-      {date && (
-        <Button
-          variant="secondary"
-          onPress={() => setDate(null)}
-          style={{ marginTop: 12 }}
-        >
-          Clear Selection
-        </Button>
+    <CalendarTimeline
+      date={new Date()}
+      events={events}
+      getStart={(e) => e.start}
+      getEnd={(e) => e.end}
+      keyExtractor={(e) => e.id}
+      renderEvent={(event) => (
+        <View style={{ flex: 1, backgroundColor: `${event.color}40`, borderLeftWidth: 3, borderLeftColor: event.color, borderRadius: 4, padding: 6 }}>
+          <Text style={{ fontSize: 12, fontWeight: "600" }}>{event.title}</Text>
+        </View>
       )}
+      style={{ maxHeight: 480 }}
+    />
+  );
+}
+```
+
+---
+
+### Combined: WeekCalendar + CalendarTimeline
+
+The most common pattern — a week strip for date selection paired with a timeline showing that day's events.
+
+```typescript
+import { CalendarTimeline, WeekCalendar } from "@korsolutions/ui";
+import { useMemo, useState } from "react";
+import { Text, View } from "react-native";
+
+function ScheduleView() {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const events = useMemo(() => createEvents(), []);
+  const markedDates = useMemo(() => events.map((e) => e.start), [events]);
+
+  return (
+    <View style={{ gap: 16 }}>
+      <WeekCalendar
+        value={selectedDate}
+        onChange={(d) => d && setSelectedDate(d)}
+        markedDates={markedDates}
+      />
+      <CalendarTimeline
+        date={selectedDate}
+        events={events}
+        getStart={(e) => e.start}
+        getEnd={(e) => e.end}
+        keyExtractor={(e) => e.id}
+        renderEvent={(event) => (
+          <View style={{ flex: 1, backgroundColor: `${event.color}40`, borderLeftWidth: 3, borderLeftColor: event.color, borderRadius: 4, padding: 6 }}>
+            <Text style={{ fontSize: 12, fontWeight: "600" }}>{event.title}</Text>
+          </View>
+        )}
+        style={{ maxHeight: 480 }}
+      />
     </View>
   );
 }
+```
+
+**Key points:**
+- `markedDates` on `WeekCalendar` shows dots on days that have events
+- Selecting a day in `WeekCalendar` updates the `CalendarTimeline` via shared state
+- Events are passed directly to `CalendarTimeline` — no provider needed
 ```
 
 ---

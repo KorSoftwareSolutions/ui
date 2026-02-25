@@ -8,6 +8,9 @@ export const formatDate = (date: Date, format: string): string => {
   if (format === "MMMM yyyy") {
     return `${month} ${year}`;
   }
+  if (format === "MMMM d, yyyy") {
+    return `${month} ${day}, ${year}`;
+  }
   if (format === "d") {
     return day.toString();
   }
@@ -98,4 +101,45 @@ export const getWeeksInMonth = (date: Date): number => {
 
   // Calculate total number of weeks
   return Math.ceil((firstDayOfMonth + daysInMonth) / 7);
+};
+
+export const startOfWeek = (date: Date): Date => {
+  const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  d.setDate(d.getDate() - d.getDay());
+  return d;
+};
+
+export const endOfWeek = (date: Date): Date => {
+  const d = startOfWeek(date);
+  d.setDate(d.getDate() + 6);
+  return d;
+};
+
+export const getWeekDates = (date: Date): Date[] => {
+  const start = startOfWeek(date);
+  return Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    return d;
+  });
+};
+
+export const addWeeks = (date: Date, weeks: number): Date => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + weeks * 7);
+  return d;
+};
+
+export const subWeeks = (date: Date, weeks: number): Date => {
+  return addWeeks(date, -weeks);
+};
+
+export const addDays = (date: Date, days: number): Date => {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+};
+
+export const subDays = (date: Date, days: number): Date => {
+  return addDays(date, -days);
 };

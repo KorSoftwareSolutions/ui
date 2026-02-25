@@ -1,6 +1,12 @@
 import React from "react";
-import { Text, View, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
-import { useCalendarContext } from "../context";
+import {
+  Text,
+  View,
+  type StyleProp,
+  type TextStyle,
+  type ViewStyle,
+} from "react-native";
+import { useCalendarContext } from "./calendar-context";
 
 export interface CalendarWeekLabelProps {
   children: string;

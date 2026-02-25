@@ -132,7 +132,9 @@ function SubmitButton() {
 | **Tabs**     | Tabbed navigation                  | default, line      | [Interactive Components](./references/components-interactive.md#tabs)     |
 | **Menu**     | Dropdown menus                     | default            | [Interactive Components](./references/components-interactive.md#menu)     |
 | **Popover**  | Positioned overlay content         | default            | [Interactive Components](./references/components-interactive.md#popover)  |
-| **Calendar** | Date picker with range selection   | default            | [Interactive Components](./references/components-interactive.md#calendar) |
+| **Calendar** | Month date picker (compound) | default | [Interactive Components](./references/components-interactive.md#calendar) |
+| **WeekCalendar** | Swipeable week strip with date selection | default | [Interactive Components](./references/components-interactive.md#weekcalendar) |
+| **CalendarTimeline** | Day timeline with generic event rendering | default | [Interactive Components](./references/components-interactive.md#calendartimeline) |
 
 ### Feedback Components
 
