@@ -9,7 +9,6 @@ export interface MenuRadioItemProps {
   children: React.ReactNode;
   value: string;
   disabled?: boolean;
-  closeOnPress?: boolean;
   render?: (props: MenuRadioItemProps) => React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
@@ -41,9 +40,9 @@ export function MenuRadioItem(props: MenuRadioItemProps) {
   const handlePress = () => {
     if (props.disabled) return;
     radioGroup.onValueChange(props.value);
-    if (props.closeOnPress) {
+    requestAnimationFrame(() => {
       menu.setIsOpen(false);
-    }
+    });
   };
 
   const textStyles = menu.styles?.itemText;

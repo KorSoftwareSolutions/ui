@@ -5,7 +5,7 @@ import { MenuRadioGroupContext, useMenu } from "../context";
 export interface MenuRadioGroupProps {
   children?: React.ReactNode;
   value: string;
-  onValueChange: (value: string) => void;
+  onChange: (value: string) => void;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -16,9 +16,9 @@ export function MenuRadioGroup(props: MenuRadioGroupProps) {
   const contextValue = useMemo(
     () => ({
       value: props.value,
-      onValueChange: props.onValueChange,
+      onValueChange: props.onChange,
     }),
-    [props.value, props.onValueChange],
+    [props.value, props.onChange],
   );
 
   return (

@@ -31,7 +31,9 @@ export function MenuItem(props: MenuItemProps) {
 
   const handlePress = () => {
     props.onPress?.();
-    menu.setIsOpen((prev) => !prev);
+    requestAnimationFrame(() => {
+      menu.setIsOpen(false);
+    });
   };
 
   const textStyles = menu.styles?.itemText;

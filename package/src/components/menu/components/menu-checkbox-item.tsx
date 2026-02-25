@@ -7,10 +7,9 @@ import { MenuSelectionIndicator } from "./menu-selection-indicator";
 
 export interface MenuCheckboxItemProps {
   children: React.ReactNode;
-  checked: boolean;
-  onCheckedChange: (checked: boolean) => void;
+  value: boolean;
+  onChange: (value: boolean) => void;
   disabled?: boolean;
-  closeOnPress?: boolean;
   render?: (props: MenuCheckboxItemProps) => React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
@@ -37,10 +36,10 @@ export function MenuCheckboxItem(props: MenuCheckboxItemProps) {
 
   const handlePress = () => {
     if (props.disabled) return;
-    props.onCheckedChange(!props.checked);
-    if (props.closeOnPress) {
+    props.onChange(!props.value);
+    requestAnimationFrame(() => {
       menu.setIsOpen(false);
-    }
+    });
   };
 
   const textStyles = menu.styles?.itemText;
@@ -70,11 +69,11 @@ export function MenuCheckboxItem(props: MenuCheckboxItemProps) {
       onPointerLeave={() => setIsHovered(false)}
       disabled={props.disabled}
       accessibilityRole="checkbox"
-      accessibilityState={{ checked: props.checked, disabled: props.disabled }}
+      accessibilityState={{ checked: props.value, disabled: props.disabled }}
       style={composedStyle}
     >
       {organizedChildren}
-      <MenuSelectionIndicator isSelected={props.checked} />
+      <MenuSelectionIndicator isSelected={props.value} />
     </Pressable>
   );
 }
