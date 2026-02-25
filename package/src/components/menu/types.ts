@@ -18,10 +18,8 @@ export interface MenuStyles {
   itemText?: StyleProp<TextStyle>;
   itemIcon?: IconProps;
   overlay?: MenuOverlayProps["style"];
-
   group?: StyleProp<ViewStyle>;
   label?: StyleProp<TextStyle>;
-  separator?: StyleProp<ViewStyle>;
   checkboxItem?: Partial<Record<MenuCheckboxItemState, StyleProp<ViewStyle>>>;
   selectionIndicator?: TextStyle & SvgProps;
   radioGroup?: StyleProp<ViewStyle>;

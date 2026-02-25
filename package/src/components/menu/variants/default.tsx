@@ -46,12 +46,6 @@ export const useMenuVariantDefault = (): MenuStyles => {
         fontWeight: "600",
         color: colors.mutedForeground,
       },
-      separator: {
-        height: 1,
-        backgroundColor: colors.border,
-        marginVertical: 4,
-        marginHorizontal: 8,
-      },
       checkboxItem: {
         default: {
           flexDirection: "row",
