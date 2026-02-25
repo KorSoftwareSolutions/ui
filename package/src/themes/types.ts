@@ -31,3 +31,8 @@ export interface ThemeAssets {
   letterSpacing: LetterSpacing;
   fontSize: FontSize;
 }
+
+export type StorageClient<T> = {
+  set: (value: T) => void;
+  get: () => T | null;
+};

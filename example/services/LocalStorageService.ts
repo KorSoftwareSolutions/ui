@@ -1,14 +1,17 @@
-import LocalStorage from "@react-native-async-storage/async-storage";
-export type LocalStorageKey = "CURRENT_THEME";
+import { createMMKV } from "react-native-mmkv";
+
+export type LocalStorageKey = "CURRENT_THEME" | "CURRENT_COLOR_SCHEME";
+
+const storage = createMMKV();
 
 export const LocalStorageService = {
-  setItem: (key: LocalStorageKey, value: string) => {
-    LocalStorage.setItem(key, value);
+  set: (key: LocalStorageKey, value: string) => {
+    storage.set(key, value);
   },
-  getItem: (key: LocalStorageKey) => {
-    return LocalStorage.getItem(key);
+  get: (key: LocalStorageKey) => {
+    return storage.getString(key);
   },
-  removeItem: (key: LocalStorageKey) => {
-    LocalStorage.removeItem(key);
+  remove: (key: LocalStorageKey) => {
+    storage.remove(key);
   },
 };

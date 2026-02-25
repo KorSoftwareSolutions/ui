@@ -1,12 +1,6 @@
-import {
-  createContext,
-  type PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { useColorScheme } from "react-native";
+import { createContext, type PropsWithChildren, useContext } from "react";
 import type { ToastVariants } from "../components/toast/variants";
+import { useColorScheme } from "../hooks/use-color-scheme";
 import type { SvgProps } from "../types/props.types";
 import type { DeepPartial } from "../types/util.types";
 import { defaultThemeAssets } from "./default";
@@ -17,6 +11,7 @@ import type {
   FontSize,
   LetterSpacing,
   Radius,
+  StorageClient,
   ThemeAssets,
 } from "./types";
 import { mergeThemeAssets } from "./utils";
@@ -33,6 +28,9 @@ interface ThemeContext {
 }
 
 export interface ComponentsConfig {
+  colorScheme?: {
+    storage?: StorageClient<ColorScheme>;
+  };
   toast?: {
     icons?: Partial<
       Record<keyof typeof ToastVariants, React.ComponentType<SvgProps>>
@@ -56,23 +54,15 @@ export interface ThemeProviderProps extends PropsWithChildren {
 
 export const ThemeProvider = (props: ThemeProviderProps) => {
   const { children, theme, components } = props;
-
-  const systemColorScheme = useColorScheme();
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(
-    systemColorScheme === "dark" ? "dark" : "light",
-  );
+  const { colorScheme, setColorScheme } = useColorScheme({
+    colorSchemeStorage: components?.colorScheme?.storage,
+  });
 
   const themeAssets = theme
     ? mergeThemeAssets(defaultThemeAssets, theme)
     : defaultThemeAssets;
 
   const colors = themeAssets.colors[colorScheme];
-
-  useEffect(() => {
-    if (systemColorScheme) {
-      setColorScheme(systemColorScheme === "dark" ? "dark" : "light");
-    }
-  }, [systemColorScheme]);
 
   return (
     <ThemeContext.Provider

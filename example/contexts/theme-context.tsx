@@ -1,7 +1,17 @@
 import { LocalStorageService } from "@/services/LocalStorageService";
 import { defaultThemeAssets, type ThemeAssets } from "@korsolutions/ui";
-import { createContext, useContext, useEffect, useState, type PropsWithChildren } from "react";
-import { claudeThemeAssets, neoThemeAssets, twitterThemeAssets } from "../themes";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type PropsWithChildren,
+} from "react";
+import {
+  claudeThemeAssets,
+  neoThemeAssets,
+  twitterThemeAssets,
+} from "../themes";
 
 interface ThemeOption {
   name: string;
@@ -15,7 +25,9 @@ interface ThemeSelectionContextValue {
   availableThemes: ThemeOption[];
 }
 
-const ThemeSelectionContext = createContext<ThemeSelectionContextValue | null>(null);
+const ThemeSelectionContext = createContext<ThemeSelectionContextValue | null>(
+  null,
+);
 
 const AVAILABLE_THEMES: ThemeOption[] = [
   { name: "default", assets: defaultThemeAssets },
@@ -26,19 +38,19 @@ const AVAILABLE_THEMES: ThemeOption[] = [
 
 export function ThemeSelectionProvider({ children }: PropsWithChildren) {
   const [currentThemeName, setCurrentThemeName] = useState("default");
-  const currentTheme = AVAILABLE_THEMES.find((t) => t.name === currentThemeName)?.assets ?? AVAILABLE_THEMES[0].assets;
+  const currentTheme =
+    AVAILABLE_THEMES.find((t) => t.name === currentThemeName)?.assets ??
+    AVAILABLE_THEMES[0].assets;
 
   const setCurrentTheme = (name: string) => {
     setCurrentThemeName(name);
-    LocalStorageService.setItem("CURRENT_THEME", name);
+    LocalStorageService.set("CURRENT_THEME", name);
   };
 
   useEffect(() => {
-    LocalStorageService.getItem("CURRENT_THEME").then((storedTheme) => {
-      if (storedTheme) {
-        setCurrentThemeName(storedTheme);
-      }
-    });
+    const storedTheme = LocalStorageService.get("CURRENT_THEME");
+    if (!storedTheme) return;
+    setCurrentThemeName(storedTheme);
   }, []);
 
   return (
@@ -58,7 +70,9 @@ export function ThemeSelectionProvider({ children }: PropsWithChildren) {
 export function useThemeSelection() {
   const context = useContext(ThemeSelectionContext);
   if (!context) {
-    throw new Error("useThemeSelection must be used within ThemeSelectionProvider");
+    throw new Error(
+      "useThemeSelection must be used within ThemeSelectionProvider",
+    );
   }
   return context;
 }
