@@ -24,6 +24,7 @@ export function useOrganizedChildren(
           return React.cloneElement(child as React.ReactElement<any>, {
             key: child.key,
             ...iconProps,
+            ...(child.props as object),
             style: [iconProps?.style, getElementProp(child, "style")],
           });
         }
