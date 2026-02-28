@@ -11,13 +11,8 @@ export type TextInputRef = HostInstance & {
   setSelection: (start: number, end?: number) => void;
 };
 
-export type TextChildren =
-  | string
-  | number
-  | boolean
-  | null
-  | undefined
-  | string[];
+export type TextChild = string | number | bigint | boolean | null | undefined;
+export type TextChildren = TextChild | TextChild[];
 export type ElementChildren = React.ReactElement | React.ReactElement[];
 
 export type IconComponent = (props: SvgProps) => React.ReactElement;

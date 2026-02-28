@@ -9,7 +9,7 @@ export function useTextVariantHeadingMd(): TextStyle {
       fontFamily,
       letterSpacing,
       fontWeight: "600",
-      lineHeight: fontSize * 1.2,
+      lineHeight: fontSize * 1.5,
     }),
   );
 }

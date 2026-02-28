@@ -17,12 +17,12 @@ export default function CardComponentScreen() {
             <Field.Label for="email">Email</Field.Label>
             <Field.Description>We&apos;ll never share your email.</Field.Description>
             {/* <Field label="Email" description="We'll never share your email."> */}
-            <Input id="email" value={emailValue} onChangeText={setEmailValue} placeholder="Email" />
+            <Input id="email" value={emailValue} onChange={setEmailValue} placeholder="Email" />
           </Field.Root>
           <Field.Root>
             <Field.Label for="password">Password</Field.Label>
             <Field.Description>Must be at least 8 characters long.</Field.Description>
-            <Input id="password" value={passwordValue} onChangeText={setPasswordValue} placeholder="Password" secureTextEntry />
+            <Input id="password" value={passwordValue} onChange={setPasswordValue} placeholder="Password" secureTextEntry />
           </Field.Root>
         </Card.Body>
         <Card.Footer>

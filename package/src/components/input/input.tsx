@@ -5,7 +5,7 @@ import { useFieldOptional } from "../field/context";
 import type { InputState } from "./types";
 import { InputVariants } from "./variants";
 
-export type InputProps = Omit<TextInputProps, "onChange"> & {
+export type InputProps = Omit<TextInputProps, "onChange" | "onChangeText"> & {
   variant?: keyof typeof InputVariants;
 
   ref?: React.Ref<TextInputRef>;

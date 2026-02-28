@@ -6,7 +6,6 @@ A library of unstyled UI primitives for React Native and Expo.
 
 - **Minimal dependencies** - We keep the dependency footprint as small as possible
 - **Easy to use** - Simple, intuitive APIs that just work
-- **Unstyled by default** - Full control over your component styling
 
 ## Roadmap
 
@@ -21,8 +20,3 @@ npm install @korsolutions/ui
 ## License
 
 MIT
-
-## TODO
-
-- [ ] inputs Placeholder
-- [ ] button disabled state

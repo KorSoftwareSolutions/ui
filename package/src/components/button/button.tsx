@@ -11,7 +11,7 @@ import { useOrganizedChildren } from "../../hooks/use-organized-children";
 import type { ButtonState } from "./types";
 import { ButtonVariants } from "./variants";
 
-export interface ButtonProps extends PressableProps {
+export interface ButtonProps extends Omit<PressableProps, "disabled"> {
   variant?: keyof typeof ButtonVariants;
   children?: React.ReactNode;
 
