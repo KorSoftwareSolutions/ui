@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Pressable,
-  type StyleProp,
-  StyleSheet,
-  type ViewStyle,
-} from "react-native";
+import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { useCombobox } from "../context";
 
 export interface ComboboxOverlayProps {

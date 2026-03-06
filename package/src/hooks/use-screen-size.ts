@@ -10,14 +10,17 @@ interface Response {
   readonly isTablet: boolean;
   readonly isDesktop: boolean;
 
-  select<T>(specifics: ({ [size in ScreenSize]?: T } & { default: T }) | { [platform in ScreenSize]: T }): T;
+  select<T>(
+    specifics: ({ [size in ScreenSize]?: T } & { default: T }) | { [platform in ScreenSize]: T },
+  ): T;
   select<T>(specifics: { [size in ScreenSize]?: T }): T | undefined;
 }
 
 export function useScreenSize(): Response {
   const windowDimensions = useWindowDimensions();
 
-  const size: ScreenSize = windowDimensions.width < 768 ? "mobile" : windowDimensions.width < 1024 ? "tablet" : "desktop";
+  const size: ScreenSize =
+    windowDimensions.width < 768 ? "mobile" : windowDimensions.width < 1024 ? "tablet" : "desktop";
 
   return {
     size,
@@ -33,7 +36,9 @@ export function useScreenSize(): Response {
       if (size === "tablet" && tablet !== undefined) return tablet;
       if (size === "desktop" && desktop !== undefined) return desktop;
       if (!("default" in specifics)) {
-        throw new Error(`Utils.$screenSize.select: No value specified for current screen size: ${size}`);
+        throw new Error(
+          `Utils.$screenSize.select: No value specified for current screen size: ${size}`,
+        );
       }
       return specifics.default;
     },

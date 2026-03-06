@@ -42,7 +42,7 @@ export function useCurrencyMask({
         maximumFractionDigits: precision,
       }).format(num);
     },
-    [locale, currency, precision]
+    [locale, currency, precision],
   );
 
   const parseCurrency = useCallback(
@@ -60,7 +60,7 @@ export function useCurrencyMask({
 
       return constrained;
     },
-    [min, max]
+    [min, max],
   );
 
   const handleChangeText = useCallback(
@@ -93,7 +93,7 @@ export function useCurrencyMask({
       setNumericValue(value);
       onValueChange?.(value);
     },
-    [parseCurrency, onValueChange, isFocused, precision]
+    [parseCurrency, onValueChange, isFocused, precision],
   );
 
   const handleBlur = useCallback(() => {
@@ -126,7 +126,7 @@ export function useCurrencyMask({
       }
       onValueChange?.(value);
     },
-    [isFocused, formatCurrency, onValueChange]
+    [isFocused, formatCurrency, onValueChange],
   );
 
   return {

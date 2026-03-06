@@ -33,11 +33,7 @@ export function SelectContent(props: SelectContentProps) {
   const Component = props.render ?? View;
   return (
     <Component
-      style={[
-        positionStyle,
-        composedStyles,
-        { width: select.triggerPosition.width },
-      ]}
+      style={[positionStyle, composedStyles, { width: select.triggerPosition.width }]}
       onLayout={(e) => {
         select.setContentLayout(e.nativeEvent.layout);
       }}

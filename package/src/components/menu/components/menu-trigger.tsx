@@ -13,42 +13,40 @@ export interface MenuTriggerRef {
   close: () => void;
 }
 
-export const MenuTrigger = forwardRef<MenuTriggerRef, MenuTriggerProps>(
-  (props, ref) => {
-    const menu = useMenu();
-    const triggerRef = useRef<ViewRef>(null);
+export const MenuTrigger = forwardRef<MenuTriggerRef, MenuTriggerProps>((props, ref) => {
+  const menu = useMenu();
+  const triggerRef = useRef<ViewRef>(null);
 
-    const onTriggerPress = async () => {
-      if (!menu.isOpen) {
-        measureLayoutPosition(triggerRef.current, (layout) => {
-          menu.setTriggerPosition(layout);
-          menu.setIsOpen(true);
-        });
-      } else {
-        menu.setIsOpen(false);
-      }
-    };
+  const onTriggerPress = async () => {
+    if (!menu.isOpen) {
+      measureLayoutPosition(triggerRef.current, (layout) => {
+        menu.setTriggerPosition(layout);
+        menu.setIsOpen(true);
+      });
+    } else {
+      menu.setIsOpen(false);
+    }
+  };
 
-    useImperativeHandle(ref, () => ({
-      open: () => {
-        measureLayoutPosition(triggerRef.current, (layout) => {
-          menu.setTriggerPosition(layout);
-          menu.setIsOpen(true);
-        });
-      },
-      close: () => menu.setIsOpen(false),
-    }));
+  useImperativeHandle(ref, () => ({
+    open: () => {
+      measureLayoutPosition(triggerRef.current, (layout) => {
+        menu.setTriggerPosition(layout);
+        menu.setIsOpen(true);
+      });
+    },
+    close: () => menu.setIsOpen(false),
+  }));
 
-    return React.cloneElement(props.children, {
-      ref: triggerRef,
-      onPress: onTriggerPress,
-      role: "button",
-      accessible: true,
-      accessibilityRole: "button",
-      accessibilityState: { expanded: menu.isOpen },
-      ...props.children.props,
-    });
-  },
-);
+  return React.cloneElement(props.children, {
+    ref: triggerRef,
+    onPress: onTriggerPress,
+    role: "button",
+    accessible: true,
+    accessibilityRole: "button",
+    accessibilityState: { expanded: menu.isOpen },
+    ...props.children.props,
+  });
+});
 
 MenuTrigger.displayName = "MenuTrigger";

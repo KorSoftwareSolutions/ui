@@ -1,8 +1,5 @@
 import React from "react";
-import type {
-  PropsWithRequiredRender,
-  SvgProps,
-} from "../../types/props.types";
+import type { PropsWithRequiredRender, SvgProps } from "../../types/props.types";
 import { IconVariants } from "./variants";
 
 export type IconProps = SvgProps & {

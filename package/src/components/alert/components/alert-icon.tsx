@@ -4,7 +4,10 @@ import { useAlert } from "../context";
 
 export type AlertIconProps = SvgProps;
 
-export function AlertIcon({ render: Component, ...props }: PropsWithRequiredRender<AlertIconProps>) {
+export function AlertIcon({
+  render: Component,
+  ...props
+}: PropsWithRequiredRender<AlertIconProps>) {
   const alert = useAlert();
 
   const composedProps = {

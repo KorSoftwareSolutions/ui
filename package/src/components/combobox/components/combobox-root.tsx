@@ -6,11 +6,9 @@ import {
   View,
   type ViewStyle,
 } from "react-native";
-import {
-  DEFAULT_LAYOUT,
-  DEFAULT_POSITION,
-  type LayoutPosition,
-} from "../../../hooks";
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { ComboboxContext } from "../context";
 import type { ComboboxState } from "../types";
 import { ComboboxVariants } from "../variants";
@@ -39,32 +37,31 @@ const calculateState = (props: ComboboxRootProps): ComboboxState => {
 
 export function ComboboxRoot(props: ComboboxRootProps) {
   const variantStyles = ComboboxVariants[props.variant ?? "default"]();
+  const globalStyles = useComponentConfig("combobox");
+  const mergedStyles = mergeStyles(variantStyles, globalStyles?.styles);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [contentLayout, setContentLayout] =
-    useState<LayoutRectangle>(DEFAULT_LAYOUT);
-  const [triggerPosition, setTriggerPosition] =
-    useState<LayoutPosition>(DEFAULT_POSITION);
+  const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
+  const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [inputValue, setInputValueInternal] = useState("");
 
   const onInputChangeRef = useRef(props.onInputChange);
   onInputChangeRef.current = props.onInputChange;
 
-  const setInputValue: React.Dispatch<React.SetStateAction<string>> =
-    useCallback((action) => {
-      setInputValueInternal((prev) => {
-        const next = typeof action === "function" ? action(prev) : action;
-        if (next !== prev) {
-          onInputChangeRef.current?.(next);
-        }
-        return next;
-      });
-    }, []);
+  const setInputValue: React.Dispatch<React.SetStateAction<string>> = useCallback((action) => {
+    setInputValueInternal((prev) => {
+      const next = typeof action === "function" ? action(prev) : action;
+      if (next !== prev) {
+        onInputChangeRef.current?.(next);
+      }
+      return next;
+    });
+  }, []);
 
   const state = calculateState(props);
   const composedStyles = StyleSheet.flatten([
-    variantStyles?.root?.default,
-    variantStyles?.root?.[state],
+    mergedStyles?.root?.default,
+    mergedStyles?.root?.[state],
     props.style,
   ]);
 
@@ -82,7 +79,7 @@ export function ComboboxRoot(props: ComboboxRootProps) {
       setInputValue,
       state,
       isDisabled: props.isDisabled ?? false,
-      styles: variantStyles,
+      styles: mergedStyles,
     }),
     [
       props.value,
@@ -94,7 +91,7 @@ export function ComboboxRoot(props: ComboboxRootProps) {
       setInputValue,
       state,
       props.isDisabled,
-      variantStyles,
+      mergedStyles,
     ],
   );
 

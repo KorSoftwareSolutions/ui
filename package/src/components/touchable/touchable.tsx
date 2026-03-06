@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, type PressableProps } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
+import { mergeStyles } from "../../utils/calculate-styles";
 import type { PressableState } from "./types";
 import { PressableVariants } from "./variants";
 
@@ -25,6 +27,8 @@ const calculateState = (
 export function Touchable(props: TouchableProps) {
   const { variant = "default", isDisabled, style, children, ...rest } = props;
   const variantStyles = PressableVariants[variant]();
+  const componentConfig = useComponentConfig("touchable");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isHovered, setIsHovered] = useState(false);
 
   const handlePress: PressableProps["onPress"] = (event) => {
@@ -46,15 +50,11 @@ export function Touchable(props: TouchableProps) {
       }}
       disabled={isDisabled}
       style={(styleState) => {
-        const currentState = calculateState(
-          props,
-          styleState.pressed,
-          isHovered,
-        );
+        const currentState = calculateState(props, styleState.pressed, isHovered);
 
         return [
-          variantStyles?.default,
-          variantStyles?.[currentState],
+          mergedStyles?.default,
+          mergedStyles?.[currentState],
           typeof style === "function" ? style(styleState) : style,
         ];
       }}

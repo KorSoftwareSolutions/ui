@@ -5,7 +5,9 @@ import React, { useState } from "react";
 
 export default function TextareaComponentScreen() {
   const [value, setValue] = useState("");
-  const [withValue, setWithValue] = useState("This is a multiline text input that allows users to enter longer text content.");
+  const [withValue, setWithValue] = useState(
+    "This is a multiline text input that allows users to enter longer text content.",
+  );
 
   return (
     <ComponentScreenLayout title="Textarea">
@@ -16,7 +18,12 @@ export default function TextareaComponentScreen() {
         <Textarea placeholder="Enter your message..." value={withValue} onChange={setWithValue} />
       </UseCaseSection>
       <UseCaseSection title="Disabled">
-        <Textarea placeholder="This textarea is disabled" isDisabled value="You cannot edit this text" onChange={() => {}} />
+        <Textarea
+          placeholder="This textarea is disabled"
+          isDisabled
+          value="You cannot edit this text"
+          onChange={() => {}}
+        />
       </UseCaseSection>
       <UseCaseSection title="With Placeholder">
         <Textarea placeholder="Tell us about yourself..." onChange={() => {}} />

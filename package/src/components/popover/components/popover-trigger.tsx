@@ -13,10 +13,7 @@ export interface PopoverTriggerRef {
   close: () => void;
 }
 
-export const PopoverTrigger = forwardRef<
-  PopoverTriggerRef,
-  PopoverTriggerProps
->((props, ref) => {
+export const PopoverTrigger = forwardRef<PopoverTriggerRef, PopoverTriggerProps>((props, ref) => {
   const popover = usePopover();
   const triggerRef = useRef<ViewRef>(null);
 

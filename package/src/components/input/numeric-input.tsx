@@ -1,15 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  useNumericMask,
-  type NumericMaskFormat,
-} from "../../hooks/use-numeric-mask";
+import { useNumericMask, type NumericMaskFormat } from "../../hooks/use-numeric-mask";
 import { Input, type InputProps } from "./input";
 import { InputVariants } from "./variants";
 
-export interface NumericInputProps extends Omit<
-  InputProps,
-  "value" | "onChange" | "keyboardType"
-> {
+export interface NumericInputProps extends Omit<InputProps, "value" | "onChange" | "keyboardType"> {
   variant?: keyof typeof InputVariants;
   value?: number | null;
   onChange?: (value: number | null) => void;
@@ -32,7 +26,6 @@ export function NumericInput({
   min,
   max,
   allowNegative = true,
-  variant = "default",
   onBlur,
   onFocus,
   ...props

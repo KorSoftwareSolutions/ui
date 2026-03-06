@@ -24,14 +24,18 @@ export function ScreenHeader({ title, backHref }: ScreenHeaderProps) {
         <Link href={backHref} dismissTo asChild>
           <TouchableOpacity style={s.backButton}>
             <ChevronLeftIcon color={theme.colors.primary} />
-            <Typography style={[s.backButtonLabel, { color: theme.colors.primary }]}>Back</Typography>
+            <Typography style={[s.backButtonLabel, { color: theme.colors.primary }]}>
+              Back
+            </Typography>
           </TouchableOpacity>
         </Link>
       )}
       <Typography style={[s.title, { color: theme.colors.foreground }]}>{title}</Typography>
       <View style={s.actions}>
         <ThemeSwitcher />
-        <TouchableOpacity onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}>
+        <TouchableOpacity
+          onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
+        >
           <ColorSchemeIcon color={theme.colors.foreground} />
         </TouchableOpacity>
       </View>

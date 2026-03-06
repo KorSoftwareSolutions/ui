@@ -58,7 +58,9 @@ function TitleDescriptionExample() {
       <Checkbox.Indicator />
       <Checkbox.Content>
         <Checkbox.Title>Enable notifications</Checkbox.Title>
-        <Checkbox.Description>Receive updates and alerts about your account activity</Checkbox.Description>
+        <Checkbox.Description>
+          Receive updates and alerts about your account activity
+        </Checkbox.Description>
       </Checkbox.Content>
     </Checkbox.Root>
   );
@@ -72,7 +74,9 @@ function OutlinedExample() {
       <Checkbox.Indicator />
       <Checkbox.Content>
         <Checkbox.Title>Subscribe to newsletter</Checkbox.Title>
-        <Checkbox.Description>Get the latest news and updates delivered to your inbox</Checkbox.Description>
+        <Checkbox.Description>
+          Get the latest news and updates delivered to your inbox
+        </Checkbox.Description>
       </Checkbox.Content>
     </Checkbox.Root>
   );

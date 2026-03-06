@@ -22,7 +22,13 @@ export default function CardComponentScreen() {
           <Field.Root>
             <Field.Label for="password">Password</Field.Label>
             <Field.Description>Must be at least 8 characters long.</Field.Description>
-            <Input id="password" value={passwordValue} onChange={setPasswordValue} placeholder="Password" secureTextEntry />
+            <Input
+              id="password"
+              value={passwordValue}
+              onChange={setPasswordValue}
+              placeholder="Password"
+              secureTextEntry
+            />
           </Field.Root>
         </Card.Body>
         <Card.Footer>

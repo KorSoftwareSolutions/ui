@@ -8,9 +8,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 export default function Home() {
   const theme = useTheme();
 
-  const sortedComponents = [...COMPONENTS].sort((a, b) =>
-    a.title.localeCompare(b.title),
-  );
+  const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
   return (
     <MainScreenLayout title="@korsolutions/ui">
       <ScrollView contentContainerStyle={s.content} style={s.container}>
@@ -20,9 +18,7 @@ export default function Home() {
             keyExtractor={(item) => item.title}
             renderItem={({ item }) => <ComponentListItem {...item} />}
             renderSeparator={() => (
-              <View
-                style={{ backgroundColor: theme.colors.border, height: 1 }}
-              />
+              <View style={{ backgroundColor: theme.colors.border, height: 1 }} />
             )}
           />
         </Card.Root>

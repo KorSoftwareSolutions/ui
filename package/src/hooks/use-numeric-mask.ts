@@ -74,7 +74,7 @@ export function useNumericMask({
           }).format(num);
       }
     },
-    [format, locale, currency, effectivePrecision]
+    [format, locale, currency, effectivePrecision],
   );
 
   const parseValue = useCallback(
@@ -98,7 +98,7 @@ export function useNumericMask({
 
       return constrained;
     },
-    [min, max, allowNegative]
+    [min, max, allowNegative],
   );
 
   const handleChangeText = useCallback(
@@ -151,7 +151,7 @@ export function useNumericMask({
       setNumericValue(value);
       onChange?.(value);
     },
-    [parseValue, onChange, isFocused, effectivePrecision, allowNegative, format]
+    [parseValue, onChange, isFocused, effectivePrecision, allowNegative, format],
   );
 
   const handleBlur = useCallback(() => {
@@ -184,11 +184,16 @@ export function useNumericMask({
       }
       onChange?.(value);
     },
-    [isFocused, formatValue, onChange]
+    [isFocused, formatValue, onChange],
   );
 
   // Determine keyboard type based on format
-  const keyboardType = format === "integer" ? (allowNegative ? ("numeric" as const) : ("number-pad" as const)) : ("decimal-pad" as const);
+  const keyboardType =
+    format === "integer"
+      ? allowNegative
+        ? ("numeric" as const)
+        : ("number-pad" as const)
+      : ("decimal-pad" as const);
 
   return {
     value: displayValue,

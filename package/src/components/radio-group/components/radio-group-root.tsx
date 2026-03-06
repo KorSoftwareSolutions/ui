@@ -1,5 +1,7 @@
 import React from "react";
 import { View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { RadioGroupContext } from "../context";
 import type { RadioGroupState } from "../types";
 import { RadioGroupVariants } from "../variants";
@@ -21,9 +23,11 @@ const calculateState = (isDisabled: boolean | undefined): RadioGroupState => {
 export function RadioGroupRoot(props: RadioGroupRootProps) {
   const { children, value, onChange, isDisabled, style, variant, ...viewProps } = props;
   const variantStyles = RadioGroupVariants[variant ?? "default"]();
+  const componentConfig = useComponentConfig("radioGroup");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const state = calculateState(isDisabled);
-  const composedStyle = [variantStyles.root?.default, variantStyles.root?.[state], style];
+  const composedStyle = [mergedStyles.root?.default, mergedStyles.root?.[state], style];
 
   const contextValue = React.useMemo(
     () => ({
@@ -31,9 +35,9 @@ export function RadioGroupRoot(props: RadioGroupRootProps) {
       onChange,
       isDisabled,
       state,
-      styles: variantStyles,
+      styles: mergedStyles,
     }),
-    [value, onChange, isDisabled, state, variantStyles],
+    [value, onChange, isDisabled, state, mergedStyles],
   );
 
   return (

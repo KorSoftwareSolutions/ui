@@ -14,8 +14,19 @@ export function ProgressIndicator(props: ProgressIndicatorProps) {
 
   const percentage = Math.min(Math.max((progress.value / progress.max) * 100, 0), 100);
 
-  const composedStyle = calculateComposedStyles(progress.styles, progress.state, "indicator", props.style);
+  const composedStyle = calculateComposedStyles(
+    progress.styles,
+    progress.state,
+    "indicator",
+    props.style,
+  );
 
   const Component = props.render ?? View;
-  return <Component {...props} percentage={percentage} style={[composedStyle, { width: `${percentage}%` }]} />;
+  return (
+    <Component
+      {...props}
+      percentage={percentage}
+      style={[composedStyle, { width: `${percentage}%` }]}
+    />
+  );
 }

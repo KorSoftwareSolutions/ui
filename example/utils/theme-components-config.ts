@@ -16,9 +16,7 @@ export const componentsConfig: ComponentsConfig = {
         LocalStorageService.set("CURRENT_COLOR_SCHEME", value);
       },
       get: () => {
-        const currentColorScheme = LocalStorageService.get(
-          "CURRENT_COLOR_SCHEME",
-        );
+        const currentColorScheme = LocalStorageService.get("CURRENT_COLOR_SCHEME");
         if (!currentColorScheme) return null;
         return currentColorScheme as ColorScheme;
       },

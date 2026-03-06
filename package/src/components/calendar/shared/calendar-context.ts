@@ -20,16 +20,12 @@ export interface CalendarContextValue {
   styles?: BaseCalendarStyles;
 }
 
-export const CalendarContext = React.createContext<
-  CalendarContextValue | undefined
->(undefined);
+export const CalendarContext = React.createContext<CalendarContextValue | undefined>(undefined);
 
 export const useCalendarContext = () => {
   const context = React.useContext(CalendarContext);
   if (!context) {
-    throw new Error(
-      "Calendar components must be used within a Calendar or WeekCalendar Root",
-    );
+    throw new Error("Calendar components must be used within a Calendar or WeekCalendar Root");
   }
   return context;
 };

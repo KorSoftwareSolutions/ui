@@ -22,7 +22,8 @@ export default function TextComponentScreen() {
         <Card.Root>
           <Card.Body>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.{" "}
+              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+              dolor. Aenean massa.{" "}
               <Link href="https://example.com">Press here to visit example.com.</Link>
             </Typography>
           </Card.Body>

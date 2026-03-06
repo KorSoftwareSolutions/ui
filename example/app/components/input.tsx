@@ -17,11 +17,7 @@ export default function InputComponentScreen() {
   return (
     <ComponentScreenLayout title="Input">
       <UseCaseSection title="Default">
-        <Input
-          value={inputValue}
-          onChange={setInputValue}
-          placeholder="Enter text"
-        />
+        <Input value={inputValue} onChange={setInputValue} placeholder="Enter text" />
       </UseCaseSection>
       <UseCaseSection title="Disabled">
         <Input defaultValue="Sample text" isDisabled />
@@ -34,9 +30,7 @@ export default function InputComponentScreen() {
           placeholder="$0.00"
           precision={2}
         />
-        <Typography variant="body-sm">
-          Numeric value: {usdValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {usdValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Currency (EUR) with Initial Value">
@@ -48,9 +42,7 @@ export default function InputComponentScreen() {
           locale="de-DE"
           placeholder="€0.00"
         />
-        <Typography variant="body-sm">
-          Numeric value: {eurValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {eurValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Integer Only">
@@ -60,9 +52,7 @@ export default function InputComponentScreen() {
           format="integer"
           placeholder="Enter quantity"
         />
-        <Typography variant="body-sm">
-          Numeric value: {integerValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {integerValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Percentage">
@@ -73,9 +63,7 @@ export default function InputComponentScreen() {
           precision={1}
           placeholder="0.0%"
         />
-        <Typography variant="body-sm">
-          Numeric value: {percentValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {percentValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Decimal (4 digits)">
@@ -86,9 +74,7 @@ export default function InputComponentScreen() {
           precision={4}
           placeholder="0.0000"
         />
-        <Typography variant="body-sm">
-          Numeric value: {decimalValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {decimalValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Constrained (Min: 0, Max: 100)">
@@ -99,9 +85,7 @@ export default function InputComponentScreen() {
           max={100}
           placeholder="$0.00"
         />
-        <Typography variant="body-sm">
-          Numeric value: {constrainedValue ?? "null"}
-        </Typography>
+        <Typography variant="body-sm">Numeric value: {constrainedValue ?? "null"}</Typography>
       </UseCaseSection>
 
       <UseCaseSection title="Date Input (MM/DD/YYYY)">

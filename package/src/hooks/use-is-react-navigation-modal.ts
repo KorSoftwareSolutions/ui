@@ -3,8 +3,7 @@ import { useEffect, useMemo } from "react";
 type NavigationContainerRef =
   import("@react-navigation/native").NavigationContainerRefWithCurrent<ReactNavigation.RootParamList>;
 
-let useCachedNavigationContainerRef: (() => NavigationContainerRef) | null =
-  null;
+let useCachedNavigationContainerRef: (() => NavigationContainerRef) | null = null;
 
 export function useInitializeNavigationContainerRef() {
   useEffect(() => {
@@ -16,14 +15,10 @@ export function useInitializeNavigationContainerRef() {
       }
       const reactNavigation = require("@react-navigation/native");
       if (reactNavigation) {
-        useCachedNavigationContainerRef =
-          reactNavigation.useNavigationContainerRef;
+        useCachedNavigationContainerRef = reactNavigation.useNavigationContainerRef;
       }
     } catch (error) {
-      console.warn(
-        "[useIsReactNavigationModal] Failed to load navigation ref:",
-        error,
-      );
+      console.warn("[useIsReactNavigationModal] Failed to load navigation ref:", error);
     }
   }, []);
 }
@@ -40,11 +35,7 @@ const getIsModal = () => {
     return false;
   }
   const state = navigationRef.getCurrentOptions();
-  if (
-    state &&
-    "presentation" in state &&
-    typeof state.presentation === "string"
-  ) {
+  if (state && "presentation" in state && typeof state.presentation === "string") {
     return state.presentation === "modal";
   }
   return false;

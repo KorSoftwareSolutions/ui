@@ -31,9 +31,7 @@ export function SelectPortal(props: SelectPortalProps) {
 
   return (
     <Portal name="select-portal">
-      <SelectContext.Provider value={select}>
-        {props.children}
-      </SelectContext.Provider>
+      <SelectContext.Provider value={select}>{props.children}</SelectContext.Provider>
     </Portal>
   );
 }

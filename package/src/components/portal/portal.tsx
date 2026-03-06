@@ -9,11 +9,7 @@ import React, {
 import { Platform, View, type HostInstance } from "react-native";
 import { measureLayoutPosition } from "../../utils/normalize-layout";
 import { PortalOffsetContext, type PortalOffset } from "./portal-offset";
-import {
-  DEFAULT_PORTAL_HOST,
-  type PortalHostProps,
-  type PortalProps,
-} from "./portal.constants";
+import { DEFAULT_PORTAL_HOST, type PortalHostProps, type PortalProps } from "./portal.constants";
 
 type PortalMap = Map<string, React.ReactNode>;
 type PortalHostMap = Map<string, PortalMap>;
@@ -24,10 +20,7 @@ type PortalStore = {
 };
 
 const store: PortalStore = {
-  map: new Map<string, PortalMap>().set(
-    DEFAULT_PORTAL_HOST,
-    new Map<string, React.ReactNode>(),
-  ),
+  map: new Map<string, PortalMap>().set(DEFAULT_PORTAL_HOST, new Map<string, React.ReactNode>()),
   listeners: new Set(),
 };
 
@@ -46,11 +39,7 @@ function subscribe(cb: () => void) {
   };
 }
 
-function updatePortal(
-  hostName: string,
-  name: string,
-  children: React.ReactNode,
-) {
+function updatePortal(hostName: string, name: string, children: React.ReactNode) {
   const next = new Map(store.map);
   const portal = next.get(hostName) ?? new Map<string, React.ReactNode>();
   portal.set(name, children);
@@ -96,17 +85,12 @@ function DefaultContainer(props: React.PropsWithChildren) {
         pointerEvents: "box-none",
       }}
     >
-      <PortalOffsetContext.Provider value={offset}>
-        {props.children}
-      </PortalOffsetContext.Provider>
+      <PortalOffsetContext.Provider value={offset}>{props.children}</PortalOffsetContext.Provider>
     </View>
   );
 }
 
-export function PortalHost({
-  name = DEFAULT_PORTAL_HOST,
-  container,
-}: PortalHostProps) {
+export function PortalHost({ name = DEFAULT_PORTAL_HOST, container }: PortalHostProps) {
   const map = useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   const portalMap = map.get(name) ?? new Map<string, React.ReactNode>();
   const Container = useMemo(
@@ -122,11 +106,7 @@ export function PortalHost({
   return <Container>{Array.from(portalMap.values())}</Container>;
 }
 
-export function Portal({
-  name,
-  hostName = DEFAULT_PORTAL_HOST,
-  children,
-}: PortalProps) {
+export function Portal({ name, hostName = DEFAULT_PORTAL_HOST, children }: PortalProps) {
   useEffect(() => {
     updatePortal(hostName, name, children);
   }, [hostName, name, children]);

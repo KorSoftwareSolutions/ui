@@ -10,11 +10,7 @@ export interface PhoneInputStyles {
   input?: Partial<Record<PhoneInputState, StyleProp<TextStyle>>>;
   pickerOverlay?: Partial<Record<PhoneInputState, StyleProp<ViewStyle>>>;
   pickerContent?: Partial<Record<PhoneInputState, StyleProp<ViewStyle>>>;
-  pickerOption?: Partial<
-    Record<PhoneInputState | "selected", StyleProp<ViewStyle>>
-  >;
-  pickerOptionText?: Partial<
-    Record<PhoneInputState | "selected", StyleProp<TextStyle>>
-  >;
+  pickerOption?: Partial<Record<PhoneInputState | "selected", StyleProp<ViewStyle>>>;
+  pickerOptionText?: Partial<Record<PhoneInputState | "selected", StyleProp<TextStyle>>>;
   pickerSearch?: Partial<Record<PhoneInputState, StyleProp<TextStyle>>>;
 }

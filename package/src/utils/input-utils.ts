@@ -1,10 +1,7 @@
 import { Platform } from "react-native";
 import type { TextInputRef } from "../types/element.types";
 
-export function setInnerInputValue(
-  element: HTMLInputElement | TextInputRef,
-  value: string,
-) {
+export function setInnerInputValue(element: HTMLInputElement | TextInputRef, value: string) {
   if (Platform.OS === "web") {
     (element as HTMLInputElement).value = value;
   } else {

@@ -1,5 +1,18 @@
 export const formatDate = (date: Date, format: string): string => {
-  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
   const day = date.getDate();
   const month = months[date.getMonth()];
@@ -19,7 +32,11 @@ export const formatDate = (date: Date, format: string): string => {
 };
 
 export const isDateSameDay = (date1: Date, date2: Date): boolean => {
-  return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  );
 };
 
 export const isDateToday = (date: Date): boolean => {
@@ -38,7 +55,10 @@ export const isDateAfter = (date1: Date, date2: Date): boolean => {
   return d1.getTime() > d2.getTime();
 };
 
-export const isDateTimeWithinInterval = (date: Date, interval: { start: Date; end: Date }): boolean => {
+export const isDateTimeWithinInterval = (
+  date: Date,
+  interval: { start: Date; end: Date },
+): boolean => {
   const time = date.getTime();
   return time >= interval.start.getTime() && time <= interval.end.getTime();
 };

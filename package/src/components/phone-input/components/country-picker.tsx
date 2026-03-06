@@ -25,15 +25,11 @@ export function CountryPicker() {
   const { styles, state, phoneMask, isDisabled, triggerRef } = usePhoneInput();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [triggerPosition, setTriggerPosition] =
-    useState<LayoutPosition>(DEFAULT_POSITION);
-  const [contentLayout, setContentLayout] =
-    useState<LayoutRectangle>(DEFAULT_LAYOUT);
+  const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
+  const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
 
   const filteredCountries = searchQuery
-    ? phoneMask.countries.filter((c) =>
-        c.name.toLowerCase().includes(searchQuery.toLowerCase()),
-      )
+    ? phoneMask.countries.filter((c) => c.name.toLowerCase().includes(searchQuery.toLowerCase()))
     : phoneMask.countries;
 
   const onOpen = () => {
@@ -91,27 +87,16 @@ export function CountryPicker() {
 
   return (
     <>
-      <Pressable
-        onPress={onOpen}
-        disabled={isDisabled}
-        style={countryButtonStyles}
-      >
+      <Pressable onPress={onOpen} disabled={isDisabled} style={countryButtonStyles}>
         <Text style={countryButtonTextStyles}>
           {phoneMask.country.flag} +{phoneMask.country.dialCode}
         </Text>
       </Pressable>
       {isOpen && (
         <Portal name="phone-input-country-picker">
-          <Pressable
-            onPress={onClose}
-            style={[StyleSheet.absoluteFill, overlayStyles]}
-          />
+          <Pressable onPress={onClose} style={[StyleSheet.absoluteFill, overlayStyles]} />
           <View
-            style={[
-              positionStyle,
-              contentStyles,
-              { width: triggerPosition.width },
-            ]}
+            style={[positionStyle, contentStyles, { width: triggerPosition.width }]}
             onLayout={(e) => setContentLayout(e.nativeEvent.layout)}
             pointerEvents="box-none"
           >

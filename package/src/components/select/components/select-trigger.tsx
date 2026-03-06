@@ -1,11 +1,5 @@
 import React, { useRef } from "react";
-import {
-  Pressable,
-  Text,
-  type StyleProp,
-  type TextStyle,
-  type ViewStyle,
-} from "react-native";
+import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
 import type { ViewRef } from "../../../types/element.types";
 import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import { measureLayoutPosition } from "../../../utils/normalize-layout";
@@ -58,9 +52,7 @@ export interface SelectValueProps {
 export function SelectValue(props: SelectValueProps) {
   const select = useSelect();
 
-  const selectedOption = select.options.find(
-    (option) => option.value === select.value,
-  );
+  const selectedOption = select.options.find((option) => option.value === select.value);
   const selectedOptionLabel = selectedOption?.label;
   const displayValue = selectedOptionLabel ?? select.value;
 
@@ -72,7 +64,5 @@ export function SelectValue(props: SelectValueProps) {
   if (!!displayValue && typeof displayValue !== "string") {
     return <>{displayValue}</>;
   }
-  return (
-    <Text style={composedStyles}>{displayValue ?? props.placeholder}</Text>
-  );
+  return <Text style={composedStyles}>{displayValue ?? props.placeholder}</Text>;
 }

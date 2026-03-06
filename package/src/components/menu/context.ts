@@ -29,9 +29,9 @@ export interface MenuRadioGroupContextValue {
   onValueChange: (value: string) => void;
 }
 
-export const MenuRadioGroupContext = createContext<
-  MenuRadioGroupContextValue | undefined
->(undefined);
+export const MenuRadioGroupContext = createContext<MenuRadioGroupContextValue | undefined>(
+  undefined,
+);
 
 export const useMenuRadioGroup = () => {
   const context = useContext(MenuRadioGroupContext);

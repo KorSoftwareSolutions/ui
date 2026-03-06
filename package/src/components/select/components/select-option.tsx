@@ -9,7 +9,11 @@ export type SelectOptionProps = {
   children?: React.ReactNode;
 };
 
-const calculateState = (selectState: SelectState, hovered: boolean, selected: boolean): SelectOptionState => {
+const calculateState = (
+  selectState: SelectState,
+  hovered: boolean,
+  selected: boolean,
+): SelectOptionState => {
   if (selectState === "disabled") {
     return "disabled";
   }

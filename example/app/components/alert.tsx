@@ -52,7 +52,9 @@ function WithIconExample() {
         <Alert.Icon render={InfoIcon} />
         <Alert.Body>
           <Alert.Title>Information</Alert.Title>
-          <Alert.Description>Here&apos;s some important information you should know.</Alert.Description>
+          <Alert.Description>
+            Here&apos;s some important information you should know.
+          </Alert.Description>
         </Alert.Body>
       </Alert.Root>
       <Alert.Root variant="destructive">

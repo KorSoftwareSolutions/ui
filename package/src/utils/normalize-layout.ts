@@ -26,7 +26,9 @@ export const measureLayoutPosition = (
   callback: (layout: LayoutPosition) => void,
 ) => {
   if (ref && "getBoundingClientRect" in ref) {
-    const rect = (ref as unknown as { getBoundingClientRect: () => DOMRect }).getBoundingClientRect();
+    const rect = (
+      ref as unknown as { getBoundingClientRect: () => DOMRect }
+    ).getBoundingClientRect();
     callback({
       height: isValidNumber(rect.height) ? rect.height : 0,
       width: isValidNumber(rect.width) ? rect.width : 0,

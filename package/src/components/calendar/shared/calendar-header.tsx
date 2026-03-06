@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  type StyleProp,
-  type ViewProps,
-  type ViewStyle,
-} from "react-native";
+import { View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
 import { useCalendarContext } from "./calendar-context";
 
 export interface CalendarHeaderProps extends ViewProps {

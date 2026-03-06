@@ -30,11 +30,7 @@ export function RadioGroupItem(props: RadioGroupItemProps) {
   const itemDisabled = isDisabled ?? group.isDisabled;
   const state = calculateState(isSelected, itemDisabled, isHovered);
 
-  const composedStyle = [
-    group.styles?.item?.default,
-    group.styles?.item?.[state],
-    style,
-  ];
+  const composedStyle = [group.styles?.item?.default, group.styles?.item?.[state], style];
 
   return (
     <RadioGroupItemContext.Provider value={{ value, state, isSelected }}>

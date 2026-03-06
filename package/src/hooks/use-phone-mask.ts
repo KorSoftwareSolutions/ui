@@ -1,9 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import {
-  type CountryData,
-  COUNTRIES,
-  getCountryByCode,
-} from "../data/countries";
+import { type CountryData, COUNTRIES, getCountryByCode } from "../data/countries";
 
 export interface UsePhoneMaskOptions {
   value?: string;
@@ -57,9 +53,7 @@ function parseE164(
   if (!e164.startsWith("+")) return null;
   const digits = e164.slice(1);
 
-  const sorted = [...countries].sort(
-    (a, b) => b.dialCode.length - a.dialCode.length,
-  );
+  const sorted = [...countries].sort((a, b) => b.dialCode.length - a.dialCode.length);
 
   for (const country of sorted) {
     if (digits.startsWith(country.dialCode)) {
@@ -99,9 +93,7 @@ export function usePhoneMask({
       if (parsed) {
         setCountryState(parsed.country);
         setNationalDigits(parsed.nationalDigits);
-        setDisplayValue(
-          formatNational(parsed.nationalDigits, parsed.country.format),
-        );
+        setDisplayValue(formatNational(parsed.nationalDigits, parsed.country.format));
       }
     } else {
       setNationalDigits("");
@@ -138,8 +130,7 @@ export function usePhoneMask({
       setNationalDigits(trimmed);
       setDisplayValue(formatNational(trimmed, newCountry.format));
 
-      const e164 =
-        trimmed.length > 0 ? toE164(newCountry.dialCode, trimmed) : "";
+      const e164 = trimmed.length > 0 ? toE164(newCountry.dialCode, trimmed) : "";
       isInternalChange.current = true;
       onChange?.(e164);
     },
@@ -159,9 +150,7 @@ export function usePhoneMask({
       if (parsed) {
         setCountryState(parsed.country);
         setNationalDigits(parsed.nationalDigits);
-        setDisplayValue(
-          formatNational(parsed.nationalDigits, parsed.country.format),
-        );
+        setDisplayValue(formatNational(parsed.nationalDigits, parsed.country.format));
         isInternalChange.current = true;
         onChange?.(e164);
       }
@@ -171,8 +160,7 @@ export function usePhoneMask({
 
   return {
     displayValue,
-    e164Value:
-      nationalDigits.length > 0 ? toE164(country.dialCode, nationalDigits) : "",
+    e164Value: nationalDigits.length > 0 ? toE164(country.dialCode, nationalDigits) : "",
     country,
     countries: availableCountries,
     onChangeText,

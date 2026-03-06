@@ -1,7 +1,8 @@
 {
   "name": "example",
-  "main": "expo-router/entry",
   "version": "1.0.0",
+  "private": true,
+  "main": "expo-router/entry",
   "scripts": {
     "dev": "expo start --dev-client",
     "prebuild": "expo prebuild --clean",
@@ -10,7 +11,8 @@
     "web": "expo start --web",
     "web:build": "expo export --platform web",
     "web:deploy": "scripts/deploy.sh",
-    "lint": "tsc --noEmit && expo lint"
+    "lint": "tsc --noEmit && oxlint .",
+    "fmt": "oxfmt"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
@@ -44,10 +46,9 @@
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
-    "eslint": "^9.25.0",
-    "eslint-config-expo": "~10.0.0",
+    "eslint-plugin-expo": "^1.0.0",
+    "eslint-plugin-react-native": "^5.0.0",
     "typescript": "~5.9.2",
     "wrangler": "^4.60.0"
-  },
-  "private": true
+  }
 }

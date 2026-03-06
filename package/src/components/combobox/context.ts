@@ -23,9 +23,7 @@ export interface ComboboxContext {
   styles: ComboboxStyles;
 }
 
-export const ComboboxContext = createContext<ComboboxContext | undefined>(
-  undefined,
-);
+export const ComboboxContext = createContext<ComboboxContext | undefined>(undefined);
 
 export const useCombobox = () => {
   const context = useContext(ComboboxContext);

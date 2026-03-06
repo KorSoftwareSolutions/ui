@@ -91,10 +91,7 @@ const platforms = [
   },
 ];
 
-function filterByLabel(
-  items: { value: string; label: string }[],
-  query: string,
-) {
+function filterByLabel(items: { value: string; label: string }[], query: string) {
   if (!query) return items;
   const lower = query.toLowerCase();
   return items.filter((item) => item.label.toLowerCase().includes(lower));
@@ -107,10 +104,7 @@ export function ComboboxComponentScreen() {
   const [value, setValue] = useState("");
   const [search, setSearch] = useState("");
 
-  const filteredFrameworks = useMemo(
-    () => filterByLabel(frameworks, search),
-    [search],
-  );
+  const filteredFrameworks = useMemo(() => filterByLabel(frameworks, search), [search]);
 
   return (
     <ComponentScreenLayout
@@ -118,11 +112,7 @@ export function ComboboxComponentScreen() {
       backHref={isModalScreen ? "/components/combobox" : undefined}
     >
       <UseCaseSection title="Default">
-        <Combobox.Root
-          value={value}
-          onChange={setValue}
-          onInputChange={setSearch}
-        >
+        <Combobox.Root value={value} onChange={setValue} onInputChange={setSearch}>
           <Combobox.Trigger placeholder="Select framework..." />
           <Combobox.Portal>
             <Combobox.Overlay />
@@ -135,9 +125,7 @@ export function ComboboxComponentScreen() {
                     {fw.label}
                   </Combobox.Option>
                 )}
-                renderEmpty={() => (
-                  <Combobox.Empty>No framework found.</Combobox.Empty>
-                )}
+                renderEmpty={() => <Combobox.Empty>No framework found.</Combobox.Empty>}
               />
             </Combobox.Content>
           </Combobox.Portal>
@@ -170,10 +158,7 @@ export function ComboboxComponentScreen() {
 
       {!isModalScreen && (
         <UseCaseSection title="In modal screen">
-          <Button
-            onPress={() => router.navigate("/components/combobox/modal")}
-            variant="secondary"
-          >
+          <Button onPress={() => router.navigate("/components/combobox/modal")} variant="secondary">
             Open Modal Screen
           </Button>
         </UseCaseSection>
@@ -191,9 +176,7 @@ const CustomItemsExample = () => {
       filterByLabel(
         platforms.map((p) => ({ value: p.value, label: p.label })),
         platformSearch,
-      ).map(
-        (item) => platforms.find((p) => p.value === item.value)!,
-      ) as typeof platforms,
+      ).map((item) => platforms.find((p) => p.value === item.value)!) as typeof platforms,
     [platformSearch],
   );
 
@@ -211,11 +194,7 @@ const CustomItemsExample = () => {
             data={filteredPlatforms}
             keyExtractor={(item) => item.value}
             renderItem={({ item: platform }) => (
-              <Combobox.Option
-                key={platform.value}
-                value={platform.value}
-                label={platform.label}
-              >
+              <Combobox.Option key={platform.value} value={platform.value} label={platform.label}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -228,19 +207,14 @@ const CustomItemsExample = () => {
                   <platform.icon size={20} color={colors.foreground} />
                   <View>
                     <Typography variant="body-md">{platform.label}</Typography>
-                    <Typography
-                      variant="body-sm"
-                      style={{ color: colors.mutedForeground }}
-                    >
+                    <Typography variant="body-sm" style={{ color: colors.mutedForeground }}>
                       {platform.description}
                     </Typography>
                   </View>
                 </View>
               </Combobox.Option>
             )}
-            renderEmpty={() => (
-              <Combobox.Empty>No platform found.</Combobox.Empty>
-            )}
+            renderEmpty={() => <Combobox.Empty>No platform found.</Combobox.Empty>}
           />
         </Combobox.Content>
       </Combobox.Portal>
@@ -253,11 +227,7 @@ const AsyncSearchExample = () => {
   const { setQuery, results, isLoading } = useAsyncSearch();
 
   return (
-    <Combobox.Root
-      value={asyncValue}
-      onChange={setAsyncValue}
-      onInputChange={setQuery}
-    >
+    <Combobox.Root value={asyncValue} onChange={setAsyncValue} onInputChange={setQuery}>
       <Combobox.Trigger placeholder="Search cities..." />
       <Combobox.Portal>
         <Combobox.Overlay />
@@ -271,9 +241,7 @@ const AsyncSearchExample = () => {
               </Combobox.Option>
             )}
             renderEmpty={() => (
-              <Combobox.Empty>
-                {isLoading ? "Loading..." : "No city found."}
-              </Combobox.Empty>
+              <Combobox.Empty>{isLoading ? "Loading..." : "No city found."}</Combobox.Empty>
             )}
           />
         </Combobox.Content>

@@ -16,7 +16,12 @@ export interface SelectOverlayProps {
 export function SelectOverlay(props: SelectOverlayProps) {
   const select = useSelect();
 
-  const composedStyles = calculateComposedStyles(select.styles, select.state, "overlay", props.style);
+  const composedStyles = calculateComposedStyles(
+    select.styles,
+    select.state,
+    "overlay",
+    props.style,
+  );
 
   const Component = props.render ?? Pressable;
   return (

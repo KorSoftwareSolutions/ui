@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { addMonths, subMonths } from "../../../utils/date-utils";
 import { CalendarContext } from "../shared/calendar-context";
 import { CalendarVariants } from "./variants";
@@ -28,6 +30,8 @@ export function CalendarRoot(props: CalendarRootProps) {
     style,
   } = props;
   const variantStyles = CalendarVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("calendar");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const [currentMonth, setCurrentMonth] = useState<Date>(defaultMonth);
 
@@ -49,7 +53,7 @@ export function CalendarRoot(props: CalendarRootProps) {
     return addMonths(currentMonth, 1) > maxDate;
   }, [currentMonth, maxDate]);
 
-  const containerStyle = [variantStyles.root, style];
+  const containerStyle = [mergedStyles.root, style];
 
   return (
     <CalendarContext.Provider
@@ -61,7 +65,7 @@ export function CalendarRoot(props: CalendarRootProps) {
         goToNext,
         isPrevDisabled,
         isNextDisabled,
-        styles: variantStyles,
+        styles: mergedStyles,
         minDate,
         maxDate,
         markedDates,

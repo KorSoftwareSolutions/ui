@@ -1,11 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import {
-  Calendar,
-  CalendarTimeline,
-  Typography,
-  WeekCalendar,
-} from "@korsolutions/ui";
+import { Calendar, CalendarTimeline, Typography, WeekCalendar } from "@korsolutions/ui";
 import React, { useMemo, useState } from "react";
 import { Text, View } from "react-native";
 
@@ -176,11 +171,7 @@ function CombinedExample() {
 
   return (
     <View style={{ gap: 16 }}>
-      <WeekCalendar
-        value={selectedDate}
-        onChange={handleDateChange}
-        markedDates={markedDates}
-      />
+      <WeekCalendar value={selectedDate} onChange={handleDateChange} markedDates={markedDates} />
       <CalendarTimeline
         date={selectedDate}
         events={events}

@@ -13,10 +13,7 @@ export default function IconButtonComponentScreen() {
       <UseCaseSection title="Default">
         <View style={{ flexDirection: "row", gap: 12 }}>
           <IconButton render={Heart} onPress={() => console.log("Heart")} />
-          <IconButton
-            render={Settings}
-            onPress={() => console.log("Settings")}
-          />
+          <IconButton render={Settings} onPress={() => console.log("Settings")} />
           <IconButton render={Search} onPress={() => console.log("Search")} />
           <IconButton render={Mail} onPress={() => console.log("Mail")} />
         </View>

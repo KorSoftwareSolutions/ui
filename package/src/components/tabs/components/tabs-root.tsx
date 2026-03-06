@@ -1,11 +1,7 @@
 import React, { useMemo } from "react";
-import {
-  StyleSheet,
-  View,
-  type StyleProp,
-  type ViewProps,
-  type ViewStyle,
-} from "react-native";
+import { StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { TabsContext } from "../context";
 import { TabsVariants } from "../variants";
 
@@ -20,16 +16,19 @@ export interface TabsRootProps extends Omit<ViewProps, "children"> {
 export function TabsRoot(props: TabsRootProps) {
   const { children, value, onChange, style, ...viewProps } = props;
   const variantStyles = TabsVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("tabs");
+
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const contextValue = useMemo(
     () => ({
       value,
       onChange,
-      styles: variantStyles,
+      styles: mergedStyles,
     }),
-    [value, onChange, variantStyles],
+    [value, onChange, mergedStyles],
   );
-  const composedStyles = StyleSheet.flatten([variantStyles?.root, style]);
+  const composedStyles = StyleSheet.flatten([mergedStyles?.root, style]);
 
   return (
     <TabsContext.Provider value={contextValue}>

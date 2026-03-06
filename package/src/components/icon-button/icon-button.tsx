@@ -6,12 +6,13 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
 import type { SvgProps } from "../../types/props.types";
+import { mergeStyles } from "../../utils/calculate-styles";
 import type { IconButtonState } from "./types";
 import { IconButtonVariants } from "./variants";
 
-export interface IconButtonProps
-  extends Omit<PressableProps, "disabled" | "children"> {
+export interface IconButtonProps extends Omit<PressableProps, "disabled" | "children"> {
   render: (props: SvgProps) => React.ReactNode;
   variant?: keyof typeof IconButtonVariants;
   isDisabled?: boolean;
@@ -21,10 +22,7 @@ export interface IconButtonProps
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateState = (
-  props: IconButtonProps,
-  isHovered: boolean,
-): IconButtonState => {
+const calculateState = (props: IconButtonProps, isHovered: boolean): IconButtonState => {
   if (props.isDisabled) return "disabled";
   if (isHovered) return "hovered";
   return "default";
@@ -48,6 +46,9 @@ export function IconButton(props: IconButtonProps) {
   } = props;
 
   const variantStyles = IconButtonVariants[variant]();
+  const componentConfig = useComponentConfig("iconButton");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
+
   const [isHovered, setIsHovered] = useState(false);
   const state = calculateState(props, isHovered);
 
@@ -60,8 +61,8 @@ export function IconButton(props: IconButtonProps) {
   };
 
   const iconProps: SvgProps = {
-    size: size ?? variantStyles.icon?.default?.size,
-    color: color ?? variantStyles.icon?.[state]?.color ?? variantStyles.icon?.default?.color,
+    size: size ?? mergedStyles.icon?.default?.size,
+    color: color ?? mergedStyles.icon?.[state]?.color ?? mergedStyles.icon?.default?.color,
     strokeWidth,
     absoluteStrokeWidth: true,
   };
@@ -80,8 +81,8 @@ export function IconButton(props: IconButtonProps) {
       }}
       disabled={isDisabled}
       style={[
-        variantStyles.root?.default,
-        variantStyles.root?.[state],
+        mergedStyles.root?.default,
+        mergedStyles.root?.[state],
         { cursor: cursorValue(state) },
         style,
       ]}

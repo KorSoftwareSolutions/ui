@@ -9,7 +9,9 @@ export default function ThemeSelectorModal() {
   const { currentThemeName, setCurrentTheme, availableThemes } = useThemeSelection();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredThemes = availableThemes.filter((t) => t.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredThemes = availableThemes.filter((t) =>
+    t.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
 
   const onClose = () => {
     if (router.canGoBack()) {
@@ -67,7 +69,8 @@ export default function ThemeSelectorModal() {
             style={[
               styles.themeItem,
               {
-                backgroundColor: currentThemeName === themeOption.name ? theme.colors.muted : "transparent",
+                backgroundColor:
+                  currentThemeName === themeOption.name ? theme.colors.muted : "transparent",
                 borderColor: theme.colors.border,
                 borderRadius: theme.radius,
               },
@@ -87,9 +90,24 @@ export default function ThemeSelectorModal() {
                 {themeOption.name.charAt(0).toUpperCase() + themeOption.name.slice(1)}
               </Typography>
               <View style={styles.colorPreview}>
-                <View style={[styles.colorDot, { backgroundColor: themeOption.assets.colors.light.primary }]} />
-                <View style={[styles.colorDot, { backgroundColor: themeOption.assets.colors.light.secondary }]} />
-                <View style={[styles.colorDot, { backgroundColor: themeOption.assets.colors.light.success }]} />
+                <View
+                  style={[
+                    styles.colorDot,
+                    { backgroundColor: themeOption.assets.colors.light.primary },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.colorDot,
+                    { backgroundColor: themeOption.assets.colors.light.secondary },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.colorDot,
+                    { backgroundColor: themeOption.assets.colors.light.success },
+                  ]}
+                />
               </View>
             </View>
             {currentThemeName === themeOption.name && (

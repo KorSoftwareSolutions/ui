@@ -5,11 +5,8 @@ import { type PortalHostProps } from "./components/portal/portal.constants";
 import { ToastContainer } from "./components/toast/manager";
 import { useInitializeNavigationContainerRef } from "./hooks/use-is-react-navigation-modal";
 import { SafeAreaProvider, type SafeAreaInsets } from "./safe-area";
-import {
-  ThemeProvider,
-  type ComponentsConfig,
-  type ThemeProviderProps,
-} from "./themes";
+import { ThemeProvider, type ThemeProviderProps } from "./themes/provider";
+import type { ComponentsConfig } from "./themes/types";
 
 export interface ProviderProps {
   children: React.ReactNode;
@@ -46,7 +43,7 @@ export * from "./hooks/use-screen-size";
 
 export * from "./themes/adapters";
 export * from "./themes/default";
-export { useTheme, type ComponentsConfig } from "./themes/provider";
+export { useTheme } from "./themes/provider";
 export * from "./themes/types";
 
 export * from "./components";

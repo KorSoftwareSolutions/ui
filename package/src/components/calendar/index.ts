@@ -14,10 +14,6 @@ export { WeekCalendar } from "./week-calendar";
 export type { WeekCalendarProps, WeekCalendarStyles } from "./week-calendar";
 
 export { CalendarTimeline } from "./timeline";
-export type {
-  CalendarTimelineProps,
-  TimelineEventLayout,
-  TimelineStyles,
-} from "./timeline";
+export type { CalendarTimelineProps, TimelineEventLayout, TimelineStyles } from "./timeline";
 
 export type { CalendarDayState } from "./shared/types";

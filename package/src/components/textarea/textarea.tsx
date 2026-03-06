@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { TextInput, type TextInputProps } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
+import { mergeStyles } from "../../utils/calculate-styles";
 import type { TextareaState } from "./types";
 import { TextareaVariants } from "./variants";
 
@@ -26,14 +28,16 @@ const calculateState = (props: TextareaProps, isFocused: boolean): TextareaState
 
 export function Textarea(props: TextareaProps) {
   const variantStyles = TextareaVariants[props.variant ?? "default"]();
+  const componentConfig = useComponentConfig("textarea");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const [isFocused, setIsFocused] = useState(false);
   const state = calculateState(props, isFocused);
 
-  const composedStyles = [variantStyles.default?.style, variantStyles[state]?.style, props.style];
+  const composedStyles = [mergedStyles.default?.style, mergedStyles[state]?.style, props.style];
   const composedProps = {
-    ...variantStyles.default,
-    ...variantStyles[state],
+    ...mergedStyles.default,
+    ...mergedStyles[state],
     ...props,
   };
   const Component = props.render ?? TextInput;

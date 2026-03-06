@@ -10,7 +10,10 @@ const PopoverContentDemo = (props: PropsWithChildren) => {
   return (
     <View style={{ gap: 12, padding: 16, maxWidth: 300 }}>
       <Typography variant="heading-md">Popover Content</Typography>
-      <Typography>This is a popover with some content inside. Click outside or press the close button to dismiss.</Typography>
+      <Typography>
+        This is a popover with some content inside. Click outside or press the close button to
+        dismiss.
+      </Typography>
       {props.children}
     </View>
   );
@@ -21,7 +24,10 @@ export function PopoverComponentScreen() {
   const isModalScreen = pathname?.endsWith("/modal");
 
   return (
-    <ComponentScreenLayout title={isModalScreen ? "Popover modal" : "Popover"} backHref={isModalScreen ? "/components/popover" : undefined}>
+    <ComponentScreenLayout
+      title={isModalScreen ? "Popover modal" : "Popover"}
+      backHref={isModalScreen ? "/components/popover" : undefined}
+    >
       <UseCaseSection title="Default">
         <DefaultExample />
       </UseCaseSection>
@@ -103,9 +109,7 @@ function ContentWithActionsExample() {
               <Button onPress={() => triggerRef.current?.close()} variant="secondary">
                 Cancel
               </Button>
-              <Button onPress={() => triggerRef.current?.close()}>
-                Confirm
-              </Button>
+              <Button onPress={() => triggerRef.current?.close()}>Confirm</Button>
             </View>
           </PopoverContentDemo>
         </Popover.Content>

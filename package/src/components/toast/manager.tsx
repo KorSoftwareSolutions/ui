@@ -1,7 +1,7 @@
 import React, { useSyncExternalStore } from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "../../safe-area";
-import { useComponentsConfig } from "../../themes";
+import { useComponentConfig } from "../../themes/provider";
 import { Portal } from "../portal";
 import { ToastBody } from "./components/toast-body";
 import { ToastDescription } from "./components/toast-description";
@@ -110,18 +110,16 @@ interface ToastProps {
 }
 
 export function ToastComponent(props: ToastProps) {
-  const config = useComponentsConfig();
+  const config = useComponentConfig("toast");
   const variant = props.variant ?? "default";
-  const IconComponent = config?.toast?.icons?.[variant];
+  const IconComponent = config?.icons?.[variant];
 
   return (
     <ToastRoot variant={variant}>
       {!!IconComponent && <ToastIcon render={IconComponent} />}
       <ToastBody>
         <ToastTitle>{props.title}</ToastTitle>
-        {!!props.description && (
-          <ToastDescription>{props.description}</ToastDescription>
-        )}
+        {!!props.description && <ToastDescription>{props.description}</ToastDescription>}
       </ToastBody>
     </ToastRoot>
   );

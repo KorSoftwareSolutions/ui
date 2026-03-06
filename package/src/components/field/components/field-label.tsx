@@ -16,5 +16,7 @@ export function FieldLabel(props: FieldLabelProps) {
   const field = useField();
 
   const Component = props.render ?? Text;
-  return <Component {...props} for={props.for ?? field.id} style={[field.styles?.label, props.style]} />;
+  return (
+    <Component {...props} for={props.for ?? field.id} style={[field.styles?.label, props.style]} />
+  );
 }

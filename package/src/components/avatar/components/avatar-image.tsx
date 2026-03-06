@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Image,
-  type ImageSource,
-  type ImageStyle,
-  type StyleProp,
-} from "react-native";
+import { Image, type ImageSource, type ImageStyle, type StyleProp } from "react-native";
 import { useAvatar } from "../context";
 
 export interface AvatarImageProps {

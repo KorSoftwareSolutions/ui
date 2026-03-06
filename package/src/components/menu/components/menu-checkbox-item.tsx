@@ -14,10 +14,7 @@ export interface MenuCheckboxItemProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateState = (
-  isHovered: boolean,
-  disabled?: boolean,
-): MenuCheckboxItemState => {
+const calculateState = (isHovered: boolean, disabled?: boolean): MenuCheckboxItemState => {
   if (disabled) return "disabled";
   if (isHovered) return "hovered";
   return "default";
@@ -45,11 +42,7 @@ export function MenuCheckboxItem(props: MenuCheckboxItemProps) {
   const textStyles = menu.styles?.itemText;
   const iconStyles = menu.styles?.itemIcon;
 
-  const organizedChildren = useOrganizedChildren(
-    props.children,
-    textStyles,
-    iconStyles,
-  );
+  const organizedChildren = useOrganizedChildren(props.children, textStyles, iconStyles);
 
   if (props.render) {
     return (

@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Text,
-  type StyleProp,
-  type TextProps,
-  type TextStyle,
-} from "react-native";
+import { Text, type StyleProp, type TextProps, type TextStyle } from "react-native";
 import { formatDate } from "../../../utils/date-utils";
 import { useCalendarContext } from "./calendar-context";
 

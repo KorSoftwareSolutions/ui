@@ -8,6 +8,8 @@ import {
   type ViewStyle,
 } from "react-native";
 import { useOrganizedChildren } from "../../hooks/use-organized-children";
+import { useComponentConfig } from "../../themes/provider";
+import { mergeStyles } from "../../utils/calculate-styles";
 import type { ButtonState } from "./types";
 import { ButtonVariants } from "./variants";
 
@@ -21,10 +23,7 @@ export interface ButtonProps extends Omit<PressableProps, "disabled"> {
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateState = (
-  props: ButtonProps,
-  isHovered: boolean,
-): ButtonState => {
+const calculateState = (props: ButtonProps, isHovered: boolean): ButtonState => {
   if (props.isDisabled) return "disabled";
   if (props.isLoading) return "loading";
   if (isHovered) return "hovered";
@@ -33,24 +32,17 @@ const calculateState = (
 
 export function Button(props: ButtonProps) {
   const variantStyles = ButtonVariants[props.variant ?? "default"]();
+  const componentConfig = useComponentConfig("button");
   const [isHovered, setIsHovered] = useState(false);
 
   const state = calculateState(props, isHovered);
 
-  const textStyle = StyleSheet.flatten([
-    variantStyles.text?.default,
-    variantStyles.text?.[state],
-  ]);
-  const iconProps = StyleSheet.flatten([
-    variantStyles.icon?.default,
-    variantStyles.icon?.[state],
-  ]);
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
-  const organizedChildren = useOrganizedChildren(
-    props.children,
-    textStyle,
-    iconProps,
-  );
+  const textStyle = StyleSheet.flatten([mergedStyles.text?.default, mergedStyles.text?.[state]]);
+  const iconProps = StyleSheet.flatten([mergedStyles.icon?.default, mergedStyles.icon?.[state]]);
+
+  const organizedChildren = useOrganizedChildren(props.children, textStyle, iconProps);
 
   const handlePress: PressableProps["onPress"] = (event) => {
     if (props.isDisabled || props.isLoading) {
@@ -72,11 +64,7 @@ export function Button(props: ButtonProps) {
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
       disabled={props.isDisabled}
-      style={[
-        variantStyles.root?.default,
-        variantStyles.root?.[state],
-        props.style,
-      ]}
+      style={[variantStyles.root?.default, variantStyles.root?.[state], props.style]}
     >
       {organizedChildren}
       {props.isLoading && <ActivityIndicator {...spinnerProps} />}

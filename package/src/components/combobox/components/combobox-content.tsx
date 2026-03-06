@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  type StyleProp,
-  type ViewStyle,
-} from "react-native";
+import { ScrollView, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
 import { useRelativePosition } from "../../../hooks/use-relative-position";
 import { useCombobox } from "../context";
 
@@ -34,11 +29,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
 
   return (
     <ScrollView
-      style={[
-        positionStyle,
-        flatStyles,
-        { width: combobox.triggerPosition.width },
-      ]}
+      style={[positionStyle, flatStyles, { width: combobox.triggerPosition.width }]}
       onLayout={(e) => {
         combobox.setContentLayout(e.nativeEvent.layout);
       }}

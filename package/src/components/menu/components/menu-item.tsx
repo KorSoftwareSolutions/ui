@@ -23,11 +23,7 @@ export function MenuItem(props: MenuItemProps) {
   const menu = useMenu();
   const [isHovered, setIsHovered] = useState(false);
   const state = calculateState(isHovered);
-  const composedStyle = [
-    menu.styles?.item?.default,
-    menu.styles?.item?.[state],
-    props.style,
-  ];
+  const composedStyle = [menu.styles?.item?.default, menu.styles?.item?.[state], props.style];
 
   const handlePress = () => {
     props.onPress?.();
@@ -39,11 +35,7 @@ export function MenuItem(props: MenuItemProps) {
   const textStyles = menu.styles?.itemText;
   const iconStyles = menu.styles?.itemIcon;
 
-  const organizedChildren = useOrganizedChildren(
-    props.children,
-    textStyles,
-    iconStyles,
-  );
+  const organizedChildren = useOrganizedChildren(props.children, textStyles, iconStyles);
 
   if (props.render) {
     return (

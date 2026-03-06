@@ -1,5 +1,7 @@
 import React, { useId } from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { FieldContext } from "../context";
 import { FieldVariants } from "../variants";
 
@@ -14,12 +16,15 @@ export interface FieldRootProps {
 
 export function FieldRoot(props: FieldRootProps) {
   const variantStyles = FieldVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("field");
   const id = useId();
 
-  const composedStyles = [variantStyles.root, props.style];
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
+
+  const composedStyles = [mergedStyles.root, props.style];
   const Component = props.render ?? View;
   return (
-    <FieldContext.Provider value={{ styles: variantStyles, id }}>
+    <FieldContext.Provider value={{ styles: mergedStyles, id }}>
       <Component {...props} style={composedStyles} />
     </FieldContext.Provider>
   );

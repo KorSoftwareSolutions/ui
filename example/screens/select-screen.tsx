@@ -28,10 +28,7 @@ export function SelectComponentScreen() {
       </UseCaseSection>
       {!isModalScreen && (
         <UseCaseSection title="In modal screen">
-          <Button
-            onPress={() => router.navigate("/components/select/modal")}
-            variant="secondary"
-          >
+          <Button onPress={() => router.navigate("/components/select/modal")} variant="secondary">
             Open Modal Screen
           </Button>
         </UseCaseSection>

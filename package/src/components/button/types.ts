@@ -1,8 +1,4 @@
-import type {
-  ActivityIndicatorProps,
-  TextStyle,
-  ViewStyle,
-} from "react-native";
+import type { ActivityIndicatorProps, TextStyle, ViewStyle } from "react-native";
 import type { IconProps } from "../icon";
 
 export type ButtonState = "default" | "disabled" | "loading" | "hovered";

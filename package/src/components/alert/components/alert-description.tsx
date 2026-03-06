@@ -10,9 +10,7 @@ export interface AlertDescriptionProps {
   style?: StyleProp<TextStyle>;
 }
 
-export function AlertDescription(
-  props: PropsWithRender<AlertDescriptionProps>,
-) {
+export function AlertDescription(props: PropsWithRender<AlertDescriptionProps>) {
   const alert = useAlert();
 
   const composedStyle = [alert.styles?.description, props.style];

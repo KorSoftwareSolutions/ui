@@ -1,19 +1,12 @@
 import { componentsConfig } from "@/utils/theme-components-config";
-import {
-  UIProvider,
-  useReactNavigationTheme,
-  useTheme,
-} from "@korsolutions/ui";
+import { UIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
 import { ThemeProvider } from "@react-navigation/native";
 import { Stack } from "expo-router";
 import React from "react";
 import "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FullWindowOverlay } from "react-native-screens";
-import {
-  ThemeSelectionProvider,
-  useThemeSelection,
-} from "../contexts/theme-context";
+import { ThemeSelectionProvider, useThemeSelection } from "../contexts/theme-context";
 
 function RootRouter() {
   const theme = useTheme();
@@ -29,10 +22,7 @@ function RootRouter() {
         <Stack.Screen name="index" />
         <Stack.Screen name="components" />
         <Stack.Screen name="theme" />
-        <Stack.Screen
-          name="theme-selector"
-          options={{ presentation: "modal" }}
-        />
+        <Stack.Screen name="theme-selector" options={{ presentation: "modal" }} />
       </Stack>
     </ThemeProvider>
   );

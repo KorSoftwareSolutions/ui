@@ -43,22 +43,14 @@ export function CalendarDay(props: CalendarDayProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const isDisabled = useMemo(() => {
-    if (calendar.minDate && isDateBefore(props.date, calendar.minDate))
-      return true;
-    if (calendar.maxDate && isDateAfter(props.date, calendar.maxDate))
-      return true;
+    if (calendar.minDate && isDateBefore(props.date, calendar.minDate)) return true;
+    if (calendar.maxDate && isDateAfter(props.date, calendar.maxDate)) return true;
     return false;
   }, [props.date, calendar.minDate, calendar.maxDate]);
 
-  const isMarked =
-    calendar.markedDates?.some((d) => isDateSameDay(d, props.date)) ?? false;
+  const isMarked = calendar.markedDates?.some((d) => isDateSameDay(d, props.date)) ?? false;
 
-  const state = calculateState(
-    props.date,
-    calendar.value,
-    isDisabled,
-    isHovered,
-  );
+  const state = calculateState(props.date, calendar.value, isDisabled, isHovered);
 
   const handlePress = () => {
     if (isDisabled || !calendar.onChange) return;

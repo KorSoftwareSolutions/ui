@@ -41,9 +41,7 @@ function groupOverlappingEvents<T>(
   getStart: (e: T) => Date,
   getEnd: (e: T) => Date,
 ): T[][] {
-  const sorted = [...events].sort(
-    (a, b) => getStart(a).getTime() - getStart(b).getTime(),
-  );
+  const sorted = [...events].sort((a, b) => getStart(a).getTime() - getStart(b).getTime());
   const groups: T[][] = [];
 
   for (const event of sorted) {
@@ -116,10 +114,7 @@ export function CalendarTimeline<T>(props: CalendarTimelineProps<T>) {
     : null;
 
   return (
-    <ScrollView
-      style={[variantStyles.container, style]}
-      showsVerticalScrollIndicator
-    >
+    <ScrollView style={[variantStyles.container, style]} showsVerticalScrollIndicator>
       <View style={variantStyles.timeline}>
         {/* Time column */}
         <View style={variantStyles.timeColumn}>
@@ -165,8 +160,7 @@ export function CalendarTimeline<T>(props: CalendarTimelineProps<T>) {
               }
               const duration = endMinutes - startMinutes;
 
-              const top =
-                ((startMinutes - startHour * 60) / 60) * HOUR_HEIGHT + 1;
+              const top = ((startMinutes - startHour * 60) / 60) * HOUR_HEIGHT + 1;
               const height = (duration / 60) * HOUR_HEIGHT - 3;
 
               const indexInGroup = group.indexOf(event);

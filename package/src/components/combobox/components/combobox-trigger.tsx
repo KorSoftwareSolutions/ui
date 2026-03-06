@@ -10,10 +10,7 @@ export interface ComboboxTriggerProps {
   placeholder?: string;
 }
 
-const calculateState = (
-  isDisabled: boolean,
-  isOpen: boolean,
-): ComboboxTriggerState => {
+const calculateState = (isDisabled: boolean, isOpen: boolean): ComboboxTriggerState => {
   if (isDisabled) return "disabled";
   if (isOpen) return "focused";
   return "default";
@@ -25,9 +22,7 @@ export function ComboboxTrigger(props: ComboboxTriggerProps) {
 
   const triggerState = calculateState(combobox.isDisabled, combobox.isOpen);
 
-  const displayValue = combobox.isOpen
-    ? combobox.inputValue
-    : combobox.value ?? "";
+  const displayValue = combobox.isOpen ? combobox.inputValue : (combobox.value ?? "");
 
   const open = () => {
     if (combobox.isDisabled) return;

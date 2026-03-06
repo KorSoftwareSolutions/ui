@@ -32,10 +32,7 @@ export function useColorScheme({ colorSchemeStorage }: UseColorSchemeProps) {
   };
 
   useEffect(() => {
-    const newScheme = getColorScheme(
-      colorSchemeStorage?.get,
-      systemColorScheme,
-    );
+    const newScheme = getColorScheme(colorSchemeStorage?.get, systemColorScheme);
     if (newScheme === _colorScheme) return;
     setColorScheme(newScheme);
   }, [systemColorScheme]);

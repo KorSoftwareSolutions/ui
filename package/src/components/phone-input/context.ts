@@ -19,9 +19,7 @@ export interface PhoneInputContext {
   styles: PhoneInputStyles;
 }
 
-export const PhoneInputContext = createContext<PhoneInputContext | undefined>(
-  undefined,
-);
+export const PhoneInputContext = createContext<PhoneInputContext | undefined>(undefined);
 
 export const usePhoneInput = () => {
   const context = useContext(PhoneInputContext);

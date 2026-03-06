@@ -1,18 +1,16 @@
 import React from "react";
 import { Text, View } from "react-native";
-import { useComponentsConfig } from "../../../themes";
+import { useComponentConfig } from "../../../themes/provider";
 import { useMenu } from "../context";
 
 interface MenuSelectionIndicatorProps {
   isSelected: boolean;
 }
 
-export function MenuSelectionIndicator({
-  isSelected,
-}: MenuSelectionIndicatorProps) {
-  const config = useComponentsConfig();
+export function MenuSelectionIndicator({ isSelected }: MenuSelectionIndicatorProps) {
+  const config = useComponentConfig("menu");
   const menu = useMenu();
-  const SelectionIcon = config?.menu?.selectionIcon;
+  const SelectionIcon = config?.selectionIcon;
 
   if (!isSelected) {
     return <View style={menu.styles?.selectionIndicator} />;

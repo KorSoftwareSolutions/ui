@@ -1,5 +1,7 @@
 import React from "react";
 import { View, type StyleProp, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
+import { mergeStyles } from "../../utils/calculate-styles";
 import { SeparatorVariants } from "./variants";
 
 export interface SeparatorProps {
@@ -10,6 +12,8 @@ export interface SeparatorProps {
 export function Separator(props: SeparatorProps) {
   const { variant = "horizontal", style } = props;
   const variantStyles = SeparatorVariants[variant]();
+  const componentConfig = useComponentConfig("separator");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
-  return <View style={[variantStyles.root, style]} />;
+  return <View style={[mergedStyles.root, style]} />;
 }

@@ -23,7 +23,10 @@ export default function EmptyComponentScreen() {
               </Avatar.Root>
             </Empty.Media>
             <Empty.Title>User offline</Empty.Title>
-            <Empty.Description>This user is currently offline. You can leave a message to notify them or try again later.</Empty.Description>
+            <Empty.Description>
+              This user is currently offline. You can leave a message to notify them or try again
+              later.
+            </Empty.Description>
             <Button>Send message</Button>
           </Empty.Root>
         </Card.Root>
@@ -32,10 +35,17 @@ export default function EmptyComponentScreen() {
         <Card.Root>
           <Empty.Root>
             <Empty.Media>
-              <MaterialCommunityIcons name="wifi-off" size={48} color={theme.colors.mutedForeground} />
+              <MaterialCommunityIcons
+                name="wifi-off"
+                size={48}
+                color={theme.colors.mutedForeground}
+              />
             </Empty.Media>
             <Empty.Title>Network disconnected</Empty.Title>
-            <Empty.Description>This device is not connected to the internet. Please check your network settings and try again.</Empty.Description>
+            <Empty.Description>
+              This device is not connected to the internet. Please check your network settings and
+              try again.
+            </Empty.Description>
             <View style={{ flexDirection: "row", gap: 16 }}>
               <Button>Retry connection</Button>
               <Button variant="secondary">Open settings</Button>
@@ -47,7 +57,9 @@ export default function EmptyComponentScreen() {
         <Card.Root>
           <Empty.Root>
             <Empty.Title>No notifications</Empty.Title>
-            <Empty.Description>You have no new notifications at the moment. Check back later for updates.</Empty.Description>
+            <Empty.Description>
+              You have no new notifications at the moment. Check back later for updates.
+            </Empty.Description>
           </Empty.Root>
         </Card.Root>
       </UseCaseSection>

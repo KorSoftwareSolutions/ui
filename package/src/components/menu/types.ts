@@ -6,11 +6,7 @@ import type { MenuOverlayProps } from "./components/menu-overlay";
 
 export type MenuButtonState = "default" | "hovered";
 export type MenuCheckboxItemState = "default" | "hovered" | "disabled";
-export type MenuRadioItemState =
-  | "default"
-  | "hovered"
-  | "selected"
-  | "disabled";
+export type MenuRadioItemState = "default" | "hovered" | "selected" | "disabled";
 
 export interface MenuStyles {
   content?: MenuContentProps["style"];

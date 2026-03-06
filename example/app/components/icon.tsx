@@ -1,7 +1,18 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
 import { Icon, Typography, useTheme } from "@korsolutions/ui";
-import { Bell, Check, Heart, Home, Mail, MessageCircle, Search, Settings, Star, User } from "lucide-react-native";
+import {
+  Bell,
+  Check,
+  Heart,
+  Home,
+  Mail,
+  MessageCircle,
+  Search,
+  Settings,
+  Star,
+  User,
+} from "lucide-react-native";
 import React from "react";
 import { View } from "react-native";
 

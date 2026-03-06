@@ -2,7 +2,9 @@ import React, { useMemo, useRef, useState } from "react";
 import { StyleSheet, View, type StyleProp, type ViewStyle } from "react-native";
 import { COUNTRIES, type CountryCode } from "../../../data/countries";
 import { usePhoneMask } from "../../../hooks/use-phone-mask";
+import { useComponentConfig } from "../../../themes/provider";
 import type { ViewRef } from "../../../types/element.types";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { PhoneInputContext } from "../context";
 import type { PhoneInputState } from "../types";
 import { PhoneInputVariants } from "../variants";
@@ -19,10 +21,7 @@ export interface PhoneInputRootProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateState = (
-  isDisabled: boolean,
-  isFocused: boolean,
-): PhoneInputState => {
+const calculateState = (isDisabled: boolean, isFocused: boolean): PhoneInputState => {
   if (isDisabled) return "disabled";
   if (isFocused) return "focused";
   return "default";
@@ -39,6 +38,8 @@ export function PhoneInputRoot({
   style,
 }: PhoneInputRootProps) {
   const variantStyles = PhoneInputVariants[variant]();
+  const componentConfig = useComponentConfig("phoneInput");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isFocused, setIsFocused] = useState(false);
   const triggerRef = useRef<ViewRef>(null);
 
@@ -54,8 +55,8 @@ export function PhoneInputRoot({
   });
 
   const rootStyles = StyleSheet.flatten([
-    variantStyles.root?.default,
-    variantStyles.root?.[state],
+    mergedStyles.root?.default,
+    mergedStyles.root?.[state],
     style,
   ]);
 
@@ -69,10 +70,11 @@ export function PhoneInputRoot({
         state,
         phoneMask,
         isDisabled,
-        styles: variantStyles,
+        styles: mergedStyles,
+
         triggerRef,
       }) satisfies PhoneInputContext,
-    [variantStyles, state, phoneMask, isDisabled, value, isFocused],
+    [mergedStyles, state, phoneMask, isDisabled, value, isFocused],
   );
 
   return (

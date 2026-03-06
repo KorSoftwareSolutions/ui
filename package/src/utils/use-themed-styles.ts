@@ -1,11 +1,5 @@
 import { useTheme } from "../themes";
-import type {
-  Colors,
-  FontFamily,
-  FontSize,
-  LetterSpacing,
-  Radius,
-} from "../themes/types";
+import type { Colors, FontFamily, FontSize, LetterSpacing, Radius } from "../themes/types";
 
 interface CallbackProps {
   colors: Colors;
@@ -15,9 +9,7 @@ interface CallbackProps {
   fontSize: FontSize;
 }
 
-export const useThemedStyles = <T>(
-  callback: (props: CallbackProps) => T,
-): T => {
+export const useThemedStyles = <T>(callback: (props: CallbackProps) => T): T => {
   const theme = useTheme();
   return callback({
     colors: theme.colors,

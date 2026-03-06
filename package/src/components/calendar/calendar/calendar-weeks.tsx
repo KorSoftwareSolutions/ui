@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  type StyleProp,
-  type ViewProps,
-  type ViewStyle,
-} from "react-native";
+import { StyleSheet, View, type StyleProp, type ViewProps, type ViewStyle } from "react-native";
 import { getWeekDays, getWeeksInMonth } from "../../../utils/date-utils";
 import { useCalendarContext } from "../shared/calendar-context";
 import { CalendarDay } from "../shared/calendar-day";
@@ -17,21 +12,20 @@ export interface CalendarWeekProps extends ViewProps {
 
 function CalendarWeek(props: CalendarWeekProps) {
   const { style, ...viewProps } = props;
-  const { currentMonth, styles } = useCalendarContext();
-  const calStyles = styles as CalendarStyles;
-
+  const calendar = useCalendarContext();
+  const calendarStyles = calendar.styles as CalendarStyles;
   const days = getWeekDays(
-    currentMonth.getMonth(),
-    currentMonth.getFullYear(),
+    calendar.currentMonth.getMonth(),
+    calendar.currentMonth.getFullYear(),
     props.index,
   );
 
-  const composedStyle = [calStyles?.week, style];
+  const composedStyle = StyleSheet.flatten([calendarStyles?.week, style]);
   return (
     <View {...viewProps} style={composedStyle}>
       {days.map((day, index) => {
         if (!day) {
-          return <View key={index} style={styles?.dayButton?.default} />;
+          return <View key={index} style={calendarStyles?.dayButton?.default} />;
         }
         return <CalendarDay key={index} date={day} />;
       })}

@@ -11,7 +11,7 @@ import {
   type StyleProp,
   type ViewStyle,
 } from "react-native";
-import { useComponentsConfig } from "../../../themes";
+import { useComponentConfig } from "../../../themes/provider";
 import {
   addWeeks,
   endOfWeek,
@@ -22,10 +22,7 @@ import {
   startOfWeek,
   subWeeks,
 } from "../../../utils/date-utils";
-import {
-  CalendarContext,
-  type CalendarContextValue,
-} from "../shared/calendar-context";
+import { CalendarContext, type CalendarContextValue } from "../shared/calendar-context";
 import { CalendarDay } from "../shared/calendar-day";
 import type { CalendarNavButtonState } from "../shared/types";
 import { WeekCalendarVariants } from "./variants";
@@ -44,10 +41,7 @@ export interface WeekCalendarProps {
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateNavState = (
-  isDisabled: boolean,
-  isHovered: boolean,
-): CalendarNavButtonState => {
+const calculateNavState = (isDisabled: boolean, isHovered: boolean): CalendarNavButtonState => {
   if (isDisabled) return "disabled";
   if (isHovered) return "hovered";
   return "default";
@@ -65,13 +59,11 @@ export function WeekCalendar(props: WeekCalendarProps) {
     style,
   } = props;
   const styles = WeekCalendarVariants[props.variant || "default"]();
-  const config = useComponentsConfig();
-  const PrevIcon = config?.calendar?.prevIcon;
-  const NextIcon = config?.calendar?.nextIcon;
+  const config = useComponentConfig("calendar");
+  const PrevIcon = config?.prevIcon;
+  const NextIcon = config?.nextIcon;
 
-  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(
-    startOfWeek(defaultWeek),
-  );
+  const [currentWeekStart, setCurrentWeekStart] = useState<Date>(startOfWeek(defaultWeek));
   const [containerWidth, setContainerWidth] = useState(0);
   const scrollRef = useRef<React.ComponentRef<typeof ScrollView>>(null);
   const [prevHovered, setPrevHovered] = useState(false);
@@ -169,9 +161,7 @@ export function WeekCalendar(props: WeekCalendarProps) {
       <View style={[styles.root, style]}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>
-            {formatDate(currentMonth, "MMMM yyyy")}
-          </Text>
+          <Text style={styles.headerTitle}>{formatDate(currentMonth, "MMMM yyyy")}</Text>
           <View style={styles.navButtons}>
             <Pressable
               onPress={goToPrev}
@@ -233,15 +223,10 @@ export function WeekCalendar(props: WeekCalendarProps) {
                   });
                 }
               }}
-              {...(Platform.OS !== "web"
-                ? { contentOffset: { x: containerWidth, y: 0 } }
-                : {})}
+              {...(Platform.OS !== "web" ? { contentOffset: { x: containerWidth, y: 0 } } : {})}
             >
               {weeks.map((weekDates, weekIndex) => (
-                <View
-                  key={weekIndex}
-                  style={[styles.weekStrip, { width: containerWidth }]}
-                >
+                <View key={weekIndex} style={[styles.weekStrip, { width: containerWidth }]}>
                   {weekDates.map((date, dayIndex) => (
                     <CalendarDay key={dayIndex} date={date} />
                   ))}

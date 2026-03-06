@@ -1,12 +1,7 @@
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type { IconProps } from "../../icon";
 
-export type CalendarDayState =
-  | "default"
-  | "selected"
-  | "today"
-  | "disabled"
-  | "hovered";
+export type CalendarDayState = "default" | "selected" | "today" | "disabled" | "hovered";
 export type CalendarNavButtonState = "default" | "disabled" | "hovered";
 
 export interface BaseCalendarStyles {

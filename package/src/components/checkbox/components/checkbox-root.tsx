@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Pressable, type PressableProps, type StyleProp, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { CheckboxContext } from "../context";
 import type { CheckboxState } from "../types";
 import { CheckboxVariants } from "../variants";
@@ -13,7 +15,11 @@ export interface CheckboxRootProps extends Omit<PressableProps, "children"> {
   style?: StyleProp<ViewStyle>;
 }
 
-const calculateState = (value: boolean, isDisabled: boolean | undefined, isHovered: boolean): CheckboxState => {
+const calculateState = (
+  value: boolean,
+  isDisabled: boolean | undefined,
+  isHovered: boolean,
+): CheckboxState => {
   if (isDisabled) {
     return "disabled";
   }
@@ -29,7 +35,10 @@ const calculateState = (value: boolean, isDisabled: boolean | undefined, isHover
 export function CheckboxRoot(props: CheckboxRootProps) {
   const { children, value, onChange, isDisabled, style, ...pressableProps } = props;
   const variantStyles = CheckboxVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("checkbox");
   const [isHovered, setIsHovered] = useState(false);
+
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const state = calculateState(value, isDisabled, isHovered);
   const handlePress = () => {
@@ -38,16 +47,16 @@ export function CheckboxRoot(props: CheckboxRootProps) {
     }
   };
 
-  const calculatedStyle = [variantStyles.root?.default, variantStyles.root?.[state], style];
+  const calculatedStyle = [mergedStyles.root?.default, mergedStyles.root?.[state], style];
 
   const contextValue = React.useMemo(
     () => ({
       value,
       isDisabled,
       state,
-      styles: variantStyles,
+      styles: mergedStyles,
     }),
-    [value, isDisabled, state, variantStyles],
+    [value, isDisabled, state, mergedStyles],
   );
 
   return (

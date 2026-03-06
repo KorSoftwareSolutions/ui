@@ -48,11 +48,7 @@ export function MenuRadioItem(props: MenuRadioItemProps) {
   const textStyles = menu.styles?.itemText;
   const iconStyles = menu.styles?.itemIcon;
 
-  const organizedChildren = useOrganizedChildren(
-    props.children,
-    textStyles,
-    iconStyles,
-  );
+  const organizedChildren = useOrganizedChildren(props.children, textStyles, iconStyles);
 
   if (props.render) {
     return (

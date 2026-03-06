@@ -35,13 +35,7 @@ const calculateState = (
 };
 
 export function TabsItem(props: TabsItemProps) {
-  const {
-    children,
-    value: triggerValue,
-    isDisabled = false,
-    style,
-    ...pressableProps
-  } = props;
+  const { children, value: triggerValue, isDisabled = false, style, ...pressableProps } = props;
   const { value, onChange, styles } = useTabsContext();
   const [isHovered, setIsHovered] = useState(false);
   const isActive = value === triggerValue;
@@ -53,27 +47,13 @@ export function TabsItem(props: TabsItemProps) {
     }
   };
 
-  const calculatedStyle = StyleSheet.flatten([
-    styles?.item?.default,
-    styles?.item?.[state],
-    style,
-  ]);
+  const calculatedStyle = StyleSheet.flatten([styles?.item?.default, styles?.item?.[state], style]);
 
-  const textStyles = StyleSheet.flatten([
-    styles?.itemText?.default,
-    styles?.itemText?.[state],
-  ]);
+  const textStyles = StyleSheet.flatten([styles?.itemText?.default, styles?.itemText?.[state]]);
 
-  const iconStyles = StyleSheet.flatten([
-    styles?.itemIcon?.default,
-    styles?.itemIcon?.[state],
-  ]);
+  const iconStyles = StyleSheet.flatten([styles?.itemIcon?.default, styles?.itemIcon?.[state]]);
 
-  const organizedChildren = useOrganizedChildren(
-    children,
-    textStyles,
-    iconStyles ?? undefined,
-  );
+  const organizedChildren = useOrganizedChildren(children, textStyles, iconStyles ?? undefined);
 
   return (
     <Pressable

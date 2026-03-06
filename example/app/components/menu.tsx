@@ -90,17 +90,11 @@ export default function MenuComponentScreen() {
             <Menu.Content>
               <Menu.Label>Appearance</Menu.Label>
               <Separator />
-              <Menu.CheckboxItem
-                value={showBookmarks}
-                onChange={setShowBookmarks}
-              >
+              <Menu.CheckboxItem value={showBookmarks} onChange={setShowBookmarks}>
                 <Icon render={BookmarkIcon} />
                 Show Bookmarks
               </Menu.CheckboxItem>
-              <Menu.CheckboxItem
-                value={showFullUrls}
-                onChange={setShowFullUrls}
-              >
+              <Menu.CheckboxItem value={showFullUrls} onChange={setShowFullUrls}>
                 <Icon render={LinkIcon} />
                 Show Full URLs
               </Menu.CheckboxItem>
@@ -122,9 +116,7 @@ export default function MenuComponentScreen() {
               <Menu.RadioGroup value={person} onChange={setPerson}>
                 <Menu.RadioItem value="pedro">Pedro</Menu.RadioItem>
                 <Menu.RadioItem value="colm">Colm</Menu.RadioItem>
-                <Menu.RadioItem value="pedro-pascal">
-                  Pedro Pascal
-                </Menu.RadioItem>
+                <Menu.RadioItem value="pedro-pascal">Pedro Pascal</Menu.RadioItem>
               </Menu.RadioGroup>
             </Menu.Content>
           </Menu.Portal>

@@ -1,6 +1,8 @@
 import { forwardRef, useState } from "react";
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
 import type { TextInputRef } from "../../types/element.types";
+import { mergeStyles } from "../../utils/calculate-styles";
 import { useFieldOptional } from "../field/context";
 import type { InputState } from "./types";
 import { InputVariants } from "./variants";
@@ -25,18 +27,20 @@ const calculateState = (props: InputProps, isFocused: boolean): InputState => {
 
 export const Input = forwardRef<TextInputRef, InputProps>((props, ref) => {
   const variantStyles = InputVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("input");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isFocused, setIsFocused] = useState(false);
   const state = calculateState(props, isFocused);
   const field = useFieldOptional();
 
   const composedStyles = StyleSheet.flatten([
-    variantStyles.default?.style,
-    variantStyles[state]?.style,
+    mergedStyles.default?.style,
+    mergedStyles[state]?.style,
     props.style,
   ]);
   const composedProps = {
-    ...variantStyles.default,
-    ...variantStyles[state],
+    ...mergedStyles.default,
+    ...mergedStyles[state],
     ...props,
   };
 

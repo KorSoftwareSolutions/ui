@@ -1,11 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import {
-  AlertDialog,
-  AsyncAlertDialog,
-  Button,
-  Typography,
-} from "@korsolutions/ui";
+import { AlertDialog, AsyncAlertDialog, Button, Typography } from "@korsolutions/ui";
 import { router, usePathname } from "expo-router";
 import React from "react";
 
@@ -59,8 +54,8 @@ function BasicExample() {
         <AlertDialog.Content>
           <AlertDialog.Title>Are you sure?</AlertDialog.Title>
           <AlertDialog.Description>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
           </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
@@ -83,8 +78,8 @@ function DestructiveExample() {
         <AlertDialog.Content>
           <AlertDialog.Title>Delete Account</AlertDialog.Title>
           <AlertDialog.Description>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
           </AlertDialog.Description>
           <AlertDialog.Footer>
             <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
@@ -118,12 +113,8 @@ function CallbackExample() {
             Are you sure you want to proceed with this operation?
           </AlertDialog.Description>
           <AlertDialog.Footer>
-            <AlertDialog.Cancel onPress={handleCancel}>
-              No, Cancel
-            </AlertDialog.Cancel>
-            <AlertDialog.Action onPress={handleAction}>
-              Yes, Continue
-            </AlertDialog.Action>
+            <AlertDialog.Cancel onPress={handleCancel}>No, Cancel</AlertDialog.Cancel>
+            <AlertDialog.Action onPress={handleAction}>Yes, Continue</AlertDialog.Action>
           </AlertDialog.Footer>
         </AlertDialog.Content>
       </AlertDialog.Portal>
@@ -137,8 +128,7 @@ function AsyncExample() {
   const handleAsyncClick = async () => {
     const response = await AsyncAlertDialog.show({
       title: "Async Confirmation",
-      description:
-        "This dialog uses async/await pattern. Click an action to see the result.",
+      description: "This dialog uses async/await pattern. Click an action to see the result.",
       actionLabel: "Confirm",
       cancelLabel: "Cancel",
     });

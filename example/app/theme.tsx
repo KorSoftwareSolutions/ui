@@ -36,7 +36,9 @@ export default function ThemeScreen() {
               },
             ]}
           />
-          <Text style={[s.radiusLabel, { color: theme.colors.mutedForeground }]}>Example with radius: {theme.radius}</Text>
+          <Text style={[s.radiusLabel, { color: theme.colors.mutedForeground }]}>
+            Example with radius: {theme.radius}
+          </Text>
         </View>
       </Section>
 

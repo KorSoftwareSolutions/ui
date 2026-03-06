@@ -25,9 +25,7 @@ export function ComboboxPortal(props: ComboboxPortalProps) {
 
   return (
     <Portal name="combobox-portal">
-      <ComboboxContext.Provider value={combobox}>
-        {props.children}
-      </ComboboxContext.Provider>
+      <ComboboxContext.Provider value={combobox}>{props.children}</ComboboxContext.Provider>
     </Portal>
   );
 }

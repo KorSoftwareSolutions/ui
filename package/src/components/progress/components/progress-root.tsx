@@ -1,6 +1,7 @@
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import React from "react";
 import { type StyleProp, View, type ViewStyle } from "react-native";
+import { useComponentConfig } from "../../../themes/provider";
+import { calculateComposedStyles, mergeStyles } from "../../../utils/calculate-styles";
 import { ProgressContext } from "../context";
 import { ProgressVariants } from "../variants";
 
@@ -19,14 +20,16 @@ export interface ProgressRootProps {
 export function ProgressRoot(props: ProgressRootProps) {
   const { value = 0, max = 100 } = props;
   const variantStyles = ProgressVariants[props.variant || "default"]();
-  const composedStyle = calculateComposedStyles(variantStyles, "default", "root", props.style);
+  const componentConfig = useComponentConfig("progress");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
+  const composedStyle = calculateComposedStyles(mergedStyles, "default", "root", props.style);
 
   const Component = props.render ?? View;
   return (
     <ProgressContext.Provider
       value={{
         state: "default",
-        styles: variantStyles,
+        styles: mergedStyles,
         value,
         max,
       }}

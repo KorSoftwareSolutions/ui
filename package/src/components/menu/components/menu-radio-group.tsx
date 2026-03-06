@@ -23,11 +23,7 @@ export function MenuRadioGroup(props: MenuRadioGroupProps) {
 
   return (
     <MenuRadioGroupContext.Provider value={contextValue}>
-      <View
-        accessibilityRole="radiogroup"
-        role="radiogroup"
-        style={composedStyle}
-      >
+      <View accessibilityRole="radiogroup" role="radiogroup" style={composedStyle}>
         {props.children}
       </View>
     </MenuRadioGroupContext.Provider>

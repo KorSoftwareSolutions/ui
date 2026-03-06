@@ -1,6 +1,8 @@
 import React from "react";
 import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { useOrganizedChildren } from "../../hooks/use-organized-children";
+import { useComponentConfig } from "../../themes/provider";
+import { mergeStyles } from "../../utils/calculate-styles";
 import { BadgeContext } from "./context";
 import { BadgeVariants } from "./variants";
 
@@ -16,26 +18,22 @@ export interface BadgeProps {
 
 export function Badge(props: BadgeProps) {
   const variantStyles = BadgeVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("badge");
 
-  const customStyle = props.color
-    ? { backgroundColor: props.color }
-    : undefined;
+  const customStyle = props.color ? { backgroundColor: props.color } : undefined;
 
-  const composedStyle = StyleSheet.flatten([variantStyles.root, props.style]);
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
+  const composedStyle = StyleSheet.flatten([mergedStyles.root, props.style]);
 
-  const textStyle = variantStyles.text;
-  const iconStyle = variantStyles.icon;
-  const organizedChildren = useOrganizedChildren(
-    props.children,
-    textStyle,
-    iconStyle,
-  );
+  const textStyle = StyleSheet.flatten([mergedStyles.text, props.style]);
+  const iconStyle = { ...mergedStyles.icon, ...props.style };
+  const organizedChildren = useOrganizedChildren(props.children, textStyle, iconStyle);
 
   const Component = props.render ?? View;
   return (
     <BadgeContext.Provider
       value={{
-        styles: variantStyles,
+        styles: mergedStyles,
       }}
     >
       <Component {...props} style={[composedStyle, customStyle]}>

@@ -1,6 +1,12 @@
-import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks/use-relative-position";
 import React, { useState } from "react";
 import { type LayoutRectangle } from "react-native";
+import {
+  DEFAULT_LAYOUT,
+  DEFAULT_POSITION,
+  type LayoutPosition,
+} from "../../../hooks/use-relative-position";
+import { useComponentConfig } from "../../../themes/provider";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import { MenuContext } from "../context";
 import { MenuVariants } from "../variants";
 
@@ -13,6 +19,8 @@ export interface MenuRootProps {
 
 export function MenuRoot(props: MenuRootProps) {
   const variantStyles = MenuVariants[props.variant || "default"]();
+  const componentConfig = useComponentConfig("menu");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isOpen, setIsOpen] = useState(false);
   const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
@@ -26,7 +34,7 @@ export function MenuRoot(props: MenuRootProps) {
         setTriggerPosition,
         contentLayout,
         setContentLayout,
-        styles: variantStyles,
+        styles: mergedStyles,
       }}
     >
       {props.children}

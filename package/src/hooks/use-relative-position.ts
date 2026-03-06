@@ -10,14 +10,9 @@ import { usePortalOffset } from "../components/portal";
 import { useSafeAreaInsets, type SafeAreaInsets } from "../safe-area";
 import { useIsReactNavigationModal } from "./use-is-react-navigation-modal";
 
-type UseRelativePositionArgs = Omit<
-  GetContentStyleArgs,
-  "dimensions" | "insets"
->;
+type UseRelativePositionArgs = Omit<GetContentStyleArgs, "dimensions" | "insets">;
 
-type GetContentStyleArgs = GetPositionArgs &
-  GetSidePositionArgs &
-  GetAlignPositionArgs;
+type GetContentStyleArgs = GetPositionArgs & GetSidePositionArgs & GetAlignPositionArgs;
 
 export function useRelativePosition({
   align,
@@ -81,9 +76,7 @@ export function useRelativePosition({
       // Temporary fix to calculate portal content relative position correctly when rendered in a React Navigation modal.
       top: Platform.select({
         default: sidePosition.top,
-        ios: isReactNavigationModal
-          ? sidePosition.top + insets.top
-          : sidePosition.top,
+        ios: isReactNavigationModal ? sidePosition.top + insets.top : sidePosition.top,
       }),
     };
 
@@ -182,10 +175,8 @@ function getSidePosition({
   insets,
   dimensions,
 }: GetSidePositionArgs) {
-  const positionTop =
-    triggerPosition?.pageY - sideOffset - contentLayout.height;
-  const positionBottom =
-    triggerPosition.pageY + triggerPosition.height + sideOffset;
+  const positionTop = triggerPosition?.pageY - sideOffset - contentLayout.height;
+  const positionBottom = triggerPosition.pageY + triggerPosition.height + sideOffset;
 
   const side = getSide({
     preferredSide,
@@ -205,10 +196,7 @@ function getSidePosition({
     };
   }
 
-  let top = Math.min(
-    dimensions.height - insets.bottom - contentLayout.height,
-    positionBottom,
-  );
+  let top = Math.min(dimensions.height - insets.bottom - contentLayout.height, positionBottom);
 
   return {
     top,
@@ -242,8 +230,7 @@ function getAlignPosition({
     dimensions,
   );
 
-  const doesCollide =
-    left < insets.left || left + contentWidth > dimensions.width - insets.right;
+  const doesCollide = left < insets.left || left + contentWidth > dimensions.width - insets.right;
   if (doesCollide) {
     const spaceLeft = left - insets.left;
     const spaceRight = dimensions.width - insets.right - (left + contentWidth);
@@ -285,9 +272,6 @@ function getLeftPosition(
   }
   return Math.max(
     insets.left,
-    Math.min(
-      left + alignOffset,
-      dimensions.width - contentWidth - insets.right,
-    ),
+    Math.min(left + alignOffset, dimensions.width - contentWidth - insets.right),
   );
 }

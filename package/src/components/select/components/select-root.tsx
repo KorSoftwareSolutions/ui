@@ -1,7 +1,8 @@
-import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import React, { useState } from "react";
 import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
+import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
+import { useComponentConfig } from "../../../themes/provider";
+import { calculateComposedStyles, mergeStyles } from "../../../utils/calculate-styles";
 import { SelectContext } from "../context";
 import type { SelectOption, SelectState } from "../types";
 import { SelectVariants } from "../variants";
@@ -36,6 +37,8 @@ const calculateState = (props: SelectRootProps): SelectState => {
 
 export function SelectRoot(props: SelectRootProps) {
   const variantStyles = SelectVariants[props.variant ?? "default"]();
+  const componentConfig = useComponentConfig("select");
+  const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
   const [isOpen, setIsOpen] = useState(false);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
@@ -43,7 +46,7 @@ export function SelectRoot(props: SelectRootProps) {
   const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const state = calculateState(props);
-  const composedStyles = calculateComposedStyles(variantStyles, state, "root", props.style);
+  const composedStyles = calculateComposedStyles(mergedStyles, state, "root", props.style);
 
   const Component = props.render ?? View;
   return (
@@ -61,7 +64,7 @@ export function SelectRoot(props: SelectRootProps) {
         setOptions,
         state,
         isDisabled: props.isDisabled ?? false,
-        styles: variantStyles,
+        styles: mergedStyles,
       }}
     >
       <Component style={composedStyles}>{props.children}</Component>

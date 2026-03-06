@@ -10,9 +10,7 @@ interface ComponentSidebarProps {
 
 export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
   const theme = useTheme();
-  const sortedComponents = [...COMPONENTS].sort((a, b) =>
-    a.title.localeCompare(b.title),
-  );
+  const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
 
   const isActive = (href: Href) => {
     const matchingComponents = sortedComponents.filter((component) =>

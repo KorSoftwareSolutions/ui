@@ -43,8 +43,7 @@ export function ComboboxOption(props: ComboboxOptionProps) {
     <Component
       onPress={() => {
         const label =
-          props.label ??
-          (typeof props.children === "string" ? props.children : props.value);
+          props.label ?? (typeof props.children === "string" ? props.children : props.value);
         combobox.onChange?.(label);
         combobox.setIsOpen(false);
       }}
