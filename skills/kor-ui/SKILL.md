@@ -98,6 +98,7 @@ function SubmitButton() {
 | **Separator**   | Visual divider between content                  | horizontal, vertical | [Layout Components](./references/components-layout.md#separator) |
 | **Portal**      | Render components outside hierarchy             | -                    | [Layout Components](./references/components-layout.md#portal)    |
 | **List**        | Performance-optimized list rendering            | -                    | [Layout Components](./references/components-layout.md#list)      |
+| **Table**       | Data table with header, body, rows, and cells   | default              | [Layout Components](./references/components-layout.md#table)     |
 
 ### Form Inputs
 
@@ -613,7 +614,7 @@ Consult these detailed references as needed:
 
 ### Component References
 
-- [Layout Components](./references/components-layout.md) - Card, Separator, Portal, List
+- [Layout Components](./references/components-layout.md) - Card, Separator, Portal, List, Table
 - [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, RadioGroup, Select, Combobox, Field
 - [Display Components](./references/components-display.md) - Typography, Avatar, Badge, Icon, Empty, Progress
 - [Interactive Components](./references/components-interactive.md) - Button, Tabs, Menu, Popover, Calendar

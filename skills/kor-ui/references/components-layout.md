@@ -8,6 +8,7 @@ Complete reference for layout and structural components in Universal UI. These c
 2. [Separator](#separator)
 3. [Portal](#portal)
 4. [List](#list)
+5. [Table](#table)
 
 ---
 
@@ -888,6 +889,246 @@ The List component uses `React.Fragment` with keys for efficient rendering:
 - **All Platforms**: Identical behavior
 - **Performance**: Same performance characteristics across platforms
 - **Styling**: Use standard React Native styling
+
+---
+
+## Table
+
+Data table component for displaying structured tabular data. Uses a compound component pattern with Root, Header, Body, Row, Head, and Cell sub-components.
+
+### When to Use
+
+- Displaying structured data in rows and columns
+- Data grids with headers
+- Settings or configuration lists
+- Comparison tables
+
+### Component Structure
+
+```typescript
+import { Table } from "@korsolutions/ui";
+
+<Table.Root variant="default">
+  <Table.Header>
+    <Table.Row>
+      <Table.Head>Column 1</Table.Head>
+      <Table.Head>Column 2</Table.Head>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell>Value 1</Table.Cell>
+      <Table.Cell>Value 2</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table.Root>
+```
+
+### Table.Root
+
+Root container that provides context and styling to all sub-components.
+
+#### Props
+
+```typescript
+interface TableRootProps {
+  variant?: keyof typeof TableVariants;  // "default" (default)
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;     // Custom render component
+}
+```
+
+#### Default Styles (variant="default")
+
+```typescript
+{
+  borderWidth: 1,
+  borderColor: colors.border,
+  borderRadius: radius,
+  overflow: "hidden",
+}
+```
+
+### Table.Header
+
+Container for the header row(s). Styled with a muted background to distinguish from body rows.
+
+#### Props
+
+```typescript
+interface TableHeaderProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  backgroundColor: colors.muted,
+}
+```
+
+### Table.Body
+
+Container for data rows.
+
+#### Props
+
+```typescript
+interface TableBodyProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### Table.Row
+
+A single row in the table. Renders children horizontally with a bottom border.
+
+#### Props
+
+```typescript
+interface TableRowProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  flexDirection: "row",
+  borderBottomWidth: 1,
+  borderBottomColor: colors.border,
+}
+```
+
+### Table.Head
+
+A header cell in a header row. Uses `flex: 1` to distribute space equally.
+
+#### Props
+
+```typescript
+interface TableHeadProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  flex: 1,
+  paddingHorizontal: 16,
+  paddingVertical: 12,
+}
+```
+
+### Table.Cell
+
+A data cell in a body row. Uses `flex: 1` to distribute space equally.
+
+#### Props
+
+```typescript
+interface TableCellProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  flex: 1,
+  paddingHorizontal: 16,
+  paddingVertical: 12,
+}
+```
+
+### Complete Example
+
+```typescript
+import { Table, Typography } from "@korsolutions/ui";
+
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+const users: User[] = [
+  { id: "1", name: "Alice", email: "alice@example.com", role: "Admin" },
+  { id: "2", name: "Bob", email: "bob@example.com", role: "Editor" },
+  { id: "3", name: "Charlie", email: "charlie@example.com", role: "Viewer" },
+];
+
+function UserTable() {
+  return (
+    <Table.Root>
+      <Table.Header>
+        <Table.Row>
+          <Table.Head><Typography variant="label">Name</Typography></Table.Head>
+          <Table.Head><Typography variant="label">Email</Typography></Table.Head>
+          <Table.Head><Typography variant="label">Role</Typography></Table.Head>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        {users.map((user) => (
+          <Table.Row key={user.id}>
+            <Table.Cell><Typography>{user.name}</Typography></Table.Cell>
+            <Table.Cell><Typography>{user.email}</Typography></Table.Cell>
+            <Table.Cell><Typography>{user.role}</Typography></Table.Cell>
+          </Table.Row>
+        ))}
+      </Table.Body>
+    </Table.Root>
+  );
+}
+```
+
+### Common Patterns
+
+#### Custom Column Widths
+
+```typescript
+<Table.Row>
+  <Table.Cell style={{ flex: 2 }}>Wide column</Table.Cell>
+  <Table.Cell style={{ flex: 1 }}>Normal column</Table.Cell>
+</Table.Row>
+```
+
+#### Minimal Table (No Header)
+
+```typescript
+<Table.Root>
+  <Table.Body>
+    <Table.Row>
+      <Table.Cell><Typography>Label</Typography></Table.Cell>
+      <Table.Cell><Typography>Value</Typography></Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table.Root>
+```
+
+### Platform Considerations
+
+- **All Platforms**: Renders as a bordered, rounded container with rows
+- **Overflow**: Root has `overflow: "hidden"` to clip content to border radius
+- **Flex Layout**: Cells use `flex: 1` by default — override with `style={{ flex: N }}` for custom widths
 
 ---
 

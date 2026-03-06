@@ -103,6 +103,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/radio-group",
   },
   {
+    title: "Table",
+    href: "/components/table",
+  },
+  {
     title: "Tabs",
     href: "/components/tabs",
   },

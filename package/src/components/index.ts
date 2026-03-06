@@ -24,6 +24,7 @@ export * from "./scroll-bar";
 export * from "./select";
 export * from "./separator";
 export * from "./spinner";
+export * from "./table";
 export * from "./tabs";
 export * from "./textarea";
 export * from "./toast";

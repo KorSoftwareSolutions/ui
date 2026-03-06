@@ -60,6 +60,7 @@ import type { RadioGroupStyles } from "../components/radio-group/types";
 import type { SelectStyles } from "../components/select/types";
 import type { SeparatorStyles } from "../components/separator/types";
 import type { SpinnerStyles } from "../components/spinner/types";
+import type { TableStyles } from "../components/table/types";
 import type { TabsStyles } from "../components/tabs/types";
 import type { TextareaStyles } from "../components/textarea/types";
 import type { ToastStyles } from "../components/toast/types";
@@ -136,6 +137,9 @@ export interface ComponentsConfig {
   };
   spinner?: {
     styles?: SpinnerStyles;
+  };
+  table?: {
+    styles?: TableStyles;
   };
   tabs?: {
     styles?: TabsStyles;
