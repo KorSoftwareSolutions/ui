@@ -351,11 +351,9 @@ import { Alert } from "@korsolutions/ui";
 // With custom function
 <Alert.Icon render={(props) => <CheckCircle {...props} size={20} />} />
 
-// With @expo/vector-icons
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-<Alert.Icon render={(props) => (
-  <MaterialCommunityIcons {...props} name="alert-circle" />
-)} />
+// With lucide-react-native
+import { AlertCircle } from "lucide-react-native";
+<Alert.Icon render={AlertCircle} />
 ```
 
 ### Icon Button

@@ -700,7 +700,7 @@ import { Avatar, Button } from "@korsolutions/ui";
 </Empty.Root>
 
 // Network error with actions
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { WifiOff } from "lucide-react-native";
 import { useTheme } from "@korsolutions/ui";
 
 function NetworkError() {
@@ -709,8 +709,7 @@ function NetworkError() {
   return (
     <Empty.Root>
       <Empty.Media>
-        <MaterialCommunityIcons
-          name="wifi-off"
+        <WifiOff
           size={48}
           color={theme.colors.mutedForeground}
         />

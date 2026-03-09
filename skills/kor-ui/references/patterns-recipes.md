@@ -736,7 +736,6 @@ function CustomSelectOptions() {
 
 ```typescript
 import { Card, Empty, Avatar, Button } from "@korsolutions/ui";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@korsolutions/ui";
 import { View } from "react-native";
 
@@ -1193,26 +1192,16 @@ function SizedIcons() {
 }
 ```
 
-### Using @expo/vector-icons
+### Using lucide-react-native
 
 ```typescript
 import { Alert } from "@korsolutions/ui";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTheme } from "@korsolutions/ui";
+import { AlertCircle } from "lucide-react-native";
 
-function ExpoVectorIcons() {
-  const { colors } = useTheme();
-
+function LucideIconExample() {
   return (
     <Alert.Root variant="destructive">
-      <Alert.Icon
-        render={(props) => (
-          <MaterialCommunityIcons
-            {...props}
-            name="alert-circle"
-          />
-        )}
-      />
+      <Alert.Icon render={AlertCircle} />
       <Alert.Body>
         <Alert.Title>Warning</Alert.Title>
         <Alert.Description>This action cannot be undone.</Alert.Description>

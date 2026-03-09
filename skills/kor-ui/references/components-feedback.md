@@ -214,18 +214,16 @@ export default function Example() {
 }
 ```
 
-#### Custom Icon (using @expo/vector-icons)
+#### Custom Icon (using lucide-react-native)
 
 ```typescript
 import { Alert } from "@korsolutions/ui";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AlertCircle } from "lucide-react-native";
 
 export default function Example() {
   return (
     <Alert.Root variant="destructive">
-      <Alert.Icon render={(props) =>
-        <MaterialCommunityIcons {...props} name="alert-circle" />
-      } />
+      <Alert.Icon render={AlertCircle} />
       <Alert.Body>
         <Alert.Title>Warning</Alert.Title>
         <Alert.Description>
