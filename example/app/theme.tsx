@@ -9,7 +9,7 @@ export default function ThemeScreen() {
   const colorEntries = Object.entries(theme.colors) as [keyof typeof theme.colors, string][];
 
   return (
-    <ComponentScreenLayout title="Theme" backHref="/">
+    <ComponentScreenLayout title="Theme">
       <Section title="Colors">
         <View style={s.colorGrid}>
           {colorEntries.map(([name, value]) => (

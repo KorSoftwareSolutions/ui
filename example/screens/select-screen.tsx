@@ -10,10 +10,7 @@ export function SelectComponentScreen() {
   const isModalScreen = pathname?.endsWith("/modal");
 
   return (
-    <ComponentScreenLayout
-      title={isModalScreen ? "Select modal" : "Select"}
-      backHref={isModalScreen ? "/components/select" : undefined}
-    >
+    <ComponentScreenLayout title={isModalScreen ? "Select modal" : "Select"}>
       <UseCaseSection title="Default">
         <DefaultExample />
       </UseCaseSection>

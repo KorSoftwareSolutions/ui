@@ -16,7 +16,7 @@ export default function Home() {
   const theme = useTheme();
 
   return (
-    <MainScreenLayout title="@korsolutions/ui">
+    <MainScreenLayout>
       <ScrollView contentContainerStyle={s.content} style={s.container}>
         {/* Hero Section */}
         <View style={s.hero}>

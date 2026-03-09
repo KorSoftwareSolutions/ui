@@ -1,14 +1,11 @@
 import { COMPONENTS } from "@/constants/components";
 import { Typography, useTheme } from "@korsolutions/ui";
-import { Href, Link } from "expo-router";
+import { Href, Link, usePathname } from "expo-router";
 import React from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 
-interface ComponentSidebarProps {
-  currentPath: string;
-}
-
-export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
+export function ComponentSidebar() {
+  const currentPath = usePathname();
   const theme = useTheme();
   const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
 
@@ -32,9 +29,6 @@ export function ComponentSidebar({ currentPath }: ComponentSidebarProps) {
         },
       ]}
     >
-      <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
-        <Typography variant="heading-md">Components</Typography>
-      </View>
       <ScrollView style={styles.list}>
         {sortedComponents.map((component) => (
           <SidebarItem
@@ -82,10 +76,6 @@ const styles = StyleSheet.create({
     width: 260,
     borderRightWidth: 1,
     height: "100%",
-  },
-  header: {
-    padding: 24,
-    borderBottomWidth: 1,
   },
   list: {
     flex: 1,

@@ -24,10 +24,7 @@ export function PopoverComponentScreen() {
   const isModalScreen = pathname?.endsWith("/modal");
 
   return (
-    <ComponentScreenLayout
-      title={isModalScreen ? "Popover modal" : "Popover"}
-      backHref={isModalScreen ? "/components/popover" : undefined}
-    >
+    <ComponentScreenLayout title={isModalScreen ? "Popover modal" : "Popover"}>
       <UseCaseSection title="Default">
         <DefaultExample />
       </UseCaseSection>

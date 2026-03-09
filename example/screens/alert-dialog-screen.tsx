@@ -9,10 +9,7 @@ export function AlertDialogComponentScreen() {
   const isModalScreen = pathname?.endsWith("/modal");
 
   return (
-    <ComponentScreenLayout
-      title={isModalScreen ? "AlertDialog modal" : "AlertDialog"}
-      backHref={isModalScreen ? "/components/alert-dialog" : undefined}
-    >
+    <ComponentScreenLayout title={isModalScreen ? "AlertDialog modal" : "AlertDialog"}>
       <UseCaseSection title="Default">
         <BasicExample />
       </UseCaseSection>

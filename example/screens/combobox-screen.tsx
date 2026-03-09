@@ -107,10 +107,7 @@ export function ComboboxComponentScreen() {
   const filteredFrameworks = useMemo(() => filterByLabel(frameworks, search), [search]);
 
   return (
-    <ComponentScreenLayout
-      title={isModalScreen ? "Combobox modal" : "Combobox"}
-      backHref={isModalScreen ? "/components/combobox" : undefined}
-    >
+    <ComponentScreenLayout title={isModalScreen ? "Combobox modal" : "Combobox"}>
       <UseCaseSection title="Default">
         <Combobox.Root value={value} onChange={setValue} onInputChange={setSearch}>
           <Combobox.Trigger placeholder="Select framework..." />

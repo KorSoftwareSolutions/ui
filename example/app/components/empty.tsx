@@ -1,7 +1,7 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Avatar, Button, Card, Empty, useTheme } from "@korsolutions/ui";
+import { Avatar, Button, Card, Empty, Icon, useTheme } from "@korsolutions/ui";
+import { WifiOff } from "lucide-react-native";
 import React from "react";
 import { View } from "react-native";
 
@@ -35,11 +35,7 @@ export default function EmptyComponentScreen() {
         <Card.Root>
           <Empty.Root>
             <Empty.Media>
-              <MaterialCommunityIcons
-                name="wifi-off"
-                size={48}
-                color={theme.colors.mutedForeground}
-              />
+              <Icon render={WifiOff} size={48} color={theme.colors.mutedForeground} />
             </Empty.Media>
             <Empty.Title>Network disconnected</Empty.Title>
             <Empty.Description>

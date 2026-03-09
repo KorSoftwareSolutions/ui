@@ -5,15 +5,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenHeader } from "./screen-header";
 
 interface Props {
-  title: string;
   children: React.ReactNode;
 }
 
-export function MainScreenLayout({ title, children }: Props) {
+export function MainScreenLayout({ children }: Props) {
   const theme = useTheme();
   return (
     <SafeAreaView edges={["top", "bottom"]} style={s.container}>
-      <ScreenHeader title={title} />
+      <ScreenHeader />
       <View style={[s.divider, { backgroundColor: theme.colors.border }]} />
       {children}
     </SafeAreaView>

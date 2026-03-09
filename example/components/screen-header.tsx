@@ -1,89 +1,79 @@
-import { Typography, useTheme } from "@korsolutions/ui";
-import { Href, Link } from "expo-router";
-import { ChevronLeftIcon, MoonIcon, SunIcon } from "lucide-react-native";
+import { GithubIcon } from "@/assets/icons/GithubIcon";
+import { KorUIIcon } from "@/assets/icons/KorUIIcon";
+import { IconButton, Separator, Typography, useTheme } from "@korsolutions/ui";
+import { Link } from "expo-router";
+import { MoonIcon, PencilRulerIcon, SunIcon } from "lucide-react-native";
 import React from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { ThemeSwitcher } from "./theme-switcher";
+import { Linking, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
-interface ScreenHeaderProps {
-  title: string;
-  backHref?: Href;
-}
+const GITHUB_URL = "https://github.com/korsoftwaresolutions/ui";
 
-export function ScreenHeader({ title, backHref }: ScreenHeaderProps) {
-  /* ******************** Hooks ******************** */
+export function ScreenHeader() {
   const theme = useTheme();
-  /* ******************** Variables ******************** */
   const ColorSchemeIcon = theme.colorScheme === "light" ? SunIcon : MoonIcon;
-  /* ******************** Functions ******************** */
-  /* ******************** Effects ******************** */
-  /* ******************** JSX ******************** */
+
+  const openGithub = () => {
+    if (Platform.OS === "web") {
+      window.open(GITHUB_URL, "_blank");
+    } else {
+      Linking.openURL(GITHUB_URL);
+    }
+  };
+
   return (
     <View style={s.header}>
-      {!!backHref && (
-        <Link href={backHref} dismissTo asChild>
-          <TouchableOpacity style={s.backButton}>
-            <ChevronLeftIcon color={theme.colors.primary} />
-            <Typography style={[s.backButtonLabel, { color: theme.colors.primary }]}>
-              Back
-            </Typography>
-          </TouchableOpacity>
-        </Link>
-      )}
-      <Typography style={[s.title, { color: theme.colors.foreground }]}>{title}</Typography>
-      <View style={s.actions}>
-        <ThemeSwitcher />
-        <TouchableOpacity
-          onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
-        >
-          <ColorSchemeIcon color={theme.colors.foreground} />
+      <Link href="/" asChild>
+        <TouchableOpacity style={s.logoContainer}>
+          <KorUIIcon size={28} style={s.logo} />
+          <Typography style={[s.packageName, { color: theme.colors.foreground }]}>
+            @korsolutions/ui
+          </Typography>
         </TouchableOpacity>
+      </Link>
+      <View style={s.actions}>
+        <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} size={24} />
+        <Separator variant="vertical" />
+        <Link href="/theme-selector" asChild>
+          <IconButton render={PencilRulerIcon} variant="ghost" size={24} />
+        </Link>
+        <Separator variant="vertical" />
+        <IconButton
+          render={ColorSchemeIcon}
+          variant="ghost"
+          onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
+          size={24}
+        />
       </View>
     </View>
   );
 }
 
 const s = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 24,
-    gap: 16,
-    maxWidth: 600,
+    justifyContent: "space-between",
+    paddingHorizontal: 24,
+    paddingVertical: 16,
     width: "100%",
-    alignSelf: "center",
   },
-  content: {
-    flexGrow: 1,
-    padding: 24,
-    gap: 24,
-    maxWidth: 600,
-    width: "100%",
-    alignSelf: "center",
-  },
-  backButton: {
+  logoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: 10,
   },
-  backButtonLabel: {
+  logo: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+  },
+  packageName: {
     fontSize: 16,
-  },
-  title: {
-    flex: 1,
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  divider: {
-    height: 1,
+    fontWeight: "700",
   },
   actions: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
+    gap: 16,
   },
 });
