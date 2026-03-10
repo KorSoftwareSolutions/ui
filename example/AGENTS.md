@@ -1,8 +1,8 @@
-# AGENTS.md - Universal UI Example App
+# AGENTS.md - KorUI Example App
 
 ## Overview
 
-This is an Expo application demonstrating the Universal UI library components. Built with Expo Router for file-based routing, it provides interactive examples of all library components across iOS, Android, and web platforms.
+This is an Expo application demonstrating the KorUI library components. Built with Expo Router for file-based routing, it provides interactive examples of all library components across iOS, Android, and web platforms.
 
 ## App Structure
 

@@ -1,8 +1,8 @@
-# AGENTS.md - Universal UI Monorepo
+# AGENTS.md - KorUI Monorepo
 
 ## Overview
 
-This is a bun workspace monorepo for Universal UI (`@korsolutions/ui`), a library of unstyled UI primitives for React Native and Expo. The project follows a philosophy of minimal dependencies, easy-to-use APIs, and unstyled-by-default components.
+This is a bun workspace monorepo for KorUI (`@korsolutions/ui`), a minimal-dependency, cross-platform UI library for React Native and Expo. Components are flexible with beautiful default styling, easy-to-use APIs, and full customizability.
 
 ## Monorepo Structure
 
@@ -40,8 +40,8 @@ kor-ui/
 
 **Contains**:
 
-- Primitives (unstyled, headless UI components)
-- Components (styled components using primitives)
+- Primitives (core behavioral UI components)
+- Components (styled components with beautiful defaults)
 - Theme system and utilities
 - Type definitions
 
@@ -205,7 +205,7 @@ cd library && bun build
 
 The library uses a **primitive + component + variant** pattern:
 
-1. **Primitives** (`library/src/primitives/`) - Unstyled, headless components providing behavior
+1. **Primitives** (`library/src/primitives/`) - Core behavioral components
 2. **Components** (`library/src/components/`) - Styled components using primitives with variants
 3. **Variants** (`library/src/components/[name]/variants/`) - Theme-aware style hooks
 4. **Themes** (`library/src/themes/`) - Color tokens, spacing, typography

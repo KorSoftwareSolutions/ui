@@ -1,13 +1,13 @@
-# AGENTS.md - Universal UI Library
+# AGENTS.md - KorUI Library
 
 ## Overview
 
-This is the main UI component library package (`@korsolutions/ui`) providing unstyled primitives and styled components for React Native and Expo applications.
+This is the main UI component library package (`@korsolutions/ui`), a minimal-dependency, cross-platform UI library for React Native and Expo. Flexible components with beautiful default styling.
 
 ## Core Principles
 
 1. **Minimal Dependencies** - Keep external dependencies to a minimum
-2. **Unstyled Primitives** - Primitives provide behavior without visual styles
+2. **Beautiful Defaults** - Components ship with production-ready styling
 3. **Variant System** - Use themed style hooks for component variants
 4. **Compound Components** - Export components as objects with sub-components
 5. **Type Safety** - Full TypeScript coverage with strict mode enabled

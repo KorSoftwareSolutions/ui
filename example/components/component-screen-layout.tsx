@@ -1,4 +1,5 @@
 import { Separator, Typography, useScreenSize } from "@korsolutions/ui";
+import Head from "expo-router/head";
 import React, { createContext, useContext, useRef } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -22,6 +23,9 @@ export function ComponentScreenLayout({ title, children }: Props) {
 
   return (
     <ScrollViewContext.Provider value={contextValue}>
+      <Head>
+        <title>{`${title} - KorUI`}</title>
+      </Head>
       <View style={s.wrapper}>
         <ScreenHeader />
         <Separator />

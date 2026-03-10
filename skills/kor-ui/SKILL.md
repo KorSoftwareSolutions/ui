@@ -1,15 +1,15 @@
 ---
 name: kor-ui
-description: Complete guide for using the Kor UI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with Universal UI, customizing themes, setting up the library, working with any of the 27+ components (Button, IconButton, Input, Select, Checkbox, RadioGroup, Alert, Card, Separator, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "Universal UI", "UIProvider", or asks about unstyled primitives, theme customization, or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
+description: Complete guide for using the KorUI library (@korsolutions/ui) in React Native and Expo applications. Use this skill when building user interfaces with KorUI, customizing themes, setting up the library, working with any of the 27+ components (Button, IconButton, Input, Select, Checkbox, RadioGroup, Alert, Card, Separator, Tabs, Menu, Popover, Calendar, Toast, etc.), styling and theming, implementing compound components, debugging component issues, or when the user mentions "@korsolutions/ui", "KorUI", "UIProvider", or asks about theme customization or React Native UI components. This skill covers installation, provider setup, component usage patterns, theme customization, variant system, hooks, responsive design, and troubleshooting.
 ---
 
-# Universal UI Library
+# KorUI Library
 
-Universal UI (@korsolutions/ui) is a library of unstyled UI primitives for React Native and Expo applications. It provides production-ready components with a focus on minimal dependencies, compound component patterns, and comprehensive theming support.
+KorUI (@korsolutions/ui) is a minimal-dependency, cross-platform UI library for React Native and Expo. Flexible components with beautiful default styling, compound component patterns, and comprehensive theming support.
 
 ## Core Principles
 
-- **Unstyled Primitives**: Components are unstyled by default with variant-based styling
+- **Beautiful Defaults**: Components ship with production-ready styling and a flexible variant system
 - **Compound Components**: All components follow Root + sub-component pattern
 - **Variant System**: Each component offers multiple style variants
 - **Minimal Dependencies**: Only React Native and Expo core dependencies
@@ -148,7 +148,7 @@ function SubmitButton() {
 
 ## Compound Component Pattern
 
-All Universal UI components follow a compound component pattern where a parent component (usually `Root`) provides context to child sub-components.
+All KorUI components follow a compound component pattern where a parent component (usually `Root`) provides context to child sub-components.
 
 ### Structure
 
@@ -220,7 +220,7 @@ This ensures your custom styles always take precedence over variant defaults.
 
 ## Theme System Basics
 
-Universal UI includes a comprehensive theming system with light/dark mode support.
+KorUI includes a comprehensive theming system with light/dark mode support.
 
 ### Theme Tokens
 
@@ -339,7 +339,7 @@ import { Field, Input } from "@korsolutions/ui";
 
 ### Icons with Render Prop
 
-Universal UI uses a render prop pattern for icons, supporting any icon library:
+KorUI uses a render prop pattern for icons, supporting any icon library:
 
 ```tsx
 import { AlertCircle, CheckCircle } from "lucide-react-native";

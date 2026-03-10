@@ -8,6 +8,7 @@ import { StatsShowcase } from "@/screens/home/stats-showcase";
 import { TeamMembersShowcase } from "@/screens/home/team-members-showcase";
 import { Button, Icon, Separator, Typography, useTheme } from "@korsolutions/ui";
 import { Link } from "expo-router";
+import Head from "expo-router/head";
 import { ArrowRightIcon } from "lucide-react-native";
 import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
@@ -17,18 +18,25 @@ export default function Home() {
 
   return (
     <MainScreenLayout>
+      <Head>
+        <title>KorUI - Cross-Platform UI Components for React Native</title>
+        <meta
+          name="description"
+          content="A minimal-dependency, cross-platform UI library for React Native and Expo. Flexible components with beautiful default styling."
+        />
+      </Head>
       <ScrollView contentContainerStyle={s.content} style={s.container}>
         {/* Hero Section */}
         <View style={s.hero}>
           <Typography variant="heading-lg" style={s.heroTitle}>
-            Beautiful UI primitives for React Native
+            Beautiful UI components for React Native
           </Typography>
           <Typography
             variant="body-lg"
             style={[s.heroDescription, { color: theme.colors.mutedForeground }]}
           >
-            Unstyled, accessible components that you can customize to match your
-            brand. Built for Expo and React Native.
+            Minimal dependencies, cross-platform, and flexible with beautiful
+            default styling. Built for Expo and React Native.
           </Typography>
           <View style={s.heroCta}>
             <Link href="/components/button" asChild>

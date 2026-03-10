@@ -1,15 +1,14 @@
-# Universal UI
+# KorUI
 
-A library of unstyled UI primitives for React Native and Expo.
+A minimal-dependency, cross-platform UI library for React Native and Expo. Flexible components with beautiful default styling.
 
 ## Philosophy
 
 - **Minimal dependencies** - We keep the dependency footprint as small as possible
+- **Beautiful defaults** - Production-ready styling out of the box
+- **Fully customizable** - Flexible variant system to match your brand
+- **Cross-platform** - iOS, Android, and Web support
 - **Easy to use** - Simple, intuitive APIs that just work
-
-## Roadmap
-
-Styled components with sensible defaults are coming soon. The current focus is on building a solid foundation of accessible, flexible primitives.
 
 ## Installation
 
