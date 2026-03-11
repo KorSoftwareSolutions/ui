@@ -60,6 +60,7 @@ import type { ProgressStyles } from "../components/progress/types";
 import type { RadioGroupStyles } from "../components/radio-group/types";
 import type { SelectStyles } from "../components/select/types";
 import type { SeparatorStyles } from "../components/separator/types";
+import type { SidebarStyles } from "../components/sidebar/types";
 import type { SpinnerStyles } from "../components/spinner/types";
 import type { TableStyles } from "../components/table/types";
 import type { TabsStyles } from "../components/tabs/types";
@@ -135,6 +136,9 @@ export interface ComponentsConfig {
   };
   separator?: {
     styles?: SeparatorStyles;
+  };
+  sidebar?: {
+    styles?: SidebarStyles;
   };
   spinner?: {
     styles?: SpinnerStyles;

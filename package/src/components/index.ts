@@ -23,6 +23,7 @@ export * from "./radio-group";
 export * from "./scroll-bar";
 export * from "./select";
 export * from "./separator";
+export * from "./sidebar";
 export * from "./spinner";
 export * from "./table";
 export * from "./tabs";

@@ -1,16 +1,26 @@
 import { GithubIcon } from "@/assets/icons/GithubIcon";
 import { KorUIIcon } from "@/assets/icons/KorUIIcon";
-import { IconButton, Separator, Typography, useTheme } from "@korsolutions/ui";
+import { IconButton, Separator, Typography, useScreenSize, useTheme } from "@korsolutions/ui";
 import { Link } from "expo-router";
-import { MoonIcon, PencilRulerIcon, SunIcon } from "lucide-react-native";
+import { MenuIcon, MoonIcon, PencilRulerIcon, SunIcon, XIcon } from "lucide-react-native";
 import React from "react";
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const GITHUB_URL = "https://github.com/korsoftwaresolutions/ui";
 
-export function ScreenHeader() {
+interface ScreenHeaderProps {
+  /** When provided, shows a hamburger menu on mobile that calls this function */
+  onToggleMenu?: () => void;
+  /** Whether the mobile menu is currently open */
+  menuOpen?: boolean;
+}
+
+export function ScreenHeader({ onToggleMenu, menuOpen }: ScreenHeaderProps) {
   const theme = useTheme();
+  const screenSize = useScreenSize();
   const ColorSchemeIcon = theme.colorScheme === "light" ? SunIcon : MoonIcon;
+
+  const showHamburger = onToggleMenu && !screenSize.isDesktop;
 
   const openGithub = () => {
     if (Platform.OS === "web") {
@@ -30,22 +40,32 @@ export function ScreenHeader() {
           </Typography>
         </TouchableOpacity>
       </Link>
-      <View style={s.actions}>
-        <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} />
-        <Separator variant="vertical" />
-        <Link href="/theme-selector" asChild>
-          <IconButton render={PencilRulerIcon} variant="ghost" />
-        </Link>
-        <Separator variant="vertical" />
+      {showHamburger ? (
         <IconButton
-          render={ColorSchemeIcon}
+          render={menuOpen ? XIcon : MenuIcon}
           variant="ghost"
-          onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
+          onPress={onToggleMenu}
         />
-      </View>
+      ) : (
+        <View style={s.actions}>
+          <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} />
+          <Separator variant="vertical" />
+          <Link href="/theme-selector" asChild>
+            <IconButton render={PencilRulerIcon} variant="ghost" />
+          </Link>
+          <Separator variant="vertical" />
+          <IconButton
+            render={ColorSchemeIcon}
+            variant="ghost"
+            onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
+          />
+        </View>
+      )}
     </View>
   );
 }
+
+export { GITHUB_URL };
 
 const s = StyleSheet.create({
   header: {

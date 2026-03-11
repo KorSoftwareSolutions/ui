@@ -9,6 +9,7 @@ Complete reference for layout and structural components in Universal UI. These c
 3. [Portal](#portal)
 4. [List](#list)
 5. [Table](#table)
+6. [Sidebar](#sidebar)
 
 ---
 
@@ -1129,6 +1130,379 @@ function UserTable() {
 - **All Platforms**: Renders as a bordered, rounded container with rows
 - **Overflow**: Root has `overflow: "hidden"` to clip content to border radius
 - **Flex Layout**: Cells use `flex: 1` by default — override with `style={{ flex: N }}` for custom widths
+
+---
+
+## Sidebar
+
+Collapsible navigation sidebar with grouped menu items, headers, footers, and submenus. The user controls all behavior (toggling, mobile handling) via the `useSidebar()` hook.
+
+### When to Use
+
+- App-level navigation sidebars
+- Dashboard layouts with collapsible navigation
+- Settings panels with grouped menu sections
+- Any layout requiring a toggleable side panel
+
+### Component Structure
+
+```typescript
+import { Sidebar, useSidebar, Icon } from "@korsolutions/ui";
+import { Home, Settings } from "lucide-react-native";
+
+<Sidebar.Provider>
+  <Sidebar.Root>
+    <Sidebar.Header>
+      {/* Fixed top content (logo, app name) */}
+    </Sidebar.Header>
+
+    <Sidebar.Content>
+      {/* Scrollable area */}
+      <Sidebar.Group>
+        <Sidebar.GroupLabel>Section</Sidebar.GroupLabel>
+        <Sidebar.Menu>
+          <Sidebar.MenuItem isActive onPress={handlePress}>
+            <Icon render={Home} />
+            Dashboard
+          </Sidebar.MenuItem>
+        </Sidebar.Menu>
+      </Sidebar.Group>
+    </Sidebar.Content>
+
+    <Sidebar.Footer>
+      {/* Fixed bottom content */}
+    </Sidebar.Footer>
+  </Sidebar.Root>
+
+  {/* Main content area */}
+  <View style={{ flex: 1 }}>{children}</View>
+</Sidebar.Provider>
+```
+
+### Sidebar.Provider
+
+Wraps the sidebar and its adjacent content. Manages open/closed state and provides styles via context.
+
+#### Props
+
+```typescript
+interface SidebarProviderProps {
+  children?: React.ReactNode;
+  /** Style variant (default: "default") */
+  variant?: "default";
+  /** Width of the sidebar in pixels (default: 256) */
+  width?: number;
+  /** Default open state for uncontrolled mode (default: true) */
+  defaultOpen?: boolean;
+  /** Controlled open state */
+  open?: boolean;
+  /** Callback when open state changes */
+  onOpenChange?: (open: boolean) => void;
+}
+```
+
+### Sidebar.Root
+
+The sidebar container itself. Renders as a single View that collapses to `width: 0` when closed.
+
+#### Props
+
+```typescript
+interface SidebarRootProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+### Sidebar.Header / Sidebar.Footer
+
+Fixed areas at the top and bottom of the sidebar.
+
+#### Props
+
+```typescript
+interface SidebarHeaderProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+// SidebarFooterProps is identical
+```
+
+### Sidebar.Content
+
+Scrollable area between header and footer (uses `ScrollView`).
+
+#### Props
+
+```typescript
+interface SidebarContentProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+### Sidebar.Group / Sidebar.GroupLabel
+
+Groups related menu items with an optional label.
+
+#### Props
+
+```typescript
+interface SidebarGroupProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+
+interface SidebarGroupLabelProps {
+  children?: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+}
+```
+
+### Sidebar.Menu
+
+Container for menu items (provides consistent gap).
+
+#### Props
+
+```typescript
+interface SidebarMenuProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+### Sidebar.MenuItem
+
+Pressable menu item. Accepts `Icon` and text children — icon color/size and text styles are automatically applied from the variant via `useOrganizedChildren`.
+
+#### Props
+
+```typescript
+interface SidebarMenuItemProps extends Omit<PressableProps, "style"> {
+  children?: React.ReactNode;
+  /** Highlight as the active item */
+  isActive?: boolean;
+  /** Size variant: "default" or "lg" */
+  size?: "default" | "lg";
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+**Important**: Use `<Icon render={Home} />` (not `<Home />`) for icons inside `MenuItem`. The library's `Icon` component is required for automatic icon theming.
+
+### Sidebar.MenuSub
+
+Collapsible submenu container. Returns `null` when `open` is `false`.
+
+#### Props
+
+```typescript
+interface SidebarMenuSubProps {
+  children?: React.ReactNode;
+  /** Whether the submenu is visible (default: true) */
+  open?: boolean;
+  style?: StyleProp<ViewStyle>;
+}
+```
+
+### useSidebar Hook
+
+Access sidebar state and controls from any component inside `Sidebar.Provider`.
+
+```typescript
+const {
+  state,          // "expanded" | "collapsed"
+  open,           // boolean
+  setOpen,        // (open: boolean) => void
+  toggleSidebar,  // () => void
+  width,          // number | undefined
+} = useSidebar();
+```
+
+### Complete Example
+
+```tsx
+import { Sidebar, useSidebar, Icon, Button, Typography, Badge } from "@korsolutions/ui";
+import { Home, Inbox, Settings, PanelLeft, BookOpen, ChevronRight } from "lucide-react-native";
+import { useState } from "react";
+import { View } from "react-native";
+
+function ToggleButton() {
+  const { toggleSidebar, open } = useSidebar();
+  return (
+    <Button variant="ghost" size="sm" onPress={toggleSidebar}>
+      <Icon render={PanelLeft} />
+      {open ? "Close" : "Open"}
+    </Button>
+  );
+}
+
+function AppLayout() {
+  const [active, setActive] = useState("home");
+  const [docsOpen, setDocsOpen] = useState(true);
+
+  return (
+    <Sidebar.Provider>
+      <Sidebar.Root>
+        <Sidebar.Header>
+          <Sidebar.MenuItem size="lg">
+            <Icon render={Home} />
+            <Typography style={{ fontWeight: "600" }}>My App</Typography>
+          </Sidebar.MenuItem>
+        </Sidebar.Header>
+
+        <Sidebar.Content>
+          <Sidebar.Group>
+            <Sidebar.GroupLabel>Navigation</Sidebar.GroupLabel>
+            <Sidebar.Menu>
+              <Sidebar.MenuItem
+                isActive={active === "home"}
+                onPress={() => setActive("home")}
+              >
+                <Icon render={Home} />
+                <Typography>Home</Typography>
+              </Sidebar.MenuItem>
+
+              <Sidebar.MenuItem
+                isActive={active === "inbox"}
+                onPress={() => setActive("inbox")}
+              >
+                <Icon render={Inbox} />
+                <Typography>Inbox</Typography>
+                <Badge variant="secondary">12</Badge>
+              </Sidebar.MenuItem>
+
+              {/* Collapsible submenu */}
+              <Sidebar.MenuItem onPress={() => setDocsOpen(!docsOpen)}>
+                <Icon render={BookOpen} />
+                Documentation
+                <Icon
+                  render={ChevronRight}
+                  size={16}
+                  style={{
+                    transform: [{ rotate: docsOpen ? "90deg" : "0deg" }],
+                  }}
+                />
+              </Sidebar.MenuItem>
+              <Sidebar.MenuSub open={docsOpen}>
+                <Sidebar.MenuItem
+                  isActive={active === "getting-started"}
+                  onPress={() => setActive("getting-started")}
+                >
+                  Getting Started
+                </Sidebar.MenuItem>
+                <Sidebar.MenuItem
+                  isActive={active === "api"}
+                  onPress={() => setActive("api")}
+                >
+                  API Reference
+                </Sidebar.MenuItem>
+              </Sidebar.MenuSub>
+            </Sidebar.Menu>
+          </Sidebar.Group>
+        </Sidebar.Content>
+
+        <Sidebar.Footer>
+          <Sidebar.Menu>
+            <Sidebar.MenuItem
+              isActive={active === "settings"}
+              onPress={() => setActive("settings")}
+            >
+              <Icon render={Settings} />
+              <Typography>Settings</Typography>
+            </Sidebar.MenuItem>
+          </Sidebar.Menu>
+        </Sidebar.Footer>
+      </Sidebar.Root>
+
+      <View style={{ flex: 1, padding: 16 }}>
+        <ToggleButton />
+        {/* Main content */}
+      </View>
+    </Sidebar.Provider>
+  );
+}
+```
+
+### Controlled Mode
+
+```tsx
+const [open, setOpen] = useState(true);
+
+<Sidebar.Provider open={open} onOpenChange={setOpen}>
+  <Sidebar.Root>
+    {/* ... */}
+  </Sidebar.Root>
+</Sidebar.Provider>
+```
+
+### Custom Width
+
+```tsx
+<Sidebar.Provider width={320}>
+  {/* 320px wide sidebar instead of default 256 */}
+</Sidebar.Provider>
+```
+
+### Common Patterns
+
+#### Navigation with Expo Router
+
+```tsx
+import { Link, usePathname } from "expo-router";
+
+function NavSidebar() {
+  const pathname = usePathname();
+
+  return (
+    <Sidebar.Root>
+      <Sidebar.Content>
+        <Sidebar.Menu>
+          <Link href="/dashboard" asChild>
+            <Sidebar.MenuItem isActive={pathname === "/dashboard"}>
+              <Icon render={Home} />
+              <Typography>Dashboard</Typography>
+            </Sidebar.MenuItem>
+          </Link>
+        </Sidebar.Menu>
+      </Sidebar.Content>
+    </Sidebar.Root>
+  );
+}
+```
+
+#### Badge on Menu Items
+
+```tsx
+<Sidebar.MenuItem isActive>
+  <Icon render={Inbox} />
+  <Typography>Inbox</Typography>
+  <Badge variant="secondary">24</Badge>
+</Sidebar.MenuItem>
+```
+
+### Platform Considerations
+
+- **All Platforms**: Sidebar renders as a fixed-width column alongside content
+- **Web**: Best used with responsive layout — show sidebar on desktop, hide on mobile
+- **Native**: Consider using a drawer/modal pattern on small screens (user-managed)
+- **Toggle**: The `useSidebar()` hook lets you toggle from anywhere inside the Provider
+
+### Sub-Components Summary
+
+| Sub-Component        | Purpose                                 |
+| -------------------- | --------------------------------------- |
+| `Sidebar.Provider`   | State management and style context      |
+| `Sidebar.Root`       | The sidebar container (collapses to 0)  |
+| `Sidebar.Header`     | Fixed top area                          |
+| `Sidebar.Footer`     | Fixed bottom area                       |
+| `Sidebar.Content`    | Scrollable middle area                  |
+| `Sidebar.Group`      | Groups related items                    |
+| `Sidebar.GroupLabel` | Section heading text                    |
+| `Sidebar.Menu`       | Container for menu items                |
+| `Sidebar.MenuItem`   | Pressable item with icon/text theming   |
+| `Sidebar.MenuSub`    | Collapsible submenu container           |
 
 ---
 

@@ -99,6 +99,7 @@ function SubmitButton() {
 | **Portal**      | Render components outside hierarchy             | -                    | [Layout Components](./references/components-layout.md#portal)    |
 | **List**        | Performance-optimized list rendering            | -                    | [Layout Components](./references/components-layout.md#list)      |
 | **Table**       | Data table with header, body, rows, and cells   | default              | [Layout Components](./references/components-layout.md#table)     |
+| **Sidebar**     | Collapsible navigation sidebar with menu items  | default              | [Layout Components](./references/components-layout.md#sidebar)   |
 
 ### Form Inputs
 

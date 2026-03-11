@@ -1,4 +1,4 @@
-import { Separator, Typography, useScreenSize } from "@korsolutions/ui";
+import { Separator, Sidebar, Typography, useScreenSize, useSidebar } from "@korsolutions/ui";
 import Head from "expo-router/head";
 import React, { createContext, useContext, useRef } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
@@ -11,11 +11,12 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function ComponentScreenLayout({ title, children }: Props) {
+function ComponentScreenInner({ title, children }: Props) {
   const scrollViewRef = useRef<ScrollView>(null);
   const screenSize = useScreenSize();
+  const { open, toggleSidebar } = useSidebar();
 
-  const shouldShowSidebar = screenSize.isDesktop;
+  const isMobile = !screenSize.isDesktop;
 
   const contextValue: ScrollViewContextType = {
     scrollToEnd: () => scrollViewRef.current?.scrollToEnd({ animated: false }),
@@ -27,29 +28,41 @@ export function ComponentScreenLayout({ title, children }: Props) {
         <title>{`${title} - KorUI`}</title>
       </Head>
       <View style={s.wrapper}>
-        <ScreenHeader />
+        <ScreenHeader onToggleMenu={toggleSidebar} menuOpen={open} />
         <Separator />
         <SafeAreaView edges={["top", "bottom"]} style={s.container}>
-          {shouldShowSidebar && <ComponentSidebar />}
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={s.wrapper}
-          >
-            <ScrollView
-              ref={scrollViewRef}
-              keyboardShouldPersistTaps="handled"
-              automaticallyAdjustKeyboardInsets
-              contentContainerStyle={s.content}
+          {(isMobile ? open : true) && <ComponentSidebar />}
+          {(!isMobile || !open) && (
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
               style={s.wrapper}
             >
-              <Typography variant="heading-lg">{title}</Typography>
-              <Separator />
-              {children}
-            </ScrollView>
-          </KeyboardAvoidingView>
+              <ScrollView
+                ref={scrollViewRef}
+                keyboardShouldPersistTaps="handled"
+                automaticallyAdjustKeyboardInsets
+                contentContainerStyle={s.content}
+                style={s.wrapper}
+              >
+                <Typography variant="heading-lg">{title}</Typography>
+                <Separator />
+                {children}
+              </ScrollView>
+            </KeyboardAvoidingView>
+          )}
         </SafeAreaView>
       </View>
     </ScrollViewContext.Provider>
+  );
+}
+
+export function ComponentScreenLayout({ title, children }: Props) {
+  const screenSize = useScreenSize();
+
+  return (
+    <Sidebar.Provider defaultOpen={screenSize.isDesktop}>
+      <ComponentScreenInner title={title}>{children}</ComponentScreenInner>
+    </Sidebar.Provider>
   );
 }
 
@@ -81,7 +94,7 @@ const s = StyleSheet.create({
     flexGrow: 1,
     padding: 24,
     gap: 24,
-    maxWidth: 600,
+    maxWidth: 700,
     width: "100%",
     alignSelf: "center",
   },
