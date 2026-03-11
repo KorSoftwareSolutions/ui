@@ -20,6 +20,7 @@ export function useEmptyVariantDefault(): EmptyStyles {
       title: {
         fontFamily: fontFamily,
         fontSize: fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         color: colors.foreground,
         textAlign: "center",
         fontWeight: "600",
@@ -27,6 +28,7 @@ export function useEmptyVariantDefault(): EmptyStyles {
       description: {
         fontFamily: fontFamily,
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         color: colors.mutedForeground,
         textAlign: "center",
       },

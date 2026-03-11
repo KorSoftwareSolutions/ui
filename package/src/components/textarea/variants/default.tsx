@@ -24,6 +24,7 @@ export function useTextareaVariantDefault(): TextareaStyles {
           }),
           fontFamily,
           fontSize,
+          lineHeight: Math.round(fontSize * 1.25),
           minHeight: 120,
           textAlignVertical: "top",
           color: colors.foreground,

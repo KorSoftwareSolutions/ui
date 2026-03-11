@@ -29,12 +29,14 @@ export const useToastVariantDefault = (): ToastStyles => {
       title: {
         color: colors.foreground,
         fontSize: fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         fontWeight: "600",
         fontFamily,
       },
       description: {
         color: colors.mutedForeground,
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         fontFamily,
       },
     }),

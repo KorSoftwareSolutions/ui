@@ -25,6 +25,7 @@ export const useAlertVariantDestructive = (): AlertStyles => {
       },
       title: {
         fontSize: fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         fontWeight: "600",
         color: colors.danger,
         marginBottom: 4,
@@ -32,7 +33,7 @@ export const useAlertVariantDestructive = (): AlertStyles => {
       description: {
         fontSize: fontSize * 0.875,
         color: colors.danger,
-        lineHeight: 20,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         opacity: 0.9,
       },
     }),

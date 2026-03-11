@@ -21,6 +21,7 @@ export const useWeekCalendarVariantDefault = (): WeekCalendarStyles => {
       },
       headerTitle: {
         fontSize: fontSize * 1.125,
+        lineHeight: Math.round(fontSize * 1.125 * 1.25),
         fontWeight: "600",
         fontFamily,
         color: colors.foreground,
@@ -71,6 +72,7 @@ export const useWeekCalendarVariantDefault = (): WeekCalendarStyles => {
       },
       weekLabel: {
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         fontWeight: "500",
         fontFamily,
         color: colors.mutedForeground,
@@ -111,6 +113,7 @@ export const useWeekCalendarVariantDefault = (): WeekCalendarStyles => {
       dayText: {
         default: {
           fontSize,
+          lineHeight: Math.round(fontSize * 1.25),
           fontFamily,
           color: colors.foreground,
           fontWeight: "400",

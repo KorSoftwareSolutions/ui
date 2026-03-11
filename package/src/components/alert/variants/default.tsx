@@ -25,6 +25,7 @@ export const useAlertVariantDefault = (): AlertStyles => {
       },
       title: {
         fontSize: fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         fontWeight: "600",
         color: colors.foreground,
         marginBottom: 4,
@@ -32,7 +33,7 @@ export const useAlertVariantDefault = (): AlertStyles => {
       description: {
         fontSize: fontSize * 0.875,
         color: colors.mutedForeground,
-        lineHeight: 20,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
       },
     }),
   );

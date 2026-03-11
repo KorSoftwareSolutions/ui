@@ -1,4 +1,1 @@
-# TODO
-
-- [ ] Line height
-- [ ] Letter spacing
+../README.md

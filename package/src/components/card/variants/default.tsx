@@ -22,6 +22,7 @@ export function useCardVariantDefault(): CardStyles {
         default: {
           fontFamily,
           fontSize: fontSize * 1.25,
+          lineHeight: Math.round(fontSize * 1.25 * 1.25),
           fontWeight: "600",
           color: colors.foreground,
         },

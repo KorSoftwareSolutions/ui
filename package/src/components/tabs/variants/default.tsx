@@ -39,6 +39,7 @@ export const useTabsVariantDefault = (): TabsStyles => {
         default: {
           color: colors.mutedForeground,
           fontSize,
+          lineHeight: Math.round(fontSize * 1.25),
           fontFamily,
           fontWeight: "500",
         },

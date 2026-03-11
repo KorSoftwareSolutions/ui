@@ -21,6 +21,7 @@ export function useAvatarVariantDefault(): AvatarStyles {
       fallback: {
         fontFamily,
         fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         color: colors.foreground,
         textAlign: "center",
         verticalAlign: "middle",

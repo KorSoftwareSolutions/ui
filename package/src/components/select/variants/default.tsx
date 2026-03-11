@@ -29,6 +29,7 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
         default: {
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.foreground,
         },
         disabled: {
@@ -39,6 +40,7 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
         default: {
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.mutedForeground,
         },
         disabled: {
@@ -69,6 +71,7 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
           paddingHorizontal: s.paddingHorizontal,
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.foreground,
           borderRadius: radius / 2,
         },

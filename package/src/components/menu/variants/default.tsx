@@ -32,6 +32,7 @@ export const useMenuVariantDefault = (): MenuStyles => {
       itemText: {
         fontFamily: fontFamily,
         fontSize: fontSize,
+        lineHeight: Math.round(fontSize * 1.25),
         color: colors.foreground,
       },
       itemIcon: {
@@ -43,6 +44,7 @@ export const useMenuVariantDefault = (): MenuStyles => {
         paddingHorizontal: 16,
         fontFamily: fontFamily,
         fontSize: fontSize * 0.75,
+        lineHeight: Math.round(fontSize * 0.75 * 1.25),
         fontWeight: "600",
         color: colors.mutedForeground,
       },
@@ -89,6 +91,7 @@ export const useMenuVariantDefault = (): MenuStyles => {
       },
       shortcut: {
         fontSize: fontSize * 0.75,
+        lineHeight: Math.round(fontSize * 0.75 * 1.25),
         fontFamily: fontFamily,
         color: colors.mutedForeground,
       },

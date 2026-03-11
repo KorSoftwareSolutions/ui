@@ -33,6 +33,7 @@ export function useSidebarVariantDefault(): SidebarStyles {
       groupLabel: {
         fontFamily,
         fontSize: fontSize * 0.75,
+        lineHeight: Math.round(fontSize * 0.75 * 1.25),
         fontWeight: "500",
         color: colors.mutedForeground,
         paddingHorizontal: spacing,

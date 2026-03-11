@@ -48,6 +48,7 @@ export const useCheckboxVariantDefault = (): CheckboxStyles => {
         default: {
           color: colors.foreground,
           fontSize,
+          lineHeight: Math.round(fontSize * 1.25),
           fontFamily,
           fontWeight: "500",
         },
@@ -59,6 +60,7 @@ export const useCheckboxVariantDefault = (): CheckboxStyles => {
         default: {
           color: colors.mutedForeground,
           fontSize: fontSize * 0.875,
+          lineHeight: Math.round(fontSize * 0.875 * 1.25),
           fontFamily,
           marginTop: 2,
         },

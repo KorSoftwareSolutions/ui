@@ -6,6 +6,7 @@ export function useLinkVariantDefault(): TextStyle {
     ({ colors, fontFamily, letterSpacing, fontSize }): TextStyle => ({
       color: colors.primary,
       fontSize,
+      lineHeight: Math.round(fontSize * 1.25),
       fontFamily,
       textDecorationLine: "underline",
       letterSpacing,

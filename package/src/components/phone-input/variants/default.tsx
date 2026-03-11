@@ -41,6 +41,7 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
         default: {
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.foreground,
         },
         disabled: {
@@ -61,6 +62,7 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
           paddingHorizontal: s.paddingHorizontal,
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.foreground,
           height: "100%",
           outlineWidth: 0,
@@ -105,6 +107,7 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
         default: {
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           color: colors.foreground,
         },
       },
@@ -117,6 +120,7 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
           paddingHorizontal: s.paddingHorizontal * 0.75,
           fontFamily,
           fontSize: s.fontSize * 0.875,
+          lineHeight: Math.round(s.fontSize * 0.875 * 1.25),
           color: colors.foreground,
           marginBottom: 4,
           outlineWidth: 0,

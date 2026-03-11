@@ -11,17 +11,20 @@ export const useFieldVariantDefault = (): FieldStyles => {
       label: {
         fontFamily,
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         fontWeight: "600",
         color: colors.foreground,
       },
       description: {
         fontFamily,
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         color: colors.mutedForeground,
       },
       error: {
         fontFamily,
         fontSize: fontSize * 0.875,
+        lineHeight: Math.round(fontSize * 0.875 * 1.25),
         color: colors.danger,
       },
     }),

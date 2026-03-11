@@ -19,6 +19,7 @@ export function useInputVariantDefault(size: Size): InputStyles {
           paddingHorizontal: s.paddingHorizontal,
           fontFamily,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           height: s.height,
           color: colors.foreground,
           outlineWidth: 0,

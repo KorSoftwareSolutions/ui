@@ -17,6 +17,7 @@ export const useBadgeVariantDefault = (): BadgeStyles => {
       text: {
         color: colors.primaryForeground,
         fontSize: fontSize * 0.75,
+        lineHeight: Math.round(fontSize * 0.75 * 1.25),
         fontWeight: "600",
         fontFamily,
       },

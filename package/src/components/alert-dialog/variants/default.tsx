@@ -40,6 +40,7 @@ export const useAlertDialogVariantDefault = (size: Size): AlertDialogStyles => {
         },
         title: {
           fontSize: fontSize * 1.25,
+          lineHeight: Math.round(fontSize * 1.25 * 1.25),
           fontWeight: "600",
           color: colors.foreground,
           fontFamily,
@@ -49,7 +50,7 @@ export const useAlertDialogVariantDefault = (size: Size): AlertDialogStyles => {
           fontSize,
           color: colors.mutedForeground,
           fontFamily,
-          lineHeight: fontSize * 1.5,
+          lineHeight: Math.round(fontSize * 1.25),
         },
         footer: {
           flexDirection: "row",
@@ -70,6 +71,7 @@ export const useAlertDialogVariantDefault = (size: Size): AlertDialogStyles => {
         cancelText: {
           color: colors.foreground,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           fontWeight: "500",
           fontFamily,
         },
@@ -84,6 +86,7 @@ export const useAlertDialogVariantDefault = (size: Size): AlertDialogStyles => {
         actionText: {
           color: colors.primaryForeground,
           fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
           fontWeight: "500",
           fontFamily,
         },
