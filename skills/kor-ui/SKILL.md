@@ -119,7 +119,7 @@ function SubmitButton() {
 
 | Component      | Description                             | Variants                                               | Reference                                                           |
 | -------------- | --------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------- |
-| **Typography** | Text with semantic variants             | heading-xs to 3xl, body-xs to lg, label, code, caption | [Display Components](./references/components-display.md#typography) |
+| **Typography** | Text with semantic variants             | heading, body (+ size: sm, md, lg)                     | [Display Components](./references/components-display.md#typography) |
 | **Avatar**     | User avatar with image and fallback     | default                                                | [Display Components](./references/components-display.md#avatar)     |
 | **Badge**      | Status indicators and labels            | default, secondary, success, warning, danger, info     | [Display Components](./references/components-display.md#badge)      |
 | **Icon**       | Icon rendering with render prop pattern | -                                                      | [Display Components](./references/components-display.md#icon)       |

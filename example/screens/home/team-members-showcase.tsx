@@ -38,11 +38,11 @@ export function TeamMembersShowcase() {
                   </Avatar.Fallback>
                 </Avatar.Root>
                 <View style={{ flex: 1 }}>
-                  <Typography variant="body-sm" style={{ fontWeight: "500" }}>
+                  <Typography size="sm" style={{ fontWeight: "500" }}>
                     {member.name}
                   </Typography>
                   <Typography
-                    variant="body-sm"
+                    size="sm"
                     style={{ color: theme.colors.mutedForeground }}
                   >
                     {member.email}

@@ -9,7 +9,7 @@ import { View } from "react-native";
 const PopoverContentDemo = (props: PropsWithChildren) => {
   return (
     <View style={{ gap: 12, padding: 16, maxWidth: 300 }}>
-      <Typography variant="heading-md">Popover Content</Typography>
+      <Typography variant="heading">Popover Content</Typography>
       <Typography>
         This is a popover with some content inside. Click outside or press the close button to
         dismiss.

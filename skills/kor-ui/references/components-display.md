@@ -15,16 +15,16 @@ Complete reference for display components in Universal UI. These components are 
 
 ## Typography
 
-The Typography component provides semantic text rendering with pre-defined variants for headings, body text, and specialized content.
+The Typography component provides semantic text rendering with two variant families (`heading` and `body`) and a `size` prop (`sm`, `md`, `lg`).
 
 ### Overview
 
-Typography is a single-component wrapper around React Native's Text with theme-aware styling. It automatically applies consistent font sizes, weights, colors, and spacing based on the selected variant.
+Typography is a single-component wrapper around React Native's Text with theme-aware styling. It applies consistent font sizes, weights, line heights, and colors based on the selected variant and size.
 
 **When to use:**
 - Display headings and titles
 - Render body text and paragraphs
-- Show labels, captions, or code snippets
+- Show captions, helper text, or metadata
 - Ensure consistent typography across your app
 
 **When not to use:**
@@ -35,49 +35,49 @@ Typography is a single-component wrapper around React Native's Text with theme-a
 
 ```typescript
 interface TypographyProps extends TextProps {
-  variant?:
-    | "heading-lg" | "heading-md" | "heading-sm"
-    | "body-lg" | "body-md" | "body-sm";
-  // All standard React Native Text props
+  /** "body" (default) or "heading" */
+  variant?: "body" | "heading";
+  /** "sm" | "md" (default) | "lg" */
+  size?: "sm" | "md" | "lg";
   style?: StyleProp<TextStyle>;
   children?: React.ReactNode;
 }
 ```
 
-### Variants
+### Variants & Sizes
 
-#### Heading Variants
+#### Heading
 
-| Variant | Font Size | Weight | Use Case |
-|---------|-----------|--------|----------|
-| `heading-lg` | 1.5x base | 600 | Page titles, major headings |
-| `heading-md` | 1.25x base | 600 | Section titles, card headers |
-| `heading-sm` | 1.125x base | 600 | Subsections, small headings |
+| Size | Font Size | Weight | lineHeight | Use Case |
+|------|-----------|--------|------------|----------|
+| `lg` | 1.5x base | 600 | fontSize * 1.25 | Page titles, major headings |
+| `md` (default) | 1.25x base | 600 | fontSize * 1.25 | Section titles, card headers |
+| `sm` | 1x base | 600 | fontSize * 1.25 | Subsections, small headings |
 
-#### Body Variants
+#### Body
 
-| Variant | Font Size | Weight | Use Case |
-|---------|-----------|--------|----------|
-| `body-lg` | 1.125x base | 400 | Emphasized paragraphs, lead text |
-| `body-md` | 1x base (default) | 400 | Standard body text, descriptions |
-| `body-sm` | 0.875x base | 400 | Captions, helper text, metadata |
+| Size | Font Size | Weight | lineHeight | Use Case |
+|------|-----------|--------|------------|----------|
+| `lg` | 1.25x base | 400 | fontSize * 1.25 | Emphasized paragraphs, lead text |
+| `md` (default) | 1x base | 400 | fontSize * 1.25 | Standard body text, descriptions |
+| `sm` | 0.875x base | 400 | fontSize * 1.25 | Captions, helper text, metadata |
 
 ### Basic Examples
 
 ```tsx
 import { Typography } from "@korsolutions/ui";
 
-// Default body text
+// Default body text (variant="body" size="md" are defaults)
 <Typography>This is standard body text</Typography>
 
 // Large heading
-<Typography variant="heading-lg">Page Title</Typography>
+<Typography variant="heading" size="lg">Page Title</Typography>
 
-// Section heading
-<Typography variant="heading-md">Section Title</Typography>
+// Section heading (md is default size)
+<Typography variant="heading">Section Title</Typography>
 
-// Small body text
-<Typography variant="body-sm">Helper text or caption</Typography>
+// Small body text (body is default variant)
+<Typography size="sm">Helper text or caption</Typography>
 ```
 
 ### Advanced Examples
@@ -85,16 +85,17 @@ import { Typography } from "@korsolutions/ui";
 ```tsx
 // Custom styling
 <Typography
-  variant="heading-lg"
+  variant="heading"
+  size="lg"
   style={{ color: "#007AFF", marginBottom: 16 }}
 >
   Custom Styled Heading
 </Typography>
 
 // With inline content
-<Typography variant="body-md">
+<Typography>
   This is a paragraph with{" "}
-  <Typography variant="body-md" style={{ fontWeight: "700" }}>
+  <Typography style={{ fontWeight: "700" }}>
     bold text
   </Typography>{" "}
   inline.
@@ -102,7 +103,6 @@ import { Typography } from "@korsolutions/ui";
 
 // Multiple lines
 <Typography
-  variant="body-md"
   numberOfLines={2}
   ellipsizeMode="tail"
 >
@@ -115,21 +115,21 @@ import { Typography } from "@korsolutions/ui";
 ```tsx
 // Card with heading and description
 <View>
-  <Typography variant="heading-md" style={{ marginBottom: 8 }}>
+  <Typography variant="heading" style={{ marginBottom: 8 }}>
     Feature Name
   </Typography>
-  <Typography variant="body-sm" style={{ color: "#666" }}>
+  <Typography size="sm" style={{ color: "#666" }}>
     Brief description of the feature
   </Typography>
 </View>
 
 // Article layout
 <View style={{ gap: 16 }}>
-  <Typography variant="heading-lg">Article Title</Typography>
-  <Typography variant="body-sm" style={{ color: "#999" }}>
+  <Typography variant="heading" size="lg">Article Title</Typography>
+  <Typography size="sm" style={{ color: "#999" }}>
     Published on January 28, 2026
   </Typography>
-  <Typography variant="body-md" style={{ lineHeight: 24 }}>
+  <Typography>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   </Typography>
@@ -140,7 +140,7 @@ import { Typography } from "@korsolutions/ui";
 
 - All variants use the theme's `foreground` color by default
 - Font family and letter spacing are inherited from theme
-- Line height is calculated proportionally for each variant
+- Line height is consistently `fontSize * 1.25` across all variants and sizes
 - Override styles are merged with variant styles
 - Custom `style` prop always takes precedence
 

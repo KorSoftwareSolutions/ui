@@ -134,7 +134,7 @@ function CustomOption(item: (typeof OPTIONS)[0]) {
     <View style={{ flexDirection: "row", gap: 8 }}>
       <Typography>{item.icon}</Typography>
       <View>
-        <Typography variant="heading-md">{item.children}</Typography>
+        <Typography variant="heading">{item.children}</Typography>
         <Typography>{item.description}</Typography>
       </View>
     </View>

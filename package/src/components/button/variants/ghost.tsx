@@ -37,6 +37,7 @@ export const useButtonVariantGhost = (size: Size): ButtonStyles => {
         default: {
           color: colors.foreground,
           fontSize: sizeStyles.fontSize,
+          lineHeight: sizeStyles.lineHeight,
           fontFamily,
         },
         disabled: {

@@ -39,6 +39,7 @@ export const useButtonVariantSecondary = (size: Size): ButtonStyles => {
         default: {
           color: colors.secondaryForeground,
           fontSize: sizeStyles.fontSize,
+          lineHeight: sizeStyles.lineHeight,
           fontFamily,
         },
         disabled: {

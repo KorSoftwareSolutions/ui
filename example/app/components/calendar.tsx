@@ -121,7 +121,7 @@ function MonthExample() {
         <Calendar.Weeks />
       </Calendar.Root>
       <View style={{ marginTop: 16 }}>
-        <Typography variant="body-sm">
+        <Typography size="sm">
           Selected: {selectedDate ? selectedDate.toLocaleDateString() : "None"}
         </Typography>
       </View>
@@ -136,7 +136,7 @@ function WeekExample() {
     <View>
       <WeekCalendar value={selectedDate} onChange={setSelectedDate} />
       <View style={{ marginTop: 16 }}>
-        <Typography variant="body-sm">
+        <Typography size="sm">
           Selected: {selectedDate ? selectedDate.toLocaleDateString() : "None"}
         </Typography>
       </View>

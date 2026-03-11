@@ -9,12 +9,12 @@ export default function TextComponentScreen() {
       <UseCaseSection title="Default">
         <Card.Root>
           <Card.Body>
-            <Typography variant="body-lg">Body lg</Typography>
-            <Typography variant="body-md">Body md</Typography>
-            <Typography variant="body-sm">Body sm</Typography>
-            <Typography variant="heading-lg">Heading lg</Typography>
-            <Typography variant="heading-md">Heading md</Typography>
-            <Typography variant="heading-sm">Heading sm</Typography>
+            <Typography variant="heading" size="lg">Heading lg</Typography>
+            <Typography variant="heading">Heading md</Typography>
+            <Typography variant="heading" size="sm">Heading sm</Typography>
+            <Typography size="lg">Body lg</Typography>
+            <Typography>Body md (default)</Typography>
+            <Typography size="sm">Body sm</Typography>
           </Card.Body>
         </Card.Root>
       </UseCaseSection>

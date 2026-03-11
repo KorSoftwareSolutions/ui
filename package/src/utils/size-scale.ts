@@ -9,7 +9,9 @@ interface SizeScaleValues {
   gap: number;
   /** fontSize * 0.875 | 1 | 1.125 */
   fontSize: number;
-  /** fontSize * 0.875 | 1 | 1.125 (alias for icon sizing) */
+  /** fontSize * 1.25 (line height for text) */
+  lineHeight: number;
+  /** Equal to lineHeight (icons match text line height) */
   iconSize: number;
   /** 1.75 | 2 | 2.25 */
   strokeWidth: number;
@@ -33,12 +35,14 @@ export function getSizeScale(
 ): SizeScaleValues {
   const s = scales[size] ?? scales.md;
   const scaledFontSize = fontSize * s.fontScale;
+  const lineHeight = Math.round(scaledFontSize * 1.25);
   return {
     paddingVertical: spacing * s.pv,
     paddingHorizontal: spacing * s.ph,
     gap: spacing * s.gap,
     fontSize: scaledFontSize,
-    iconSize: scaledFontSize,
+    lineHeight,
+    iconSize: lineHeight,
     strokeWidth: s.sw,
     height: spacing * s.h,
   };

@@ -12,7 +12,7 @@ export function ShowcaseBlock({ title, children }: ShowcaseBlockProps) {
   return (
     <View style={s.container}>
       <Typography
-        variant="body-sm"
+        size="sm"
         style={[s.label, { color: theme.colors.mutedForeground }]}
       >
         {title}

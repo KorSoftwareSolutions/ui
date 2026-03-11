@@ -203,8 +203,8 @@ const CustomItemsExample = () => {
                 >
                   <platform.icon size={20} color={colors.foreground} />
                   <View>
-                    <Typography variant="body-md">{platform.label}</Typography>
-                    <Typography variant="body-sm" style={{ color: colors.mutedForeground }}>
+                    <Typography>{platform.label}</Typography>
+                    <Typography size="sm" style={{ color: colors.mutedForeground }}>
                       {platform.description}
                     </Typography>
                   </View>

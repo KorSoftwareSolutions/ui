@@ -21,11 +21,11 @@ export function StatsShowcase() {
                 alignItems: "center",
               }}
             >
-              <Typography variant="body-sm" style={{ fontWeight: "500" }}>
+              <Typography size="sm" style={{ fontWeight: "500" }}>
                 Design System
               </Typography>
               <Typography
-                variant="body-sm"
+                size="sm"
                 style={{ color: theme.colors.mutedForeground }}
               >
                 85%
@@ -43,11 +43,11 @@ export function StatsShowcase() {
                 alignItems: "center",
               }}
             >
-              <Typography variant="body-sm" style={{ fontWeight: "500" }}>
+              <Typography size="sm" style={{ fontWeight: "500" }}>
                 API Integration
               </Typography>
               <Typography
-                variant="body-sm"
+                size="sm"
                 style={{ color: theme.colors.mutedForeground }}
               >
                 60%
@@ -65,11 +65,11 @@ export function StatsShowcase() {
                 alignItems: "center",
               }}
             >
-              <Typography variant="body-sm" style={{ fontWeight: "500" }}>
+              <Typography size="sm" style={{ fontWeight: "500" }}>
                 Testing
               </Typography>
               <Typography
-                variant="body-sm"
+                size="sm"
                 style={{ color: theme.colors.mutedForeground }}
               >
                 35%

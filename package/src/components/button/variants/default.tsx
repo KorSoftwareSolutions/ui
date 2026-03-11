@@ -39,6 +39,7 @@ export const useButtonVariantDefault = (size: Size): ButtonStyles => {
         default: {
           color: colors.primaryForeground,
           fontSize: sizeStyles.fontSize,
+          lineHeight: sizeStyles.lineHeight,
           fontFamily,
         },
       },

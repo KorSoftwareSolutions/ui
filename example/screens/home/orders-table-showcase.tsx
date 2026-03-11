@@ -21,22 +21,22 @@ export function OrdersTableShowcase() {
           <Table.Header>
             <Table.Row>
               <Table.Head>
-                <Typography variant="body-sm" style={{ fontWeight: "600" }}>
+                <Typography size="sm" style={{ fontWeight: "600" }}>
                   Order
                 </Typography>
               </Table.Head>
               <Table.Head>
-                <Typography variant="body-sm" style={{ fontWeight: "600" }}>
+                <Typography size="sm" style={{ fontWeight: "600" }}>
                   Customer
                 </Typography>
               </Table.Head>
               <Table.Head>
-                <Typography variant="body-sm" style={{ fontWeight: "600" }}>
+                <Typography size="sm" style={{ fontWeight: "600" }}>
                   Amount
                 </Typography>
               </Table.Head>
               <Table.Head>
-                <Typography variant="body-sm" style={{ fontWeight: "600" }}>
+                <Typography size="sm" style={{ fontWeight: "600" }}>
                   Status
                 </Typography>
               </Table.Head>
@@ -46,7 +46,7 @@ export function OrdersTableShowcase() {
             {orders.map((order) => (
               <Table.Row key={order.id}>
                 <Table.Cell>
-                  <Typography variant="body-sm" style={{ fontWeight: "500" }}>
+                  <Typography size="sm" style={{ fontWeight: "500" }}>
                     {order.id}
                   </Typography>
                 </Table.Cell>
@@ -60,11 +60,11 @@ export function OrdersTableShowcase() {
                           .join("")}
                       </Avatar.Fallback>
                     </Avatar.Root>
-                    <Typography variant="body-sm">{order.customer}</Typography>
+                    <Typography size="sm">{order.customer}</Typography>
                   </View>
                 </Table.Cell>
                 <Table.Cell>
-                  <Typography variant="body-sm">{order.amount}</Typography>
+                  <Typography size="sm">{order.amount}</Typography>
                 </Table.Cell>
                 <Table.Cell>
                   <Badge color={order.status === "Paid" ? "#10b981" : "#f59e0b"}>

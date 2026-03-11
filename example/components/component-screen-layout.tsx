@@ -44,7 +44,7 @@ function ComponentScreenInner({ title, children }: Props) {
                 contentContainerStyle={s.content}
                 style={s.wrapper}
               >
-                <Typography variant="heading-lg">{title}</Typography>
+                <Typography variant="heading" size="lg">{title}</Typography>
                 <Separator />
                 {children}
               </ScrollView>

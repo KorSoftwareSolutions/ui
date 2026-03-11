@@ -28,11 +28,11 @@ export default function Home() {
       <ScrollView contentContainerStyle={s.content} style={s.container}>
         {/* Hero Section */}
         <View style={s.hero}>
-          <Typography variant="heading-lg" style={s.heroTitle}>
+          <Typography variant="heading" size="lg" style={s.heroTitle}>
             Beautiful UI components for React Native
           </Typography>
           <Typography
-            variant="body-lg"
+            size="lg"
             style={[s.heroDescription, { color: theme.colors.mutedForeground }]}
           >
             Minimal dependencies, cross-platform, and flexible with beautiful
