@@ -1,9 +1,12 @@
-import { type SelectStyles } from "../..";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
+import { type SelectStyles } from "../types";
 
-export function useSelectVariantDefault(): SelectStyles {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): SelectStyles => ({
+export function useSelectVariantDefault(size: Size): SelectStyles {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): SelectStyles => {
+    const s = sizeScale(size);
+
+    return {
       root: {
         default: {},
         disabled: {},
@@ -15,9 +18,8 @@ export function useSelectVariantDefault(): SelectStyles {
           borderRadius: radius,
           backgroundColor: colors.surface,
           justifyContent: "center",
-          paddingVertical: 12,
-          paddingHorizontal: 16,
-          minHeight: 48,
+          paddingHorizontal: s.paddingHorizontal,
+          minHeight: s.height,
         },
         disabled: {
           backgroundColor: colors.muted,
@@ -26,7 +28,7 @@ export function useSelectVariantDefault(): SelectStyles {
       value: {
         default: {
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
         },
         disabled: {
@@ -36,7 +38,7 @@ export function useSelectVariantDefault(): SelectStyles {
       placeholder: {
         default: {
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.mutedForeground,
         },
         disabled: {
@@ -63,10 +65,10 @@ export function useSelectVariantDefault(): SelectStyles {
       },
       option: {
         default: {
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          paddingVertical: s.paddingVertical,
+          paddingHorizontal: s.paddingHorizontal,
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
           borderRadius: radius / 2,
         },
@@ -80,6 +82,6 @@ export function useSelectVariantDefault(): SelectStyles {
           backgroundColor: colors.muted,
         },
       },
-    }),
-  );
+    };
+  });
 }

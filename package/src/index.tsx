@@ -49,5 +49,5 @@ export * from "./themes/types";
 export * from "./components";
 
 export * from "./safe-area";
+export type { Size } from "./utils/size-scale";
 export type { SvgProps } from "./types/props.types";
-

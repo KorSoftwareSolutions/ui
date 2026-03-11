@@ -46,6 +46,7 @@ export const twitterThemeAssets: ThemeAssets = {
     },
   },
   radius: 21,
+  spacing: 6,
   fontFamily: "System",
   letterSpacing: 0,
   fontSize: 16,

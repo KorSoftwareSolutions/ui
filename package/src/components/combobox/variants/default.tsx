@@ -1,10 +1,13 @@
 import { Platform } from "react-native";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import { type ComboboxStyles } from "../types";
 
-export function useComboboxVariantDefault(): ComboboxStyles {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): ComboboxStyles => ({
+export function useComboboxVariantDefault(size: Size): ComboboxStyles {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): ComboboxStyles => {
+    const s = sizeScale(size);
+
+    return {
       root: {
         default: {},
         disabled: {},
@@ -20,10 +23,10 @@ export function useComboboxVariantDefault(): ComboboxStyles {
             backgroundColor: colors.surface,
             justifyContent: "center",
             paddingVertical: 4,
-            paddingHorizontal: 16,
-            minHeight: 48,
+            paddingHorizontal: s.paddingHorizontal,
+            minHeight: s.height,
             fontFamily,
-            fontSize,
+            fontSize: s.fontSize,
             color: colors.foreground,
             outlineWidth: 0,
             pointerEvents: "auto",
@@ -69,10 +72,10 @@ export function useComboboxVariantDefault(): ComboboxStyles {
       },
       option: {
         default: {
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          paddingVertical: s.paddingVertical,
+          paddingHorizontal: s.paddingHorizontal,
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
           borderRadius: radius / 2,
         },
@@ -88,15 +91,15 @@ export function useComboboxVariantDefault(): ComboboxStyles {
       },
       empty: {
         default: {
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          paddingVertical: s.paddingVertical,
+          paddingHorizontal: s.paddingHorizontal,
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.mutedForeground,
           textAlign: "center",
         },
         disabled: {},
       },
-    }),
-  );
+    };
+  });
 }

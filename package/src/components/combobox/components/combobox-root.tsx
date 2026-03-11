@@ -9,12 +9,14 @@ import {
 import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
 import { useComponentConfig } from "../../../themes/provider";
 import { mergeStyles } from "../../../utils/calculate-styles";
+import type { Size } from "../../../utils/size-scale";
 import { ComboboxContext } from "../context";
 import type { ComboboxState } from "../types";
 import { ComboboxVariants } from "../variants";
 
 export interface ComboboxRootProps {
   variant?: keyof typeof ComboboxVariants;
+  size?: Size;
 
   value?: string;
   onChange?: (value: string) => void;
@@ -36,7 +38,7 @@ const calculateState = (props: ComboboxRootProps): ComboboxState => {
 };
 
 export function ComboboxRoot(props: ComboboxRootProps) {
-  const variantStyles = ComboboxVariants[props.variant ?? "default"]();
+  const variantStyles = ComboboxVariants[props.variant ?? "default"](props.size ?? "md");
   const globalStyles = useComponentConfig("combobox");
   const mergedStyles = mergeStyles(variantStyles, globalStyles?.styles);
 

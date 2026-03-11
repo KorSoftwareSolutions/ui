@@ -9,14 +9,15 @@ import {
 import { useComponentConfig } from "../../themes/provider";
 import type { SvgProps } from "../../types/props.types";
 import { mergeStyles } from "../../utils/calculate-styles";
+import type { Size } from "../../utils/size-scale";
 import type { IconButtonState } from "./types";
 import { IconButtonVariants } from "./variants";
 
 export interface IconButtonProps extends Omit<PressableProps, "disabled" | "children"> {
   render: (props: SvgProps) => React.ReactNode;
   variant?: keyof typeof IconButtonVariants;
+  size?: Size;
   isDisabled?: boolean;
-  size?: number;
   color?: SvgProps["color"];
   strokeWidth?: number;
   style?: StyleProp<ViewStyle>;
@@ -37,15 +38,15 @@ export function IconButton(props: IconButtonProps) {
   const {
     render: IconComponent,
     variant = "default",
+    size = "md",
     isDisabled,
-    size,
     color,
     strokeWidth,
     style,
     ...rest
   } = props;
 
-  const variantStyles = IconButtonVariants[variant]();
+  const variantStyles = IconButtonVariants[variant](size);
   const componentConfig = useComponentConfig("iconButton");
   const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 
@@ -61,10 +62,9 @@ export function IconButton(props: IconButtonProps) {
   };
 
   const iconProps: SvgProps = {
-    size: size ?? mergedStyles.icon?.default?.size,
+    size: mergedStyles.icon?.default?.size,
     color: color ?? mergedStyles.icon?.[state]?.color ?? mergedStyles.icon?.default?.color,
-    strokeWidth,
-    absoluteStrokeWidth: true,
+    strokeWidth: strokeWidth ?? mergedStyles.icon?.default?.strokeWidth,
   };
 
   return (

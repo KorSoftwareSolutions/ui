@@ -19,6 +19,30 @@ export default function IconButtonComponentScreen() {
         </View>
       </UseCaseSection>
 
+      <UseCaseSection title="Sizes">
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <IconButton render={Heart} size="sm" />
+          <IconButton render={Heart} size="md" />
+          <IconButton render={Heart} size="lg" />
+        </View>
+      </UseCaseSection>
+
+      <UseCaseSection title="Secondary Sizes">
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <IconButton render={Settings} variant="secondary" size="sm" />
+          <IconButton render={Settings} variant="secondary" size="md" />
+          <IconButton render={Settings} variant="secondary" size="lg" />
+        </View>
+      </UseCaseSection>
+
+      <UseCaseSection title="Ghost Sizes">
+        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
+          <IconButton render={Search} variant="ghost" size="sm" />
+          <IconButton render={Search} variant="ghost" size="md" />
+          <IconButton render={Search} variant="ghost" size="lg" />
+        </View>
+      </UseCaseSection>
+
       <UseCaseSection title="Disabled">
         <View style={{ flexDirection: "row", gap: 12 }}>
           <IconButton render={Heart} isDisabled />
@@ -53,14 +77,6 @@ export default function IconButtonComponentScreen() {
         <View style={{ flexDirection: "row", gap: 12 }}>
           <IconButton render={Heart} variant="ghost" isDisabled />
           <IconButton render={Settings} variant="ghost" isDisabled />
-        </View>
-      </UseCaseSection>
-
-      <UseCaseSection title="Custom Size">
-        <View style={{ flexDirection: "row", gap: 12, alignItems: "center" }}>
-          <IconButton render={Heart} size={16} />
-          <IconButton render={Heart} size={24} />
-          <IconButton render={Heart} size={32} />
         </View>
       </UseCaseSection>
 

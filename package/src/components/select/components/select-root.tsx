@@ -3,6 +3,7 @@ import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "reac
 import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
 import { useComponentConfig } from "../../../themes/provider";
 import { calculateComposedStyles, mergeStyles } from "../../../utils/calculate-styles";
+import type { Size } from "../../../utils/size-scale";
 import { SelectContext } from "../context";
 import type { SelectOption, SelectState } from "../types";
 import { SelectVariants } from "../variants";
@@ -13,6 +14,7 @@ interface SelectRootInjectedProps {
 
 export interface SelectRootBaseProps {
   variant?: keyof typeof SelectVariants;
+  size?: Size;
 
   value?: string;
   onChange?: (value: string) => void;
@@ -36,7 +38,7 @@ const calculateState = (props: SelectRootProps): SelectState => {
 };
 
 export function SelectRoot(props: SelectRootProps) {
-  const variantStyles = SelectVariants[props.variant ?? "default"]();
+  const variantStyles = SelectVariants[props.variant ?? "default"](props.size ?? "md");
   const componentConfig = useComponentConfig("select");
   const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
 

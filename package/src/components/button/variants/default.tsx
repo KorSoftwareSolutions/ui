@@ -1,18 +1,21 @@
 import type { CursorValue } from "react-native";
 import { hslaSetRelativeLightness } from "../../../utils/hsla-utils";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import type { ButtonStyles } from "../types";
 
-export const useButtonVariantDefault = (): ButtonStyles => {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): ButtonStyles => ({
+export const useButtonVariantDefault = (size: Size): ButtonStyles => {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): ButtonStyles => {
+    const sizeStyles = sizeScale(size);
+
+    return {
       root: {
         default: {
           flexDirection: "row",
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          height: sizeStyles.height,
+          paddingHorizontal: sizeStyles.paddingHorizontal,
           borderRadius: radius,
-          gap: 8,
+          gap: sizeStyles.gap,
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: colors.primary,
@@ -35,14 +38,15 @@ export const useButtonVariantDefault = (): ButtonStyles => {
       text: {
         default: {
           color: colors.primaryForeground,
-          fontSize,
+          fontSize: sizeStyles.fontSize,
           fontFamily,
         },
       },
       icon: {
         default: {
           color: colors.primaryForeground,
-          size: fontSize,
+          size: sizeStyles.iconSize,
+          strokeWidth: sizeStyles.strokeWidth,
         },
       },
       spinner: {
@@ -50,6 +54,6 @@ export const useButtonVariantDefault = (): ButtonStyles => {
           color: colors.primaryForeground,
         },
       },
-    }),
-  );
+    };
+  });
 };

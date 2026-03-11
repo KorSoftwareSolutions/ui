@@ -5,6 +5,7 @@ import { usePhoneMask } from "../../../hooks/use-phone-mask";
 import { useComponentConfig } from "../../../themes/provider";
 import type { ViewRef } from "../../../types/element.types";
 import { mergeStyles } from "../../../utils/calculate-styles";
+import type { Size } from "../../../utils/size-scale";
 import { PhoneInputContext } from "../context";
 import type { PhoneInputState } from "../types";
 import { PhoneInputVariants } from "../variants";
@@ -17,6 +18,7 @@ export interface PhoneInputRootProps {
   countryCodes?: CountryCode[];
   isDisabled?: boolean;
   variant?: keyof typeof PhoneInputVariants;
+  size?: Size;
   placeholder?: string;
   style?: StyleProp<ViewStyle>;
 }
@@ -35,9 +37,10 @@ export function PhoneInputRoot({
   countryCodes = ["US"],
   isDisabled = false,
   variant = "default",
+  size = "md",
   style,
 }: PhoneInputRootProps) {
-  const variantStyles = PhoneInputVariants[variant]();
+  const variantStyles = PhoneInputVariants[variant](size);
   const componentConfig = useComponentConfig("phoneInput");
   const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isFocused, setIsFocused] = useState(false);

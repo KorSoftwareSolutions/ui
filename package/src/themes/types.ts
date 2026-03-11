@@ -30,6 +30,7 @@ export interface ThemeAssets {
   fontFamily: FontFamily;
   letterSpacing: LetterSpacing;
   fontSize: FontSize;
+  spacing: number;
 }
 
 export type StorageClient<T> = {

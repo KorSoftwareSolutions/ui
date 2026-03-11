@@ -1,10 +1,13 @@
 import { Platform } from "react-native";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import type { PhoneInputStyles } from "../types";
 
-export function usePhoneInputVariantDefault(): PhoneInputStyles {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): PhoneInputStyles => ({
+export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): PhoneInputStyles => {
+    const s = sizeScale(size);
+
+    return {
       root: {
         default: {
           flexDirection: "row",
@@ -13,7 +16,7 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
           borderColor: colors.border,
           borderRadius: radius,
           backgroundColor: colors.surface,
-          height: 48,
+          height: s.height,
           overflow: "hidden",
           outlineWidth: 0,
         },
@@ -26,18 +29,18 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
       },
       countryButton: {
         default: {
-          paddingHorizontal: 12,
+          paddingHorizontal: s.paddingHorizontal * 0.75,
           height: "100%",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "row",
-          gap: 4,
+          gap: s.gap * 0.5,
         },
       },
       countryButtonText: {
         default: {
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
         },
         disabled: {
@@ -55,9 +58,9 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
       input: {
         default: {
           flex: 1,
-          paddingHorizontal: 16,
+          paddingHorizontal: s.paddingHorizontal,
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
           height: "100%",
           outlineWidth: 0,
@@ -87,12 +90,12 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
       },
       pickerOption: {
         default: {
-          paddingVertical: 10,
-          paddingHorizontal: 12,
+          paddingVertical: s.paddingVertical * 0.75,
+          paddingHorizontal: s.paddingHorizontal * 0.75,
           borderRadius: radius / 2,
           flexDirection: "row",
           alignItems: "center",
-          gap: 8,
+          gap: s.gap,
         },
         selected: {
           backgroundColor: colors.muted,
@@ -101,7 +104,7 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
       pickerOptionText: {
         default: {
           fontFamily,
-          fontSize,
+          fontSize: s.fontSize,
           color: colors.foreground,
         },
       },
@@ -110,15 +113,15 @@ export function usePhoneInputVariantDefault(): PhoneInputStyles {
           borderWidth: 1,
           borderColor: colors.border,
           borderRadius: radius,
-          paddingVertical: 8,
-          paddingHorizontal: 12,
+          paddingVertical: s.paddingVertical * 0.5,
+          paddingHorizontal: s.paddingHorizontal * 0.75,
           fontFamily,
-          fontSize: fontSize * 0.875,
+          fontSize: s.fontSize * 0.875,
           color: colors.foreground,
           marginBottom: 4,
           outlineWidth: 0,
         },
       },
-    }),
-  );
+    };
+  });
 }

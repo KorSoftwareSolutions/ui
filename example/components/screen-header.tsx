@@ -31,17 +31,16 @@ export function ScreenHeader() {
         </TouchableOpacity>
       </Link>
       <View style={s.actions}>
-        <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} size={24} />
+        <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} />
         <Separator variant="vertical" />
         <Link href="/theme-selector" asChild>
-          <IconButton render={PencilRulerIcon} variant="ghost" size={24} />
+          <IconButton render={PencilRulerIcon} variant="ghost" />
         </Link>
         <Separator variant="vertical" />
         <IconButton
           render={ColorSchemeIcon}
           variant="ghost"
           onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
-          size={24}
         />
       </View>
     </View>

@@ -3,12 +3,14 @@ import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 import { useComponentConfig } from "../../themes/provider";
 import type { TextInputRef } from "../../types/element.types";
 import { mergeStyles } from "../../utils/calculate-styles";
+import type { Size } from "../../utils/size-scale";
 import { useFieldOptional } from "../field/context";
 import type { InputState } from "./types";
 import { InputVariants } from "./variants";
 
 export type InputProps = Omit<TextInputProps, "onChange" | "onChangeText"> & {
   variant?: keyof typeof InputVariants;
+  size?: Size;
 
   ref?: React.Ref<TextInputRef>;
   onChange?: TextInputProps["onChangeText"];
@@ -26,7 +28,7 @@ const calculateState = (props: InputProps, isFocused: boolean): InputState => {
 };
 
 export const Input = forwardRef<TextInputRef, InputProps>((props, ref) => {
-  const variantStyles = InputVariants[props.variant || "default"]();
+  const variantStyles = InputVariants[props.variant || "default"](props.size ?? "md");
   const componentConfig = useComponentConfig("input");
   const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const [isFocused, setIsFocused] = useState(false);

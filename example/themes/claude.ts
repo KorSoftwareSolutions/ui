@@ -46,6 +46,7 @@ export const claudeThemeAssets: ThemeAssets = {
     },
   },
   radius: 8,
+  spacing: 6,
   fontFamily: "System",
   letterSpacing: 0,
   fontSize: 16,

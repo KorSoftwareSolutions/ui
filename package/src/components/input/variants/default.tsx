@@ -1,10 +1,13 @@
 import { Platform } from "react-native";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import { type InputStyles } from "../types";
 
-export function useInputVariantDefault(): InputStyles {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): InputStyles => ({
+export function useInputVariantDefault(size: Size): InputStyles {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): InputStyles => {
+    const s = sizeScale(size);
+
+    return {
       default: {
         placeholderTextColor: colors.mutedForeground,
         selectionColor: colors.primary,
@@ -13,11 +16,10 @@ export function useInputVariantDefault(): InputStyles {
           borderColor: colors.border,
           borderRadius: radius,
           backgroundColor: colors.surface,
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          paddingHorizontal: s.paddingHorizontal,
           fontFamily,
-          fontSize,
-          height: 48,
+          fontSize: s.fontSize,
+          height: s.height,
           color: colors.foreground,
           outlineWidth: 0,
           ...Platform.select({
@@ -39,6 +41,6 @@ export function useInputVariantDefault(): InputStyles {
           backgroundColor: colors.muted,
         },
       },
-    }),
-  );
+    };
+  });
 }

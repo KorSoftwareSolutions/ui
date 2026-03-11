@@ -21,6 +21,7 @@ interface ThemeContext {
   colorScheme: ColorScheme;
   letterSpacing: LetterSpacing;
   fontSize: FontSize;
+  spacing: number;
   setColorScheme: (scheme: ColorScheme) => void;
   components?: ComponentsConfig;
 }
@@ -52,6 +53,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
         fontFamily: themeAssets.fontFamily,
         letterSpacing: themeAssets.letterSpacing,
         fontSize: themeAssets.fontSize,
+        spacing: themeAssets.spacing,
         components,
       }}
     >

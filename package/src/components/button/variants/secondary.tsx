@@ -1,18 +1,21 @@
 import type { CursorValue } from "react-native";
 import { hslaSetRelativeLightness } from "../../../utils/hsla-utils";
+import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import type { ButtonStyles } from "../types";
 
-export const useButtonVariantSecondary = (): ButtonStyles => {
-  return useThemedStyles(
-    ({ colors, radius, fontFamily, fontSize }): ButtonStyles => ({
+export const useButtonVariantSecondary = (size: Size): ButtonStyles => {
+  return useThemedStyles(({ colors, radius, fontFamily, sizeScale }): ButtonStyles => {
+    const sizeStyles = sizeScale(size);
+
+    return {
       root: {
         default: {
           flexDirection: "row",
-          paddingVertical: 12,
-          paddingHorizontal: 16,
+          height: sizeStyles.height,
+          paddingHorizontal: sizeStyles.paddingHorizontal,
           borderRadius: radius,
-          gap: 8,
+          gap: sizeStyles.gap,
           alignItems: "center",
           justifyContent: "center",
           borderWidth: 1,
@@ -35,7 +38,7 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
       text: {
         default: {
           color: colors.secondaryForeground,
-          fontSize,
+          fontSize: sizeStyles.fontSize,
           fontFamily,
         },
         disabled: {
@@ -48,7 +51,8 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
       icon: {
         default: {
           color: colors.secondaryForeground,
-          size: fontSize,
+          size: sizeStyles.iconSize,
+          strokeWidth: sizeStyles.strokeWidth,
         },
         disabled: {
           color: colors.mutedForeground,
@@ -68,6 +72,6 @@ export const useButtonVariantSecondary = (): ButtonStyles => {
           color: colors.mutedForeground,
         },
       },
-    }),
-  );
+    };
+  });
 };

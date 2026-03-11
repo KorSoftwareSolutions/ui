@@ -46,6 +46,7 @@ export const neoThemeAssets: ThemeAssets = {
     },
   },
   radius: 0,
+  spacing: 6,
   fontFamily: "System",
   letterSpacing: 0,
   fontSize: 16,

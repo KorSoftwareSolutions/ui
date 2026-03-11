@@ -10,11 +10,13 @@ import {
 import { useOrganizedChildren } from "../../hooks/use-organized-children";
 import { useComponentConfig } from "../../themes/provider";
 import { mergeStyles } from "../../utils/calculate-styles";
+import type { Size } from "../../utils/size-scale";
 import type { ButtonState } from "./types";
 import { ButtonVariants } from "./variants";
 
 export interface ButtonProps extends Omit<PressableProps, "disabled"> {
   variant?: keyof typeof ButtonVariants;
+  size?: Size;
   children?: React.ReactNode;
 
   isDisabled?: boolean;
@@ -31,7 +33,7 @@ const calculateState = (props: ButtonProps, isHovered: boolean): ButtonState => 
 };
 
 export function Button(props: ButtonProps) {
-  const variantStyles = ButtonVariants[props.variant ?? "default"]();
+  const variantStyles = ButtonVariants[props.variant ?? "default"](props.size ?? "md");
   const componentConfig = useComponentConfig("button");
   const [isHovered, setIsHovered] = useState(false);
 

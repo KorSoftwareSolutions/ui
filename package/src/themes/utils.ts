@@ -14,5 +14,6 @@ export function mergeThemeAssets(
     fontFamily: override.fontFamily ?? base.fontFamily,
     letterSpacing: override.letterSpacing ?? base.letterSpacing,
     fontSize: override.fontSize ?? base.fontSize,
+    spacing: override.spacing ?? base.spacing,
   };
 }

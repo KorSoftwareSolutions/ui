@@ -1,17 +1,19 @@
 import React, { useMemo, useState } from "react";
 import { useComponentConfig } from "../../../themes/provider";
 import { mergeStyles } from "../../../utils/calculate-styles";
+import type { Size } from "../../../utils/size-scale";
 import { AlertDialogContext, type AlertDialogContextValue } from "../context";
 import { AlertDialogVariants } from "../variants";
 
 export interface AlertDialogRootProps {
   variant?: keyof typeof AlertDialogVariants;
+  size?: Size;
   children: React.ReactNode;
 }
 
 export function AlertDialogRoot(props: AlertDialogRootProps) {
   const { children } = props;
-  const variantStyles = AlertDialogVariants[props.variant || "default"]();
+  const variantStyles = AlertDialogVariants[props.variant || "default"](props.size ?? "md");
   const componentConfig = useComponentConfig("alertDialog");
   const [isOpen, setIsOpen] = useState(false);
 
