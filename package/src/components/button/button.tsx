@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  ActivityIndicator,
   Pressable,
   type PressableProps,
   type StyleProp,
@@ -11,6 +10,7 @@ import { useOrganizedChildren } from "../../hooks/use-organized-children";
 import { useComponentConfig } from "../../themes/provider";
 import { mergeStyles } from "../../utils/calculate-styles";
 import type { Size } from "../../utils/size-scale";
+import { Spinner } from "../spinner";
 import type { ButtonState } from "./types";
 import { ButtonVariants } from "./variants";
 
@@ -69,7 +69,7 @@ export function Button(props: ButtonProps) {
       style={[variantStyles.root?.default, variantStyles.root?.[state], props.style]}
     >
       {organizedChildren}
-      {props.isLoading && <ActivityIndicator {...spinnerProps} />}
+      {props.isLoading && <Spinner {...spinnerProps} />}
     </Pressable>
   );
 }

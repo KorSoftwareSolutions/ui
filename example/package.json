@@ -15,8 +15,8 @@
     "fmt": "oxfmt"
   },
   "dependencies": {
-    "@react-navigation/bottom-tabs": "^7.4.0",
-    "@react-navigation/elements": "^2.6.3",
+    "@react-navigation/drawer": "^7.5.0",
+    "@react-navigation/elements": "^2.9.10",
     "@react-navigation/native": "^7.1.8",
     "expo": "~54.0.33",
     "expo-constants": "~18.0.13",
@@ -45,10 +45,9 @@
     "react-native-worklets": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "~19.1.0",
+    "@types/react": "catalog:",
     "eslint-plugin-expo": "^1.0.0",
     "eslint-plugin-react-native": "^5.0.0",
-    "typescript": "~5.9.2",
     "wrangler": "^4.60.0"
   }
 }

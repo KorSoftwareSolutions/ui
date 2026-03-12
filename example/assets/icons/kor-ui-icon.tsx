@@ -1,10 +1,10 @@
 import { SvgProps } from "@korsolutions/ui";
 import React from "react";
-import { Defs, G, Path, Rect, Svg } from "react-native-svg";
+import { ClipPath, Defs, G, Path, Rect, Svg } from "react-native-svg";
 
-export function KorUIIcon(props: SvgProps) {
+export function KorUIIcon({ size = 512, ...props }: SvgProps) {
   return (
-    <Svg width="512" height="512" viewBox="0 0 512 512" fill="none" {...props}>
+    <Svg width={size} height={size} viewBox="0 0 512 512" fill="none" {...props}>
       <Rect width="512" height="512" fill="#0A0A0A" />
       <G clipPath="url(#clip0_29_2)">
         <Path
@@ -17,9 +17,9 @@ export function KorUIIcon(props: SvgProps) {
         />
       </G>
       <Defs>
-        <clipPath id="clip0_29_2">
+        <ClipPath id="clip0_29_2">
           <Rect width="320" height="320" fill="white" transform="translate(96 96)" />
-        </clipPath>
+        </ClipPath>
       </Defs>
     </Svg>
   );

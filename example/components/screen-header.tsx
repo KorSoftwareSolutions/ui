@@ -1,26 +1,22 @@
-import { GithubIcon } from "@/assets/icons/GithubIcon";
-import { KorUIIcon } from "@/assets/icons/KorUIIcon";
+import { GithubIcon } from "@/assets/icons/github-icon";
+import { KorUIIcon } from "@/assets/icons/kor-ui-icon";
 import { IconButton, Separator, Typography, useScreenSize, useTheme } from "@korsolutions/ui";
+import { type DrawerHeaderProps } from "@react-navigation/drawer";
 import { Link } from "expo-router";
-import { MenuIcon, MoonIcon, PencilRulerIcon, SunIcon, XIcon } from "lucide-react-native";
+import { MenuIcon, MoonIcon, PencilRulerIcon, SunIcon } from "lucide-react-native";
 import React from "react";
 import { Linking, Platform, StyleSheet, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const GITHUB_URL = "https://github.com/korsoftwaresolutions/ui";
 
-interface ScreenHeaderProps {
-  /** When provided, shows a hamburger menu on mobile that calls this function */
-  onToggleMenu?: () => void;
-  /** Whether the mobile menu is currently open */
-  menuOpen?: boolean;
-}
-
-export function ScreenHeader({ onToggleMenu, menuOpen }: ScreenHeaderProps) {
+export function ScreenHeader({ navigation }: DrawerHeaderProps) {
+  const safeAreaInsets = useSafeAreaInsets();
   const theme = useTheme();
   const screenSize = useScreenSize();
   const ColorSchemeIcon = theme.colorScheme === "light" ? SunIcon : MoonIcon;
 
-  const showHamburger = onToggleMenu && !screenSize.isDesktop;
+  const showHamburger = !screenSize.isDesktop;
 
   const openGithub = () => {
     if (Platform.OS === "web") {
@@ -31,7 +27,17 @@ export function ScreenHeader({ onToggleMenu, menuOpen }: ScreenHeaderProps) {
   };
 
   return (
-    <View style={s.header}>
+    <View
+      style={[
+        s.header,
+        {
+          paddingTop: safeAreaInsets.top + 16,
+          backgroundColor: theme.colors.background,
+          borderBottomWidth: 1,
+          borderBottomColor: theme.colors.border,
+        },
+      ]}
+    >
       <Link href="/" asChild>
         <TouchableOpacity style={s.logoContainer}>
           <KorUIIcon size={28} style={s.logo} />
@@ -41,11 +47,7 @@ export function ScreenHeader({ onToggleMenu, menuOpen }: ScreenHeaderProps) {
         </TouchableOpacity>
       </Link>
       {showHamburger ? (
-        <IconButton
-          render={menuOpen ? XIcon : MenuIcon}
-          variant="ghost"
-          onPress={onToggleMenu}
-        />
+        <IconButton render={MenuIcon} variant="ghost" onPress={navigation.openDrawer} />
       ) : (
         <View style={s.actions}>
           <IconButton render={GithubIcon} variant="ghost" onPress={openGithub} />

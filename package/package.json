@@ -27,12 +27,11 @@
   },
   "devDependencies": {
     "@react-navigation/native": "^7.1.28",
-    "@types/react": "^19.2.3",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "react-native-builder-bob": "^0.40.17",
     "react-native-reanimated": "catalog:",
-    "react-native-worklets": "catalog:",
-    "typescript": "^5.9.3"
+    "react-native-worklets": "catalog:"
   },
   "peerDependencies": {
     "react": "*",

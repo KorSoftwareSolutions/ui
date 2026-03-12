@@ -1,29 +1,44 @@
+import { MainSidebar } from "@/components/main-sidebar";
+import { ScreenHeader } from "@/components/screen-header";
 import { componentsConfig } from "@/utils/theme-components-config";
-import { UIProvider, useReactNavigationTheme, useTheme } from "@korsolutions/ui";
+import {
+  Sidebar,
+  UIProvider,
+  useReactNavigationTheme,
+  useScreenSize,
+  useTheme,
+} from "@korsolutions/ui";
 import { ThemeProvider } from "@react-navigation/native";
-import { Stack } from "expo-router";
+import { Drawer } from "expo-router/drawer";
 import React from "react";
 import "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { FullWindowOverlay } from "react-native-screens";
 import { ThemeSelectionProvider, useThemeSelection } from "../contexts/theme-context";
 
+const DRAWER_WIDTH = 260;
+
 function RootRouter() {
   const theme = useTheme();
+  const screenSize = useScreenSize();
   const reactNavigationTheme = useReactNavigationTheme();
+
   return (
     <ThemeProvider value={reactNavigationTheme}>
-      <Stack
+      <Drawer
         screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: theme.colors.background },
+          drawerContentStyle: { backgroundColor: theme.colors.background },
+          drawerType: screenSize.select({
+            default: "front",
+            desktop: "permanent",
+          }),
+          drawerStyle: {
+            width: DRAWER_WIDTH,
+          },
+          header: (props) => <ScreenHeader {...props} />,
         }}
-      >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="components" />
-        <Stack.Screen name="theme" />
-        <Stack.Screen name="theme-selector" options={{ presentation: "modal" }} />
-      </Stack>
+        drawerContent={() => <MainSidebar />}
+      />
     </ThemeProvider>
   );
 }
@@ -41,7 +56,9 @@ function ThemedApp() {
       safeAreaInsets={safeAreaInsets}
       components={componentsConfig}
     >
-      <RootRouter />
+      <Sidebar.Provider width={DRAWER_WIDTH}>
+        <RootRouter />
+      </Sidebar.Provider>
     </UIProvider>
   );
 }

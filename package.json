@@ -8,8 +8,10 @@
       "example"
     ],
     "catalog": {
+      "@types/react": "~19.1.0",
+      "@types/react-dom": "^19.1.0",
       "react-native-reanimated": "~4.1.1",
-      "react-native-worklets": "~0.5.1"
+      "react-native-worklets": "0.5.1"
     }
   },
   "scripts": {

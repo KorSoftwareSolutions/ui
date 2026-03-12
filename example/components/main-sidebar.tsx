@@ -1,13 +1,12 @@
-import { GithubIcon } from "@/assets/icons/GithubIcon";
+import { GithubIcon } from "@/assets/icons/github-icon";
 import { COMPONENTS } from "@/constants/components";
 import {
-  Icon,
   IconButton,
   Separator,
   Sidebar,
   Typography,
+  useSafeAreaInsets,
   useScreenSize,
-  useSidebar,
   useTheme,
 } from "@korsolutions/ui";
 import { Href, Link, usePathname } from "expo-router";
@@ -16,11 +15,11 @@ import React from "react";
 import { Linking, Platform, View } from "react-native";
 import { GITHUB_URL } from "./screen-header";
 
-export function ComponentSidebar() {
+export function MainSidebar() {
   const theme = useTheme();
   const screenSize = useScreenSize();
-  const { toggleSidebar } = useSidebar();
   const currentPath = usePathname();
+  const safeAreaInsets = useSafeAreaInsets();
   const sortedComponents = [...COMPONENTS].sort((a, b) => a.title.localeCompare(b.title));
 
   const isMobile = !screenSize.isDesktop;
@@ -46,17 +45,21 @@ export function ComponentSidebar() {
   const ColorSchemeIcon = theme.colorScheme === "light" ? SunIcon : MoonIcon;
 
   return (
-    <Sidebar.Root style={{ borderRightWidth: 1, borderRightColor: theme.colors.border }}>
+    <Sidebar.Root
+      style={{
+        borderRightWidth: 1,
+        borderRightColor: theme.colors.border,
+        paddingTop: safeAreaInsets.top,
+        paddingBottom: safeAreaInsets.bottom,
+      }}
+    >
       <Sidebar.Content>
         <Sidebar.Group>
           <Sidebar.GroupLabel>Components</Sidebar.GroupLabel>
           <Sidebar.Menu>
             {sortedComponents.map((component) => (
               <Link key={String(component.href)} href={component.href} asChild>
-                <Sidebar.MenuItem
-                  isActive={isActive(component.href)}
-                  onPress={isMobile ? toggleSidebar : undefined}
-                >
+                <Sidebar.MenuItem isActive={isActive(component.href)}>
                   <Typography>{component.title}</Typography>
                 </Sidebar.MenuItem>
               </Link>
@@ -76,9 +79,7 @@ export function ComponentSidebar() {
             <IconButton
               render={ColorSchemeIcon}
               variant="ghost"
-              onPress={() =>
-                theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")
-              }
+              onPress={() => theme.setColorScheme(theme.colorScheme === "light" ? "dark" : "light")}
             />
           </View>
         </Sidebar.Footer>
