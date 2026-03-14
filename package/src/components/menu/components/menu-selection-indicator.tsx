@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, type StyleProp, type ViewStyle } from "react-native";
 import { useComponentConfig } from "../../../themes/provider";
 import { useMenu } from "../context";
 
@@ -11,14 +11,15 @@ export function MenuSelectionIndicator({ isSelected }: MenuSelectionIndicatorPro
   const config = useComponentConfig("menu");
   const menu = useMenu();
   const SelectionIcon = config?.selectionIcon;
+  const indicatorStyles = menu.styles?.selectionIndicator;
 
   if (!isSelected) {
-    return <View style={menu.styles?.selectionIndicator} />;
+    return <View style={indicatorStyles as StyleProp<ViewStyle>} />;
   }
 
   if (SelectionIcon) {
-    return <SelectionIcon {...menu.styles?.selectionIndicator} />;
+    return <SelectionIcon {...indicatorStyles} />;
   }
 
-  return <Text style={menu.styles?.selectionIndicator}>✓</Text>;
+  return <Text style={indicatorStyles}>✓</Text>;
 }

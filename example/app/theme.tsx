@@ -91,15 +91,6 @@ function PropertyRow({ label, value }: { label: string; value: string }) {
 }
 
 const s = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  content: {
-    padding: 24,
-    maxWidth: 800,
-    width: "100%",
-    alignSelf: "center",
-  },
   section: {
     marginBottom: 32,
   },

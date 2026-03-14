@@ -197,8 +197,6 @@ const CustomItemsExample = () => {
                     flexDirection: "row",
                     alignItems: "center",
                     gap: 12,
-                    paddingVertical: 12,
-                    paddingHorizontal: 16,
                   }}
                 >
                   <platform.icon size={20} color={colors.foreground} />

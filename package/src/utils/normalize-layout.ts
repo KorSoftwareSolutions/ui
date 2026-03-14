@@ -1,5 +1,6 @@
-import type { HostInstance, LayoutRectangle } from "react-native";
+import type { LayoutRectangle } from "react-native";
 import type { LayoutPosition } from "../hooks";
+import type { TextInputRef, ViewRef } from "../types/element.types";
 
 export const normalizeLayout = (layout: LayoutRectangle) => {
   const _layout = { ...layout };
@@ -22,7 +23,7 @@ const isValidNumber = (value: unknown): value is number => {
 };
 
 export const measureLayoutPosition = (
-  ref: HostInstance | null,
+  ref: ViewRef | TextInputRef | null,
   callback: (layout: LayoutPosition) => void,
 ) => {
   if (ref && "getBoundingClientRect" in ref) {

@@ -25,9 +25,7 @@ export function Badge(props: BadgeProps) {
   const mergedStyles = mergeStyles(variantStyles, componentConfig?.styles);
   const composedStyle = StyleSheet.flatten([mergedStyles.root, props.style]);
 
-  const textStyle = StyleSheet.flatten([mergedStyles.text, props.style]);
-  const iconStyle = { ...mergedStyles.icon, ...props.style };
-  const organizedChildren = useOrganizedChildren(props.children, textStyle, iconStyle);
+  const organizedChildren = useOrganizedChildren(props.children, mergedStyles.text, mergedStyles.icon);
 
   const Component = props.render ?? View;
   return (

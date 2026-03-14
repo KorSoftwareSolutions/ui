@@ -6,7 +6,7 @@ import React, {
   useState,
   useSyncExternalStore,
 } from "react";
-import { Platform, View, type HostInstance } from "react-native";
+import { Platform, View } from "react-native";
 import { measureLayoutPosition } from "../../utils/normalize-layout";
 import { PortalOffsetContext, type PortalOffset } from "./portal-offset";
 import { DEFAULT_PORTAL_HOST, type PortalHostProps, type PortalProps } from "./portal.constants";
@@ -58,7 +58,7 @@ function removePortal(hostName: string, name: string) {
 }
 
 function DefaultContainer(props: React.PropsWithChildren) {
-  const containerRef = useRef<HostInstance>(null);
+  const containerRef = useRef<React.ComponentRef<typeof View>>(null);
   const [offset, setOffset] = useState<PortalOffset | null>(null);
 
   const onLayout = useCallback(() => {

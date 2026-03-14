@@ -39,23 +39,23 @@ export function ComboboxOption(props: ComboboxOptionProps) {
 
   const Component = typeof props.children === "string" ? Text : Pressable;
 
+  const handlePress = () => {
+    const label =
+      props.label ?? (typeof props.children === "string" ? props.children : props.value);
+    combobox.onChange?.(label);
+    combobox.setIsOpen(false);
+  };
+  const handlePointerEnter = () => setIsHovered(true);
+  const handlePointerLeave = () => setIsHovered(false);
+
   return (
     <Component
-      onPress={() => {
-        const label =
-          props.label ?? (typeof props.children === "string" ? props.children : props.value);
-        combobox.onChange?.(label);
-        combobox.setIsOpen(false);
-      }}
-      onPointerEnter={() => {
-        setIsHovered(true);
-      }}
-      onPointerLeave={() => {
-        setIsHovered(false);
-      }}
-      style={composedStyles}
+      onPress={handlePress}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      style={composedStyles as any}
     >
-      {props.children}
+      {props.children ?? props.label ?? props.value}
     </Component>
   );
 }

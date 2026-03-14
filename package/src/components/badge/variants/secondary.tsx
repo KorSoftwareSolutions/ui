@@ -24,6 +24,7 @@ export const useBadgeVariantSecondary = (): BadgeStyles => {
       icon: {
         color: colors.secondaryForeground,
         size: fontSize * 0.75,
+        strokeWidth: 3,
       },
     }),
   );
