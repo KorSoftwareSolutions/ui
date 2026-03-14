@@ -16,5 +16,5 @@ export function AlertIcon({
     style: [alert.styles?.icon?.style, props.style],
   };
 
-  return <Component absoluteStrokeWidth {...composedProps} />;
+  return <Component {...composedProps} />;
 }

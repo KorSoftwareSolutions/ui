@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Platform,
   Pressable,
   type PressableProps,
   type StyleProp,
@@ -66,7 +67,12 @@ export function Button(props: ButtonProps) {
       onHoverIn={() => setIsHovered(true)}
       onHoverOut={() => setIsHovered(false)}
       disabled={props.isDisabled}
-      style={[variantStyles.root?.default, variantStyles.root?.[state], props.style]}
+      style={[
+        variantStyles.root?.default,
+        variantStyles.root?.[state],
+        Platform.select({ web: { userSelect: "none" } as ViewStyle }),
+        props.style,
+      ]}
     >
       {organizedChildren}
       {props.isLoading && <Spinner {...spinnerProps} />}

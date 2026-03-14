@@ -13,5 +13,5 @@ export function ToastIcon({ render: Component, ...props }: PropsWithRequiredRend
     style: [toast.styles?.icon?.style, props.style],
   };
 
-  return <Component absoluteStrokeWidth {...composedProps} />;
+  return <Component {...composedProps} />;
 }

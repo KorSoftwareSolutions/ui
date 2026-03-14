@@ -5,7 +5,7 @@ export const useToastVariantDanger = (): ToastStyles => {
   return useThemedStyles(
     ({ colors, radius, fontFamily, fontSize }): ToastStyles => ({
       root: {
-        backgroundColor: colors.danger,
+        backgroundColor: colors.surface,
         borderWidth: 1,
         borderColor: colors.danger,
         borderRadius: radius,
@@ -20,25 +20,24 @@ export const useToastVariantDanger = (): ToastStyles => {
         gap: 4,
       },
       icon: {
-        color: colors.foreground,
+        color: colors.danger,
         size: 16,
         style: {
           marginTop: 2,
         },
       },
       title: {
-        color: colors.foreground,
+        color: colors.danger,
         fontSize: fontSize,
         lineHeight: Math.round(fontSize * 1.25),
         fontWeight: "600",
         fontFamily,
       },
       description: {
-        color: colors.foreground,
+        color: colors.mutedForeground,
         fontSize: fontSize * 0.875,
         lineHeight: Math.round(fontSize * 0.875 * 1.25),
         fontFamily,
-        opacity: 0.9,
       },
     }),
   );

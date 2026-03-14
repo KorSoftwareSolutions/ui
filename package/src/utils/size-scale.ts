@@ -24,8 +24,8 @@ const scales: Record<
   { pv: number; ph: number; gap: number; fontScale: number; sw: number; h: number }
 > = {
   sm: { pv: 1, ph: 1.5, gap: 0.75, fontScale: 0.875, sw: 1.75, h: 4.5 },
-  md: { pv: 1.5, ph: 2, gap: 1, fontScale: 1, sw: 2, h: 6 },
-  lg: { pv: 2, ph: 3, gap: 1.25, fontScale: 1.125, sw: 2.25, h: 7.5 },
+  md: { pv: 1.5, ph: 2, gap: 1, fontScale: 1, sw: 1.75, h: 6 },
+  lg: { pv: 2, ph: 3, gap: 1.25, fontScale: 1.125, sw: 1.75, h: 7.5 },
 };
 
 export function getSizeScale(

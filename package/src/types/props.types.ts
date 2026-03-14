@@ -13,6 +13,5 @@ export type SvgProps = {
   size?: number;
   color?: ColorValue;
   strokeWidth?: number;
-  absoluteStrokeWidth?: boolean;
   style?: StyleProp<ViewStyle & TextStyle>;
 };

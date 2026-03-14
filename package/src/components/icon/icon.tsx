@@ -15,7 +15,6 @@ export const Icon: React.FC<PropsWithRequiredRender<IconProps>> = ({
     ...variantProps,
     ...props,
     style: [variantProps.style, props.style],
-    absoluteStrokeWidth: props.absoluteStrokeWidth ?? true,
   };
 
   return <Component {...composedProps} />;
