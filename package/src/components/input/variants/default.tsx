@@ -23,6 +23,7 @@ export function useInputVariantDefault(size: Size): InputStyles {
           height: s.height,
           color: colors.foreground,
           outlineWidth: 0,
+          paddingVertical: 0,
           ...Platform.select({
             default: {},
             web: {

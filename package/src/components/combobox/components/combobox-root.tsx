@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   type LayoutRectangle,
   type StyleProp,
@@ -45,20 +45,19 @@ export function ComboboxRoot(props: ComboboxRootProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [contentLayout, setContentLayout] = useState<LayoutRectangle>(DEFAULT_LAYOUT);
   const [triggerPosition, setTriggerPosition] = useState<LayoutPosition>(DEFAULT_POSITION);
-  const [inputValue, setInputValueInternal] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const onInputChangeRef = useRef(props.onInputChange);
   onInputChangeRef.current = props.onInputChange;
 
-  const setInputValue: React.Dispatch<React.SetStateAction<string>> = useCallback((action) => {
-    setInputValueInternal((prev) => {
-      const next = typeof action === "function" ? action(prev) : action;
-      if (next !== prev) {
-        onInputChangeRef.current?.(next);
-      }
-      return next;
-    });
-  }, []);
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    onInputChangeRef.current?.(inputValue);
+  }, [inputValue]);
 
   const state = calculateState(props);
   const composedStyles = StyleSheet.flatten([

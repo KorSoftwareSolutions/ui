@@ -66,6 +66,7 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
           color: colors.foreground,
           height: "100%",
           outlineWidth: 0,
+          paddingVertical: 0,
           ...Platform.select({
             default: {},
             web: {
@@ -124,6 +125,12 @@ export function usePhoneInputVariantDefault(size: Size): PhoneInputStyles {
           color: colors.foreground,
           marginBottom: 4,
           outlineWidth: 0,
+          ...Platform.select({
+            android: {
+              textAlignVertical: "center",
+            },
+            default: {},
+          }),
         },
       },
     };

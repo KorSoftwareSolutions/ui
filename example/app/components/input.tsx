@@ -19,6 +19,14 @@ export default function InputComponentScreen() {
       <UseCaseSection title="Default">
         <Input value={inputValue} onChange={setInputValue} placeholder="Enter text" />
       </UseCaseSection>
+      <UseCaseSection title="Secondary">
+        <Input
+          value={inputValue}
+          onChange={setInputValue}
+          variant="secondary"
+          placeholder="Enter text"
+        />
+      </UseCaseSection>
       <UseCaseSection title="Sizes">
         <Input size="sm" placeholder="Small input" />
         <Input size="md" placeholder="Medium input" />

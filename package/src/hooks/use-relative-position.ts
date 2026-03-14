@@ -9,6 +9,7 @@ import {
 import { usePortalOffset } from "../components/portal";
 import { useSafeAreaInsets, type SafeAreaInsets } from "../safe-area";
 import { useIsReactNavigationModal } from "./use-is-react-navigation-modal";
+import { useKeyboardHeight } from "./use-keyboard-height";
 
 type UseRelativePositionArgs = Omit<GetContentStyleArgs, "dimensions" | "insets">;
 
@@ -25,8 +26,19 @@ export function useRelativePosition({
   const dimensions = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const portalOffset = usePortalOffset();
+  const keyboardHeight = useKeyboardHeight();
 
   const isReactNavigationModal = useIsReactNavigationModal();
+
+  // When the keyboard is visible, treat its top edge as the effective
+  // bottom boundary so menus/popovers don't render behind it.
+  const effectiveInsets: SafeAreaInsets = useMemo(
+    () => ({
+      ...insets,
+      bottom: Math.max(insets.bottom, keyboardHeight),
+    }),
+    [insets, keyboardHeight],
+  );
 
   return useMemo(() => {
     const hasLayout =
@@ -61,7 +73,7 @@ export function useRelativePosition({
       preferredSide,
       triggerPosition: adjustedTriggerPosition,
       alignOffset,
-      insets,
+      insets: effectiveInsets,
       sideOffset,
       dimensions,
     };
@@ -76,7 +88,9 @@ export function useRelativePosition({
       // Temporary fix to calculate portal content relative position correctly when rendered in a React Navigation modal.
       top: Platform.select({
         default: sidePosition.top,
-        ios: isReactNavigationModal ? sidePosition.top + insets.top : sidePosition.top,
+        ios: isReactNavigationModal
+          ? sidePosition.top + effectiveInsets.top
+          : sidePosition.top,
       }),
     };
 
@@ -85,7 +99,7 @@ export function useRelativePosition({
     align,
     preferredSide,
     alignOffset,
-    insets,
+    effectiveInsets,
     triggerPosition,
     contentLayout,
     dimensions.width,

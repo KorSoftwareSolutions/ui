@@ -1,45 +1,45 @@
 import type { Colors } from "../types";
 
 export const lightColors: Colors = {
-  background: "hsl(224, 0%, 100%)",
-  foreground: "hsl(224, 0%, 4%)",
+  background: "hsl(0, 0%, 98%)",
+  foreground: "hsl(0, 0%, 4%)",
 
-  primary: "hsl(224, 0%, 9%)",
-  primaryForeground: "hsl(224, 0%, 98%)",
+  primary: "hsl(0, 0%, 10%)",
+  primaryForeground: "hsl(0, 0%, 98%)",
 
-  secondary: "hsl(224, 0%, 96%)",
-  secondaryForeground: "hsl(224, 0%, 9%)",
+  secondary: "hsl(0, 0%, 93%)",
+  secondaryForeground: "hsl(0, 0%, 9%)",
 
-  muted: "hsl(224, 0%, 96%)",
-  mutedForeground: "hsl(224, 0%, 45%)",
+  muted: "hsl(0, 0%, 96%)",
+  mutedForeground: "hsl(0, 0%, 45%)",
 
-  border: "hsl(224, 0%, 90%)",
-  surface: "hsl(224, 0%, 100%)",
+  border: "hsl(0, 0%, 90%)",
+  surface: "hsl(0, 0%, 100%)",
 
-  danger: "hsl(360, 100%, 45%)",
-  success: "hsl(140, 100%, 40%)",
-  warning: "hsl(31, 92%, 45%)",
-  info: "hsl(210, 92%, 45%)",
+  danger: "hsl(0, 72%, 51%)",
+  success: "hsl(142, 71%, 45%)",
+  warning: "hsl(38, 92%, 50%)",
+  info: "hsl(217, 91%, 60%)",
 };
 
 export const darkColors: Colors = {
-  background: "hsl(224, 0%, 4%)",
-  foreground: "hsl(224, 0%, 98%)",
+  background: "hsl(0, 0%, 2%)",
+  foreground: "hsl(0, 0%, 96%)",
 
-  primary: "hsl(224, 0%, 90%)",
-  primaryForeground: "hsl(224, 0%, 9%)",
+  primary: "hsl(0, 0%, 90%)",
+  primaryForeground: "hsl(0, 0%, 10%)",
 
-  secondary: "hsl(224, 0%, 15%)",
-  secondaryForeground: "hsl(224, 0%, 98%)",
+  secondary: "hsl(0, 0%, 15%)",
+  secondaryForeground: "hsl(0, 0%, 98%)",
 
-  muted: "hsl(224, 0%, 15%)",
-  mutedForeground: "hsl(224, 0%, 63%)",
+  muted: "hsl(0, 0%, 15%)",
+  mutedForeground: "hsl(0, 0%, 63%)",
 
-  border: "hsl(224, 0%, 16%)",
-  surface: "hsl(224, 0%, 9%)",
+  border: "hsl(0, 0%, 16%)",
+  surface: "hsl(0, 0%, 8%)",
 
-  danger: "hsl(360, 100%, 45%)",
-  success: "hsl(140, 100%, 40%)",
-  warning: "hsl(31, 92%, 45%)",
-  info: "hsl(210, 92%, 45%)",
+  danger: "hsl(0, 63%, 60%)",
+  success: "hsl(142, 60%, 55%)",
+  warning: "hsl(38, 80%, 60%)",
+  info: "hsl(217, 80%, 65%)",
 };

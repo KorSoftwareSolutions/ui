@@ -1,6 +1,6 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button, Icon, Menu, Separator } from "@korsolutions/ui";
+import { Button, Icon, Input, Menu, Separator } from "@korsolutions/ui";
 import {
   BookmarkIcon,
   Copy,
@@ -104,6 +104,7 @@ export default function MenuComponentScreen() {
       </UseCaseSection>
 
       <UseCaseSection title="Radio Items">
+        <Input />
         <Menu.Root>
           <Menu.Trigger>
             <Button>Select Person</Button>
