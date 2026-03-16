@@ -1,5 +1,6 @@
 import { ComboboxContent } from "./components/combobox-content";
 import { ComboboxEmpty } from "./components/combobox-empty";
+import { ComboboxList } from "./components/combobox-list";
 import { ComboboxOption } from "./components/combobox-option";
 import { ComboboxOverlay } from "./components/combobox-overlay";
 import { ComboboxPortal } from "./components/combobox-portal";
@@ -12,12 +13,14 @@ export const Combobox = {
   Portal: ComboboxPortal,
   Overlay: ComboboxOverlay,
   Content: ComboboxContent,
+  List: ComboboxList,
   Option: ComboboxOption,
   Empty: ComboboxEmpty,
 };
 
 export type { ComboboxContentProps } from "./components/combobox-content";
 export type { ComboboxEmptyProps } from "./components/combobox-empty";
+export type { ComboboxListProps } from "./components/combobox-list";
 export type { ComboboxOptionProps } from "./components/combobox-option";
 export type { ComboboxOverlayProps } from "./components/combobox-overlay";
 export type { ComboboxPortalProps } from "./components/combobox-portal";

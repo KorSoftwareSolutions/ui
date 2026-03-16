@@ -4,8 +4,13 @@ import type { LayoutPosition } from "../../hooks";
 import type { ComboboxState, ComboboxStyles } from "./types";
 
 export interface ComboboxContext {
-  value?: string;
-  onChange?: (value: string) => void;
+  items: readonly unknown[];
+  filteredItems: readonly unknown[];
+  getItemValue: (item: unknown) => string;
+  getItemLabel: (item: unknown) => string;
+
+  value: unknown | undefined;
+  onChange: ((item: unknown) => void) | undefined;
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;

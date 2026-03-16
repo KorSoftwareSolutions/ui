@@ -1,12 +1,17 @@
 import { ComponentScreenLayout } from "@/components/component-screen-layout";
 import { UseCaseSection } from "@/components/use-case-section";
-import { Button, Combobox, List, Typography, useTheme } from "@korsolutions/ui";
+import { Button, Combobox, Typography, useTheme } from "@korsolutions/ui";
 import { router, usePathname } from "expo-router";
 import { Globe, Monitor, Smartphone, Tv } from "lucide-react-native";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 
-const frameworks = [
+interface Framework {
+  value: string;
+  label: string;
+}
+
+const frameworks: Framework[] = [
   { value: "next", label: "Next.js" },
   { value: "remix", label: "Remix" },
   { value: "astro", label: "Astro" },
@@ -64,63 +69,41 @@ function useAsyncSearch() {
   return { query, setQuery, results, isLoading };
 }
 
-const platforms = [
-  {
-    value: "web",
-    label: "Web",
-    description: "Browser-based apps",
-    icon: Globe,
-  },
-  {
-    value: "mobile",
-    label: "Mobile",
-    description: "iOS & Android",
-    icon: Smartphone,
-  },
-  {
-    value: "desktop",
-    label: "Desktop",
-    description: "Windows, Mac, Linux",
-    icon: Monitor,
-  },
-  {
-    value: "tv",
-    label: "TV",
-    description: "Smart TV apps",
-    icon: Tv,
-  },
-];
-
-function filterByLabel(items: { value: string; label: string }[], query: string) {
-  if (!query) return items;
-  const lower = query.toLowerCase();
-  return items.filter((item) => item.label.toLowerCase().includes(lower));
+interface Platform {
+  value: string;
+  label: string;
+  description: string;
+  icon: typeof Globe;
 }
+
+const platforms: Platform[] = [
+  { value: "web", label: "Web", description: "Browser-based apps", icon: Globe },
+  { value: "mobile", label: "Mobile", description: "iOS & Android", icon: Smartphone },
+  { value: "desktop", label: "Desktop", description: "Windows, Mac, Linux", icon: Monitor },
+  { value: "tv", label: "TV", description: "Smart TV apps", icon: Tv },
+];
 
 export function ComboboxComponentScreen() {
   const pathname = usePathname();
   const isModalScreen = pathname?.endsWith("/modal");
 
-  const [value, setValue] = useState("");
-  const [search, setSearch] = useState("");
-
-  const filteredFrameworks = useMemo(() => filterByLabel(frameworks, search), [search]);
+  const [selectedFramework, setSelectedFramework] = useState<Framework | undefined>();
 
   return (
     <ComponentScreenLayout title={isModalScreen ? "Combobox modal" : "Combobox"}>
       <UseCaseSection title="Default">
-        <Combobox.Root value={value} onChange={setValue} onInputChange={setSearch}>
+        <Combobox.Root
+          items={frameworks}
+          value={selectedFramework}
+          onChange={setSelectedFramework}
+        >
           <Combobox.Trigger placeholder="Select framework..." />
           <Combobox.Portal>
             <Combobox.Overlay />
             <Combobox.Content>
-              <List
-                data={filteredFrameworks}
-                keyExtractor={(item) => item.value}
-                renderItem={({ item: fw }) => (
-                  <Combobox.Option key={fw.value} value={fw.value}>
-                    {fw.label}
-                  </Combobox.Option>
+              <Combobox.List<Framework>
+                renderItem={({ item }) => (
+                  <Combobox.Option item={item}>{item.label}</Combobox.Option>
                 )}
                 renderEmpty={() => <Combobox.Empty>No framework found.</Combobox.Empty>}
               />
@@ -130,16 +113,16 @@ export function ComboboxComponentScreen() {
       </UseCaseSection>
 
       <UseCaseSection title="Disabled">
-        <Combobox.Root value="" isDisabled>
+        <Combobox.Root items={frameworks} isDisabled>
           <Combobox.Trigger placeholder="Select framework..." />
           <Combobox.Portal>
             <Combobox.Overlay />
             <Combobox.Content>
-              {frameworks.map((fw) => (
-                <Combobox.Option key={fw.value} value={fw.value}>
-                  {fw.label}
-                </Combobox.Option>
-              ))}
+              <Combobox.List<Framework>
+                renderItem={({ item }) => (
+                  <Combobox.Option item={item}>{item.label}</Combobox.Option>
+                )}
+              />
             </Combobox.Content>
           </Combobox.Portal>
         </Combobox.Root>
@@ -163,42 +146,25 @@ export function ComboboxComponentScreen() {
     </ComponentScreenLayout>
   );
 }
+
 const CustomItemsExample = () => {
   const { colors } = useTheme();
-  const [platformValue, setPlatformValue] = useState("");
-  const [platformSearch, setPlatformSearch] = useState("");
-
-  const filteredPlatforms = useMemo(
-    () =>
-      filterByLabel(
-        platforms.map((p) => ({ value: p.value, label: p.label })),
-        platformSearch,
-      ).map((item) => platforms.find((p) => p.value === item.value)!) as typeof platforms,
-    [platformSearch],
-  );
+  const [selectedPlatform, setSelectedPlatform] = useState<Platform | undefined>();
 
   return (
     <Combobox.Root
-      value={platformValue}
-      onChange={setPlatformValue}
-      onInputChange={setPlatformSearch}
+      items={platforms}
+      value={selectedPlatform}
+      onChange={setSelectedPlatform}
     >
       <Combobox.Trigger placeholder="Select platform..." />
       <Combobox.Portal>
         <Combobox.Overlay />
         <Combobox.Content>
-          <List
-            data={filteredPlatforms}
-            keyExtractor={(item) => item.value}
+          <Combobox.List<Platform>
             renderItem={({ item: platform }) => (
-              <Combobox.Option key={platform.value} value={platform.value} label={platform.label}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 12,
-                  }}
-                >
+              <Combobox.Option item={platform}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
                   <platform.icon size={20} color={colors.foreground} />
                   <View>
                     <Typography>{platform.label}</Typography>
@@ -218,22 +184,24 @@ const CustomItemsExample = () => {
 };
 
 const AsyncSearchExample = () => {
-  const [asyncValue, setAsyncValue] = useState("");
+  const [selectedCity, setSelectedCity] = useState<string | undefined>();
   const { setQuery, results, isLoading } = useAsyncSearch();
 
   return (
-    <Combobox.Root value={asyncValue} onChange={setAsyncValue} onInputChange={setQuery}>
+    <Combobox.Root
+      items={results}
+      value={selectedCity}
+      onChange={setSelectedCity}
+      filter={null}
+      onInputChange={setQuery}
+    >
       <Combobox.Trigger placeholder="Search cities..." />
       <Combobox.Portal>
         <Combobox.Overlay />
         <Combobox.Content>
-          <List
-            data={results}
-            keyExtractor={(item) => item}
+          <Combobox.List<string>
             renderItem={({ item }) => (
-              <Combobox.Option key={item} value={item}>
-                {item}
-              </Combobox.Option>
+              <Combobox.Option item={item}>{item}</Combobox.Option>
             )}
             renderEmpty={() => (
               <Combobox.Empty>{isLoading ? "Loading..." : "No city found."}</Combobox.Empty>

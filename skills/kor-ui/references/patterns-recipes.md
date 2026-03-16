@@ -615,54 +615,47 @@ function BasicSelect() {
 }
 ```
 
-### Searchable Select (Combobox Pattern)
+### Searchable Select (Combobox)
+
+Use the `Combobox` component for searchable selection. It provides a text input trigger with built-in filtering:
 
 ```typescript
-import { Select, List, Input } from "@korsolutions/ui";
+import { Combobox } from "@korsolutions/ui";
 import { useState } from "react";
 
-const OPTIONS = [
-  { value: "apple", children: "Apple" },
-  { value: "banana", children: "Banana" },
-  { value: "cherry", children: "Cherry" },
-  { value: "date", children: "Date" },
-  { value: "elderberry", children: "Elderberry" },
-  { value: "grape", children: "Grape" },
-  { value: "honeydew", children: "Honeydew" },
+interface Fruit {
+  value: string;
+  label: string;
+}
+
+const fruits: Fruit[] = [
+  { value: "apple", label: "Apple" },
+  { value: "banana", label: "Banana" },
+  { value: "cherry", label: "Cherry" },
+  { value: "date", label: "Date" },
+  { value: "elderberry", label: "Elderberry" },
+  { value: "grape", label: "Grape" },
+  { value: "honeydew", label: "Honeydew" },
 ];
 
 function SearchableSelect() {
-  const [value, setValue] = useState<string>();
-  const [inputValue, setInputValue] = useState<string>("");
-
-  const filteredOptions = OPTIONS.filter((option) =>
-    option.children.toLowerCase().includes(inputValue.toLowerCase())
-  );
+  const [selected, setSelected] = useState<Fruit | undefined>();
 
   return (
-    <Select.Root value={value} onChange={setValue}>
-      <Select.Trigger placeholder="Select a fruit" />
-      <Select.Portal>
-        <Select.Overlay />
-        <Select.Content>
-          <Input
-            variant="secondary"
-            value={inputValue}
-            onChange={setInputValue}
-            placeholder="Type to filter..."
-            style={{ marginBottom: 8 }}
-            autoFocus
-          />
-          <List
-            data={filteredOptions}
-            keyExtractor={(item) => item.value}
+    <Combobox.Root items={fruits} value={selected} onChange={setSelected}>
+      <Combobox.Trigger placeholder="Select a fruit" />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.List<Fruit>
             renderItem={({ item }) => (
-              <Select.Option {...item} />
+              <Combobox.Option item={item}>{item.label}</Combobox.Option>
             )}
+            renderEmpty={() => <Combobox.Empty>No fruit found.</Combobox.Empty>}
           />
-        </Select.Content>
-      </Select.Portal>
-    </Select.Root>
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
   );
 }
 ```

@@ -22,11 +22,12 @@ export function ComboboxTrigger(props: ComboboxTriggerProps) {
 
   const triggerState = calculateState(combobox.isDisabled, combobox.isOpen);
 
-  const displayValue = combobox.isOpen ? combobox.inputValue : (combobox.value ?? "");
+  const selectedLabel = combobox.value != null ? combobox.getItemLabel(combobox.value) : "";
+  const displayValue = combobox.isOpen ? combobox.inputValue : selectedLabel;
 
   const open = () => {
     if (combobox.isDisabled) return;
-    combobox.setInputValue(combobox.value ?? "");
+    combobox.setInputValue(selectedLabel);
     requestAnimationFrame(() => {
       measureLayoutPosition(triggerRef.current, (layout) => {
         combobox.setTriggerPosition(layout);

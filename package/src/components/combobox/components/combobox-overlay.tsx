@@ -19,7 +19,6 @@ export function ComboboxOverlay(props: ComboboxOverlayProps) {
   return (
     <Pressable
       onPress={() => {
-        combobox.onChange?.(combobox.inputValue);
         combobox.setIsOpen(false);
       }}
       pointerEvents="auto"

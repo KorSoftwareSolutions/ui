@@ -1844,14 +1844,14 @@ function DependentSelects() {
 
 ## Combobox
 
-An autocomplete input with a dropdown list of options. The consumer controls filtering — you provide the options to render and the Combobox handles the text input, dropdown positioning, and selection. Similar to Select but with a text input trigger.
+A generic autocomplete input with a dropdown list of options. The Combobox is **generic over the item type `<T>`** — you pass your items array and accessor functions, and it handles filtering, text input, dropdown positioning, and selection. Similar to Select but with a searchable text input trigger.
 
 ### When to Use
 
 - Searchable selection from a large list of options
 - Autocomplete/typeahead inputs
 - When users need to filter options by typing
-- Free-text input with suggestions
+- Async search with remote data
 
 **Do not use for**:
 
@@ -1860,29 +1860,55 @@ An autocomplete input with a dropdown list of options. The consumer controls fil
 
 ### Sub-Components
 
-- **Combobox.Root** - Container and state manager
-- **Combobox.Trigger** - Text input that opens the dropdown
+- **Combobox.Root** - Generic container `<T>`, accepts items, value, filtering, and accessor functions
+- **Combobox.Trigger** - Text input that opens the dropdown; displays selected item label when closed
 - **Combobox.Portal** - Portal for overlay rendering
-- **Combobox.Overlay** - Background overlay (closes on click, commits input value)
+- **Combobox.Overlay** - Background overlay (closes on click)
 - **Combobox.Content** - Container for options list
-- **Combobox.Option** - Individual selectable option
-- **Combobox.Empty** - Styled text for empty states (no filtering logic — just renders its children)
+- **Combobox.List** - Generic list renderer `<T>` with `renderItem`, `renderEmpty`, `renderSeparator`
+- **Combobox.Option** - Generic selectable option `<T>`, takes `item` prop
+- **Combobox.Empty** - Styled text for empty states
 
 ### API
 
 #### Combobox.Root
 
 ```typescript
-interface ComboboxRootProps {
-  // Value & Change
-  value?: string;
-  onChange?: (value: string) => void;
+interface ComboboxRootProps<T> {
+  /** The full list of selectable items. */
+  items: readonly T[];
 
-  // Input callback — use this to filter your options
+  /** The currently selected item. */
+  value?: T;
+
+  /** Called when the user selects an item. */
+  onChange?: (item: T) => void;
+
+  /**
+   * Extracts a unique string identifier from an item.
+   * Defaults to reading `item.value` or `String(item)`.
+   */
+  getItemValue?: (item: T) => string;
+
+  /**
+   * Extracts a display label from an item (shown in the trigger when selected).
+   * Defaults to reading `item.label` or falling back to `getItemValue`.
+   */
+  getItemLabel?: (item: T) => string;
+
+  /**
+   * Custom filter function. Return `true` to include the item.
+   * Defaults to case-insensitive label includes query.
+   * Pass `null` to disable built-in filtering (useful for async search).
+   */
+  filter?: ((item: T, query: string) => boolean) | null;
+
+  /** Called when the text input value changes. Useful for async search. */
   onInputChange?: (text: string) => void;
 
   // Styling
   variant?: "default";
+  size?: "sm" | "md" | "lg";
   style?: StyleProp<ViewStyle>;
 
   // State
@@ -1893,6 +1919,12 @@ interface ComboboxRootProps {
 }
 ```
 
+**Key design decisions:**
+- `value` is `T | undefined`, not a string — the selected item itself
+- `onChange` receives the full item `T`, not a string
+- Built-in filtering by default (case-insensitive label match). Pass `filter={null}` for async search
+- `getItemValue`/`getItemLabel` default to reading `.value`/`.label` on objects, or `String(item)` for primitives
+
 #### Combobox.Trigger
 
 ```typescript
@@ -1901,7 +1933,7 @@ interface ComboboxTriggerProps {
 }
 ```
 
-Contains a TextInput. On focus, opens the dropdown. When closed, displays the selected value. Text changes are reported via `onInputChange` on Root.
+Contains a TextInput. On focus, opens the dropdown. When closed, displays the selected item's label via `getItemLabel(value)`.
 
 #### Combobox.Portal
 
@@ -1922,7 +1954,7 @@ interface ComboboxOverlayProps {
 }
 ```
 
-Background overlay. Clicking closes the combobox and commits the current input text via `onChange`.
+Background overlay. Clicking closes the combobox (does **not** commit the input text as a selection).
 
 #### Combobox.Content
 
@@ -1935,17 +1967,31 @@ interface ComboboxContentProps {
 
 Container for options. Positions itself relative to Trigger.
 
+#### Combobox.List
+
+```typescript
+interface ComboboxListProps<T> {
+  renderItem: (info: { item: T; index: number }) => React.ReactElement;
+  renderEmpty?: () => React.ReactElement;
+  renderSeparator?: () => React.ReactElement;
+  keyExtractor?: (item: T, index: number) => string;
+}
+```
+
+Iterates over the context's `filteredItems` and renders each using `renderItem`. Shows `renderEmpty` when the filtered list is empty. Optionally renders separators between items. Default `keyExtractor` uses `getItemValue`.
+
+**Usage note:** Because TypeScript can't infer generics through React context, you must provide the type parameter explicitly: `<Combobox.List<MyType> renderItem={...} />`.
+
 #### Combobox.Option
 
 ```typescript
-interface ComboboxOptionProps {
-  value: string;
-  label?: string;
+interface ComboboxOptionProps<T> {
+  item: T;
   children?: React.ReactNode;
 }
 ```
 
-Individual option. Always renders — the consumer controls which options to show. Closes combobox when selected. The `label` prop is used as the value passed to `onChange` (falls back to `children` text or `value`).
+Selectable option. Pass the full item object via `item`. When pressed, calls `onChange(item)` and closes the dropdown. If `children` is omitted, displays `getItemLabel(item)`. If `children` is a string, renders as `Text`; otherwise wraps in `Pressable`.
 
 #### Combobox.Empty
 
@@ -1955,7 +2001,7 @@ interface ComboboxEmptyProps {
 }
 ```
 
-A styled text component for displaying empty/no-results messages. Has no filtering logic — it always renders. Typically used inside `List`'s `renderEmpty` prop or a conditional check.
+A styled text component for displaying empty/no-results messages. Always renders — use inside `Combobox.List`'s `renderEmpty` prop.
 
 #### States
 
@@ -1966,18 +2012,23 @@ A styled text component for displaying empty/no-results messages. Has no filteri
 
 - **default**: Normal option state
 - **hovered**: On pointer hover (web)
-- **selected**: When option value matches Combobox value
+- **selected**: When `getItemValue(item) === getItemValue(value)`
 - **disabled**: Inherited from Combobox.Root
 
 ### Basic Usage
 
-The consumer handles filtering. Use `onInputChange` to track the search text and filter options accordingly.
+Items with `{ value, label }` shape work out of the box — no accessor functions needed.
 
 ```typescript
-import { Combobox, List } from "@korsolutions/ui";
-import { useState, useMemo } from "react";
+import { Combobox } from "@korsolutions/ui";
+import { useState } from "react";
 
-const frameworks = [
+interface Framework {
+  value: string;
+  label: string;
+}
+
+const frameworks: Framework[] = [
   { value: "next", label: "Next.js" },
   { value: "remix", label: "Remix" },
   { value: "astro", label: "Astro" },
@@ -1985,32 +2036,19 @@ const frameworks = [
 ];
 
 function BasicCombobox() {
-  const [value, setValue] = useState("");
-  const [search, setSearch] = useState("");
-
-  const filtered = useMemo(() => {
-    if (!search) return frameworks;
-    const lower = search.toLowerCase();
-    return frameworks.filter((fw) => fw.label.toLowerCase().includes(lower));
-  }, [search]);
+  const [selected, setSelected] = useState<Framework | undefined>();
 
   return (
-    <Combobox.Root value={value} onChange={setValue} onInputChange={setSearch}>
+    <Combobox.Root items={frameworks} value={selected} onChange={setSelected}>
       <Combobox.Trigger placeholder="Select framework..." />
       <Combobox.Portal>
         <Combobox.Overlay />
         <Combobox.Content>
-          <List
-            data={filtered}
-            keyExtractor={(item) => item.value}
-            renderItem={({ item: fw }) => (
-              <Combobox.Option key={fw.value} value={fw.value}>
-                {fw.label}
-              </Combobox.Option>
+          <Combobox.List<Framework>
+            renderItem={({ item }) => (
+              <Combobox.Option item={item}>{item.label}</Combobox.Option>
             )}
-            renderEmpty={() => (
-              <Combobox.Empty>No framework found.</Combobox.Empty>
-            )}
+            renderEmpty={() => <Combobox.Empty>No framework found.</Combobox.Empty>}
           />
         </Combobox.Content>
       </Combobox.Portal>
@@ -2021,15 +2059,149 @@ function BasicCombobox() {
 
 ### Advanced Usage
 
+#### Custom Item Shape with Accessors
+
+When items don't have `value`/`label` properties, provide accessor functions:
+
+```typescript
+interface City {
+  id: number;
+  name: string;
+  country: string;
+}
+
+const cities: City[] = [
+  { id: 1, name: "New York", country: "US" },
+  { id: 2, name: "London", country: "UK" },
+  { id: 3, name: "Tokyo", country: "JP" },
+];
+
+function CityCombobox() {
+  const [selected, setSelected] = useState<City | undefined>();
+
+  return (
+    <Combobox.Root
+      items={cities}
+      value={selected}
+      onChange={setSelected}
+      getItemValue={(city) => String(city.id)}
+      getItemLabel={(city) => city.name}
+    >
+      <Combobox.Trigger placeholder="Select city..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.List<City>
+            renderItem={({ item }) => (
+              <Combobox.Option item={item}>
+                {item.name} ({item.country})
+              </Combobox.Option>
+            )}
+            renderEmpty={() => <Combobox.Empty>No city found.</Combobox.Empty>}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+#### String Items
+
+Works directly with `string[]` — no accessors needed:
+
+```typescript
+const fruits = ["Apple", "Banana", "Cherry", "Date"];
+
+function StringCombobox() {
+  const [selected, setSelected] = useState<string | undefined>();
+
+  return (
+    <Combobox.Root items={fruits} value={selected} onChange={setSelected}>
+      <Combobox.Trigger placeholder="Select fruit..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.List<string>
+            renderItem={({ item }) => (
+              <Combobox.Option item={item}>{item}</Combobox.Option>
+            )}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+#### Custom Rendering with Rich Items
+
+```typescript
+import { Combobox, Typography, useTheme } from "@korsolutions/ui";
+import { Globe, Monitor, Smartphone, Tv } from "lucide-react-native";
+import { useState } from "react";
+import { View } from "react-native";
+
+interface Platform {
+  value: string;
+  label: string;
+  description: string;
+  icon: typeof Globe;
+}
+
+const platforms: Platform[] = [
+  { value: "web", label: "Web", description: "Browser-based apps", icon: Globe },
+  { value: "mobile", label: "Mobile", description: "iOS & Android", icon: Smartphone },
+  { value: "desktop", label: "Desktop", description: "Windows, Mac, Linux", icon: Monitor },
+  { value: "tv", label: "TV", description: "Smart TV apps", icon: Tv },
+];
+
+function PlatformCombobox() {
+  const { colors } = useTheme();
+  const [selected, setSelected] = useState<Platform | undefined>();
+
+  return (
+    <Combobox.Root items={platforms} value={selected} onChange={setSelected}>
+      <Combobox.Trigger placeholder="Select platform..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.List<Platform>
+            renderItem={({ item: platform }) => (
+              <Combobox.Option item={platform}>
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 12 }}>
+                  <platform.icon size={20} color={colors.foreground} />
+                  <View>
+                    <Typography>{platform.label}</Typography>
+                    <Typography variant="body-sm" style={{ color: colors.mutedForeground }}>
+                      {platform.description}
+                    </Typography>
+                  </View>
+                </View>
+              </Combobox.Option>
+            )}
+            renderEmpty={() => <Combobox.Empty>No platform found.</Combobox.Empty>}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
 #### Disabled State
 
 ```typescript
-<Combobox.Root value="" isDisabled>
+<Combobox.Root items={frameworks} isDisabled>
   <Combobox.Trigger placeholder="Select framework..." />
   <Combobox.Portal>
     <Combobox.Overlay />
     <Combobox.Content>
-      <Combobox.Option value="next">Next.js</Combobox.Option>
+      <Combobox.List<Framework>
+        renderItem={({ item }) => (
+          <Combobox.Option item={item}>{item.label}</Combobox.Option>
+        )}
+      />
     </Combobox.Content>
   </Combobox.Portal>
 </Combobox.Root>
@@ -2038,45 +2210,26 @@ function BasicCombobox() {
 #### With Field Component
 
 ```typescript
-import { Field, Combobox, List } from "@korsolutions/ui";
-import { useState, useMemo } from "react";
+import { Field, Combobox } from "@korsolutions/ui";
+import { useState } from "react";
 
 function ComboboxField() {
-  const [framework, setFramework] = useState("");
-  const [search, setSearch] = useState("");
-
-  const frameworks = [
-    { value: "next", label: "Next.js" },
-    { value: "remix", label: "Remix" },
-    { value: "astro", label: "Astro" },
-  ];
-
-  const filtered = useMemo(() => {
-    if (!search) return frameworks;
-    const lower = search.toLowerCase();
-    return frameworks.filter((fw) => fw.label.toLowerCase().includes(lower));
-  }, [search]);
+  const [selected, setSelected] = useState<Framework | undefined>();
 
   return (
     <Field.Root>
       <Field.Label>Framework</Field.Label>
       <Field.Description>Choose your preferred framework</Field.Description>
-      <Combobox.Root value={framework} onChange={setFramework} onInputChange={setSearch}>
+      <Combobox.Root items={frameworks} value={selected} onChange={setSelected}>
         <Combobox.Trigger placeholder="Search frameworks..." />
         <Combobox.Portal>
           <Combobox.Overlay />
           <Combobox.Content>
-            <List
-              data={filtered}
-              keyExtractor={(item) => item.value}
-              renderItem={({ item: fw }) => (
-                <Combobox.Option key={fw.value} value={fw.value}>
-                  {fw.label}
-                </Combobox.Option>
+            <Combobox.List<Framework>
+              renderItem={({ item }) => (
+                <Combobox.Option item={item}>{item.label}</Combobox.Option>
               )}
-              renderEmpty={() => (
-                <Combobox.Empty>No framework found.</Combobox.Empty>
-              )}
+              renderEmpty={() => <Combobox.Empty>No framework found.</Combobox.Empty>}
             />
           </Combobox.Content>
         </Combobox.Portal>
@@ -2086,18 +2239,47 @@ function ComboboxField() {
 }
 ```
 
-#### Async / Remote Search
-
-Use `onInputChange` to trigger your API call and render the results as options:
+#### Custom Filter
 
 ```typescript
-import { Combobox, List } from "@korsolutions/ui";
+function CustomFilterCombobox() {
+  const [selected, setSelected] = useState<Framework | undefined>();
+
+  return (
+    <Combobox.Root
+      items={frameworks}
+      value={selected}
+      onChange={setSelected}
+      filter={(item, query) => item.value.startsWith(query.toLowerCase())}
+    >
+      <Combobox.Trigger placeholder="Search by value prefix..." />
+      <Combobox.Portal>
+        <Combobox.Overlay />
+        <Combobox.Content>
+          <Combobox.List<Framework>
+            renderItem={({ item }) => (
+              <Combobox.Option item={item}>{item.label}</Combobox.Option>
+            )}
+          />
+        </Combobox.Content>
+      </Combobox.Portal>
+    </Combobox.Root>
+  );
+}
+```
+
+#### Async / Remote Search
+
+Pass `filter={null}` to disable built-in filtering. Use `onInputChange` to trigger your API call and pass results via `items`:
+
+```typescript
+import { Combobox } from "@korsolutions/ui";
 import { useState, useEffect } from "react";
 
 function AsyncCombobox() {
-  const [value, setValue] = useState("");
+  const [selected, setSelected] = useState<string | undefined>();
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<{ value: string; label: string }[]>([]);
+  const [results, setResults] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -2123,18 +2305,20 @@ function AsyncCombobox() {
   }, [query]);
 
   return (
-    <Combobox.Root value={value} onChange={setValue} onInputChange={setQuery}>
-      <Combobox.Trigger placeholder="Search..." />
+    <Combobox.Root
+      items={results}
+      value={selected}
+      onChange={setSelected}
+      filter={null}
+      onInputChange={setQuery}
+    >
+      <Combobox.Trigger placeholder="Search cities..." />
       <Combobox.Portal>
         <Combobox.Overlay />
         <Combobox.Content>
-          <List
-            data={results}
-            keyExtractor={(item) => item.value}
+          <Combobox.List<string>
             renderItem={({ item }) => (
-              <Combobox.Option key={item.value} value={item.value}>
-                {item.label}
-              </Combobox.Option>
+              <Combobox.Option item={item}>{item}</Combobox.Option>
             )}
             renderEmpty={() => (
               <Combobox.Empty>
@@ -2150,9 +2334,10 @@ function AsyncCombobox() {
 ```
 
 **Key points:**
-- `onInputChange` fires whenever the input text changes — use it to trigger filtering or fetching
-- The consumer decides which `<Combobox.Option>` elements to render
-- Use `<Combobox.Empty>` with `List`'s `renderEmpty` for styled empty/no-results messages
+- `filter={null}` disables built-in filtering — the `items` array is used as-is
+- `onInputChange` fires whenever the input text changes — use it to trigger API calls
+- `items` should be updated with API results
+- For sync filtering, omit `filter` to use the built-in case-insensitive label match
 
 ### Accessibility
 

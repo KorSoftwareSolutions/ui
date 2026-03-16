@@ -1,6 +1,5 @@
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import React, { useEffect, useState } from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
 import { useSelect } from "../context";
 import type { SelectOptionState, SelectState } from "../types";
 
@@ -32,7 +31,8 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
   const isSelected = select.value === props.value;
 
   const optionState = calculateState(select.state, isHovered, isSelected);
-  const composedStyles = calculateComposedStyles(select.styles, optionState, "option");
+  const optionStyles = select.styles?.option;
+  const composedStyles: StyleProp<TextStyle> = [optionStyles?.default, optionStyles?.[optionState]];
 
   useEffect(() => {
     select.setOptions((prev) => {
@@ -43,21 +43,21 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
     });
   }, [props.value, props.children]);
 
+  const handlePress = () => {
+    select.onChange?.(props.value);
+    select.setIsOpen(false);
+  };
+  const handlePointerEnter = () => setIsHovered(true);
+  const handlePointerLeave = () => setIsHovered(false);
+
   const Component = typeof props.children === "string" ? Text : Pressable;
 
   return (
     <Component
-      onPress={() => {
-        select.onChange?.(props.value);
-        select.setIsOpen(false);
-      }}
-      onPointerEnter={() => {
-        setIsHovered(true);
-      }}
-      onPointerLeave={() => {
-        setIsHovered(false);
-      }}
-      style={composedStyles}
+      onPress={handlePress}
+      onPointerEnter={handlePointerEnter}
+      onPointerLeave={handlePointerLeave}
+      style={composedStyles as StyleProp<ViewStyle>}
     >
       {props.children}
     </Component>

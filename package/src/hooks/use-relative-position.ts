@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import {
   Platform,
   useWindowDimensions,
-  type DisplayMetrics,
   type LayoutRectangle,
+  type ScaledSize,
   type ViewStyle,
 } from "react-native";
 import { usePortalOffset } from "../components/portal";
@@ -118,7 +118,7 @@ export interface LayoutPosition {
 }
 
 interface GetPositionArgs {
-  dimensions: DisplayMetrics;
+  dimensions: ScaledSize;
   triggerPosition: LayoutPosition;
   contentLayout: LayoutRectangle;
   insets: SafeAreaInsets;
@@ -148,7 +148,7 @@ interface GetSideArgs {
   positionTop: number;
   positionBottom: number;
   contentLayout: LayoutRectangle;
-  dimensions: DisplayMetrics;
+  dimensions: ScaledSize;
 }
 
 function getSide({
@@ -272,7 +272,7 @@ function getLeftPosition(
   contentWidth: number,
   alignOffset: number,
   insets: SafeAreaInsets,
-  dimensions: DisplayMetrics,
+  dimensions: ScaledSize,
 ) {
   let left = 0;
   if (align === "start") {

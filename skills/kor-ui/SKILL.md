@@ -112,7 +112,7 @@ function SubmitButton() {
 | **Checkbox**     | Toggle selection with label                          | default, outlined  | [Input Components](./references/components-inputs.md#checkbox)     |
 | **RadioGroup**   | Single selection from a group of options             | default, outlined  | [Input Components](./references/components-inputs.md#radiogroup)   |
 | **Select**       | Dropdown selection from a list of options             | default  | [Input Components](./references/components-inputs.md#select)       |
-| **Combobox**     | Autocomplete input with dropdown (consumer-side filtering) | default  | [Input Components](./references/components-inputs.md#combobox)     |
+| **Combobox**     | Generic autocomplete input with built-in filtering and item selection | default  | [Input Components](./references/components-inputs.md#combobox)     |
 | **Field**        | Form field wrapper with label and validation         | -        | [Input Components](./references/components-inputs.md#field)        |
 
 ### Display Components

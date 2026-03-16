@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text } from "react-native";
+import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from "react-native";
 import { useCombobox } from "../context";
 import type { ComboboxOptionState, ComboboxState } from "../types";
 
-export type ComboboxOptionProps = {
-  value: string;
-  label?: string;
+export type ComboboxOptionProps<T> = {
+  item: T;
   children?: React.ReactNode;
 };
 
@@ -14,48 +13,43 @@ const calculateState = (
   hovered: boolean,
   selected: boolean,
 ): ComboboxOptionState => {
-  if (comboboxState === "disabled") {
-    return "disabled";
-  }
-  if (selected) {
-    return "selected";
-  }
-  if (hovered) {
-    return "hovered";
-  }
+  if (comboboxState === "disabled") return "disabled";
+  if (selected) return "selected";
+  if (hovered) return "hovered";
   return "default";
 };
 
-export function ComboboxOption(props: ComboboxOptionProps) {
+export function ComboboxOption<T>(props: ComboboxOptionProps<T>) {
   const [isHovered, setIsHovered] = useState(false);
   const combobox = useCombobox();
-  const isSelected = combobox.value === props.value;
+
+  const itemValue = combobox.getItemValue(props.item);
+  const selectedValue = combobox.value != null ? combobox.getItemValue(combobox.value) : undefined;
+  const isSelected = itemValue === selectedValue;
 
   const optionState = calculateState(combobox.state, isHovered, isSelected);
-  const composedStyles = StyleSheet.flatten([
-    combobox.styles?.option?.default,
-    combobox.styles?.option?.[optionState],
-  ]);
-
-  const Component = typeof props.children === "string" ? Text : Pressable;
+  const optionStyles = combobox.styles?.option;
+  const composedStyles = StyleSheet.flatten([optionStyles?.default, optionStyles?.[optionState]]);
 
   const handlePress = () => {
-    const label =
-      props.label ?? (typeof props.children === "string" ? props.children : props.value);
-    combobox.onChange?.(label);
+    combobox.onChange?.(props.item);
     combobox.setIsOpen(false);
   };
   const handlePointerEnter = () => setIsHovered(true);
   const handlePointerLeave = () => setIsHovered(false);
+
+  const displayContent = props.children ?? combobox.getItemLabel(props.item);
+
+  const Component = typeof props.children === "string" ? Text : Pressable;
 
   return (
     <Component
       onPress={handlePress}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-      style={composedStyles as any}
+      style={composedStyles as StyleProp<ViewStyle>}
     >
-      {props.children ?? props.label ?? props.value}
+      {displayContent}
     </Component>
   );
 }
