@@ -1,26 +1,42 @@
 import React from "react";
-import { Linking, Text as RnText, type TextProps as RnTextProps } from "react-native";
+import { Linking, Text as RnText, StyleSheet, type TextProps as RnTextProps } from "react-native";
+import { useComponentConfig } from "../../themes/provider";
 import { LinkVariants } from "./variants";
 
-export interface LinkProps extends RnTextProps {
-  href?: string;
+export type ExtendableProps = Omit<RnTextProps, "onPress" | "style">;
 
+export type LinkStyles = RnTextProps["style"];
+
+export type LinkProps = RnTextProps & {
   variant?: keyof typeof LinkVariants;
-}
+  style?: LinkStyles;
+} & (
+    | {
+        href?: string;
+      }
+    | {
+        onPress?: RnTextProps["onPress"];
+      }
+  );
 
 export function Link(props: LinkProps) {
-  const useVariantStyles = LinkVariants[props.variant ?? "default"];
+  const { style, onPress, variant = "default", ...rest } = props;
+  const useVariantStyles = LinkVariants[variant];
+  const config = useComponentConfig("link");
   const variantStyles = useVariantStyles();
 
   const handlePress: RnTextProps["onPress"] = async (e) => {
-    if (props.href) {
+    if ("href" in props && props.href) {
       const supported = await Linking.canOpenURL(props.href);
       if (supported) {
         await Linking.openURL(props.href);
       }
+    } else {
+      onPress?.(e);
     }
-    props.onPress?.(e);
   };
 
-  return <RnText {...props} style={variantStyles} onPress={handlePress} />;
+  const composedStyles = StyleSheet.flatten([variantStyles, config?.styles, style]);
+
+  return <RnText {...rest} style={composedStyles} onPress={handlePress} />;
 }
