@@ -39,6 +39,8 @@ export function useTableVariantDefault(): TableStyles {
           flex: 1,
           paddingHorizontal: 16,
           paddingVertical: 12,
+          justifyContent: "center",
+          alignItems: "flex-start",
         },
       },
     }),
