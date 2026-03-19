@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Pressable, Text, type StyleProp, type TextStyle, type ViewStyle } from "react-native";
+import { Pressable, StyleSheet, type PressableProps } from "react-native";
+import type { ElementChildren } from "../../../types/element.types";
 import { useSelect } from "../context";
 import type { SelectOptionState, SelectState } from "../types";
 
 export type SelectOptionProps = {
   value: string;
-  children?: React.ReactNode;
+  children?: ElementChildren;
+  style?: PressableProps["style"];
 };
 
 const calculateState = (
@@ -32,8 +34,6 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
 
   const optionState = calculateState(select.state, isHovered, isSelected);
   const optionStyles = select.styles?.option;
-  const composedStyles: StyleProp<TextStyle> = [optionStyles?.default, optionStyles?.[optionState]];
-
   useEffect(() => {
     select.setOptions((prev) => {
       if (prev.find((option) => option.value === props.value)) {
@@ -50,16 +50,20 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
   const handlePointerEnter = () => setIsHovered(true);
   const handlePointerLeave = () => setIsHovered(false);
 
-  const Component = typeof props.children === "string" ? Text : Pressable;
-
   return (
-    <Component
+    <Pressable
       onPress={handlePress}
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
-      style={composedStyles as StyleProp<ViewStyle>}
+      style={(styleProps) =>
+        StyleSheet.flatten([
+          optionStyles?.default,
+          optionStyles?.[optionState],
+          typeof props.style === "function" ? props.style(styleProps) : props.style,
+        ])
+      }
     >
       {props.children}
-    </Component>
+    </Pressable>
   );
 }

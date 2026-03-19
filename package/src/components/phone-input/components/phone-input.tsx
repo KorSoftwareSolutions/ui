@@ -1,28 +1,38 @@
-import React from "react";
-import { type StyleProp, StyleSheet, TextInput, type TextStyle } from "react-native";
+import React, { forwardRef } from "react";
+import { StyleSheet, TextInput, type TextInputProps } from "react-native";
+import type { TextInputRef } from "../../../types/element.types";
 import { usePhoneInput } from "../context";
 
-export interface PhoneInputProps {
-  placeholder?: string;
-  style?: StyleProp<TextStyle>;
-}
+export type ExpandableProps = Omit<TextInputProps, "value" | "onChangeText">;
 
-export function PhoneInput({ placeholder = "Enter phone number", style }: PhoneInputProps) {
-  const { styles, state, setIsFocused, phoneMask, isDisabled } = usePhoneInput();
+export type PhoneInputProps = ExpandableProps;
 
-  const inputStyles = StyleSheet.flatten([styles.input?.default, styles.input?.[state], style]);
+export const PhoneInput = forwardRef<TextInputRef, PhoneInputProps>(
+  ({ placeholder = "Enter phone number", style, ...props }, ref) => {
+    const { styles, state, setIsFocused, phoneMask, isDisabled } = usePhoneInput();
 
-  return (
-    <TextInput
-      value={phoneMask.displayValue}
-      onChangeText={phoneMask.onChangeText}
-      keyboardType={phoneMask.keyboardType}
-      placeholder={placeholder}
-      placeholderTextColor={StyleSheet.flatten(styles.countryButtonText?.disabled)?.color}
-      readOnly={isDisabled}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
-      style={inputStyles}
-    />
-  );
-}
+    const inputStyles = StyleSheet.flatten([styles.input?.default, styles.input?.[state], style]);
+
+    return (
+      <TextInput
+        {...props}
+        ref={ref}
+        value={phoneMask.displayValue}
+        onChangeText={phoneMask.onChangeText}
+        keyboardType={phoneMask.keyboardType}
+        placeholder={placeholder}
+        placeholderTextColor={StyleSheet.flatten(styles.countryButtonText?.disabled)?.color}
+        readOnly={isDisabled}
+        onFocus={(e) => {
+          setIsFocused(true);
+          props.onFocus?.(e);
+        }}
+        onBlur={(e) => {
+          setIsFocused(false);
+          props.onBlur?.(e);
+        }}
+        style={inputStyles}
+      />
+    );
+  },
+);

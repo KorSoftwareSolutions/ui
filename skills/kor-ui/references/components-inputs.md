@@ -1537,10 +1537,13 @@ Container for options. Positions itself relative to Trigger.
 interface SelectOptionProps {
   value: string;
   children?: React.ReactNode;
+  style?: PressableProps["style"]; // supports callback form: (state) => StyleProp<ViewStyle>
 }
 ```
 
 Individual option. Automatically registers with Root for value display. Closes select when clicked.
+
+The outer container is always a `Pressable` (accepts `ViewStyle`). If `children` is a string, it is rendered inside a `<Text>` element within the `Pressable`. If `children` is a React element, it is passed through directly inside the `Pressable`.
 
 #### States
 
@@ -1928,12 +1931,53 @@ interface ComboboxRootProps<T> {
 #### Combobox.Trigger
 
 ```typescript
-interface ComboboxTriggerProps {
+type ComboboxTriggerRenderProps = {
+  inputRef: React.RefObject<TextInputRef | null>; // attach to host View for dropdown position measurement
+  open: () => void;                               // opens the dropdown
+  setInputValue: (value: string) => void;         // drives filtering AND updates native input
+};
+
+interface ComboboxTriggerProps extends Omit<TextInputProps, "value" | "onChange" | "onChangeText"> {
   placeholder?: string;
+  render?: (props: ComboboxTriggerRenderProps) => React.ReactNode;
 }
 ```
 
-Contains a TextInput. On focus, opens the dropdown. When closed, displays the selected item's label via `getItemLabel(value)`.
+Contains a `TextInput` by default. On focus, opens the dropdown. When closed, displays the selected item's label via `getItemLabel(value)`.
+
+**`render` prop** — provide a fully custom trigger UI instead of the default `TextInput`. When `render` is set, the default TextInput is not rendered. Use the injected helpers:
+
+- `inputRef` — attach to any host `View` wrapping your custom input; used to measure the trigger position for dropdown placement.
+- `open()` — call to open the dropdown (e.g. from `onFocus`).
+- `setInputValue(value)` — updates combobox filter state AND the native input value imperatively. Call this as the user types.
+
+Standard `TextInputProps` (excluding `value`, `onChange`, `onChangeText`) pass through to the default trigger when `render` is not used.
+
+**Example — embedding a `PhoneInput` as the combobox trigger:**
+
+```typescript
+<Combobox.Root items={contacts} filter={filterContact} onChange={setContact}>
+  <Combobox.Trigger
+    render={({ inputRef, open, setInputValue }) => (
+      <View ref={inputRef}>
+        <PhoneInput.Root value={phone} onChange={(e164) => {
+          setPhone(e164);
+          setInputValue(e164.replace(/\D/g, "")); // drive filtering
+        }}>
+          <PhoneInput.CountryPicker />
+          <PhoneInput.Input onFocus={open} />
+        </PhoneInput.Root>
+      </View>
+    )}
+  />
+  <Combobox.Portal>
+    <Combobox.Overlay />
+    <Combobox.Content>
+      <Combobox.List renderItem={...} />
+    </Combobox.Content>
+  </Combobox.Portal>
+</Combobox.Root>
+```
 
 #### Combobox.Portal
 
@@ -1988,10 +2032,13 @@ Iterates over the context's `filteredItems` and renders each using `renderItem`.
 interface ComboboxOptionProps<T> {
   item: T;
   children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 ```
 
-Selectable option. Pass the full item object via `item`. When pressed, calls `onChange(item)` and closes the dropdown. If `children` is omitted, displays `getItemLabel(item)`. If `children` is a string, renders as `Text`; otherwise wraps in `Pressable`.
+Selectable option. Pass the full item object via `item`. When pressed, calls `onChange(item)` and closes the dropdown.
+
+The outer container is always a `Pressable` (accepts `ViewStyle`). If `children` is omitted, `getItemLabel(item)` is used as the display content. If the display content is a string, it is rendered inside a `<Text>` element within the `Pressable`. If `children` is a React element, it is passed through directly inside the `Pressable`.
 
 #### Combobox.Empty
 

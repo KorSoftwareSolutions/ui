@@ -2,7 +2,7 @@ import type React from "react";
 import type { ColorValue, StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export type PropsWithRender<P> = P & {
-  render?: (props: P) => React.ReactNode;
+  render?: React.ComponentType<P>;
 };
 
 export type PropsWithRequiredRender<P> = P & {

@@ -1,3 +1,4 @@
+import type { CursorValue } from "react-native";
 import type { Size } from "../../../utils/size-scale";
 import { useThemedStyles } from "../../../utils/use-themed-styles";
 import { type SelectStyles } from "../types";
@@ -23,6 +24,7 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
         },
         disabled: {
           backgroundColor: colors.muted,
+          cursor: "not-allowed" as CursorValue,
         },
       },
       value: {
@@ -74,9 +76,11 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
           lineHeight: s.lineHeight,
           color: colors.foreground,
           borderRadius: radius / 2,
+          cursor: "pointer",
         },
         disabled: {
           color: colors.mutedForeground,
+          cursor: "not-allowed" as CursorValue,
         },
         selected: {
           backgroundColor: colors.muted,

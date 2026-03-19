@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Pressable, StyleSheet, Text, type StyleProp, type ViewStyle } from "react-native";
+import { Pressable, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
+import type { ElementChildren } from "../../../types/element.types";
 import { useCombobox } from "../context";
 import type { ComboboxOptionState, ComboboxState } from "../types";
 
 export type ComboboxOptionProps<T> = {
   item: T;
-  children?: React.ReactNode;
+  children?: ElementChildren;
 };
 
 const calculateState = (
@@ -35,21 +36,15 @@ export function ComboboxOption<T>(props: ComboboxOptionProps<T>) {
     combobox.onChange?.(props.item);
     combobox.setIsOpen(false);
   };
-  const handlePointerEnter = () => setIsHovered(true);
-  const handlePointerLeave = () => setIsHovered(false);
-
-  const displayContent = props.children ?? combobox.getItemLabel(props.item);
-
-  const Component = typeof props.children === "string" ? Text : Pressable;
 
   return (
-    <Component
+    <Pressable
       onPress={handlePress}
-      onPointerEnter={handlePointerEnter}
-      onPointerLeave={handlePointerLeave}
+      onPointerEnter={() => setIsHovered(true)}
+      onPointerLeave={() => setIsHovered(false)}
       style={composedStyles as StyleProp<ViewStyle>}
     >
-      {displayContent}
-    </Component>
+      {props.children}
+    </Pressable>
   );
 }
