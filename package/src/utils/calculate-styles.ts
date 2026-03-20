@@ -1,4 +1,9 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  type PressableProps,
+  type PressableStateCallbackType,
+  type ViewStyle,
+} from "react-native";
 
 export const calculateComposedStyles = <
   TStyle,
@@ -56,4 +61,14 @@ export const mergeStyles = <TStyle extends Record<string, any>>(
     }
   }
   return returnStyles;
+};
+
+export const extractPressableStyles = (
+  style: PressableProps["style"],
+  props: PressableStateCallbackType,
+): ViewStyle => {
+  if (typeof style === "function") {
+    return style(props) as ViewStyle;
+  }
+  return style as ViewStyle;
 };

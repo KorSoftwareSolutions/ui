@@ -41,43 +41,43 @@ export function SelectComponentScreen() {
 const OPTIONS = [
   {
     value: "apple",
-    children: "Apple",
+    label: "Apple",
     icon: "🍎",
     description: "A sweet red fruit",
   },
   {
     value: "banana",
-    children: "Banana",
+    label: "Banana",
     icon: "🍌",
     description: "A long yellow fruit",
   },
   {
     value: "cherry",
-    children: "Cherry",
+    label: "Cherry",
     icon: "🍒",
     description: "A small red fruit",
   },
   {
     value: "date",
-    children: "Date",
+    label: "Date",
     icon: "🌴",
     description: "A sweet brown fruit",
   },
   {
     value: "elderberry",
-    children: "Elderberry",
+    label: "Elderberry",
     icon: "🫐",
     description: "A small dark berry",
   },
   {
     value: "grape",
-    children: "Grape",
+    label: "Grape",
     icon: "🍇",
     description: "A small round fruit",
   },
   {
     value: "honeydew",
-    children: "Honeydew",
+    label: "Honeydew",
     icon: "🍈",
     description: "A sweet green melon",
   },
@@ -94,7 +94,11 @@ function DefaultExample() {
           <List
             data={OPTIONS}
             keyExtractor={(item) => item.value}
-            renderItem={({ item }) => <Select.Option {...item} />}
+            renderItem={({ item }) => (
+              <Select.Option value={item.value}>
+                <Typography>{item.label}</Typography>
+              </Select.Option>
+            )}
           />
         </Select.Content>
       </Select.Portal>
@@ -113,7 +117,11 @@ function InitialValueExample() {
           <List
             data={OPTIONS}
             keyExtractor={(item) => item.value}
-            renderItem={({ item }) => <Select.Option {...item} />}
+            renderItem={({ item }) => (
+              <Select.Option value={item.value}>
+                <Typography>{item.label}</Typography>
+              </Select.Option>
+            )}
           />
         </Select.Content>
       </Select.Portal>
@@ -134,7 +142,7 @@ function CustomOption(item: (typeof OPTIONS)[0]) {
     <View style={{ flexDirection: "row", gap: 8 }}>
       <Typography>{item.icon}</Typography>
       <View>
-        <Typography variant="heading">{item.children}</Typography>
+        <Typography variant="heading">{item.label}</Typography>
         <Typography>{item.description}</Typography>
       </View>
     </View>
@@ -153,7 +161,7 @@ function CustomOptionExample() {
             data={OPTIONS}
             keyExtractor={(item) => item.value}
             renderItem={({ item }) => (
-              <Select.Option {...item}>
+              <Select.Option value={item.value}>
                 <CustomOption {...item} />
               </Select.Option>
             )}
@@ -175,7 +183,11 @@ function AboveTheFoldExample() {
           <List
             data={OPTIONS}
             keyExtractor={(item) => item.value}
-            renderItem={({ item }) => <Select.Option {...item} />}
+            renderItem={({ item }) => (
+              <Select.Option value={item.value}>
+                <Typography>{item.label}</Typography>
+              </Select.Option>
+            )}
           />
         </Select.Content>
       </Select.Portal>

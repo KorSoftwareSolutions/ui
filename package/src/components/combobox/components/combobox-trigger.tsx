@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { StyleSheet, TextInput, type TextInputProps } from "react-native";
 import type { TextInputRef } from "../../../types/element.types";
-import { setInnerInputValue } from "../../../utils/input-utils";
 import { measureLayoutPosition } from "../../../utils/normalize-layout";
 import { useCombobox } from "../context";
 import type { ComboboxTriggerState } from "../types";
@@ -11,7 +10,8 @@ type ExtendableProps = Omit<TextInputProps, "value" | "onChange" | "onChangeText
 type RenderProps = {
   inputRef: React.RefObject<TextInputRef | null>;
   open: () => void;
-  setInputValue: (value: string) => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 
 export type ComboboxTriggerProps = ExtendableProps & {
@@ -26,49 +26,23 @@ const calculateState = (isDisabled: boolean, isOpen: boolean): ComboboxTriggerSt
 
 export function ComboboxTrigger({ render, ...props }: ComboboxTriggerProps) {
   const combobox = useCombobox();
-  const triggerRef = useRef<TextInputRef>(null);
 
   const triggerState = calculateState(combobox.isDisabled, combobox.isOpen);
-  const selectedLabel = combobox.value != null ? combobox.getItemLabel(combobox.value) : "";
-  const displayValue = combobox.isOpen ? combobox.inputValue : selectedLabel;
 
   const open = () => {
     if (combobox.isDisabled) return;
-    combobox.setInputValue(selectedLabel);
     requestAnimationFrame(() => {
-      measureLayoutPosition(triggerRef.current, (layout) => {
+      measureLayoutPosition(combobox.inputRef.current, (layout) => {
         combobox.setTriggerPosition(layout);
         combobox.setIsOpen(true);
       });
     });
   };
 
-  const onChangeText = (text: string) => {
-    if (combobox.isDisabled) return;
-    combobox.setInputValue(text);
-    if (!combobox.isOpen) open();
+  const onFocus: TextInputProps["onFocus"] = (e) => {
+    props.onFocus?.(e);
+    open();
   };
-
-  const onFocus = () => {
-    if (!combobox.isOpen) open();
-  };
-
-  const setInputValue = (value: string) => {
-    combobox.setInputValue(value);
-    if (triggerRef.current) {
-      setInnerInputValue(triggerRef.current, value);
-    }
-  };
-
-  useEffect(() => {
-    setInputValue(displayValue);
-  }, [displayValue]);
-
-  useEffect(() => {
-    if (!combobox.isOpen) {
-      triggerRef.current?.blur();
-    }
-  }, [combobox.isOpen]);
 
   const triggerStyles = combobox.styles?.trigger;
   const composedProps: TextInputProps = {
@@ -89,19 +63,20 @@ export function ComboboxTrigger({ render, ...props }: ComboboxTriggerProps) {
 
   if (render) {
     return render({
-      inputRef: triggerRef,
+      inputRef: combobox.inputRef,
       open,
-      setInputValue,
+      value: combobox.inputValue,
+      onChange: combobox.onInputChange,
     });
   }
 
   return (
     <TextInput
       {...composedProps}
-      ref={triggerRef}
-      value={undefined}
+      ref={combobox.inputRef}
+      value={combobox.inputValue}
       onChange={undefined}
-      onChangeText={onChangeText}
+      onChangeText={combobox.onInputChange}
       onFocus={onFocus}
       style={composedStyle}
     />

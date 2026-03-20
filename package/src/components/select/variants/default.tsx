@@ -71,15 +71,10 @@ export function useSelectVariantDefault(size: Size): SelectStyles {
         default: {
           paddingVertical: s.paddingVertical,
           paddingHorizontal: s.paddingHorizontal,
-          fontFamily,
-          fontSize: s.fontSize,
-          lineHeight: s.lineHeight,
-          color: colors.foreground,
           borderRadius: radius / 2,
           cursor: "pointer",
         },
         disabled: {
-          color: colors.mutedForeground,
           cursor: "not-allowed" as CursorValue,
         },
         selected: {

@@ -1,16 +1,22 @@
 import { createContext, type Dispatch, useContext } from "react";
 import type { LayoutRectangle } from "react-native";
 import type { LayoutPosition } from "../../hooks";
+import type { TextInputRef } from "../../types/element.types";
 import type { ComboboxState, ComboboxStyles } from "./types";
 
 export interface ComboboxContext {
-  items: readonly unknown[];
-  filteredItems: readonly unknown[];
-  getItemValue: (item: unknown) => string;
-  getItemLabel: (item: unknown) => string;
+  items: readonly any[];
 
-  value: unknown | undefined;
-  onChange: ((item: unknown) => void) | undefined;
+  value: any | undefined;
+  onChange: (item: any) => void;
+
+  inputValue: string;
+  onInputChange: (text: string) => void;
+
+  getItemValue: (item: any) => string;
+  getItemLabel: (item: any) => string;
+
+  inputRef: React.RefObject<TextInputRef | null>;
 
   isOpen: boolean;
   setIsOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -18,9 +24,6 @@ export interface ComboboxContext {
   setTriggerPosition: Dispatch<React.SetStateAction<LayoutPosition>>;
   contentLayout: LayoutRectangle;
   setContentLayout: Dispatch<React.SetStateAction<LayoutRectangle>>;
-
-  inputValue: string;
-  setInputValue: Dispatch<React.SetStateAction<string>>;
 
   isDisabled: boolean;
 

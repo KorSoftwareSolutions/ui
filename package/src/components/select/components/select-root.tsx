@@ -1,8 +1,14 @@
 import React, { useState } from "react";
-import { type LayoutRectangle, type StyleProp, View, type ViewStyle } from "react-native";
+import {
+  type LayoutRectangle,
+  type StyleProp,
+  StyleSheet,
+  View,
+  type ViewStyle,
+} from "react-native";
 import { DEFAULT_LAYOUT, DEFAULT_POSITION, type LayoutPosition } from "../../../hooks";
 import { useComponentConfig } from "../../../themes/provider";
-import { calculateComposedStyles, mergeStyles } from "../../../utils/calculate-styles";
+import { mergeStyles } from "../../../utils/calculate-styles";
 import type { Size } from "../../../utils/size-scale";
 import { SelectContext } from "../context";
 import type { SelectOption, SelectState } from "../types";
@@ -48,7 +54,12 @@ export function SelectRoot(props: SelectRootProps) {
   const [options, setOptions] = useState<Array<SelectOption>>([]);
 
   const state = calculateState(props);
-  const composedStyles = calculateComposedStyles(mergedStyles, state, "root", props.style);
+
+  const composedStyles = StyleSheet.flatten([
+    mergedStyles?.root?.default,
+    mergedStyles?.root?.[state],
+    props.style,
+  ]);
 
   const Component = props.render ?? View;
   return (

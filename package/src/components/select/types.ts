@@ -1,5 +1,5 @@
-import type { TextStyle } from "react-native";
 import type { SelectContentProps } from "./components/select-content";
+import type { SelectOptionProps } from "./components/select-option";
 import type { SelectOverlayProps } from "./components/select-overlay";
 import type { SelectRootProps } from "./components/select-root";
 import type { SelectTriggerProps, SelectValueProps } from "./components/select-trigger";
@@ -14,7 +14,7 @@ export interface SelectStyles {
   placeholder?: Partial<Record<SelectState, SelectValueProps["style"]>>;
   overlay?: Partial<Record<SelectState, SelectOverlayProps["style"]>>;
   content?: Partial<Record<SelectState, SelectContentProps["style"]>>;
-  option?: Partial<Record<SelectOptionState, TextStyle>>;
+  option?: Partial<Record<SelectOptionState, SelectOptionProps["style"]>>;
 }
 
 export interface SelectOption {

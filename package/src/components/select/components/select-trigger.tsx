@@ -1,31 +1,25 @@
 import React, { useRef } from "react";
 import {
   Pressable,
+  StyleSheet,
   Text,
+  type PressableProps,
   type StyleProp,
-  type TextStyle,
-  type ViewStyle,
+  type TextStyle
 } from "react-native";
 import type { ViewRef } from "../../../types/element.types";
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
+import { extractPressableStyles } from "../../../utils/calculate-styles";
 import { measureLayoutPosition } from "../../../utils/normalize-layout";
 import { useSelect } from "../context";
 
 export interface SelectTriggerProps {
   placeholder?: string;
-  style?: StyleProp<ViewStyle>;
+  style?: PressableProps["style"];
 }
 
 export function SelectTrigger(props: SelectTriggerProps) {
   const select = useSelect();
   const triggerRef = useRef<ViewRef>(null);
-
-  const composedStyles = calculateComposedStyles(
-    select.styles,
-    select.state,
-    "trigger",
-    props.style,
-  );
 
   const onTriggerPress = () => {
     if (!select.isOpen) {
@@ -43,7 +37,13 @@ export function SelectTrigger(props: SelectTriggerProps) {
       ref={triggerRef}
       onPress={onTriggerPress}
       disabled={select.isDisabled}
-      style={composedStyles}
+      style={(styleProp) =>
+        StyleSheet.flatten([
+          extractPressableStyles(select.styles?.trigger?.default, styleProp),
+          extractPressableStyles(select.styles?.trigger?.[select.state], styleProp),
+          extractPressableStyles(props.style, styleProp),
+        ])
+      }
     >
       <SelectValue placeholder={props.placeholder} />
     </Pressable>

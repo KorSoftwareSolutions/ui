@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, type StyleProp, type ViewStyle } from "react-native";
 import { useRelativePosition } from "../../../hooks/use-relative-position";
+import { focusPreventProps } from "../../focus/focus-prevent";
 import { useCombobox } from "../context";
 
 export interface ComboboxContentProps {
@@ -35,6 +36,7 @@ export function ComboboxContent(props: ComboboxContentProps) {
       }}
       keyboardShouldPersistTaps="handled"
       nestedScrollEnabled
+      {...focusPreventProps}
     >
       {props.children}
     </ScrollView>

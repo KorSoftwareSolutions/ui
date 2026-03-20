@@ -1,5 +1,6 @@
 import React from "react";
 import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
+import { focusPreventProps } from "../../focus/focus-prevent";
 import { useCombobox } from "../context";
 
 export interface ComboboxOverlayProps {
@@ -10,6 +11,13 @@ export interface ComboboxOverlayProps {
 export function ComboboxOverlay(props: ComboboxOverlayProps) {
   const combobox = useCombobox();
 
+  const onPress = () => {
+    combobox.inputRef.current?.blur();
+    requestAnimationFrame(() => {
+      combobox.setIsOpen(false);
+    });
+  };
+
   const composedStyles = StyleSheet.flatten([
     combobox.styles?.overlay?.default,
     combobox.styles?.overlay?.[combobox.state],
@@ -18,11 +26,10 @@ export function ComboboxOverlay(props: ComboboxOverlayProps) {
 
   return (
     <Pressable
-      onPress={() => {
-        combobox.setIsOpen(false);
-      }}
+      onPress={onPress}
       pointerEvents="auto"
       style={[StyleSheet.absoluteFill, composedStyles]}
+      {...focusPreventProps}
     >
       {props.children}
     </Pressable>

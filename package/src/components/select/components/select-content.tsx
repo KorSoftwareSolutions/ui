@@ -1,7 +1,6 @@
 import React from "react";
-import { type StyleProp, View, type ViewStyle } from "react-native";
+import { type StyleProp, StyleSheet, View, type ViewStyle } from "react-native";
 import { useRelativePosition } from "../../../hooks/use-relative-position";
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import { useSelect } from "../context";
 
 export interface SelectContentProps {
@@ -14,12 +13,12 @@ export interface SelectContentProps {
 
 export function SelectContent(props: SelectContentProps) {
   const select = useSelect();
-  const composedStyles = calculateComposedStyles(
-    select.styles,
-    select.state,
-    "content",
+
+  const composedStyles = StyleSheet.flatten([
+    select.styles?.content?.default,
+    select.styles?.content?.[select.state],
     props.style,
-  );
+  ]);
 
   const positionStyle = useRelativePosition({
     align: "start",

@@ -33,8 +33,13 @@ export function ComboboxOption<T>(props: ComboboxOptionProps<T>) {
   const composedStyles = StyleSheet.flatten([optionStyles?.default, optionStyles?.[optionState]]);
 
   const handlePress = () => {
-    combobox.onChange?.(props.item);
-    combobox.setIsOpen(false);
+    const itemLabel = combobox.getItemLabel(props.item);
+    combobox.onChange(props.item);
+    combobox.onInputChange?.(itemLabel);
+    combobox.inputRef.current?.blur();
+    requestAnimationFrame(() => {
+      combobox.setIsOpen(false);
+    });
   };
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Pressable, StyleSheet, type PressableProps } from "react-native";
 import type { ElementChildren } from "../../../types/element.types";
+import { extractPressableStyles } from "../../../utils/calculate-styles";
 import { useSelect } from "../context";
 import type { SelectOptionState, SelectState } from "../types";
 
@@ -33,7 +34,7 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
   const isSelected = select.value === props.value;
 
   const optionState = calculateState(select.state, isHovered, isSelected);
-  const optionStyles = select.styles?.option;
+
   useEffect(() => {
     select.setOptions((prev) => {
       if (prev.find((option) => option.value === props.value)) {
@@ -57,9 +58,9 @@ export function SelectOption(props: SelectOptionProps): React.ReactElement {
       onPointerLeave={handlePointerLeave}
       style={(styleProps) =>
         StyleSheet.flatten([
-          optionStyles?.default,
-          optionStyles?.[optionState],
-          typeof props.style === "function" ? props.style(styleProps) : props.style,
+          extractPressableStyles(select.styles?.option?.default, styleProps),
+          extractPressableStyles(select.styles?.option?.[optionState], styleProps),
+          extractPressableStyles(props.style, styleProps),
         ])
       }
     >

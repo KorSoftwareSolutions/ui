@@ -1,4 +1,3 @@
-import { calculateComposedStyles } from "../../../utils/calculate-styles";
 import React from "react";
 import { Pressable, type StyleProp, StyleSheet, type ViewStyle } from "react-native";
 import { useSelect } from "../context";
@@ -16,12 +15,12 @@ export interface SelectOverlayProps {
 export function SelectOverlay(props: SelectOverlayProps) {
   const select = useSelect();
 
-  const composedStyles = calculateComposedStyles(
-    select.styles,
-    select.state,
-    "overlay",
+  const composedStyles = StyleSheet.flatten([
+    select.styles?.overlay?.default,
+    select.styles?.overlay?.[select.state],
     props.style,
-  );
+    StyleSheet.absoluteFill,
+  ]);
 
   const Component = props.render ?? Pressable;
   return (
@@ -30,7 +29,7 @@ export function SelectOverlay(props: SelectOverlayProps) {
         select.setIsOpen(false);
       }}
       pointerEvents="auto"
-      style={[StyleSheet.absoluteFill, composedStyles]}
+      style={composedStyles}
     >
       {props.children}
     </Component>
