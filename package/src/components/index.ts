@@ -9,6 +9,7 @@ export * from "./checkbox";
 export * from "./combobox";
 export * from "./empty";
 export * from "./field";
+export * from "./full-screen-spinner";
 export * from "./icon";
 export * from "./icon-button";
 export * from "./input";

@@ -20,3 +20,14 @@ export const hslaSetRelativeLightness = (hsla: string, delta: number): string =>
   if (newLightness < 0) newLightness = 0;
   return hslaSetLightness(hsla, newLightness);
 };
+
+export const setHSLAOpacity = (hsla: string, opacity: number): string => {
+  const parts = hsla.replace(/^hsla?\(|\s+|\)$/g, "").split(",");
+  if (parts[0] === undefined) return hsla;
+  if (parts[1] === undefined) return hsla;
+  if (parts[2] === undefined) return hsla;
+  const h = parseInt(parts[0], 10);
+  const s = parseInt(parts[1], 10);
+  const l = parseInt(parts[2], 10);
+  return `hsla(${h}, ${s}%, ${l}%, ${opacity})`;
+};

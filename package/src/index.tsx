@@ -2,6 +2,7 @@ import { ScrollBar } from "./components";
 import { AsyncAlertDialogManager } from "./components/alert-dialog/async-alert-dialog";
 import { PortalHost } from "./components/portal";
 import { type PortalHostProps } from "./components/portal/portal.constants";
+import { FullScreenSpinnerContainer } from "./components/full-screen-spinner/manager";
 import { ToastContainer } from "./components/toast/manager";
 import { useInitializeNavigationContainerRef } from "./hooks/use-is-react-navigation-modal";
 import { SafeAreaProvider, type SafeAreaInsets } from "./safe-area";
@@ -31,6 +32,7 @@ export const UIProvider = ({
       <ThemeProvider theme={theme} components={components}>
         <ScrollBar />
         <ToastContainer />
+        <FullScreenSpinnerContainer />
         {children}
         <PortalHost container={portalContainer} />
         <AsyncAlertDialogManager />
