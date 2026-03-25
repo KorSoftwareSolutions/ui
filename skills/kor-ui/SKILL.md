@@ -94,12 +94,14 @@ function SubmitButton() {
 
 | Component       | Description                                     | Variants             | Reference                                                        |
 | --------------- | ----------------------------------------------- | -------------------- | ---------------------------------------------------------------- |
-| **Card**        | Content container with header, body, and footer | default              | [Layout Components](./references/components-layout.md#card)      |
-| **Separator**   | Visual divider between content                  | horizontal, vertical | [Layout Components](./references/components-layout.md#separator) |
-| **Portal**      | Render components outside hierarchy             | -                    | [Layout Components](./references/components-layout.md#portal)    |
-| **List**        | Performance-optimized list rendering            | -                    | [Layout Components](./references/components-layout.md#list)      |
-| **Table**       | Data table with header, body, rows, and cells   | default              | [Layout Components](./references/components-layout.md#table)     |
-| **Sidebar**     | Collapsible navigation sidebar with menu items  | default              | [Layout Components](./references/components-layout.md#sidebar)   |
+| **Card**              | Content container with header, body, and footer             | default                  | [Layout Components](./references/components-layout.md#card)             |
+| **DescriptionList**   | Key-value pairs displayed in rows with term and details     | default                  | [Layout Components](./references/components-layout.md#descriptionlist)  |
+| **Item**              | Flexible content row with media, title, description, actions | default, outline, muted  | [Layout Components](./references/components-layout.md#item)             |
+| **Separator**         | Visual divider between content                              | horizontal, vertical     | [Layout Components](./references/components-layout.md#separator)        |
+| **Portal**            | Render components outside hierarchy                         | -                        | [Layout Components](./references/components-layout.md#portal)           |
+| **List**              | Performance-optimized list rendering                        | -                        | [Layout Components](./references/components-layout.md#list)             |
+| **Table**             | Data table with header, body, rows, and cells               | default                  | [Layout Components](./references/components-layout.md#table)            |
+| **Sidebar**           | Collapsible navigation sidebar with menu items              | default                  | [Layout Components](./references/components-layout.md#sidebar)          |
 
 ### Form Inputs
 
@@ -613,7 +615,7 @@ Consult these detailed references as needed:
 
 ### Component References
 
-- [Layout Components](./references/components-layout.md) - Card, Separator, Portal, List, Table
+- [Layout Components](./references/components-layout.md) - Card, DescriptionList, Item, Separator, Portal, List, Table
 - [Input Components](./references/components-inputs.md) - Input, NumericInput, Textarea, Checkbox, RadioGroup, Select, Combobox, Field
 - [Display Components](./references/components-display.md) - Typography, Avatar, Badge, Icon, Empty, Progress
 - [Interactive Components](./references/components-interactive.md) - Button, Tabs, Menu, Popover, Calendar

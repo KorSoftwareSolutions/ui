@@ -49,6 +49,7 @@ import type { WeekCalendarStyles } from "../components/calendar/week-calendar/ty
 import type { CardStyles } from "../components/card/types";
 import type { CheckboxStyles } from "../components/checkbox/types";
 import type { ComboboxStyles } from "../components/combobox/types";
+import type { DescriptionListStyles } from "../components/description-list/types";
 import type { EmptyStyles } from "../components/empty/types";
 import type { FieldStyles } from "../components/field/types";
 import type { IconButtonStyles } from "../components/icon-button/types";
@@ -104,6 +105,9 @@ export interface ComponentsConfig {
   };
   combobox?: {
     styles?: ComboboxStyles;
+  };
+  descriptionList?: {
+    styles?: DescriptionListStyles;
   };
   empty?: {
     styles?: EmptyStyles;

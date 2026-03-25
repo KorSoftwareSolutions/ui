@@ -5,11 +5,13 @@ Complete reference for layout and structural components in Universal UI. These c
 ## Table of Contents
 
 1. [Card](#card)
-2. [Separator](#separator)
-3. [Portal](#portal)
-4. [List](#list)
-5. [Table](#table)
-6. [Sidebar](#sidebar)
+2. [DescriptionList](#descriptionlist)
+3. [Item](#item)
+4. [Separator](#separator)
+5. [Portal](#portal)
+6. [List](#list)
+7. [Table](#table)
+8. [Sidebar](#sidebar)
 
 ---
 
@@ -334,6 +336,437 @@ function LoginCard() {
 - **All Platforms**: Renders as a bordered, rounded container
 - **Shadow**: Add platform-specific shadow using `style` prop
 - **Responsive**: Use container width and padding adjustments for different screen sizes
+
+---
+
+## DescriptionList
+
+Displays key-value pairs in a structured list format. Each row contains a term (label) and details (value), with optional actions. Ideal for showing metadata, settings, or structured information.
+
+### When to Use
+
+- Displaying object properties or metadata (user profiles, order details)
+- Settings or configuration displays
+- Key-value pair lists
+- Structured information alongside Cards
+
+### Component Structure
+
+```typescript
+import { DescriptionList } from "@korsolutions/ui";
+
+<DescriptionList.Root variant="default">
+  <DescriptionList.Item>
+    <DescriptionList.Term>Label</DescriptionList.Term>
+    <DescriptionList.Details>Value</DescriptionList.Details>
+    <DescriptionList.Actions>{/* Optional actions */}</DescriptionList.Actions>
+  </DescriptionList.Item>
+</DescriptionList.Root>
+```
+
+### DescriptionList.Root
+
+Root container that provides context and styling to all sub-components.
+
+#### Props
+
+```typescript
+interface DescriptionListRootProps {
+  variant?: keyof typeof DescriptionListVariants;  // "default" (default)
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### DescriptionList.Item
+
+A single row containing a term/details pair. Renders as a horizontal flex row with a top border separator.
+
+#### Props
+
+```typescript
+interface DescriptionListItemProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  flexDirection: "row",
+  alignItems: "center",
+  paddingVertical: 12,
+  borderTopWidth: 1,
+  borderTopColor: colors.border,
+  gap: 16,
+}
+```
+
+### DescriptionList.Term
+
+The label/key text. Takes up 40% of the row width.
+
+#### Props
+
+```typescript
+interface DescriptionListTermProps {
+  children?: TextChildren;
+  style?: StyleProp<TextStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  fontSize: fontSize * 0.875,
+  fontWeight: "500",
+  color: colors.mutedForeground,
+  width: "40%",
+}
+```
+
+### DescriptionList.Details
+
+The value/content text. Fills the remaining space with `flex: 1`.
+
+#### Props
+
+```typescript
+interface DescriptionListDetailsProps {
+  children?: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  fontSize: fontSize * 0.875,
+  color: colors.foreground,
+  flex: 1,
+}
+```
+
+### DescriptionList.Actions
+
+Optional container for action buttons or controls, aligned to the right of the row.
+
+#### Props
+
+```typescript
+interface DescriptionListActionsProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Default Styles
+
+```typescript
+{
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 8,
+}
+```
+
+### Complete Example
+
+```typescript
+import { DescriptionList, Button, Badge } from "@korsolutions/ui";
+
+function UserProfile() {
+  return (
+    <DescriptionList.Root>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Full name</DescriptionList.Term>
+        <DescriptionList.Details>Jane Smith</DescriptionList.Details>
+        <DescriptionList.Actions>
+          <Button variant="ghost" size="sm" onPress={() => {}}>Edit</Button>
+        </DescriptionList.Actions>
+      </DescriptionList.Item>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Email</DescriptionList.Term>
+        <DescriptionList.Details>jane@example.com</DescriptionList.Details>
+        <DescriptionList.Actions>
+          <Button variant="ghost" size="sm" onPress={() => {}}>Edit</Button>
+        </DescriptionList.Actions>
+      </DescriptionList.Item>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Status</DescriptionList.Term>
+        <DescriptionList.Details
+          render={() => <Badge color="#10b981">Active</Badge>}
+        />
+      </DescriptionList.Item>
+    </DescriptionList.Root>
+  );
+}
+```
+
+### Common Patterns
+
+#### Inside a Card
+
+```typescript
+<Card.Root>
+  <Card.Header>
+    <Card.Title>Order Details</Card.Title>
+  </Card.Header>
+  <Card.Body>
+    <DescriptionList.Root>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Order number</DescriptionList.Term>
+        <DescriptionList.Details>#12345</DescriptionList.Details>
+      </DescriptionList.Item>
+      <DescriptionList.Item>
+        <DescriptionList.Term>Amount</DescriptionList.Term>
+        <DescriptionList.Details>$249.00</DescriptionList.Details>
+      </DescriptionList.Item>
+    </DescriptionList.Root>
+  </Card.Body>
+</Card.Root>
+```
+
+#### Custom Render for Details
+
+Use the `render` prop on Details to display non-text content like badges or custom components:
+
+```typescript
+<DescriptionList.Details
+  render={() => <Badge color="#10b981">Active</Badge>}
+/>
+```
+
+---
+
+## Item
+
+Flexible content row for displaying media, title, description, and actions in a horizontal layout. Similar to a list item or cell component. Supports multiple variants and sizes.
+
+### When to Use
+
+- Displaying list items with icons and descriptions
+- User/contact list entries
+- File or document rows
+- Notification items
+- Any content that follows a media + text + actions pattern
+
+### Component Structure
+
+```typescript
+import { Item } from "@korsolutions/ui";
+
+<Item.Root variant="default" size="default">
+  <Item.Media variant="icon">{/* Icon or image */}</Item.Media>
+  <Item.Content>
+    <Item.Title>Title text</Item.Title>
+    <Item.Description>Description text</Item.Description>
+  </Item.Content>
+  <Item.Actions>{/* Buttons or controls */}</Item.Actions>
+</Item.Root>
+```
+
+### Item.Root
+
+Root container that provides context and styling. Accepts `variant` and `size` props.
+
+#### Props
+
+```typescript
+interface ItemRootProps {
+  variant?: "default" | "outline" | "muted";  // default: "default"
+  size?: "default" | "sm" | "xs";             // default: "default"
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+#### Variants
+
+| Variant | Background | Border | Use Case |
+|---------|-----------|--------|----------|
+| `default` | Transparent | None | Inline items, lists |
+| `outline` | Transparent | 1px border with radius | Standalone items, cards |
+| `muted` | Muted background | None | Highlighted or secondary items |
+
+#### Sizes
+
+| Size | Padding | Gap | Icon Box | Font Scale |
+|------|---------|-----|----------|------------|
+| `default` | 12 | 12 | 40x40 | 1x / 0.875x |
+| `sm` | 8 | 10 | 32x32 | 0.875x / 0.8125x |
+| `xs` | 6 | 8 | 28x28 | 0.8125x / 0.75x |
+
+### Item.Media
+
+Container for media content (icons, images, avatars).
+
+#### Props
+
+```typescript
+interface ItemMediaProps {
+  variant?: "default" | "icon";  // default: "default"
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+- `"default"` — Simple centered container
+- `"icon"` — Adds a muted background box with rounded corners (sized by parent's `size` prop)
+
+### Item.Content
+
+Flex container for title and description. Takes up remaining space (`flex: 1`).
+
+#### Props
+
+```typescript
+interface ItemContentProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### Item.Title
+
+Primary text for the item.
+
+#### Props
+
+```typescript
+interface ItemTitleProps {
+  children?: TextChildren;
+  numberOfLines?: number;
+  style?: StyleProp<TextStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### Item.Description
+
+Secondary descriptive text in muted color.
+
+#### Props
+
+```typescript
+interface ItemDescriptionProps {
+  children?: TextChildren;
+  numberOfLines?: number;
+  style?: StyleProp<TextStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### Item.Actions
+
+Container for action buttons or controls, aligned to the right.
+
+#### Props
+
+```typescript
+interface ItemActionsProps {
+  children?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
+  render?: React.ComponentType<any>;
+}
+```
+
+### Complete Example
+
+```typescript
+import { Item, Button } from "@korsolutions/ui";
+import { MailIcon, UserIcon } from "lucide-react-native";
+
+function ContactList() {
+  return (
+    <View style={{ gap: 8 }}>
+      <Item.Root variant="outline">
+        <Item.Media variant="icon">
+          <UserIcon size={18} color="hsl(0, 0%, 45%)" />
+        </Item.Media>
+        <Item.Content>
+          <Item.Title>John Doe</Item.Title>
+          <Item.Description>Software Engineer</Item.Description>
+        </Item.Content>
+        <Item.Actions>
+          <Button variant="secondary" size="sm" onPress={() => {}}>
+            View
+          </Button>
+        </Item.Actions>
+      </Item.Root>
+
+      <Item.Root variant="outline">
+        <Item.Media variant="icon">
+          <MailIcon size={18} color="hsl(0, 0%, 45%)" />
+        </Item.Media>
+        <Item.Content>
+          <Item.Title>Inbox</Item.Title>
+          <Item.Description>3 unread messages</Item.Description>
+        </Item.Content>
+      </Item.Root>
+    </View>
+  );
+}
+```
+
+### Common Patterns
+
+#### Title Only
+
+```typescript
+<Item.Root variant="outline">
+  <Item.Media variant="icon">
+    <UserIcon size={18} />
+  </Item.Media>
+  <Item.Content>
+    <Item.Title>Simple item with title only</Item.Title>
+  </Item.Content>
+</Item.Root>
+```
+
+#### Muted Notification
+
+```typescript
+<Item.Root variant="muted">
+  <Item.Media variant="icon">
+    <BellIcon size={18} />
+  </Item.Media>
+  <Item.Content>
+    <Item.Title>Notifications enabled</Item.Title>
+    <Item.Description>You will receive push notifications</Item.Description>
+  </Item.Content>
+</Item.Root>
+```
+
+#### Compact List with Small Size
+
+```typescript
+<View style={{ gap: 4 }}>
+  {files.map(file => (
+    <Item.Root key={file.id} size="sm" variant="outline">
+      <Item.Media variant="icon">
+        <FileIcon size={16} />
+      </Item.Media>
+      <Item.Content>
+        <Item.Title>{file.name}</Item.Title>
+        <Item.Description>{file.size}</Item.Description>
+      </Item.Content>
+    </Item.Root>
+  ))}
+</View>
+```
 
 ---
 

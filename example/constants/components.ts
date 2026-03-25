@@ -43,6 +43,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/combobox",
   },
   {
+    title: "Description List",
+    href: "/components/description-list",
+  },
+  {
     title: "Icon",
     href: "/components/icon",
   },

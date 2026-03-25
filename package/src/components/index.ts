@@ -7,6 +7,7 @@ export * from "./calendar";
 export * from "./card";
 export * from "./checkbox";
 export * from "./combobox";
+export * from "./description-list";
 export * from "./empty";
 export * from "./field";
 export * from "./full-screen-spinner";
