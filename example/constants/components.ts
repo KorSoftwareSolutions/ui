@@ -47,6 +47,10 @@ export const COMPONENTS: ComponentRoute[] = [
     href: "/components/icon",
   },
   {
+    title: "Item",
+    href: "/components/item",
+  },
+  {
     title: "Icon Button",
     href: "/components/icon-button",
   },

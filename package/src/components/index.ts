@@ -13,6 +13,7 @@ export * from "./full-screen-spinner";
 export * from "./icon";
 export * from "./icon-button";
 export * from "./input";
+export * from "./item";
 export * from "./link";
 export * from "./list";
 export * from "./menu";

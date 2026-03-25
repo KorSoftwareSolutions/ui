@@ -53,6 +53,7 @@ import type { EmptyStyles } from "../components/empty/types";
 import type { FieldStyles } from "../components/field/types";
 import type { IconButtonStyles } from "../components/icon-button/types";
 import type { InputStyles } from "../components/input/types";
+import type { ItemStyles } from "../components/item/types";
 import type { LinkStyles } from "../components/link";
 import type { MenuStyles } from "../components/menu/types";
 import type { PhoneInputStyles } from "../components/phone-input/types";
@@ -115,6 +116,9 @@ export interface ComponentsConfig {
   };
   input?: {
     styles?: InputStyles;
+  };
+  item?: {
+    styles?: ItemStyles;
   };
   link?: {
     styles?: LinkStyles;
